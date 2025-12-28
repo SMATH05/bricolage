@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AnnonceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AnnonceRepository::class)]
@@ -19,14 +21,25 @@ class Annonce
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $date_publication = null;
+   #[ORM\Column]
+    private ?\DateTime $date_publication = null;
 
     #[ORM\Column]
     private ?float $budget = null;
 
     #[ORM\ManyToOne(inversedBy: 'annonces')]
     private ?recruteur $recrut_id = null;
+
+    /**
+     * @var Collection<int, Candidature>
+     */
+    #[ORM\OneToMany(targetEntity: Candidature::class, mappedBy: 'annonce_id')]
+    private Collection $candidatures;
+
+    public function __construct()
+    {
+        $this->candidatures = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -64,12 +77,12 @@ class Annonce
         return $this;
     }
 
-    public function getDatePublication(): ?string
+    public function getDatePublication(): ?\DateTime
     {
         return $this->date_publication;
     }
 
-    public function setDatePublication(string $date_publication): static
+    public function setDatePublication(?\DateTime $date_publication): static
     {
         $this->date_publication = $date_publication;
 
@@ -96,6 +109,36 @@ class Annonce
     public function setRecrutId(?recruteur $recrut_id): static
     {
         $this->recrut_id = $recrut_id;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Candidature>
+     */
+    public function getCandidatures(): Collection
+    {
+        return $this->candidatures;
+    }
+
+    public function addCandidature(Candidature $candidature): static
+    {
+        if (!$this->candidatures->contains($candidature)) {
+            $this->candidatures->add($candidature);
+            $candidature->setAnnonceId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidature(Candidature $candidature): static
+    {
+        if ($this->candidatures->removeElement($candidature)) {
+            // set the owning side to null (unless already changed)
+            if ($candidature->getAnnonceId() === $this) {
+                $candidature->setAnnonceId(null);
+            }
+        }
 
         return $this;
     }
