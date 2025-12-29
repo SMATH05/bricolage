@@ -15,4 +15,5 @@ final class AnnonceController extends AbstractController
             'controller_name' => 'AnnonceController',
         ]);
     }
+
 }
