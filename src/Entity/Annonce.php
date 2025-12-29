@@ -28,7 +28,7 @@ class Annonce
     private ?float $budget = null;
 
     #[ORM\ManyToOne(inversedBy: 'annonces')]
-    private ?recruteur $recrut_id = null;
+    private ?Recruteur $recrut_id = null;
 
     /**
      * @var Collection<int, Candidature>
@@ -101,12 +101,12 @@ class Annonce
         return $this;
     }
 
-    public function getRecrutId(): ?recruteur
+    public function getRecrutId(): ?Recruteur
     {
         return $this->recrut_id;
     }
 
-    public function setRecrutId(?recruteur $recrut_id): static
+    public function setRecrutId(?Recruteur $recrut_id): static
     {
         $this->recrut_id = $recrut_id;
 
