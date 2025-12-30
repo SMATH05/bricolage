@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class AnnonceController extends AbstractController
 {
-    #[Route('/Recruteur/annonce', name: 'app_annonce')]
+    #[Route('-', name: 'app_annonce')]
     public function index(): Response
     {
         return $this->render('annonce/index.html.twig', [
@@ -39,6 +39,13 @@ final class AnnonceController extends AbstractController
     }
     
 
-    
+     #[Route('/annonce/supprimer', name: 'app_annonce_supprimer')]
+    public function supprimerAnnonce(): Response
+    {
+        
+        return $this->render('annonce/index.html.twig', [
+            'controller_name' => 'AnnonceController',
+        ]);
+    }
 
 }
