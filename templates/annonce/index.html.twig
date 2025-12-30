@@ -17,10 +17,9 @@
         <li>Your template at <code>C:/xampp/htdocs/bricolage/templates/annonce/index.html.twig</code></li>
     </ul>
 </div>
+
 <a href="{{ path('app_annonce_ajouter') }}">Ajouter une annonce</a>
-<form method="post" action="{{ path('annonce_delete', {'id': Annonce.id}) }}" 
-      onsubmit="return confirm('Voulez-vous vraiment supprimer cette annonce ?');">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ Annonce.id) }}">
-    <button class="btn btn-danger">Supprimer</button>
-</form>
 {% endblock %}
+
+
+

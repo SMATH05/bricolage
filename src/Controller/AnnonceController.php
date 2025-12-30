@@ -17,10 +17,11 @@ final class AnnonceController extends AbstractController
         return $this->render('annonce/index.html.twig', [
             'controller_name' => 'AnnonceController',
         ]);
+
     }
 
 
-       #[Route('/Recruteur/ajouter', name: 'app_annonce_ajouter')]
+    #[Route('/recruteur/ajouter', name: 'app_annonce_ajouter')]
     public function ajouterAnonce(Request $request, EntityManagerInterface $entityManager): Response
     {
         $annonce = new Annonce();
