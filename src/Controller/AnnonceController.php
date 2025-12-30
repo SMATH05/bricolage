@@ -22,7 +22,7 @@ final class AnnonceController extends AbstractController
     public function ajouterAnonce(Request $request, EntityManagerInterface $entityManager): Response
     {
         $annonce = new Annonce();
-
+        
     $form = $this->createForm(AnnonceType::class, $annonce);
     $form->handleRequest($request);
 
