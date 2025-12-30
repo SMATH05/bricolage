@@ -26,7 +26,7 @@ use App\Repository\ChercheurRepository;
 final class ChercheurController extends AbstractController
 {
     #[Route('/chercheur', name: 'app_chercheur')]
-    public function index(): Response
+    public function index(ChercheurRepository $chercheurRepository): Response
     {
         return $this->render('chercheur/index.html.twig', [
             'controller_name' => 'ChercheurController',
