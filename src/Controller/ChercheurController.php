@@ -9,11 +9,11 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-<<<<<<< HEAD
-use Symfony\Component\Routing\Annotation\Route;
-=======
+
 use Symfony\Component\Routing\Attribute\Route;
->>>>>>> dc7c53a880c5b7e5df5fcb6190304ee94ef06aa2
+
+
+
 
 
 
@@ -30,7 +30,7 @@ final class ChercheurController extends AbstractController
     }
 
 
-   #[Route('/ajouter', name: 'app_chercheur_ajouter')]
+   #[Route('/chercheur/ajouter', name: 'app_chercheur_ajouter')]
     public function ajouterChercheur(Request $request, EntityManagerInterface $entityManager): Response
     {
         $chercheur = new Chercheur();
