@@ -20,22 +20,24 @@ final class RecruteurController extends AbstractController
         ]);
     }
 
-#[Route('/Recruteur/ajouter', name: 'app_annonce_ajouter')]
+    #[Route('/recruteur/ajouter', name: 'app_recruteur_ajouter')]
     public function ajouterRecruteur(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $Recruteur = new Recruteur();
+        $recruteur = new Recruteur();
 
-    $form = $this->createForm(RecruteurType::class, $Recruteur);
-    $form->handleRequest($request);
+        $form = $this->createForm(RecruteurType::class, $recruteur);
+        $form->handleRequest($request);
 
-   if ($form->isSubmitted() && $form->isValid()) {
-    $entityManager->persist($Recruteur);
-    $entityManager->flush();
-}
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($recruteur);
+            $entityManager->flush();
 
- return $this->render('Recruteur/ajout.html.twig', [
-    'form' => $form->createView(),
- ]);
+            return $this->redirectToRoute('app_recruteur');
+        }
+
+        return $this->render('recruteur/ajout.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
     
 }
