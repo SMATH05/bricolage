@@ -40,4 +40,11 @@ class ChercheurRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+
+
+
+
+    // Tu peux ajouter des méthodes personnalisées ici
+
 }

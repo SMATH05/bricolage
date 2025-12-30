@@ -9,8 +9,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
 use Symfony\Component\Routing\Attribute\Route;
+use App\Repository\ChercheurRepository;
+
+
+
+
 
 
 
@@ -28,6 +32,21 @@ final class ChercheurController extends AbstractController
             'controller_name' => 'ChercheurController',
         ]);
     }
+   
+
+ #[Route('/chercheur/supprimer/{id}', name: 'app_supprimer')]
+  public function supprimerChercheur( $id, EntityManagerInterface $entityManager): Response
+{
+
+$chercheur = $entityManager->getRepository(Chercheur::class)->find($id);
+  if ($chercheur) {
+            $entityManager->remove($chercheur);
+            $entityManager->flush();
+        }
+return $this->redirectToRoute('app_chercheur');
+
+}
+
 
 
    #[Route('/chercheur/ajouter', name: 'app_chercheur_ajouter')]
@@ -43,7 +62,7 @@ final class ChercheurController extends AbstractController
     $entityManager->flush();
 }
 
- return $this->render('/ajouter.html.twig', [
+ return $this->render('chercheur/ajouter.html.twig', [
     'form' => $form->createView(),
  ]);
     }

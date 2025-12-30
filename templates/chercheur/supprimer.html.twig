@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des chercheurs{% endblock %}
+
+{% block body %}
+    <h1>Liste des chercheurs</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Spécialité</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for chercheur in chercheurs %}
+            <tr>
+                <td>{{ chercheur.id }}</td>
+                <td>{{ chercheur.nom }}</td>
+                <td>{{ chercheur.email }}</td>
+                <td>{{ chercheur.specialite }}</td>
+                <td>
+                    <a href="{{ path('app_supprimer', {id: chercheur.id}) }}"
+                       class="btn btn-danger"
+                       onclick="return confirm('Voulez-vous vraiment supprimer ce chercheur ?');">
+                        Supprimer
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucun chercheur trouvé.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
