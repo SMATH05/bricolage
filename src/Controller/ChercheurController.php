@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 
 
@@ -25,7 +26,7 @@ final class ChercheurController extends AbstractController
     }
 
 
-   #[Route('/chercheur/ajouter', name: 'app_chercheur_ajouter')]
+   #[Route('/ajouter', name: 'app_chercheur_ajouter')]
     public function ajouterChercheur(Request $request, EntityManagerInterface $entityManager): Response
     {
         $chercheur = new Chercheur();
@@ -38,7 +39,7 @@ final class ChercheurController extends AbstractController
     $entityManager->flush();
 }
 
- return $this->render('chercheur/ajouter.html.twig', [
+ return $this->render('/ajouter.html.twig', [
     'form' => $form->createView(),
  ]);
     }
