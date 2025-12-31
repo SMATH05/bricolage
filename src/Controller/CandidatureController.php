@@ -7,23 +7,22 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Candidature;
 use App\Form\CandidatureType;
-
+use App\Repository\CandidatureRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class CandidatureController extends AbstractController
 {
-    #[Route('/candidature', name: 'app_candidature')]
-    public function index(): Response
+    #[Route('/chercheur/Candidature', name: 'app_candidature')]
+    public function home(CandidatureRepository $candidatureRepository): Response
     {
+        $candidatures = $candidatureRepository->findAll();
+
         return $this->render('candidature/index.html.twig', [
-            'controller_name' => 'CandidatureController',
+            'candidatures' => $candidatures,
         ]);
     }
-
-
-
-    #[Route('/Candidature/ajouter', name: 'app_candidature_ajouter')]
+    #[Route('/chercheur/Candidature/ajouter', name: 'app_candidature_ajouter')]
     public function ajouterCandidature(Request $request, EntityManagerInterface $entityManager): Response
     {
         $candidature = new Candidature();
@@ -34,6 +33,7 @@ final class CandidatureController extends AbstractController
    if ($form->isSubmitted() && $form->isValid()) {
     $entityManager->persist($candidature);
     $entityManager->flush();
+     return $this->redirectToRoute('app_candidature');
 }
 
  return $this->render('candidature/ajouterCandidature.html.twig', [
@@ -41,4 +41,16 @@ final class CandidatureController extends AbstractController
  ]);
     }
     
+ #[Route('/chercheur/supprimer/{id}', name: 'app_supprimer')]
+  public function supprimerChercheur( $id, EntityManagerInterface $entityManager): Response
+{
+
+$candidature = $entityManager->getRepository(Candidature::class)->find($id);
+  if ($candidature) {
+            $entityManager->remove($candidature);
+            $entityManager->flush();
+        }
+return $this->redirectToRoute('app_candidature');
+
+    }
 }

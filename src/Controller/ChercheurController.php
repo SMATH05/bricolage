@@ -13,42 +13,22 @@ use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\ChercheurRepository;
 
 
-
-
-
-
-
-
-
-
-
-
 final class ChercheurController extends AbstractController
 {
+
     #[Route('/chercheur', name: 'app_chercheur')]
-    public function index(ChercheurRepository $chercheurRepository): Response
+
+
+
+    public function home(ChercheurRepository $chercheurRepository): Response
     {
+        $chercheurs = $chercheurRepository->findAll();
+
         return $this->render('chercheur/index.html.twig', [
-            'controller_name' => 'ChercheurController',
+            'chercheurs' => $chercheurs,
         ]);
     }
    
-
- #[Route('/chercheur/supprimer/{id}', name: 'app_supprimer')]
-  public function supprimerChercheur( $id, EntityManagerInterface $entityManager): Response
-{
-
-$chercheur = $entityManager->getRepository(Chercheur::class)->find($id);
-  if ($chercheur) {
-            $entityManager->remove($chercheur);
-            $entityManager->flush();
-        }
-return $this->redirectToRoute('app_chercheur');
-
-}
-
-
-
    #[Route('/chercheur/ajouter', name: 'app_chercheur_ajouter')]
     public function ajouterChercheur(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -60,13 +40,29 @@ return $this->redirectToRoute('app_chercheur');
    if ($form->isSubmitted() && $form->isValid()) {
     $entityManager->persist($chercheur);
     $entityManager->flush();
+
+ 
+
+    return $this->redirectToRoute('app_chercheur');
 }
 
  return $this->render('chercheur/ajouter.html.twig', [
     'form' => $form->createView(),
  ]);
     }
-    
+
+    #[Route('/chercheur/supprimer/{id}', name: 'app_supprimer')]
+  public function supprimerChercheur( $id, EntityManagerInterface $entityManager): Response
+{
+
+$chercheur = $entityManager->getRepository(Chercheur::class)->find($id);
+  if ($chercheur) {
+            $entityManager->remove($chercheur);
+            $entityManager->flush();
+        }
+return $this->redirectToRoute('app_chercheur');
+
+} 
 
     
 }

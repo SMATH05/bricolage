@@ -11,7 +11,7 @@
                 <th>ID</th>
                 <th>Nom</th>
                 <th>Email</th>
-                <th>Spécialité</th>
+                <th>Description</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -21,7 +21,7 @@
                 <td>{{ chercheur.id }}</td>
                 <td>{{ chercheur.nom }}</td>
                 <td>{{ chercheur.email }}</td>
-                <td>{{ chercheur.specialite }}</td>
+                <td>{{ chercheur.description }}</td>
                 <td>
                     <a href="{{ path('app_supprimer', {id: chercheur.id}) }}"
                        class="btn btn-danger"
@@ -37,4 +37,5 @@
         {% endfor %}
         </tbody>
     </table>
+    <a href="{{ path('app_chercheur_ajouter') }}">Ajouter une annonce</a>
 {% endblock %}

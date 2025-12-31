@@ -9,14 +9,17 @@ use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Recruteur;
 use App\Form\RecruteurType;
+use App\Repository\RecruteurRepository;
 
 final class RecruteurController extends AbstractController
 {
     #[Route('/recruteur', name: 'app_recruteur')]
-    public function index(): Response
+    public function home(RecruteurRepository $recruteurRepository): Response
     {
+        $recruteurs = $recruteurRepository->findAll();
+
         return $this->render('recruteur/index.html.twig', [
-            'controller_name' => 'RecruteurController',
+            'recruteurs' => $recruteurs,
         ]);
     }
 
@@ -39,5 +42,17 @@ final class RecruteurController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-    
+
+    #[Route('/recruteur/{id}', name: 'app_recruteur_supprimer', methods: ['GET'])]
+    public function supprimerRecruteur($id, EntityManagerInterface $entityManager): Response
+    {
+        $recruteur = $entityManager->getRepository(Recruteur::class)->find($id);
+        
+        if ($recruteur) {
+            $entityManager->remove($recruteur);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_recruteur');
+    }
 }
