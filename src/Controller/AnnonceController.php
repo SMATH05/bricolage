@@ -8,21 +8,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Repository\AnnonceRepository;
+
+
 
 final class AnnonceController extends AbstractController
 {
-    #[Route('/Annonce', name: 'app_annonce')]
-    public function index(): Response
+    #[Route('/recruteur/annonce', name: 'app_annonces')]
+    public function home(AnnonceRepository $annonceRepository): Response
     {
+        $annonces = $annonceRepository->findAll();
+
         return $this->render('annonce/index.html.twig', [
-            'controller_name' => 'AnnonceController',
-        ]);
-
+            'annonces' => $annonces,
+            ]);
     }
-
-
-    #[Route('/recruteur/Annonce/ajouter', name: 'app_annonce_ajouter')]
-    public function ajouterAnonce(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/recruteur/annonce/ajouter', name: 'app_annonces_ajouter')]
+    public function ajouterCandidature(Request $request, EntityManagerInterface $entityManager): Response
     {
         $annonce = new Annonce();
 
@@ -32,6 +34,7 @@ final class AnnonceController extends AbstractController
    if ($form->isSubmitted() && $form->isValid()) {
     $entityManager->persist($annonce);
     $entityManager->flush();
+ return $this->redirectToRoute('app_annonces');
 }
 
  return $this->render('annonce/ajout.html.twig', [
@@ -39,6 +42,16 @@ final class AnnonceController extends AbstractController
  ]);
     }
 
-    
+ #[Route('/recruteur/annonce/supprimer/{id}', name: 'app_supprimer')]
+  public function supprimerChercheur( $id, EntityManagerInterface $entityManager): Response
+{
 
+$annonce = $entityManager->getRepository(Annonce::class)->find($id);
+  if ($annonce) {
+            $entityManager->remove($annonce);
+            $entityManager->flush();
+        }
+return $this->redirectToRoute('app_annonces');
+
+    }
 }
