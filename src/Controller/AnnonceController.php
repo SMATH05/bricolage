@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class AnnonceController extends AbstractController
 {
-    // ✅ Afficher toutes les annonces
+ 
     #[Route('/annonce', name: 'app_annonce')]
     public function index(EntityManagerInterface $entityManager): Response
     {
@@ -23,9 +23,13 @@ final class AnnonceController extends AbstractController
         ]);
     }
 
-    // ✅ Ajouter une annonce
-    #[Route('/annonce/ajouter', name: 'app_annonce_ajouter')]
-    public function ajouterAnnonce(Request $request, EntityManagerInterface $entityManager): Response
+
+   
+
+
+    #[Route('/recruteur/Annonce/ajouter', name: 'app_annonce_ajouter')]
+    public function ajouterAnonce(Request $request, EntityManagerInterface $entityManager): Response
+
     {
         $annonce = new Annonce();
         $form = $this->createForm(AnnonceType::class, $annonce);
@@ -43,7 +47,7 @@ final class AnnonceController extends AbstractController
         ]);
     }
 
-    // ✅ Modifier une annonce
+ 
     #[Route('/annonce/modifier/{id}', name: 'app_annonce_modifier')]
     public function modifierAnnonce($id, Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -66,7 +70,6 @@ final class AnnonceController extends AbstractController
         ]);
     }
 
-    // ✅ Supprimer une annonce
     #[Route('/annonce/supprimer/{id}', name: 'app_annonce_supprimer')]
     public function supprimerAnnonce($id, EntityManagerInterface $entityManager): Response
     {
