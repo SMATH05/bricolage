@@ -9,45 +9,48 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Repository\AnnonceRepository;
+
+
 
 final class AnnonceController extends AbstractController
 {
+
  
-    #[Route('/annonce', name: 'app_annonce')]
-    public function index(EntityManagerInterface $entityManager): Response
-    {
-        $annonces = $entityManager->getRepository(Annonce::class)->findAll();
-
-        return $this->render('annonce/index.html.twig', [
-            'annonces' => $annonces,
-        ]);
-    }
-
-
    
 
 
-    #[Route('/recruteur/Annonce/ajouter', name: 'app_annonce_ajouter')]
-    public function ajouterAnonce(Request $request, EntityManagerInterface $entityManager): Response
+  
 
+
+    #[Route('/recruteur/annonce', name: 'app_annonce')]
+    public function home(AnnonceRepository $annonceRepository): Response
+    {
+        $annonces = $annonceRepository->findAll();
+
+        return $this->render('annonce/index.html.twig', [
+            'annonces' => $annonces,
+            ]);
+    }
+#[Route('/recruteur/annonce/ajouter', name: 'app_annonces_ajouter')]
+    public function ajouterAnnonce(Request $request, EntityManagerInterface $entityManager): Response
     {
         $annonce = new Annonce();
-        $form = $this->createForm(AnnonceType::class, $annonce);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($annonce);
-            $entityManager->flush();
+    $form = $this->createForm(AnnonceType::class, $annonce);
+    $form->handleRequest($request);
 
-            return $this->redirectToRoute('app_annonce');
-        }
+   if ($form->isSubmitted() && $form->isValid()) {
+    $entityManager->persist($annonce);
+    $entityManager->flush();
+ return $this->redirectToRoute('app_annonces');
+}
 
-        return $this->render('annonce/ajouter.html.twig', [
-            'form' => $form->createView(),
-        ]);
+ return $this->render('annonce/ajout.html.twig', [
+    'form' => $form->createView(),
+ ]);
     }
-
- 
+  
     #[Route('/annonce/modifier/{id}', name: 'app_annonce_modifier')]
     public function modifierAnnonce($id, Request $request, EntityManagerInterface $entityManager): Response
     {
