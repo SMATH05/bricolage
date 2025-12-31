@@ -24,7 +24,7 @@ final class AnnonceController extends AbstractController
             ]);
     }
     #[Route('/recruteur/annonce/ajouter', name: 'app_annonces_ajouter')]
-    public function ajouterCandidature(Request $request, EntityManagerInterface $entityManager): Response
+    public function ajouterAnnonce(Request $request, EntityManagerInterface $entityManager): Response
     {
         $annonce = new Annonce();
 
