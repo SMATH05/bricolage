@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Controller;
-use App\Form\AnnonceType;
+
 use App\Entity\Annonce;
+use App\Form\AnnonceType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,7 +15,7 @@ use App\Repository\AnnonceRepository;
 
 final class AnnonceController extends AbstractController
 {
-    #[Route('/recruteur/annonce', name: 'app_annonces')]
+    #[Route('/recruteur/annonce', name: 'app_annonce')]
     public function home(AnnonceRepository $annonceRepository): Response
     {
         $annonces = $annonceRepository->findAll();
@@ -41,17 +42,40 @@ final class AnnonceController extends AbstractController
     'form' => $form->createView(),
  ]);
     }
+  
+    
+    #[Route('/annonce/modifier/{id}', name: 'app_annonce_modifier')]
+    public function modifierAnnonce($id, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $annonce = $entityManager->getRepository(Annonce::class)->find($id);
 
- #[Route('/recruteur/annonce/supprimer/{id}', name: 'app_supprimer')]
-  public function supprimerChercheur( $id, EntityManagerInterface $entityManager): Response
-{
+        if (!$annonce) {
+            throw $this->createNotFoundException('Annonce introuvable');
+        }
 
-$annonce = $entityManager->getRepository(Annonce::class)->find($id);
-  if ($annonce) {
+        $form = $this->createForm(AnnonceType::class, $annonce);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+            return $this->redirectToRoute('app_annonce');
+        }
+
+        return $this->render('annonce/modifier.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/annonce/supprimer/{id}', name: 'app_annonce_supprimer')]
+    public function supprimerAnnonce($id, EntityManagerInterface $entityManager): Response
+    {
+        $annonce = $entityManager->getRepository(Annonce::class)->find($id);
+
+        if ($annonce) {
             $entityManager->remove($annonce);
             $entityManager->flush();
         }
-return $this->redirectToRoute('app_annonces');
 
+        return $this->redirectToRoute('app_annonce');
     }
 }

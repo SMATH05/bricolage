@@ -17,6 +17,9 @@ final class ChercheurController extends AbstractController
 {
 
     #[Route('/chercheur', name: 'app_chercheur')]
+
+
+
     public function home(ChercheurRepository $chercheurRepository): Response
     {
         $chercheurs = $chercheurRepository->findAll();

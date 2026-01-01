@@ -9,10 +9,9 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>titre</th>
-                <th>description</th>
-                <th>date de publication</th>
-                <th>budget</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Description</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -21,11 +20,13 @@
             <tr>
                 <td>{{ annonce.id }}</td>
                 <td>{{ annonce.titre }}</td>
+                
                 <td>{{ annonce.description }}</td>
-                <td>{{ annonce.datePublication|date('d/m/Y') }}</td>
+               <td>{{ annonce.datePublication|date('d/m/Y') }}</td>
                 <td>{{ annonce.budget }}</td>
+
                 <td>
-                    <a href="{{ path('app_supprimer', {id: annonce.id}) }}"
+                    <a href="{{ path('app_annonce_supprimer', {id: annonce.id}) }}"
                        class="btn btn-danger"
                        onclick="return confirm('Voulez-vous vraiment supprimer cette annonce ?');">
                         Supprimer
@@ -41,3 +42,4 @@
     </table>
     <a href="{{ path('app_annonces_ajouter') }}">Ajouter une annonce</a>
 {% endblock %}
+
