@@ -1,27 +1,39 @@
 <?php
 
 namespace App\Controller;
-use App\Form\AnnonceType;
+
 use App\Entity\Annonce;
+use App\Form\AnnonceType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Repository\AnnonceRepository;
+
+
 
 final class AnnonceController extends AbstractController
 {
-    #[Route('/Recruteur/annonce', name: 'app_annonce')]
-    public function index(): Response
+
+ 
+   
+
+
+  
+
+
+    #[Route('/recruteur/annonce', name: 'app_annonce')]
+    public function home(AnnonceRepository $annonceRepository): Response
     {
+        $annonces = $annonceRepository->findAll();
+
         return $this->render('annonce/index.html.twig', [
-            'controller_name' => 'AnnonceController',
-        ]);
+            'annonces' => $annonces,
+            ]);
     }
-
-
-       #[Route('/Recruteur/ajouter', name: 'app_annonce_ajouter')]
-    public function ajouterAnonce(Request $request, EntityManagerInterface $entityManager): Response
+#[Route('/recruteur/annonce/ajouter', name: 'app_annonces_ajouter')]
+    public function ajouterAnnonce(Request $request, EntityManagerInterface $entityManager): Response
     {
         $annonce = new Annonce();
         
@@ -31,6 +43,7 @@ final class AnnonceController extends AbstractController
    if ($form->isSubmitted() && $form->isValid()) {
     $entityManager->persist($annonce);
     $entityManager->flush();
+ return $this->redirectToRoute('app_annonces');
 }
 
 
@@ -38,14 +51,27 @@ final class AnnonceController extends AbstractController
     'form' => $form->createView(),
  ]);
     }
-    #[Route('/annonce/supprimer', name: 'app_annonce')]
-    public function supp annonce(): Response
+  
+    #[Route('/annonce/modifier/{id}', name: 'app_annonce_modifier')]
+    public function modifierAnnonce($id, Request $request, EntityManagerInterface $entityManager): Response
     {
-        return $this->render('annonce/index.html.twig', [
-            'controller_name' => 'AnnonceController',
+        $annonce = $entityManager->getRepository(Annonce::class)->find($id);
+
+        if (!$annonce) {
+            throw $this->createNotFoundException('Annonce introuvable');
+        }
+
+        $form = $this->createForm(AnnonceType::class, $annonce);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+            return $this->redirectToRoute('app_annonce');
+        }
+
+        return $this->render('annonce/modifier.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
-
-    
 
 }

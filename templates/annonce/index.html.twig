@@ -1,21 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AnnonceController!{% endblock %}
+{% block title %}Liste des annonces{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <h1>Liste des annonces</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for annonce in annonces %}
+            <tr>
+                <td>{{ annonce.id }}</td>
+                <td>{{ annonce.titre }}</td>
+                
+                <td>{{ annonce.description }}</td>
+               <td>{{ annonce.datePublication|date('d/m/Y') }}</td>
+                <td>{{ annonce.budget }}</td>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/xampp/htdocs/bricolage/src/Controller/AnnonceController.php</code></li>
-        <li>Your template at <code>C:/xampp/htdocs/bricolage/templates/annonce/index.html.twig</code></li>
-    </ul>
-</div>
-<a href="{{ path('app_annonce_ajouter') }}">Ajouter une annonce</a>
+                <td>
+                    <a href="{{ path('app_annonce_supprimer', {id: annonce.id}) }}"
+                       class="btn btn-danger"
+                       onclick="return confirm('Voulez-vous vraiment supprimer cette annonce ?');">
+                        Supprimer
+                    </a>
+                   <a href="{{ path('app_annonce_modifier', {id: annonce.id}) }}"
+                       class="btn btn-danger"
+                       onclick="return confirm('Voulez-vous vraiment modifier cette annonce ?');">
+                        modifier
+                    </a>
+                    
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucune annonce trouvée.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('app_annonces_ajouter') }}">Ajouter une annonce</a>
 {% endblock %}
+

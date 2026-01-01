@@ -1,20 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ChercheurController!{% endblock %}
+{% block title %}Liste des chercheurs{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <h1>Liste des chercheurs</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/xampp/htdocs/bricolage/src/Controller/ChercheurController.php</code></li>
-        <li>Your template at <code>C:/xampp/htdocs/bricolage/templates/chercheur/index.html.twig</code></li>
-    </ul>
-</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for chercheur in chercheurs %}
+            <tr>
+                <td>{{ chercheur.id }}</td>
+                <td>{{ chercheur.nom }}</td>
+                <td>{{ chercheur.email }}</td>
+                <td>{{ chercheur.description }}</td>
+                <td>
+                    <a href="{{ path('app_supprimer', {id: chercheur.id}) }}"
+                       class="btn btn-danger"
+                       onclick="return confirm('Voulez-vous vraiment supprimer ce chercheur ?');">
+                        Supprimer
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucun chercheur trouvé.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('app_chercheur_ajouter') }}">Ajouter un chercheur</a>
 {% endblock %}
