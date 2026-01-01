@@ -25,19 +25,20 @@
                <td>{{ annonce.datePublication|date('d/m/Y') }}</td>
                 <td>{{ annonce.budget }}</td>
 
-                <td>
-                    <a href="{{ path('app_annonce_supprimer', {id: annonce.id}) }}"
-                       class="btn btn-danger"
-                       onclick="return confirm('Voulez-vous vraiment supprimer cette annonce ?');">
-                        Supprimer
-                    </a>
-                   <a href="{{ path('app_annonce_modifier', {id: annonce.id}) }}"
-                       class="btn btn-danger"
-                       onclick="return confirm('Voulez-vous vraiment modifier cette annonce ?');">
-                        modifier
-                    </a>
-                    
-                </td>
+              
+                   <td>
+    <a href="{{ path('app_annonce_supprimer', {id: annonce.id}) }}"
+       class="btn btn-danger btn-delete"
+       data-id="{{ annonce.id }}">
+        Supprimer
+    </a>
+    <a href="{{ path('app_annonce_modifier', {id: annonce.id}) }}"
+       class="btn btn-warning">
+        Modifier
+    </a>
+</td>
+
+               
             </tr>
         {% else %}
             <tr>

@@ -23,10 +23,15 @@
                 <td>{{ candidature.datePro|date('Y-m-d') }}</td>
                 <td>{{ candidature.statut }}</td>
                 <td>
-                    <a href="{{ path('app_supprimer', {id: candidature.id}) }}"
+                    <a href="{{ path('app_supprimercandidature', {id: candidature.id}) }}"
                        class="btn btn-danger"
                        onclick="return confirm('Voulez-vous vraiment supprimer cette candidature ?');">
                         Supprimer
+                    </a>
+                      <a href="{{ path('app_Candidature_modifier', {id: candidature.id}) }}"
+                       class="btn btn-danger"
+                       onclick="return confirm('Voulez-vous vraiment modifier cette candidature ?');">
+                        modifier
                     </a>
                 </td>
             </tr>

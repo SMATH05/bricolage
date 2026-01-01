@@ -43,7 +43,7 @@ final class RecruteurController extends AbstractController
         ]);
     }
 
-    #[Route('/recruteur/{id}', name: 'app_recruteur_supprimer', methods: ['GET'])]
+    #[Route('/recruteur/supprimer/{id}', name: 'app_recruteur_supprimer', methods: ['GET'])]
     public function supprimerRecruteur($id, EntityManagerInterface $entityManager): Response
     {
         $recruteur = $entityManager->getRepository(Recruteur::class)->find($id);
@@ -54,5 +54,27 @@ final class RecruteurController extends AbstractController
         }
 
         return $this->redirectToRoute('app_recruteur');
+    }
+    #[Route('/recruteur/modifier/{id}', name: 'app_recruteur_modifier')]
+    public function modifierrecruteur($id, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $recruteur = $entityManager->getRepository(recruteur::class)->find($id);
+
+        if (!$recruteur) {
+            throw $this->createNotFoundException('recruteur introuvable');
+        }
+
+        $form = $this->createForm(recruteurType::class, $recruteur);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+            return $this->redirectToRoute('app_recruteur');
+        }
+
+        return $this->render('recruteur/modifier.html.twig', [
+            'form' => $form->createView(),
+            'recruteur' => $recruteur,
+        ]);
     }
 }

@@ -17,9 +17,6 @@ final class ChercheurController extends AbstractController
 {
 
     #[Route('/chercheur', name: 'app_chercheur')]
-
-
-
     public function home(ChercheurRepository $chercheurRepository): Response
     {
         $chercheurs = $chercheurRepository->findAll();
@@ -44,14 +41,14 @@ final class ChercheurController extends AbstractController
  
 
     return $this->redirectToRoute('app_chercheur');
-}
+     }
 
- return $this->render('chercheur/ajouter.html.twig', [
+  return $this->render('chercheur/ajouter.html.twig', [
     'form' => $form->createView(),
- ]);
+      ]);
     }
 
-    #[Route('/chercheur/supprimer/{id}', name: 'app_supprimer')]
+    #[Route('/chercheur/supprimer/{id}', name: 'app_supprimerchercheur')]
   public function supprimerChercheur( $id, EntityManagerInterface $entityManager): Response
 {
 
@@ -63,6 +60,27 @@ $chercheur = $entityManager->getRepository(Chercheur::class)->find($id);
 return $this->redirectToRoute('app_chercheur');
 
 } 
+#[Route('/chercheur/modifier/{id}', name: 'app_chercheur_modifier')]
+    public function modifierchercheur($id, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $chercheur = $entityManager->getRepository(chercheur::class)->find($id);
+
+        if (!$chercheur) {
+            throw $this->createNotFoundException('chercheur introuvable');
+        }
+
+        $form = $this->createForm(chercheurType::class, $chercheur);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+            return $this->redirectToRoute('app_chercheur');
+        }
+
+        return $this->render('chercheur/modifier.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 
     
 }

@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier une candidature{% endblock %}
+
+{% block body %}
+    <h1>Modifier la candidature</h1>
+
+    {{ form_start(form) }}
+
+       
+        {{ form_row(form.id_candidature) }}
+        {{ form_row(form.chercheur_id) }}
+        {{ form_row(form.date_pro) }}
+        {{ form_row(form.statut) }}
+        {{ form_row(form.annonce_id) }}
+
+
+
+        <button class="btn btn-primary">Mettre à jour</button>
+
+    {{ form_end(form) }}
+    {# Fin du formulaire #}
+
+    <a href="{{ path('app_candidature') }}" class="btn btn-secondary mt-3">Retour à la liste</a>
+{% endblock %}

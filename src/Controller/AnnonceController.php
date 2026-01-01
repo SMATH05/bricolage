@@ -24,7 +24,7 @@ final class AnnonceController extends AbstractController
             'annonces' => $annonces,
             ]);
     }
-    #[Route('/recruteur/annonce/ajouter', name: 'app_annonces_ajouter')]
+ #[Route('/recruteur/annonce/ajouter', name: 'app_annonces_ajouter')]
     public function ajouterAnnonce(Request $request, EntityManagerInterface $entityManager): Response
     {
         $annonce = new Annonce();
@@ -36,7 +36,7 @@ final class AnnonceController extends AbstractController
     $entityManager->persist($annonce);
     $entityManager->flush();
  return $this->redirectToRoute('app_annonce');
-}
+ }
 
  return $this->render('annonce/ajout.html.twig', [
     'form' => $form->createView(),
@@ -44,7 +44,7 @@ final class AnnonceController extends AbstractController
     }
   
     
-    #[Route('/annonce/modifier/{id}', name: 'app_annonce_modifier')]
+    #[Route('/recruteur/annonce/modifier/{id}', name: 'app_annonce_modifier')]
     public function modifierAnnonce($id, Request $request, EntityManagerInterface $entityManager): Response
     {
         $annonce = $entityManager->getRepository(Annonce::class)->find($id);
@@ -66,16 +66,37 @@ final class AnnonceController extends AbstractController
         ]);
     }
 
-    #[Route('/annonce/supprimer/{id}', name: 'app_annonce_supprimer')]
-    public function supprimerAnnonce($id, EntityManagerInterface $entityManager): Response
-    {
-        $annonce = $entityManager->getRepository(Annonce::class)->find($id);
+    #[Route('/recruteur/annonce/supprimer/{id}', name: 'app_annonce_supprimer')]
+public function supprimerAnnonce(
+    int $id,
+    Request $request,
+    EntityManagerInterface $entityManager
+): Response {
+    $annonce = $entityManager->getRepository(Annonce::class)->find($id);
 
-        if ($annonce) {
-            $entityManager->remove($annonce);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('app_annonce');
+    if (!$annonce) {
+        throw $this->createNotFoundException("Annonce introuvable");
     }
+
+    // Récupérer les candidatures liées
+    $candidatures = $annonce->getCandidatures();
+
+    // Vérifier si l'utilisateur a confirmé
+    if ($request->query->get('confirm') !== 'true') {
+        return $this->render('annonce/confirm_delete.html.twig', [
+            'annonce' => $annonce,
+            'candidatures' => $candidatures,
+        ]);
+    }
+
+    // Si confirmé → supprimer candidatures puis annonce
+    foreach ($candidatures as $candidature) {
+        $entityManager->remove($candidature);
+    }
+
+    $entityManager->remove($annonce);
+    $entityManager->flush();
+
+    return $this->redirectToRoute('app_annonce');
+}
 }

@@ -3,7 +3,7 @@
 {% block title %}Liste des chercheurs{% endblock %}
 
 {% block body %}
-    <h1>Liste des chercheurs</h1>
+    <h1></h1>
 
     <table class="table">
         <thead>
@@ -23,10 +23,15 @@
                 <td>{{ chercheur.email }}</td>
                 <td>{{ chercheur.description }}</td>
                 <td>
-                    <a href="{{ path('app_supprimer', {id: chercheur.id}) }}"
+                    <a href="{{ path('app_supprimerchercheur', {id: chercheur.id}) }}"
                        class="btn btn-danger"
                        onclick="return confirm('Voulez-vous vraiment supprimer ce chercheur ?');">
                         Supprimer
+                    </a>
+                        <a href="{{ path('app_chercheur_modifier', {id: chercheur.id}) }}"
+                       class="btn btn-danger"
+                       onclick="return confirm('Voulez-vous vraiment modifier ce chercheur ?');">
+                        modifier
                     </a>
                 </td>
             </tr>

@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification de recruteur {% endblock %}
+
+{% block body %}
+    <h1>Modifier le recruteur{{ recruteur.id }}</h1>
+
+    {{ form_start(form) }}
+
+       
+       
+        {{ form_row(form.nom) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.adresse) }}
+        {{ form_row(form.telephone) }}
+
+
+
+        <button class="btn btn-primary">Mettre à jour</button>
+
+    {{ form_end(form) }}
+    {# Fin du formulaire #}
+
+    <a href="{{ path('app_recruteur') }}" class="btn btn-secondary mt-3">Retour à la liste</a>
+{% endblock %}
