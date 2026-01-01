@@ -35,7 +35,7 @@ final class AnnonceController extends AbstractController
    if ($form->isSubmitted() && $form->isValid()) {
     $entityManager->persist($annonce);
     $entityManager->flush();
- return $this->redirectToRoute('app_annonces');
+ return $this->redirectToRoute('app_annonce');
 }
 
  return $this->render('annonce/ajout.html.twig', [

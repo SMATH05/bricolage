@@ -10,8 +10,9 @@
             <tr>
                 <th>ID</th>
                 <th>Nom</th>
-                <th>Email</th>
                 <th>Description</th>
+                <th>Date de publication</th>
+                <th>Budget</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -20,7 +21,6 @@
             <tr>
                 <td>{{ annonce.id }}</td>
                 <td>{{ annonce.titre }}</td>
-                
                 <td>{{ annonce.description }}</td>
                <td>{{ annonce.datePublication|date('d/m/Y') }}</td>
                 <td>{{ annonce.budget }}</td>
@@ -31,6 +31,12 @@
                        onclick="return confirm('Voulez-vous vraiment supprimer cette annonce ?');">
                         Supprimer
                     </a>
+                   <a href="{{ path('app_annonce_modifier', {id: annonce.id}) }}"
+                       class="btn btn-danger"
+                       onclick="return confirm('Voulez-vous vraiment modifier cette annonce ?');">
+                        modifier
+                    </a>
+                    
                 </td>
             </tr>
         {% else %}
