@@ -55,4 +55,25 @@ final class RecruteurController extends AbstractController
 
         return $this->redirectToRoute('app_recruteur');
     }
+    #[Route('/recruteur/modifier/{id}', name: 'app_recruteur_modifier')]
+    public function modifierrecruteur($id, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $recruteur = $entityManager->getRepository(recruteur::class)->find($id);
+
+        if (!$recruteur) {
+            throw $this->createNotFoundException('recruteur introuvable');
+        }
+
+        $form = $this->createForm(recruteurType::class, $recruteur);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+            return $this->redirectToRoute('app_recruteur');
+        }
+
+        return $this->render('recruteur/modifier.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 }

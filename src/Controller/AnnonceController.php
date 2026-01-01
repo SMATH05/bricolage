@@ -36,7 +36,7 @@ final class AnnonceController extends AbstractController
     public function ajouterAnnonce(Request $request, EntityManagerInterface $entityManager): Response
     {
         $annonce = new Annonce();
-
+        
     $form = $this->createForm(AnnonceType::class, $annonce);
     $form->handleRequest($request);
 
@@ -45,6 +45,7 @@ final class AnnonceController extends AbstractController
     $entityManager->flush();
  return $this->redirectToRoute('app_annonces');
 }
+
 
  return $this->render('annonce/ajout.html.twig', [
     'form' => $form->createView(),
@@ -73,16 +74,4 @@ final class AnnonceController extends AbstractController
         ]);
     }
 
-    #[Route('/annonce/supprimer/{id}', name: 'app_annonce_supprimer')]
-    public function supprimerAnnonce($id, EntityManagerInterface $entityManager): Response
-    {
-        $annonce = $entityManager->getRepository(Annonce::class)->find($id);
-
-        if ($annonce) {
-            $entityManager->remove($annonce);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('app_annonce');
-    }
 }

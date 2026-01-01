@@ -53,4 +53,25 @@ $candidature = $entityManager->getRepository(Candidature::class)->find($id);
 return $this->redirectToRoute('app_candidature');
 
     }
+    #[Route('/condidateur/modifier/{id}', name: 'app_Condidature_modifier')]
+    public function modifierCondidature($id, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $condidature = $entityManager->getRepository(condidateur::class)->find($id);
+
+        if (!$condidateur) {
+            throw $this->createNotFoundException('condidateur introuvable');
+        }
+
+        $form = $this->createForm(condidateurType::class, $condidateur);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+            return $this->redirectToRoute('app_condidateur');
+        }
+
+        return $this->render('condidateur/modifier.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 }
