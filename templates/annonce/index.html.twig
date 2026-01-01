@@ -31,6 +31,12 @@
                        onclick="return confirm('Voulez-vous vraiment supprimer cette annonce ?');">
                         Supprimer
                     </a>
+                   <a href="{{ path('app_annonce_modifier', {id: annonce.id}) }}"
+                       class="btn btn-danger"
+                       onclick="return confirm('Voulez-vous vraiment modifier cette annonce ?');">
+                        modifier
+                    </a>
+                    
                 </td>
             </tr>
         {% else %}
