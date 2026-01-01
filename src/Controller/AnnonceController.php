@@ -18,6 +18,8 @@ final class AnnonceController extends AbstractController
             'controller_name' => 'AnnonceController',
         ]);
     }
+
+
        #[Route('/Recruteur/ajouter', name: 'app_annonce_ajouter')]
     public function ajouterAnonce(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -31,11 +33,19 @@ final class AnnonceController extends AbstractController
     $entityManager->flush();
 }
 
+
  return $this->render('annonce/ajout.html.twig', [
     'form' => $form->createView(),
  ]);
     }
-    
+    #[Route('/annonce/supprimer', name: 'app_annonce')]
+    public function supp annonce(): Response
+    {
+        return $this->render('annonce/index.html.twig', [
+            'controller_name' => 'AnnonceController',
+        ]);
+    }
 
     
+
 }
