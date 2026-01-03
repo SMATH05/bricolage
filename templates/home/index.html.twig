@@ -1,16 +1,125 @@
-{% extends 'base.html.twig' %}
 
 
+<<<<<<< HEAD
 {% block title %}Home Page{% endblock %}
+=======
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/h.css') }}">
+{% endblock %}
+>>>>>>> 7ef36fcebfd260a2dd734961dd7c36751d30fd7d
 
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset('css/home.css') }}">
 {% endblock %}
 
 {% block body %}
+<<<<<<< HEAD
 
     <div class="container mt-4">
         <h1>Welcome to the Home Page</h1>
         <p>This is the home page of the application.</p>
+=======
+  <div class="video-background">
+    <video autoplay muted loop id="bg-video">
+        <source src="{{ asset('video/video2.mp4') }}" type="video/mp4" />
+        Your browser does not support the video tag.
+    </video>
+</div>
+<div class="overlay-gradient"></div>
+<div class="content-up-video">
+   <h1>Welcome to <span>B</span>ricolage</h1>
+   <p>Your knowledge has value. Get paid for it</p>
+   <a href="{{ path('app_login') }}" class="btn">Be Part Of Us</a>
+</div>
+
+<section class="categories">
+  <h2>Legal Services</h2>
+
+  <div class="cards-grid">
+
+    <div class="card">
+      <div class="icon">🤖</div>
+      <p>AI Services</p>
+>>>>>>> 7ef36fcebfd260a2dd734961dd7c36751d30fd7d
     </div>
+
+    <div class="card">
+      <div class="icon">&lt;/&gt;</div>
+      <p>Development & IT</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🎨</div>
+      <p>Design & Creative</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🤝</div>
+      <p>Sales & Marketing</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">✍️</div>
+      <p>Writing & Translation</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🧑‍💼</div>
+      <p>Admin & Support</p>
+    </div>
+
+
+   <div class="card">
+  <div class="icon">🌿</div>
+  <p>Gardening</p>
+</div>
+
+<div class="card">
+  <div class="icon">🚚</div>
+  <p>Moving</p>
+</div>
+
+<div class="card">
+  <div class="icon">🪑</div>
+  <p>Furniture Assembly</p>
+</div>
+
+<div class="card">
+  <div class="icon">📺</div>
+  <p>Appliance Installation</p>
+</div>
+
+<div class="card">
+  <div class="icon">🎨</div>
+  <p>Painting & Decoration</p>
+</div>
+
+<div class="card">
+  <div class="icon">🔧</div>
+  <p>Repairs</p>
+</div>
+
+  </div>
+</section>
+<footer>
+  <p>&copy; 2026 Bricolage. All rights reserved.</p> 
+<div class="footer-sections">
+
+  <div class="footer-section">
+    <h1>Founders:</h1>
+    <p>Moubaraki Mohammed</p>
+    <p>Benlaama Reda</p>
+  </div>
+
+  <div class="footer-section">
+    <h1>Contact us:</h1>
+    <p>Email: moubaramed@gmail.com</p>
+    <p>Phone: +212 66569562</p>
+  </div>
+
+</div>
+
+</footer>
 {% endblock %}

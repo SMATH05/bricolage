@@ -11,7 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Recruteur;
 use App\Form\RecruteurType;
 use App\Repository\RecruteurRepository;
- #[IsGranted('ROLE_ADMIN')]
+ #[IsGranted('ROLE_RECRUTEUR')]
 final class RecruteurController extends AbstractController
 {
     #[Route('/recruteur', name: 'app_recruteur')]

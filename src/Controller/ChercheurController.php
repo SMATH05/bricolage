@@ -13,12 +13,12 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use App\Repository\ChercheurRepository;
 
-
+ #[IsGranted('ROLE_CHERCHEUR')]
 final class ChercheurController extends AbstractController
 {
 
     #[Route('/chercheur', name: 'app_chercheur')]
-    #[IsGranted('ROLE_CHERCHEUR')]
+   
     public function home(ChercheurRepository $chercheurRepository): Response
     {
         $chercheurs = $chercheurRepository->findAll();
