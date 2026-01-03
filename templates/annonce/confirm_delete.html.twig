@@ -1,0 +1,15 @@
+<h2>Confirmation de suppression</h2>
+
+{% if candidatures|length > 0 %}
+    <p>L'annonce est liée à {{ candidatures|length }} candidature(s).</p>
+    <p>Voulez-vous aussi supprimer ces candidatures ?</p>
+{% else %}
+    <p>Voulez-vous vraiment supprimer cette annonce ?</p>
+{% endif %}
+
+<a href="{{ path('app_annonce_supprimer', {id: annonce.id, confirm: 'true'}) }}" class="btn btn-danger">
+    Oui, supprimer
+</a>
+<a href="{{ path('app_annonce') }}" class="btn btn-secondary">
+    Annuler
+</a>

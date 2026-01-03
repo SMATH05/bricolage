@@ -43,7 +43,7 @@ final class RecruteurController extends AbstractController
         ]);
     }
 
-    #[Route('/recruteur/{id}', name: 'app_recruteur_supprimer', methods: ['GET'])]
+    #[Route('/recruteur/supprimer/{id}', name: 'app_recruteur_supprimer', methods: ['GET'])]
     public function supprimerRecruteur($id, EntityManagerInterface $entityManager): Response
     {
         $recruteur = $entityManager->getRepository(Recruteur::class)->find($id);
@@ -74,6 +74,7 @@ final class RecruteurController extends AbstractController
 
         return $this->render('recruteur/modifier.html.twig', [
             'form' => $form->createView(),
+            'recruteur' => $recruteur,
         ]);
     }
 }

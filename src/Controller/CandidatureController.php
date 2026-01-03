@@ -7,9 +7,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Candidature;
 use App\Form\CandidatureType;
-use App\Repository\CandidatureRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Repository\CandidatureRepository;
 
 final class CandidatureController extends AbstractController
 {
@@ -40,9 +40,9 @@ final class CandidatureController extends AbstractController
     'form' => $form->createView(),
  ]);
     }
-    
- #[Route('/chercheur/supprimer/{id}', name: 'app_supprimer')]
-  public function supprimerChercheur( $id, EntityManagerInterface $entityManager): Response
+
+  #[Route('/chercheur/candidature/supprimer/{id}', name: 'app_supprimercandidature')]
+  public function supprimerCandidature( $id, EntityManagerInterface $entityManager): Response
 {
 
 $candidature = $entityManager->getRepository(Candidature::class)->find($id);
@@ -52,25 +52,26 @@ $candidature = $entityManager->getRepository(Candidature::class)->find($id);
         }
 return $this->redirectToRoute('app_candidature');
 
-    }
-    #[Route('/condidateur/modifier/{id}', name: 'app_Condidature_modifier')]
-    public function modifierCondidature($id, Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $condidature = $entityManager->getRepository(condidateur::class)->find($id);
+} 
 
-        if (!$condidateur) {
-            throw $this->createNotFoundException('condidateur introuvable');
+    #[Route('/chercheur/candidature/modifier/{id}', name: 'app_Candidature_modifier')]
+    public function modifierCandidature($id, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $candidature = $entityManager->getRepository(Candidature::class)->find($id);
+
+        if (!$candidature) {
+            throw $this->createNotFoundException('candidature introuvable');
         }
 
-        $form = $this->createForm(condidateurType::class, $condidateur);
+        $form = $this->createForm(CandidatureType::class, $candidature);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-            return $this->redirectToRoute('app_condidateur');
+            return $this->redirectToRoute('app_candidature');
         }
 
-        return $this->render('condidateur/modifier.html.twig', [
+        return $this->render('candidature/modifier.html.twig', [
             'form' => $form->createView(),
         ]);
     }

@@ -25,10 +25,15 @@
                 <td>{{ c.adresse }}</td>
                 <td>{{ c.telephone }}</td>
                 <td>
-                    <a href="{{ path('app_recruteur_supprimer', {id: c.id}) }}"
+                     <a href="{{ path('app_recruteur_supprimer', {id: c.id}) }}"
                        class="btn btn-danger"
                        onclick="return confirm('Voulez-vous vraiment supprimer ce chercheur ?');">
                         Supprimer
+                    </a>
+                        <a href="{{ path('app_recruteur_modifier', {id: c.id}) }}"
+                       class="btn btn-danger"
+                       onclick="return confirm('Voulez-vous vraiment modifier ce chercheur ?');">
+                        modifier
                     </a>
                 </td>
             </tr>

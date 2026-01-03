@@ -17,9 +17,6 @@ final class ChercheurController extends AbstractController
 {
 
     #[Route('/chercheur', name: 'app_chercheur')]
-
-
-
     public function home(ChercheurRepository $chercheurRepository): Response
     {
         $chercheurs = $chercheurRepository->findAll();
@@ -44,14 +41,14 @@ final class ChercheurController extends AbstractController
  
 
     return $this->redirectToRoute('app_chercheur');
-}
+     }
 
- return $this->render('chercheur/ajouter.html.twig', [
+  return $this->render('chercheur/ajouter.html.twig', [
     'form' => $form->createView(),
- ]);
+      ]);
     }
 
-    #[Route('/chercheur/supprimer/{id}', name: 'app_supprimer')]
+    #[Route('/chercheur/supprimer/{id}', name: 'app_supprimerchercheur')]
   public function supprimerChercheur( $id, EntityManagerInterface $entityManager): Response
 {
 
