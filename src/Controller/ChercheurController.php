@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use App\Repository\ChercheurRepository;
 
 
@@ -17,6 +18,7 @@ final class ChercheurController extends AbstractController
 {
 
     #[Route('/chercheur', name: 'app_chercheur')]
+    #[IsGranted('ROLE_CHERCHEUR')]
     public function home(ChercheurRepository $chercheurRepository): Response
     {
         $chercheurs = $chercheurRepository->findAll();
@@ -27,6 +29,7 @@ final class ChercheurController extends AbstractController
     }
    
    #[Route('/chercheur/ajouter', name: 'app_chercheur_ajouter')]
+    #[IsGranted('ROLE_CHERCHEUR')]
     public function ajouterChercheur(Request $request, EntityManagerInterface $entityManager): Response
     {
         $chercheur = new Chercheur();
@@ -49,6 +52,7 @@ final class ChercheurController extends AbstractController
     }
 
     #[Route('/chercheur/supprimer/{id}', name: 'app_supprimerchercheur')]
+    #[IsGranted('ROLE_CHERCHEUR')]
   public function supprimerChercheur( $id, EntityManagerInterface $entityManager): Response
 {
 
@@ -61,9 +65,10 @@ return $this->redirectToRoute('app_chercheur');
 
 } 
 #[Route('/chercheur/modifier/{id}', name: 'app_chercheur_modifier')]
+    #[IsGranted('ROLE_CHERCHEUR')]
     public function modifierchercheur($id, Request $request, EntityManagerInterface $entityManager): Response
     {
-        $chercheur = $entityManager->getRepository(chercheur::class)->find($id);
+        $chercheur = $entityManager->getRepository(Chercheur::class)->find($id);
 
         if (!$chercheur) {
             throw $this->createNotFoundException('chercheur introuvable');

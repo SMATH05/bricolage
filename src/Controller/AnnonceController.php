@@ -15,6 +15,14 @@ use App\Repository\AnnonceRepository;
 
 final class AnnonceController extends AbstractController
 {
+     #[Route('/home', name: 'app_home')]
+    public function index(): Response
+    {
+       return $this->render('home/index.html.twig', [
+            'controller_name' => 'AnnonceController',
+            ]);
+    }
+
     #[Route('/recruteur/annonce', name: 'app_annonce')]
     public function home(AnnonceRepository $annonceRepository): Response
     {
