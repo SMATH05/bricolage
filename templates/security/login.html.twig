@@ -1,32 +1,58 @@
-{% extends 'base.html.twig' %}
+{% block stylesheets %} <link rel="stylesheet" href="{{ asset('css/login.css') }}"> {% endblock %}
 
-{% block title %}Log in!{% endblock %}
+
+
+
+
+
+
+
+
+
+
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+<div class="login-container">
+    <form method="post" class="login-form">
 
+        {% if error %}
+            <div class="alert alert-danger">
+                {{ error.messageKey|trans(error.messageData, 'security') }}
+            </div>
+        {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-    <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+        <h1>Please sign in</h1>
 
-    <div class="checkbox mb-3">
-        <label>
-            <input type="checkbox" name="_remember_me"> Remember me
-        </label>
-    </div>
+        <label for="inputEmail">Email</label>
+        <input type="email"
+               value="{{ last_username }}"
+               name="email"
+               id="inputEmail"
+               autocomplete="email"
+               required
+               autofocus>
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-    <a href="{{ path('app_register') }}" class="btn btn-lg btn-primary">
-    Sign Up
-</a>
-</form>
+        <label for="inputPassword">Password</label>
+        <input type="password"
+               name="password"
+               id="inputPassword"
+               autocomplete="current-password"
+               required>
+
+        <input type="hidden"
+               name="_csrf_token"
+               value="{{ csrf_token('authenticate') }}">
+
+        <div class="checkbox1">
+            <label>
+                <input type="checkbox" name="_remember_me"> Remember me
+            </label>
+        </div>
+
+        <button type="submit">Sign in</button>
+
+        <a href="{{ path('app_register') }}">Sign Up</a>
+
+    </form>
+</div>
 {% endblock %}

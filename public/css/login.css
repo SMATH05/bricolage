@@ -1,0 +1,93 @@
+/* Background image fullscreen */
+
+body {
+    margin: 0;
+    height: 100vh;
+    background-image: url('../img/pen1.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+}
+
+
+/* Blur container */
+
+.login-container {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 15px;
+    padding: 40px;
+    width: 400px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Title */
+
+.login-form h1 {
+    color: white;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+
+/* Labels */
+
+.login-form label {
+    color: white;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+
+/* Inputs */
+
+.login-form input[type="email"],
+.login-form input[type="password"] {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+}
+
+
+/* Checkbox */
+
+.checkbox1 {
+    color: white;
+    margin-bottom: 20px;
+}
+
+
+/* Button */
+
+.login-form button {
+    padding: 12px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+
+/* Link */
+
+.login-form a {
+    margin-top: 15px;
+    text-align: center;
+    color: #00bfff;
+    text-decoration: none;
+    font-size: 18px;
+}
