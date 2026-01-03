@@ -1,8 +1,14 @@
 {% extends 'base.html.twig' %}
 
+
 {% block title %}Home Page{% endblock %}
 
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/home.css') }}">
+{% endblock %}
+
 {% block body %}
+
     <div class="container mt-4">
         <h1>Welcome to the Home Page</h1>
         <p>This is the home page of the application.</p>
