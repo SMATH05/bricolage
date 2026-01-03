@@ -27,9 +27,9 @@ public function buildForm(FormBuilderInterface $builder, array $options): void
         'Chercheur' => 'ROLE_CHERCHEUR',
         'Recruteur' => 'ROLE_RECRUTEUR',
     ],
-    'expanded' => true,   // radio buttons
-    'multiple' => false,  // اختيار واحد فقط
-    'mapped' => false,    // باش مايحاولش يربطها مباشرة بـ entity
+    'expanded' => true,   
+    'multiple' => false,  
+    'mapped' => false,   
 ])  
         ->add('agreeTerms', CheckboxType::class, [
             'mapped' => false,

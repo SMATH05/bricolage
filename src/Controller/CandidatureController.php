@@ -10,7 +10,8 @@ use App\Form\CandidatureType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\CandidatureRepository;
-
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+#[IsGranted('ROLE_CHERCHEUR')]
 final class CandidatureController extends AbstractController
 {
     #[Route('/chercheur/Candidature', name: 'app_candidature')]

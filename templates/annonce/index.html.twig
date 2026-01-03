@@ -3,54 +3,45 @@
 {% block title %}Liste des annonces{% endblock %}
 
 {% block body %}
-<div class="container my-4">
-  <div class="card shadow-sm">
-    <div class="card-header d-flex justify-content-between align-items-center bg-white">
-      <h2 class="h5 mb-0">Liste des annonces</h2>
-      <a href="{{ path('app_annonces_ajouter') }}" class="btn btn-primary btn-sm">Ajouter une annonce</a>
-    </div>
+    <h1>Liste des annonces</h1>
 
-    <div class="table-responsive">
-      <table class="table table-striped table-hover align-middle mb-0">
-        <thead class="table-light text-uppercase small">
-          <tr>
-            <th>ID</th>
-            <th>Nom</th>
-            <th>Description</th>
-            <th>Date de publication</th>
-            <th class="text-end">Budget</th>
-            <th class="text-center">Actions</th>
-          </tr>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Date de publication</th>
+                <th>Budget</th>
+                <th>Actions</th>
+            </tr>
         </thead>
         <tbody>
         {% for annonce in annonces %}
-          <tr>
-            <td class="fw-semibold">{{ annonce.id }}</td>
-            <td>{{ annonce.titre }}</td>
-            <td class="text-truncate" style="max-width:40ch;">{{ annonce.description }}</td>
-            <td class="text-muted small">{{ annonce.datePublication|date('d/m/Y') }}</td>
-            <td class="text-end"><span class="badge bg-secondary">{{ annonce.budget }}€</span></td>
-            <td class="text-center">
-              <div class="btn-group" role="group" aria-label="Actions">
-                <a href="{{ path('app_annonce_modifier', {id: annonce.id}) }}" class="btn btn-outline-warning btn-sm" title="Modifier">Modifier</a>
-                <a href="{{ path('app_annonce_supprimer', {id: annonce.id}) }}"
-                   class="btn btn-outline-danger btn-sm btn-delete"
-                   data-id="{{ annonce.id }}" title="Supprimer"
-                   onclick="return confirm('Supprimer l\\'annonce #{{ annonce.id }} ?');">
-                   Supprimer
-                </a>
-              </div>
-            </td>
-          </tr>
+            <tr>
+                <td>{{ annonce.id }}</td>
+                <td>{{ annonce.titre }}</td>
+                <td>{{ annonce.description }}</td>
+                <td>{{ annonce.datePublication|date('d/m/Y') }}</td>
+                <td>{{ annonce.budget }}€</td>
+                <td>
+                    <a href="{{ path('app_annonce_modifier', {id: annonce.id}) }}"
+                       onclick="return confirm('Voulez-vous vraiment modifier l\\'annonce #{{ annonce.id }} ?');">
+                        Modifier
+                    </a>
+                    <a href="{{ path('app_annonce_supprimer', {id: annonce.id}) }}"
+                       onclick="return confirm('Voulez-vous vraiment supprimer l\\'annonce #{{ annonce.id }} ?');">
+                        Supprimer
+                    </a>
+                </td>
+            </tr>
         {% else %}
-          <tr>
-            <td colspan="6" class="text-center text-muted py-4">Aucune annonce trouvée.</td>
-          </tr>
+            <tr>
+                <td colspan="6">Aucune annonce trouvée.</td>
+            </tr>
         {% endfor %}
         </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-{% endblock %}
+    </table>
 
+    <a href="{{ path('app_annonces_ajouter') }}">Ajouter une annonce</a>
+{% endblock %}

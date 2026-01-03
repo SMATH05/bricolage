@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\AnnonceRepository;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 
 
@@ -22,7 +23,9 @@ final class AnnonceController extends AbstractController
             'controller_name' => 'AnnonceController',
             ]);
     }
+   
 
+#[IsGranted('ROLE_RECRUTEUR')]
     #[Route('/recruteur/annonce', name: 'app_annonce')]
     public function home(AnnonceRepository $annonceRepository): Response
     {
@@ -32,6 +35,7 @@ final class AnnonceController extends AbstractController
             'annonces' => $annonces,
             ]);
     }
+    #[IsGranted('ROLE_RECRUTEUR')]
  #[Route('/recruteur/annonce/ajouter', name: 'app_annonces_ajouter')]
     public function ajouterAnnonce(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -51,7 +55,7 @@ final class AnnonceController extends AbstractController
  ]);
     }
   
-    
+    #[IsGranted('ROLE_RECRUTEUR')]
     #[Route('/recruteur/annonce/modifier/{id}', name: 'app_annonce_modifier')]
     public function modifierAnnonce($id, Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -73,7 +77,7 @@ final class AnnonceController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
+#[IsGranted('ROLE_RECRUTEUR')]
     #[Route('/recruteur/annonce/supprimer/{id}', name: 'app_annonce_supprimer')]
 public function supprimerAnnonce(
     int $id,
