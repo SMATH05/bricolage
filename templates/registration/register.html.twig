@@ -1,13 +1,41 @@
-{% extends 'base.html.twig' %}
+{% block stylesheets %} <link rel="stylesheet" href="{{ asset('styles/register.css') }}"> {% endblock %}
 
-{% block title %}Register{% endblock %}
 
 {% block body %}
- {{ form_start(registrationForm) }}
-    {{ form_row(registrationForm.email) }}
-    {{ form_row(registrationForm.roles) }}
-    {{ form_row(registrationForm.plainPassword) }}
-    {{ form_row(registrationForm.agreeTerms) }}
-    <button type="submit">Register</button>
-{{ form_end(registrationForm) }}
+<div class="register-container">
+    <form method="post" class="register-form">
+        <h1>Sign Up</h1>
+
+        {{ form_start(registrationForm) }}
+
+            {{ form_row(registrationForm.email) }}
+
+           <div class="roles-wrapper">
+    <p class="roles-title">Roles</p>
+
+    {% for role in registrationForm.roles %}
+        <label class="role-item">
+            {{ form_widget(role) }}
+            <span>{{ role.vars.label }}</span>
+        </label>
+    {% endfor %}
+</div>
+
+
+            {{ form_row(registrationForm.plainPassword) }}
+
+           <div class="agree-terms-wrapper">
+    <label class="agree-terms-label">
+        {{ form_widget(registrationForm.agreeTerms) }}
+        <span>Agree terms</span>
+    </label>
+</div>
+
+            <button type="submit">Register</button>
+
+        {{ form_end(registrationForm) }}
+    </form>
+</div>
+
+
 {% endblock %}
