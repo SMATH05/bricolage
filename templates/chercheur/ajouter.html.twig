@@ -1,4 +1,26 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit" class="btn">Ajouter le chercheur</button>
-{{ form_end(form) }}
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un Chercheur{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white border-bottom-0 pt-4 pb-0">
+                    <h4 class="mb-0 text-center">Nouveau Chercheur</h4>
+                </div>
+                <div class="card-body p-4">
+                    {{ form_start(form) }}
+                        {{ form_widget(form) }}
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">Ajouter le chercheur</button>
+                            <a href="{{ path('app_chercheur') }}" class="btn btn-link text-decoration-none">Annuler</a>
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

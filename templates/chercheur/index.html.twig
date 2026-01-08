@@ -1,46 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des chercheurs{% endblock %}
+{% block title %}Gestion des Chercheurs{% endblock %}
 
 {% block body %}
-    <h1>Liste des chercheurs</h1>
+    <div class="container py-4">
+        <div class="d-flex align-items-center justify-content-between mb-4 border-bottom pb-2">
+            <h1>Chercheurs</h1>
+            <a href="{{ path('app_chercheur_ajouter') }}" class="btn btn-primary">
+                <i class="fas fa-plus me-1"></i> Nouveau Chercheur
+            </a>
+        </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nom</th>
-                <th>Email</th>
-                <th>Description</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for chercheur in chercheurs %}
-            <tr>
-                <td>{{ chercheur.id }}</td>
-                <td>{{ chercheur.nom }}</td>
-                <td>{{ chercheur.email }}</td>
-                <td>{{ chercheur.description }}</td>
-                <td>
-                    <a href="{{ path('app_supprimerchercheur', {id: chercheur.id}) }}"
-                       class="btn btn-danger"
-                       onclick="return confirm('Voulez-vous vraiment supprimer ce chercheur ?');">
-                        Supprimer
-                    </a>
-                        <a href="{{ path('app_chercheur_modifier', {id: chercheur.id}) }}"
-                       class="btn btn-danger"
-                       onclick="return confirm('Voulez-vous vraiment modifier ce chercheur ?');">
-                        modifier
-                    </a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">Aucun chercheur trouvé.</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <a href="{{ path('app_chercheur_ajouter') }}" class="btn btn-danger">Ajouter un chercheur</a>
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="ps-4">ID</th>
+                                <th>Nom</th>
+                                <th>Email</th>
+                                <th>Description</th>
+                                <th class="text-end pe-4">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for chercheur in chercheurs %}
+                            <tr>
+                                <td class="ps-4 fw-bold">#{{ chercheur.id }}</td>
+                                <td>{{ chercheur.nom }}</td>
+                                <td><a href="mailto:{{ chercheur.email }}" class="text-decoration-none">{{ chercheur.email }}</a></td>
+                                <td class="text-muted small">{{ chercheur.description|slice(0, 50) }}...</td>
+                                <td class="text-end pe-4">
+                                    <a href="{{ path('app_chercheur_modifier', {id: chercheur.id}) }}" class="btn btn-sm btn-link text-decoration-none" title="Modifier">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="{{ path('app_supprimerchercheur', {id: chercheur.id}) }}" 
+                                       class="btn btn-sm btn-link text-danger text-decoration-none" 
+                                       onclick="return confirm('Confirmer la suppression ?');"
+                                       title="Supprimer">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5" class="text-center py-5 text-muted">Aucun chercheur trouvé.</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

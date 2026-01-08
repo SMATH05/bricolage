@@ -12,13 +12,13 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-      <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Bricolage</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor04" aria-controls="navbarColor04" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarColor02">
+    <div class="collapse navbar-collapse" id="navbarColor04">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
           <a class="nav-link active" href="{{ path('app_home') }}">Home
@@ -26,7 +26,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ path('app_recruteur') }}">Recruteur</a>
+          <a class="nav-link" href="{{ path('app_recruteur') }}"> Recruteur</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ path('app_chercheur') }}">Chercheur</a>
@@ -37,20 +37,7 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ path('app_candidature') }}">Candidature</a>
         </li>
-    
-       
       </ul>
-    <ul class="navbar-nav ms-auto">
-      {% if app.user %}
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion ({{ app.user.email }})</a>
-        </li>
-      {% else %}
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
-        </li>
-      {% endif %}
-    </ul>
     </div>
   </div>
 </nav>

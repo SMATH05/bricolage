@@ -1,4 +1,26 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">Ajouter l'annonce</button>
-{{ form_end(form) }}
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un Recruteur{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white border-bottom-0 pt-4 pb-0">
+                    <h4 class="mb-0 text-center">Nouveau Recruteur</h4>
+                </div>
+                <div class="card-body p-4">
+                    {{ form_start(form) }}
+                        {{ form_widget(form) }}
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">Ajouter le recruteur</button>
+                            <a href="{{ path('app_recruteur') }}" class="btn btn-link text-decoration-none">Annuler</a>
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
