@@ -1,0 +1,46 @@
+# Render ignore file - files/folders to exclude from deployment
+
+# Development files
+/.git
+/.github
+/.idea
+/.vscode
+*.md
+!README.md
+
+# Environment files (will be set via Render dashboard)
+/.env
+/.env.local
+/.env.*.local
+
+# Cache and logs (will be regenerated)
+/var/cache/*
+/var/log/*
+!/var/cache/.gitkeep
+!/var/log/.gitkeep
+
+# Test files
+/tests
+/phpunit.xml
+/.phpunit.cache
+
+# Documentation
+/docs
+*.md
+!README.md
+
+# IDE files
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Composer
+/composer.lock
+
+# Node modules (if any)
+/node_modules
+
+# Build artifacts
+/public/bundles
+/public/build

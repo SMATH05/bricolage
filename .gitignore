@@ -18,3 +18,10 @@
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
+
+###> Uploads (keep directories, ignore files) ###
+/public/uploads/annonces/*
+!/public/uploads/annonces/.gitkeep
+/public/uploads/profiles/*
+!/public/uploads/profiles/.gitkeep
+###< Uploads ###
