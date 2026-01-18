@@ -1,6 +1,6 @@
 security:
-  role_hierarchy:
-    ROLE_ADMIN: [ROLE_RECRUTEUR, ROLE_CHERCHEUR]
+  # role_hierarchy:
+  #   ROLE_ADMIN: [ROLE_RECRUTEUR, ROLE_CHERCHEUR]
 
   password_hashers:
     App\Entity\User:
@@ -22,14 +22,19 @@ security:
       provider: app_user_provider
       custom_authenticator:
         - App\Security\LoginFormAuthenticator
+        - App\Security\GoogleAuthenticator
       logout:
         path: app_logout
         target: app_login
 
   access_control:
-    - { path: ^/admin, roles: [ROLE_ADMIN, ROLE_RECRUTEUR, ROLE_CHERCHEUR] }
-    - { path: ^/chercheur, roles: ROLE_CHERCHEUR }
-    - { path: ^/recruteur, roles: ROLE_RECRUTEUR }
+    - { path: ^/admin, roles: ROLE_ADMIN }
+    - { path: ^/chercheur/Candidature, roles: ROLE_CHERCHEUR }
+    - { path: ^/chercheur, roles: ROLE_ADMIN }
+    - { path: ^/recruteur/candidature, roles: ROLE_RECRUTEUR }
+    - { path: ^/recruteur/annonce, roles: ROLE_RECRUTEUR }
+    - { path: ^/recruteur, roles: ROLE_ADMIN }
+    - { path: ^/profile, roles: ROLE_USER }
     - { path: ^/login, roles: PUBLIC_ACCESS }
     - { path: ^/register, roles: PUBLIC_ACCESS }
 

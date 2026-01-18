@@ -11,12 +11,19 @@ final class AdminController extends AbstractController
 {
     #[Route('/admin', name: 'app_admin')]
     #[IsGranted('ROLE_ADMIN')]
-    public function index(): Response
-    {
+    public function index(
+        \App\Repository\ChercheurRepository $chercheurRepo,
+        \App\Repository\RecruteurRepository $recruteurRepo,
+        \App\Repository\AnnonceRepository $annonceRepo
+    ): Response {
         return $this->render('admin/index.html.twig', [
-            'controller_name' => 'AdminController',
+            'totalChercheurs' => $chercheurRepo->count([]),
+            'totalRecruteurs' => $recruteurRepo->count([]),
+            'totalAnnonces' => $annonceRepo->count([]),
+            'recentChercheurs' => $chercheurRepo->findBy([], ['id' => 'DESC'], 5),
+            'recentRecruteurs' => $recruteurRepo->findBy([], ['id' => 'DESC'], 5),
         ]);
     }
 
-    
+
 }

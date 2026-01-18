@@ -1,57 +1,69 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestion des Chercheurs{% endblock %}
+{% block title %}Gestion des Chercheurs
+{% endblock %}
 
 {% block body %}
-    <div class="container py-4">
-        <div class="d-flex align-items-center justify-content-between mb-4 border-bottom pb-2">
-            <h1>Chercheurs</h1>
-            <a href="{{ path('app_chercheur_ajouter') }}" class="btn btn-primary">
-                <i class="fas fa-plus me-1"></i> Nouveau Chercheur
-            </a>
-        </div>
+	<div class="container py-4">
+		<div class="d-flex align-items-center justify-content-between mb-4 border-bottom pb-2">
+			<h1>Chercheurs</h1>
+			<a href="{{ path('app_chercheur_ajouter') }}" class="btn btn-primary">
+				<i class="fas fa-plus me-1"></i>
+				Nouveau Chercheur
+			</a>
+		</div>
 
-        <div class="card border-0 shadow-sm">
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle mb-0">
-                        <thead class="table-light">
-                            <tr>
-                                <th class="ps-4">ID</th>
-                                <th>Nom</th>
-                                <th>Email</th>
-                                <th>Description</th>
-                                <th class="text-end pe-4">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        {% for chercheur in chercheurs %}
-                            <tr>
-                                <td class="ps-4 fw-bold">#{{ chercheur.id }}</td>
-                                <td>{{ chercheur.nom }}</td>
-                                <td><a href="mailto:{{ chercheur.email }}" class="text-decoration-none">{{ chercheur.email }}</a></td>
-                                <td class="text-muted small">{{ chercheur.description|slice(0, 50) }}...</td>
-                                <td class="text-end pe-4">
-                                    <a href="{{ path('app_chercheur_modifier', {id: chercheur.id}) }}" class="btn btn-sm btn-link text-decoration-none" title="Modifier">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a href="{{ path('app_supprimerchercheur', {id: chercheur.id}) }}" 
-                                       class="btn btn-sm btn-link text-danger text-decoration-none" 
-                                       onclick="return confirm('Confirmer la suppression ?');"
-                                       title="Supprimer">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        {% else %}
-                            <tr>
-                                <td colspan="5" class="text-center py-5 text-muted">Aucun chercheur trouvé.</td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+		<div class="row g-4">
+			{% for chercheur in chercheurs %}
+				<div class="col-md-6 col-lg-4">
+					<div class="card h-100 border-0 shadow-sm overflow-hidden">
+						<div class="card-body p-4">
+							<div class="d-flex align-items-center mb-3">
+								<div class="rounded-circle bg-light d-flex align-items-center justify-content-center me-3" style="width: 60px; height: 60px;">
+									{% if chercheur.photo %}
+										<img src="{{ asset('uploads/profiles/' ~ chercheur.photo) }}" alt="{{ chercheur.nom }}" class="rounded-circle w-100 h-100" style="object-fit: cover;">
+									{% else %}
+										<i class="fas fa-user fa-2x text-muted opacity-25"></i>
+									{% endif %}
+								</div>
+								<div>
+									<h5 class="fw-bold mb-0">{{ chercheur.prenom }}
+										{{ chercheur.nom }}</h5>
+									<small class="text-muted">
+										<i class="fas fa-envelope me-1"></i>
+										{{ chercheur.email }}</small>
+								</div>
+							</div>
+
+							<p class="text-muted small mb-4" style="height: 4.5em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
+								{{ chercheur.description }}
+							</p>
+
+							<div class="d-flex justify-content-between align-items-center mt-auto pt-3 border-top">
+								<span class="badge {% if chercheur.disponibilite == 'Disponible' %}bg-success-soft text-success{% else %}bg-secondary-soft text-secondary{% endif %} rounded-pill px-3">
+									{{ chercheur.disponibilite }}
+								</span>
+								<div class="btn-group">
+									<a href="{{ path('app_chercheur_modifier', {id: chercheur.id}) }}" class="btn btn-sm btn-outline-info" title="Modifier">
+										<i class="fas fa-edit"></i>
+									</a>
+									<a href="{{ path('app_supprimerchercheur', {id: chercheur.id}) }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Confirmer la suppression ?');" title="Supprimer">
+										<i class="fas fa-trash"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% else %}
+				<div class="col-12 text-center py-5">
+					<div class="alert alert-light border shadow-sm py-5">
+						<i class="fas fa-users fa-3x mb-3 opacity-25"></i>
+						<h4>Aucun chercheur trouvé</h4>
+						<p class="text-muted mb-0">La liste des candidats est actuellement vide.</p>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
 {% endblock %}

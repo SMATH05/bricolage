@@ -1,55 +1,56 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestion des Candidatures{% endblock %}
+{% block title %}Gestion des Candidatures
+{% endblock %}
 
 {% block body %}
-    <div class="container py-4">
-        <div class="d-flex align-items-center justify-content-between mb-4 border-bottom pb-2">
-            <h1>Candidatures</h1>
-            <a href="{{ path('app_candidature_ajouter') }}" class="btn btn-primary">
-                <i class="fas fa-plus me-1"></i> Nouvelle Candidature
-            </a>
-        </div>
+	<div class="container py-4">
+		<div class="d-flex align-items-center justify-content-between mb-4 border-bottom pb-2">
+			<h1>Mes Candidatures</h1>
+		</div>
 
-        <div class="card border-0 shadow-sm">
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle mb-0">
-                        <thead class="table-light">
-                            <tr>
-                                <th class="ps-4">ID</th>
-                                <th>Date Proposition</th>
-                                <th>Statut</th>
-                                <th class="text-end pe-4">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        {% for candidature in candidatures %}
-                            <tr>
-                                <td class="ps-4 fw-bold">#{{ candidature.id }}</td>
-                                <td>{{ candidature.datePro|date('d/m/Y') }}</td>
-                                <td><span class="badge bg-secondary">{{ candidature.statut }}</span></td>
-                                <td class="text-end pe-4">
-                                    <a href="{{ path('app_Candidature_modifier', {id: candidature.id}) }}" class="btn btn-sm btn-link text-decoration-none" title="Modifier">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a href="{{ path('app_supprimercandidature', {id: candidature.id}) }}" 
-                                       class="btn btn-sm btn-link text-danger text-decoration-none" 
-                                       onclick="return confirm('Confirmer la suppression ?');"
-                                       title="Supprimer">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        {% else %}
-                            <tr>
-                                <td colspan="4" class="text-center py-5 text-muted">Aucune candidature trouvée.</td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+		<div class="row g-4">
+			{% for candidature in candidatures %}
+				<div class="col-md-6 col-lg-4">
+					<div class="card h-100 border-0 shadow-sm">
+						<div class="card-body p-4">
+							<div class="d-flex justify-content-between align-items-start mb-3">
+								<span class="badge {% if candidature.statut == 'En attente' %}bg-warning{% elseif candidature.statut == 'Accepté' %}bg-success{% else %}bg-secondary{% endif %} rounded-pill px-3 py-2 shadow-sm">
+									<i class="fas {% if candidature.statut == 'En attente' %}fa-clock{% elseif candidature.statut == 'Accepté' %}fa-check-circle{% else %}fa-info-circle{% endif %} me-1"></i>
+									{{ candidature.statut }}
+								</span>
+								<small class="text-muted">#{{ candidature.idCandidature }}</small>
+							</div>
+
+							<h5 class="fw-bold mb-2">{{ candidature.annonceId.titre }}</h5>
+							<p class="text-muted small mb-4">
+								<i class="far fa-calendar-alt me-1"></i>
+								Postulée le
+								{{ candidature.datePro|date('d/m/Y') }}
+							</p>
+
+							<div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
+								<a href="{{ path('app_annonce') }}" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+									Voir l'annonce
+								</a>
+								<a href="{{ path('app_supprimercandidature', {id: candidature.id}) }}" class="text-danger text-decoration-none small" onclick="return confirm('Retirer cette candidature ?');">
+									<i class="fas fa-times me-1"></i>
+									Retirer
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% else %}
+				<div class="col-12 text-center py-5">
+					<div class="alert alert-light border shadow-sm py-5">
+						<i class="fas fa-paper-plane fa-3x mb-3 opacity-25"></i>
+						<h4>Aucune candidature</h4>
+						<p class="text-muted">Vous n'avez pas encore postulé à des offres.</p>
+						<a href="{{ path('app_annonce') }}" class="btn btn-primary mt-3 rounded-pill">Parcourir les annonces</a>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
 {% endblock %}

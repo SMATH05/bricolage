@@ -1,22 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier une annonce{% endblock %}
+{% block title %}Modifier une annonce
+{% endblock %}
 
 {% block body %}
-    <h1>Modifier l'annonce</h1>
-
-    {{ form_start(form) }}
-
-       
-        {{ form_row(form.titre) }}
-        {{ form_row(form.description) }}
-        {{ form_row(form.date_publication) }}
-        {{ form_row(form.budget) }}
-
-        <button class="btn btn-primary">Mettre à jour</button>
-
-    {{ form_end(form) }}
-    {# Fin du formulaire #}
-
-    <a href="{{ path('app_annonce') }}" class="btn btn-secondary mt-3">Retour à la liste</a>
+	<div class="container py-5">
+		<div class="row justify-content-center">
+			<div class="col-md-8">
+				<div class="card shadow-lg border-0 rounded-4">
+					<div class="card-header bg-info text-white p-4 rounded-top-4">
+						<h3 class="mb-0 fw-bold">
+							<i class="fas fa-edit me-2"></i>Modifier l'annonce</h3>
+					</div>
+					<div class="card-body p-4">
+						{{ form_start(form) }}
+						<div class="row g-4">
+							{% for field in form %}
+								{% if field.vars.name != '_token' %}
+									<div class="col-12">
+										{{ form_label(field, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+										{{ form_widget(field, {'attr': {'class': 'form-control rounded-3'}}) }}
+										{{ form_errors(field) }}
+									</div>
+								{% endif %}
+							{% endfor %}
+						</div>
+						<div class="mt-5 d-flex gap-3">
+							<button type="submit" class="btn btn-info text-white btn-lg px-5 rounded-pill shadow-sm">
+								<i class="fas fa-save me-2"></i>Mettre à jour
+							</button>
+							<a href="{{ path('app_annonce') }}" class="btn btn-light btn-lg px-4 rounded-pill">Retour</a>
+						</div>
+						{{ form_end(form) }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

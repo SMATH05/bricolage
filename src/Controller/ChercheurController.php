@@ -13,12 +13,12 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use App\Repository\ChercheurRepository;
 
- #[IsGranted('ROLE_CHERCHEUR')]
+#[IsGranted('ROLE_ADMIN')]
 final class ChercheurController extends AbstractController
 {
 
     #[Route('/chercheur', name: 'app_chercheur')]
-   
+
     public function home(ChercheurRepository $chercheurRepository): Response
     {
         $chercheurs = $chercheurRepository->findAll();
@@ -27,44 +27,44 @@ final class ChercheurController extends AbstractController
             'chercheurs' => $chercheurs,
         ]);
     }
-   
-   #[Route('/chercheur/ajouter', name: 'app_chercheur_ajouter')]
+
+    #[Route('/chercheur/ajouter', name: 'app_chercheur_ajouter')]
     #[IsGranted('ROLE_CHERCHEUR')]
     public function ajouterChercheur(Request $request, EntityManagerInterface $entityManager): Response
     {
         $chercheur = new Chercheur();
 
-    $form = $this->createForm(ChercheurType::class, $chercheur);
-    $form->handleRequest($request);
+        $form = $this->createForm(ChercheurType::class, $chercheur);
+        $form->handleRequest($request);
 
-   if ($form->isSubmitted() && $form->isValid()) {
-    $entityManager->persist($chercheur);
-    $entityManager->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($chercheur);
+            $entityManager->flush();
 
- 
 
-    return $this->redirectToRoute('app_chercheur');
-     }
 
-  return $this->render('chercheur/ajouter.html.twig', [
-    'form' => $form->createView(),
-      ]);
+            return $this->redirectToRoute('app_chercheur');
+        }
+
+        return $this->render('chercheur/ajouter.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     #[Route('/chercheur/supprimer/{id}', name: 'app_supprimerchercheur')]
     #[IsGranted('ROLE_CHERCHEUR')]
-  public function supprimerChercheur( $id, EntityManagerInterface $entityManager): Response
-{
+    public function supprimerChercheur($id, EntityManagerInterface $entityManager): Response
+    {
 
-$chercheur = $entityManager->getRepository(Chercheur::class)->find($id);
-  if ($chercheur) {
+        $chercheur = $entityManager->getRepository(Chercheur::class)->find($id);
+        if ($chercheur) {
             $entityManager->remove($chercheur);
             $entityManager->flush();
         }
-return $this->redirectToRoute('app_chercheur');
+        return $this->redirectToRoute('app_chercheur');
 
-} 
-#[Route('/chercheur/modifier/{id}', name: 'app_chercheur_modifier')]
+    }
+    #[Route('/chercheur/modifier/{id}', name: 'app_chercheur_modifier')]
     #[IsGranted('ROLE_CHERCHEUR')]
     public function modifierchercheur($id, Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -87,5 +87,5 @@ return $this->redirectToRoute('app_chercheur');
         ]);
     }
 
-    
+
 }

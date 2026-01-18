@@ -40,4 +40,15 @@ class CandidatureRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function findForRecruteur($recruteur): array
+    {
+        return $this->createQueryBuilder('c')
+            ->join('c.annonce_id', 'a')
+            ->andWhere('a.recrut_id = :recruteur')
+            ->setParameter('recruteur', $recruteur)
+            ->orderBy('c.date_pro', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 }

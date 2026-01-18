@@ -36,6 +36,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private bool $isVerified = false;
 
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?Chercheur $chercheur = null;
+
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?Recruteur $recruteur = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -106,7 +112,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __serialize(): array
     {
         $data = (array) $this;
-        $data["\0".self::class."\0password"] = hash('crc32c', $this->password);
+        $data["\0" . self::class . "\0password"] = hash('crc32c', $this->password);
 
         return $data;
     }
@@ -125,6 +131,50 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): static
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getChercheur(): ?Chercheur
+    {
+        return $this->chercheur;
+    }
+
+    public function setChercheur(?Chercheur $chercheur): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($chercheur === null && $this->chercheur !== null) {
+            $this->chercheur->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($chercheur !== null && $chercheur->getUser() !== $this) {
+            $chercheur->setUser($this);
+        }
+
+        $this->chercheur = $chercheur;
+
+        return $this;
+    }
+
+    public function getRecruteur(): ?Recruteur
+    {
+        return $this->recruteur;
+    }
+
+    public function setRecruteur(?Recruteur $recruteur): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($recruteur === null && $this->recruteur !== null) {
+            $this->recruteur->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($recruteur !== null && $recruteur->getUser() !== $this) {
+            $recruteur->setUser($this);
+        }
+
+        $this->recruteur = $recruteur;
 
         return $this;
     }

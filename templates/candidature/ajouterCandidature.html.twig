@@ -1,26 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouvelle Candidature{% endblock %}
+{% block title %}Nouvelle Candidature
+{% endblock %}
 
 {% block body %}
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-white border-bottom-0 pt-4 pb-0">
-                    <h4 class="mb-0 text-center">Nouvelle Candidature</h4>
-                </div>
-                <div class="card-body p-4">
-                    {{ form_start(form) }}
-                        {{ form_widget(form) }}
-                        <div class="d-grid gap-2 mt-4">
-                            <button type="submit" class="btn btn-primary btn-lg">Soumettre</button>
-                            <a href="{{ path('app_candidature') }}" class="btn btn-link text-decoration-none">Annuler</a>
-                        </div>
-                    {{ form_end(form) }}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+	<div class="container py-5">
+		<div class="row justify-content-center">
+			<div class="col-md-6">
+				<div class="card shadow-lg border-0 rounded-4">
+					<div class="card-header bg-primary text-white p-4 rounded-top-4">
+						<h3 class="mb-0 fw-bold">
+							<i class="fas fa-paper-plane me-2"></i>Postuler à l'offre</h3>
+					</div>
+					<div class="card-body p-4">
+						{{ form_start(form) }}
+						<div class="row g-4">
+							{% for field in form %}
+								{% if field.vars.name != '_token' %}
+									<div class="col-12">
+										{{ form_label(field, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+										{{ form_widget(field, {'attr': {'class': 'form-control rounded-3'}}) }}
+										{{ form_errors(field) }}
+									</div>
+								{% endif %}
+							{% endfor %}
+						</div>
+						<div class="mt-5 d-flex gap-3">
+							<button type="submit" class="btn btn-primary btn-lg px-5 rounded-pill shadow">
+								Envoyer ma candidature
+							</button>
+							<a href="{{ path('app_annonce') }}" class="btn btn-light btn-lg px-4 rounded-pill">Annuler</a>
+						</div>
+						{{ form_end(form) }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

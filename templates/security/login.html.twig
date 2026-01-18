@@ -1,47 +1,59 @@
-{% block stylesheets %} <link rel="stylesheet" href="{{ asset('styles/login.css') }}"> {% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('styles/register.css') }}">
+{% endblock %}
 
 {% block body %}
-<div class="login-container">
-    <form method="post" class="login-form">
+	<div class="auth-wrapper">
+		<div class="auth-card animate-fade-in">
+			<div class="auth-header">
+				<h1>Bon retour</h1>
+				<p>Connectez-vous à votre espace personnel</p>
+			</div>
 
-        {% if error %}
-            <div class="alert alert-danger">
-                {{ error.messageKey|trans(error.messageData, 'security') }}
-            </div>
-        {% endif %}
+			<form method="post" class="auth-form">
+				{% if error %}
+					<div class="alert alert-danger rounded-4 border-0 shadow-sm mb-4 small">
+						{{ error.messageKey|trans(error.messageData, 'security') }}
+					</div>
+				{% endif %}
 
-        <h1>Sign in</h1>
+				<div class="form-group mb-4">
+					<label for="inputEmail" class="form-label">Adresse Email</label>
+					<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="premium-input" autocomplete="email" required autofocus placeholder="votre@email.com">
+				</div>
 
-        <label for="inputEmail">Email</label>
-        <input type="email"
-               value="{{ last_username }}"
-               name="email"
-               id="inputEmail"
-               autocomplete="email"
-               required
-               autofocus>
+				<div class="form-group mb-4">
+					<label for="inputPassword" class="form-label">Mot de passe</label>
+					<input type="password" name="password" id="inputPassword" class="premium-input" autocomplete="current-password" required placeholder="••••••••">
+				</div>
 
-        <label for="inputPassword">Password</label>
-        <input type="password"
-               name="password"
-               id="inputPassword"
-               autocomplete="current-password"
-               required>
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-        <input type="hidden"
-               name="_csrf_token"
-               value="{{ csrf_token('authenticate') }}">
+				<div class="form-check mb-4">
+					<input type="checkbox" name="_remember_me" id="_remember_me">
+					<label class="small text-white-50 ms-2" for="_remember_me">
+						Se souvenir de moi
+					</label>
+				</div>
 
-        <div class="checkbox1">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
+				<button type="submit" class="btn-auth-primary">
+					Se connecter
+				</button>
 
-        <button type="submit">Sign in</button>
+				<div class="auth-divider">
+					<span>Ou continuez avec</span>
+				</div>
 
-        <a href="{{ path('app_register') }}">Sign Up</a>
+				<a href="{{ path('connect_google_start') }}" class="google-btn-premium">
+					<img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="Google" style="width: 20px;">
+					Se connecter avec Google
+				</a>
 
-    </form>
-</div>
+				<div class="auth-footer">
+					Nouveau sur Bricolage ?
+					<a href="{{ path('app_register') }}">Créer un compte</a>
+				</div>
+			</form>
+		</div>
+	</div>
 {% endblock %}

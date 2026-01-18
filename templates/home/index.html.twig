@@ -1,113 +1,534 @@
+{% extends 'base.html.twig' %}
 
-
-
-
-
+{% block title %}Bricolage | Trouvez l'expert idéal
+{% endblock %}
 
 {% block stylesheets %}
-<link rel="stylesheet" href="{{ asset('styles/h.css') }}">
+	<style>
+		.hero-section {
+			position: relative;
+			height: 90vh;
+			min-height: 700px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
+			background: #000;
+		}
+		.video-background {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 1;
+		}
+		.video-background video {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			opacity: 0.4; /* Sombres pour lisibilité */
+		}
+		.hero-overlay {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.8) 100%);
+			z-index: 2;
+		}
+		.hero-content {
+			position: relative;
+			z-index: 3;
+			text-align: center;
+			color: white;
+			max-width: 1000px;
+			padding: 0 20px;
+		}
+		.hero-content h1 {
+			font-size: 5.5rem;
+			font-weight: 900;
+			margin-bottom: 2rem;
+			line-height: 1.1;
+			text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+			background: linear-gradient(to right, #ffffff, #e0e0e0);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+		}
+		@media(max-width: 768px) {
+			.hero-content h1 {
+				font-size: 3rem;
+			}
+		}
+		.hero-content p {
+			font-size: 1.6rem;
+			margin-bottom: 3rem;
+			text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+			font-weight: 400;
+			letter-spacing: 0.5px;
+		}
+		.glass-search {
+			background: rgba(255, 255, 255, 0.15);
+			backdrop-filter: blur(20px);
+			border: 1px solid rgba(255, 255, 255, 0.3);
+			border-radius: 100px;
+			padding: 10px 20px;
+			display: flex;
+			align-items: center;
+			width: 100%;
+			max-width: 700px;
+			margin: 0 auto;
+			box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+		}
+		.glass-search input {
+			background: transparent;
+			border: none;
+			color: white;
+			font-size: 1.2rem;
+			padding: 15px 25px;
+			width: 100%;
+			outline: none;
+		}
+		.glass-search input::placeholder {
+			color: rgba(255, 255, 255, 0.8);
+		}
+		.glass-search button {
+			background: #ffffff;
+			border: none;
+			color: #000;
+			padding: 15px 40px;
+			border-radius: 100px;
+			font-weight: 700;
+			font-size: 1.1rem;
+			transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+			white-space: nowrap;
+		}
+		.glass-search button:hover {
+			background: #0d6efd;
+			color: white;
+			transform: scale(1.05);
+			box-shadow: 0 10px 20px rgba(13, 110, 253, 0.4);
+		}
+
+		/* Stats Bar contrast */
+		.stats-bar {
+			background: white;
+			border-radius: 30px;
+			padding: 40px;
+			margin-top: -80px;
+			position: relative;
+			z-index: 10;
+			box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+			border: 1px solid rgba(0, 0, 0, 0.05);
+		}
+		.stat-number {
+			font-size: 2.5rem;
+			color: #0d6efd;
+			font-weight: 900;
+		}
+		.stat-label {
+			font-weight: 700;
+			color: #333;
+			font-size: 0.9rem;
+		}
+
+		/* Categories with images */
+		.categories-section {
+			padding: 120px 0;
+			background: #fff;
+		}
+		.category-card {
+			position: relative;
+			height: 250px;
+			border-radius: 25px;
+			overflow: hidden;
+			display: flex;
+			align-items: flex-end;
+			padding: 25px;
+			text-decoration: none;
+			transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+			border: none;
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+		}
+		.category-card img {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: transform 0.8s;
+			z-index: 1;
+		}
+		.category-overlay {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 60%);
+			z-index: 2;
+			transition: opacity 0.5s;
+		}
+		.category-content {
+			position: relative;
+			z-index: 3;
+			color: white;
+			width: 100%;
+		}
+		.category-card:hover {
+			transform: translateY(-10px);
+			box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+		}
+		.category-card:hover img {
+			transform: scale(1.15);
+		}
+		.category-card h5 {
+			font-weight: 800;
+			margin: 0;
+			font-size: 1.25rem;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+		}
+
+		/* How it works readability */
+		.how-it-works {
+			padding: 120px 0;
+			background: #fdfdfd;
+		}
+		.step-icon {
+			width: 100px;
+			height: 100px;
+			font-size: 2.5rem;
+			box-shadow: 0 10px 20px rgba(13, 110, 253, 0.1);
+		}
+		.step-card h4 {
+			font-weight: 800;
+			color: #1a1a1a;
+			margin-top: 20px;
+		}
+		.step-card p {
+			font-size: 1.1rem;
+			color: #555;
+		}
+
+		/* Featured Ads Improvements */
+		.featured-ads {
+			padding: 100px 0;
+			background: #f8faff;
+		}
+		.ad-card-custom {
+			border: 1px solid rgba(0, 0, 0, 0.05);
+		}
+		.ad-card-custom h5 {
+			font-weight: 800;
+			font-size: 1.3rem;
+		}
+		.badge-price {
+			background: #eef5ff;
+			color: #0d6efd;
+			padding: 8px 20px;
+			border-radius: 100px;
+			font-weight: 800;
+			font-size: 1rem;
+		}
+
+		/* CTA section */
+		.cta-section {
+			padding: 150px 0;
+			background: linear-gradient(135deg, #0d6efd 0%, #000 100%);
+			position: relative;
+			overflow: hidden;
+		}
+		.cta-section h2 {
+			font-size: 3.5rem;
+			font-weight: 900;
+		}
+		.btn-white-premium {
+			background: white;
+			color: black;
+			padding: 20px 50px;
+			border-radius: 100px;
+			font-weight: 800;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			box-shadow: 0 15px 35px rgba(255, 255, 255, 0.2);
+		}
+		.btn-white-premium:hover {
+			transform: translateY(-5px);
+			background: #f0f0f0;
+			box-shadow: 0 20px 45px rgba(255, 255, 255, 0.3);
+		}
+	</style>
 {% endblock %}
 
 {% block body %}
-  <div class="video-background">
-    <video autoplay muted loop id="bg-video">
-        <source src="{{ asset('video/video2.mp4') }}" type="video/mp4" />
-        Your browser does not support the video tag.
-    </video>
-</div>
-<div class="overlay-gradient"></div>
-<div class="content-up-video">
-   <h1>Welcome to <span>B</span>ricolage</h1>
-   <p>Your knowledge has value. Get paid for it</p>
-   <a href="{{ path('app_login') }}" class="btn">Be Part Of Us</a>
-</div>
+	<section class="hero-section">
+		<div class="video-background">
+			<video autoplay muted loop playsinline id="bg-video">
+				<source src="{{ asset('video/video2.mp4') }}" type="video/mp4"/>
+			</video>
+		</div>
+		<div class="hero-overlay"></div>
 
-<section class="categories">
-  <h2>Legal Services</h2>
+		<!-- Nav Overlay -->
+		<div class="position-absolute top-0 start-0 w-100 p-4 d-flex justify-content-between align-items-center" style="z-index: 100;">
+			<a class="text-white fw-bold fs-3 text-decoration-none" href="{{ path('app_home') }}">
+				<i class="fas fa-hammer me-2 text-primary"></i>Bricolage
+			</a>
+			<div class="d-flex gap-3 align-items-center">
+				{% if app.user %}
+					<div class="dropdown">
+						<a class="btn btn-outline-light border-2 rounded-pill px-4 fw-bold dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+							<i class="fas fa-user-circle me-2"></i>
+							{{ app.user.userIdentifier }}
+						</a>
+						<ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-3">
+							<li>
+								<a class="dropdown-item py-2" href="{{ path('app_profile') }}">Mon Profil</a>
+							</li>
+							{% if is_granted('ROLE_ADMIN') %}
+								<li>
+									<a class="dropdown-item py-2 fw-bold text-warning" href="{{ path('app_admin') }}">Administration</a>
+								</li>
+							{% elseif is_granted('ROLE_RECRUTEUR') %}
+								<li>
+									<a class="dropdown-item py-2" href="{{ path('app_annonce') }}">Mes Annonces</a>
+								</li>
+							{% else %}
+								<li>
+									<a class="dropdown-item py-2" href="{{ path('app_annonce') }}">Annonces</a>
+								</li>
+							{% endif %}
+							<li><hr class="dropdown-divider"></li>
+							<li>
+								<a class="dropdown-item py-2 text-danger" href="{{ path('app_logout') }}">Déconnexion</a>
+							</li>
+						</ul>
+					</div>
+				{% else %}
+					<a href="{{ path('app_login') }}" class="text-white fw-bold text-decoration-none px-3">Connexion</a>
+					<a href="{{ path('app_register') }}" class="btn btn-primary rounded-pill px-4 fw-bold shadow">Inscription</a>
+				{% endif %}
+			</div>
+		</div>
 
-  <div class="cards-grid">
+		<div class="hero-content animate-fade-in">
+			<h1 class="display-1">Travaillez avec<br>les meilleurs Pros.</h1>
+			<p>La marketplace d'excellence pour tous vos besoins de bricolage et services.</p>
 
-    <div class="card">
-      <div class="icon">🤖</div>
-      <p>AI Services</p>
-    </div>
+			<div class="glass-search">
+				<i class="fas fa-search ms-3 text-white"></i>
+				<input type="text" placeholder="Quel service recherchez-vous ?">
+				<button>Trouver un Expert</button>
+			</div>
 
-    <div class="card">
-      <div class="icon">&lt;/&gt;</div>
-      <p>Development & IT</p>
-    </div>
+			<div class="mt-5 d-flex justify-content-center gap-5">
+				<div class="d-flex align-items-center gap-3">
+					<div class="rounded-circle bg-success p-1">
+						<i class="fas fa-check text-white small"></i>
+					</div>
+					<span class="fw-bold">100% Vérifiés</span>
+				</div>
+				<div class="d-flex align-items-center gap-3">
+					<div class="rounded-circle bg-success p-1">
+						<i class="fas fa-check text-white small"></i>
+					</div>
+					<span class="fw-bold">Paiement Sécurisé</span>
+				</div>
+				<div class="d-flex align-items-center gap-3">
+					<div class="rounded-circle bg-success p-1">
+						<i class="fas fa-check text-white small"></i>
+					</div>
+					<span class="fw-bold">Garantie Qualité</span>
+				</div>
+			</div>
+		</div>
+	</section>
 
-    <div class="card">
-      <div class="icon">🎨</div>
-      <p>Design & Creative</p>
-    </div>
+	<div class="container">
+		<div class="row stats-bar mx-0 align-items-center">
+			<div class="col-md-3 stat-item">
+				<span class="stat-number">25K+</span>
+				<span class="stat-label">Experts Diplômés</span>
+			</div>
+			<div class="col-md-3 stat-item">
+				<span class="stat-number">5.0</span>
+				<span class="stat-label">Satisfaction Client</span>
+			</div>
+			<div class="col-md-3 stat-item">
+				<span class="stat-number">2H</span>
+				<span class="stat-label">Réponse Moyenne</span>
+			</div>
+			<div class="col-md-3 stat-item">
+				<span class="stat-number">Securisé</span>
+				<span class="stat-label">Transactions</span>
+			</div>
+		</div>
+	</div>
 
-    <div class="card">
-      <div class="icon">🤝</div>
-      <p>Sales & Marketing</p>
-    </div>
+	<section class="categories-section">
+		<div class="container">
+			<div class="text-center mb-5 pb-4">
+				<h6 class="text-primary fw-bold text-uppercase ls-2">Découvrez par secteur</h6>
+				<h2 class="display-4 fw-bold text-dark">Nos Services Populaires</h2>
+			</div>
+			<div class="row g-4">
+				{% set categories = [
+                    {'name': 'Jardinage', 'img': 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&q=80&w=800'},
+                    {'name': 'Informatique', 'img': 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=800'},
+                    {'name': 'Plomberie', 'img': 'https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&q=80&w=800'},
+                    {'name': 'Déménagement', 'img': 'https://res.cloudinary.com/casden-edito/images/f_auto,q_auto/v1674127296/prod/MAG-demenagement_933836381/MAG-demenagement_933836381.jpg?_i=AA'},
+                    {'name': 'Peinture', 'img': 'https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&q=80&w=800'},
+                    {'name': 'Électricité', 'img': 'https://www.courant.fr/upload/media/actualite/1122-installationlectrique.jpg'}
+                ] %}
 
-    <div class="card">
-      <div class="icon">✍️</div>
-      <p>Writing & Translation</p>
-    </div>
+				{% for cat in categories %}
+					<div class="col-6 col-lg-4 col-xl-2">
+						<a href="{{ path('app_annonce') }}" class="category-card">
+							<img src="{{ cat.img }}" alt="{{ cat.name }}">
+							<div class="category-overlay"></div>
+							<div class="category-content text-center">
+								<h5>{{ cat.name }}</h5>
+							</div>
+						</a>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
 
-    <div class="card">
-      <div class="icon">🧑‍💼</div>
-      <p>Admin & Support</p>
-    </div>
+	<section class="how-it-works">
+		<div class="container">
+			<div class="text-center mb-5">
+				<h6 class="text-primary fw-bold text-uppercase">Processus Premium</h6>
+				<h2 class="display-5 fw-bold">Efficacité Garantie</h2>
+			</div>
+			<div class="row g-4 text-center">
+				<div class="col-md-4">
+					<div class="step-card">
+						<div class="step-icon mx-auto rounded-circle bg-white fw-bold text-primary d-flex align-items-center justify-content-center border">1</div>
+						<h4>Expérience Personnalisée</h4>
+						<p>Décrivez vos besoins et nous trouvons le match parfait pour vous.</p>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="step-card">
+						<div class="step-icon mx-auto rounded-circle bg-white fw-bold text-primary d-flex align-items-center justify-content-center border">2</div>
+						<h4>Transparence Totale</h4>
+						<p>Visualisez les profils, les avis et les portfolios avant de décider.</p>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="step-card">
+						<div class="step-icon mx-auto rounded-circle bg-white fw-bold text-primary d-flex align-items-center justify-content-center border">3</div>
+						<h4>Résultats d'Excellence</h4>
+						<p>Bénéficiez d'un service de qualité supérieure avec garantie Bricolage.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
+	{% if recentAnnonces|length > 0 %}
+		<section class="featured-ads">
+			<div class="container">
+				<div class="d-flex align-items-end justify-content-between mb-5">
+					<div>
+						<h6 class="text-primary fw-bold text-uppercase">Nouveautés</h6>
+						<h2 class="display-6 fw-bold mb-0">Offres de Projets</h2>
+					</div>
+					<a href="{{ path('app_annonce') }}" class="btn btn-primary rounded-pill px-4">Voir Tout</a>
+				</div>
+				<div class="row g-4">
+					{% for annonce in recentAnnonces %}
+						<div class="col-md-4">
+							<div class="ad-card-custom rounded-4 p-0 shadow-sm bg-white overflow-hidden">
+								<div class="ad-image-container position-relative">
+									{% if annonce.photo %}
+										<img src="{{ asset('uploads/annonces/' ~ annonce.photo) }}" alt="{{ annonce.titre }}" class="w-100 h-100">
+									{% else %}
+										{% set fallback_images = [
+                                            'https://www.courant.fr/upload/media/actualite/1122-installationlectrique.jpg',
+                                            'https://images.unsplash.com/photo-1581578731522-745d05cb9721?auto=format&fit=crop&q=80&w=800',
+                                            'https://images.unsplash.com/photo-1621905252507-b354bcadcabc?auto=format&fit=crop&q=80&w=800',
+                                            'https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&q=80&w=800',
+                                            'https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&q=80&w=800'
+                                        ] %}
+										<img src="{{ fallback_images[annonce.id % 5] }}" alt="Bricolage" class="w-100 h-100" style="object-fit: cover;">
+									{% endif %}
+									<div class="position-absolute top-0 end-0 p-3">
+										<span class="badge-price shadow-sm">{{ annonce.budget }}
+											€</span>
+									</div>
+								</div>
+								<div class="p-4">
+									<h5 class="mb-2 text-dark">{{ annonce.titre }}</h5>
+									<p class="text-muted small mb-4">{{ annonce.description|slice(0, 110) }}...</p>
+									<div class="d-flex align-items-center justify-content-between border-top pt-3">
+										<div class="d-flex align-items-center">
+											<i class="fas fa-map-marker-alt text-primary me-2"></i>
+											<span class="small fw-bold">Disponible</span>
+										</div>
+										<a href="{{ path('app_annonce') }}" class="text-primary fw-bold text-decoration-none">Détails
+											<i class="fas fa-chevron-right ms-1"></i>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</section>
+	{% endif %}
 
-   <div class="card">
-  <div class="icon">🌿</div>
-  <p>Gardening</p>
-</div>
+	<section class="py-5 bg-white">
+		<div class="container py-5">
+			<div class="text-center mb-5">
+				<h6 class="text-primary fw-bold text-uppercase">Confiance & Expertise</h6>
+				<h2 class="display-5 fw-bold">Nos Experts les plus demandés</h2>
+				<p class="text-muted">Des professionnels certifiés, notés par la communauté.</p>
+			</div>
+			<div class="row g-4">
+				{% set experts = [
+                    {'name': 'Jean Dupont', 'role': 'Expert Plombier', 'rating': '4.9', 'img': 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=300'},
+                    {'name': 'Marie Laurent', 'role': 'Jardinière Pro', 'rating': '5.0', 'img': 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300'},
+                    {'name': 'Ahmed Saidi', 'role': 'Électricien Expert', 'rating': '4.8', 'img': 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=300'},
+                    {'name': 'Sophie Martin', 'role': 'Architecte Intérieur', 'rating': '4.9', 'img': 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=300'}
+                ] %}
+				{% for expert in experts %}
+					<div class="col-6 col-md-3">
+						<div class="text-center">
+							<div class="position-relative d-inline-block mb-3">
+								<img src="{{ expert.img }}" alt="{{ expert.name }}" class="rounded-circle shadow-lg border border-3 border-white" style="width: 150px; height: 150px; object-fit: cover;">
+								<span class="position-absolute bottom-0 end-0 bg-success text-white rounded-circle p-2 shadow" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;">
+									<i class="fas fa-check fa-xs"></i>
+								</span>
+							</div>
+							<h5 class="fw-bold mb-0">{{ expert.name }}</h5>
+							<p class="text-primary small fw-bold mb-1">{{ expert.role }}</p>
+							<div class="text-warning small">
+								<i class="fas fa-star"></i>
+								{{ expert.rating }}
+								<span class="text-muted">(120+ avis)</span>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
 
-<div class="card">
-  <div class="icon">🚚</div>
-  <p>Moving</p>
-</div>
-
-<div class="card">
-  <div class="icon">🪑</div>
-  <p>Furniture Assembly</p>
-</div>
-
-<div class="card">
-  <div class="icon">📺</div>
-  <p>Appliance Installation</p>
-</div>
-
-<div class="card">
-  <div class="icon">🎨</div>
-  <p>Painting & Decoration</p>
-</div>
-
-<div class="card">
-  <div class="icon">🔧</div>
-  <p>Repairs</p>
-</div>
-
-  </div>
-</section>
-<footer>
-  <p>&copy; 2026 Bricolage. All rights reserved.</p> 
-<div class="footer-sections">
-
-  <div class="footer-section">
-    <h1>Founders:</h1>
-    <p>Moubaraki Mohammed</p>
-    <p>Benlaama Reda</p>
-    <p>Traihy Soukaina</p>
-  </div>
-
-  <div class="footer-section">
-    <h1>Contact us:</h1>
-    <p>Email: moubaramed@gmail.com</p>
-    <p>Phone: +212 66569562</p>
-  </div>
-
-</div>
-
-</footer>
+	<section class="cta-section text-white text-center">
+		<div class="container py-5">
+			<h2 class="display-3 fw-bold mb-4">Rejoignez l'élite du Bricolage.</h2>
+			<p class="mb-5 lead opacity-90 mx-auto" style="max-width: 700px;">Que vous soyez un expert cherchant des projets ou un client exigeant, vivez l'expérience Bricolage dès aujourd'hui.</p>
+			<div class="d-flex justify-content-center gap-4 flex-wrap">
+				<a href="{{ path('app_register') }}" class="btn btn-white-premium">Commencer Maintenant</a>
+				<a href="{{ path('app_home') }}" class="btn btn-outline-light btn-lg px-5 rounded-pill fw-bold border-2">En savoir plus</a>
+			</div>
+		</div>
+	</section>
 {% endblock %}

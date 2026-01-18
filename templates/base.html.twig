@@ -1,49 +1,146 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
 
-        <link rel="icon" href="/favicon.ico">
+		<link rel="icon" href="/favicon.ico">
 
-        <link rel="stylesheet" href="https://bootswatch.com/5/litera/bootstrap.min.css">
-        <link rel="stylesheet" href="{{ asset('styles/premium.css') }}">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+		<link rel="stylesheet" href="https://bootswatch.com/5/litera/bootstrap.min.css">
+		<link rel="stylesheet" href="{{ asset('styles/premium.css') }}"> {% block stylesheets %}{% endblock %}
+		</head>
+		<body>
+			{% if app.request.attributes.get('_route') != 'app_home' %}
+				<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm py-3">
+					<div class="container">
+						<a class="navbar-brand fw-bold fs-3" href="{{ path('app_home') }}">
+							<i class="fas fa-hammer me-2 text-primary"></i>Bricolage
+						</a>
+						<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+						<div class="collapse navbar-collapse" id="navbarContent">
+							<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+								<li class="nav-item">
+									<a class="nav-link px-3" href="{{ path('app_home') }}">Accueil</a>
+								</li>
+								{% if is_granted('ROLE_ADMIN') %}
+									<li class="nav-item">
+										<a class="nav-link px-3 fw-bold text-warning" href="{{ path('app_admin') }}">Administration</a>
+									</li>
+								{% elseif is_granted('ROLE_RECRUTEUR') %}
+									<li class="nav-item">
+										<a class="nav-link px-3" href="{{ path('app_annonce') }}">Mes Annonces</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link px-3" href="{{ path('app_recruteur_candidatures') }}">
+											Candidatures
+											{% if app.user.recruteur %}
+												{% set cand_count = 0 %}
+												{% for ad in app.user.recruteur.annonces %}
+													{% set cand_count = cand_count + ad.candidatures|length %}
+												{% endfor %}
+												{% if cand_count > 0 %}
+													<span class="badge bg-danger rounded-pill ms-1" style="font-size: 0.65rem;">{{ cand_count }}</span>
+												{% endif %}
+											{% endif %}
+										</a>
+									</li>
+								{% elseif is_granted('ROLE_CHERCHEUR') %}
+									<li class="nav-item">
+										<a class="nav-link px-3" href="{{ path('app_annonce') }}">Annonces</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link px-3" href="{{ path('app_candidature') }}">Mes Candidatures</a>
+									</li>
+								{% endif %}
+							</ul>
+							<ul class="navbar-nav ms-auto align-items-center">
+								{% if app.user %}
+									<li class="nav-item dropdown">
+										<a class="nav-link dropdown-toggle btn btn-outline-light border-0 px-3" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+											<i class="fas fa-user-circle me-1"></i>
+											{{ app.user.userIdentifier }}
+										</a>
+										<ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2" aria-labelledby="profileDropdown">
+											<li>
+												<a class="dropdown-item py-2" href="{{ path('app_profile') }}">
+													<i class="fas fa-id-card me-2 opacity-50"></i>Mon Profil
+												</a>
+											</li>
+											<li><hr class="dropdown-divider"></li>
+											<li>
+												<a class="dropdown-item py-2 text-danger" href="{{ path('app_logout') }}">
+													<i class="fas fa-sign-out-alt me-2 opacity-50"></i>Déconnexion
+												</a>
+											</li>
+										</ul>
+									</li>
+								{% else %}
+									<li class="nav-item">
+										<a class="nav-link px-3" href="{{ path('app_login') }}">Connexion</a>
+									</li>
+									<li class="nav-item ms-lg-2">
+										<a class="btn btn-primary px-4 rounded-pill shadow-sm" href="{{ path('app_register') }}">
+											Inscription
+										</a>
+									</li>
+								{% endif %}
+							</ul>
+						</div>
+					</div>
+				</nav>
+			{% endif %}
+			<div class="container mt-3">
+				{% for label, messages in app.flashes %}
+					{% for message in messages %}
+						<div class="alert alert-{{ label }} alert-dismissible fade show shadow-sm rounded-3" role="alert">
+							{{ message }}
+							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>
+					{% endfor %}
+				{% endfor %}
+			</div>
 
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-      <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Bricolage</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor04" aria-controls="navbarColor04" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarColor04">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link active" href="{{ path('app_home') }}">Home
-            <span class="visually-hidden">(current)</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path('app_recruteur') }}"> Recruteur</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path('app_chercheur') }}">Chercheur</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path('app_annonce') }}">Annonce</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path('app_candidature') }}">Candidature</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-        {% block body %}
-        {% endblock %}
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-        {% block javascripts %}{% endblock %}
-      </body>
-    </html>
+			{% block body %}{% endblock %}
+
+			<footer class="bg-dark text-white pt-5 pb-4 mt-auto">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-4 mb-4">
+							<h5 class="fw-bold mb-4 text-primary">Bricolage</h5>
+							<p class="text-white-50 small">La plateforme de référence pour connecter les talents et les besoins en bricolage et services professionnels.</p>
+						</div>
+						<div class="col-md-4 mb-4">
+							<h5 class="fw-bold mb-4">Fondateurs</h5>
+							<ul class="list-unstyled text-white-50 small">
+								<li>Moubaraki Mohammed</li>
+								<li>Benlaama Reda</li>
+								<li>Traihy Soukaina</li>
+							</ul>
+						</div>
+						<div class="col-md-4 mb-4">
+							<h5 class="fw-bold mb-4">Contact us</h5>
+							<ul class="list-unstyled text-white-50 small">
+								<li>
+									<i class="fas fa-envelope me-2"></i>moubaramed@gmail.com</li>
+								<li>
+									<i class="fas fa-phone me-2"></i>+212 66569562</li>
+							</ul>
+						</div>
+					</div>
+					<hr class="border-secondary mt-4 mb-4">
+					<div class="text-center">
+						<p class="text-white-50 small mb-0">&copy; 2026 Bricolage. All rights reserved.</p>
+					</div>
+				</div>
+			</footer>
+
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+			{% block javascripts %}{% endblock %}
+		</body>
+	</html>

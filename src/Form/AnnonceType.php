@@ -4,10 +4,11 @@ namespace App\Form;
 
 use App\Entity\Annonce;
 use App\Entity\Recruteur;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class AnnonceType extends AbstractType
 {
@@ -18,9 +19,20 @@ class AnnonceType extends AbstractType
             ->add('description')
             ->add('date_publication')
             ->add('budget')
-            ->add('recrut_id', EntityType::class, [
-                'class' => Recruteur::class,
-                'choice_label' => 'id',
+            ->add('photo', FileType::class, [
+                'label' => 'Photo (Image file)',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid JPEG or PNG image',
+                    ])
+                ],
             ])
         ;
     }

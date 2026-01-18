@@ -11,11 +11,11 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Recruteur;
 use App\Form\RecruteurType;
 use App\Repository\RecruteurRepository;
- #[IsGranted('ROLE_RECRUTEUR')]
+#[IsGranted('ROLE_ADMIN')]
 final class RecruteurController extends AbstractController
 {
     #[Route('/recruteur', name: 'app_recruteur')]
-   
+
     public function home(RecruteurRepository $recruteurRepository): Response
     {
         $recruteurs = $recruteurRepository->findAll();
@@ -25,9 +25,9 @@ final class RecruteurController extends AbstractController
         ]);
     }
 
-    
+
     #[Route('/recruteur/ajouter', name: 'app_recruteur_ajouter')]
-   
+
     public function ajouterRecruteur(Request $request, EntityManagerInterface $entityManager): Response
     {
         $recruteur = new Recruteur();
@@ -47,12 +47,12 @@ final class RecruteurController extends AbstractController
         ]);
     }
 
-   
+
     #[Route('/recruteur/supprimer/{id}', name: 'app_recruteur_supprimer', methods: ['GET'])]
     public function supprimerRecruteur($id, EntityManagerInterface $entityManager): Response
     {
         $recruteur = $entityManager->getRepository(Recruteur::class)->find($id);
-        
+
         if ($recruteur) {
             $entityManager->remove($recruteur);
             $entityManager->flush();
@@ -60,7 +60,7 @@ final class RecruteurController extends AbstractController
 
         return $this->redirectToRoute('app_recruteur');
     }
-   
+
     #[Route('/recruteur/modifier/{id}', name: 'app_recruteur_modifier')]
     public function modifierrecruteur($id, Request $request, EntityManagerInterface $entityManager): Response
     {

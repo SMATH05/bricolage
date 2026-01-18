@@ -21,7 +21,7 @@ class Annonce
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
-   #[ORM\Column]
+    #[ORM\Column]
     private ?\DateTime $date_publication = null;
 
     #[ORM\Column]
@@ -29,6 +29,9 @@ class Annonce
 
     #[ORM\ManyToOne(inversedBy: 'annonces')]
     private ?Recruteur $recrut_id = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $photo = null;
 
     /**
      * @var Collection<int, Candidature>
@@ -46,7 +49,7 @@ class Annonce
         return $this->id;
     }
 
-    public function setId(string $id): static
+    public function setId(int $id): static
     {
         $this->id = $id;
 
@@ -139,6 +142,18 @@ class Annonce
                 $candidature->setAnnonceId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(?string $photo): static
+    {
+        $this->photo = $photo;
 
         return $this;
     }

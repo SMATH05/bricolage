@@ -68,6 +68,49 @@
 				</span>
 			</div>
 		</div>
+
+		{# Quick Stats #}
+		<div class="row g-4 mb-5">
+			<div class="col-md-4">
+				<div class="card stat-card shadow-sm border-0 p-4 rounded-4">
+					<div class="d-flex align-items-center">
+						<div class="icon-circle bg-primary-soft text-primary me-3 mb-0">
+							<i class="fas fa-bullhorn"></i>
+						</div>
+						<div>
+							<h3 class="fw-bold mb-0">{{ totalAnnonces }}</h3>
+							<small class="text-muted text-uppercase fw-bold">Annonces</small>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card stat-card shadow-sm border-0 p-4 rounded-4">
+					<div class="d-flex align-items-center">
+						<div class="icon-circle bg-success-soft text-success me-3 mb-0">
+							<i class="fas fa-user-graduate"></i>
+						</div>
+						<div>
+							<h3 class="fw-bold mb-0">{{ totalChercheurs }}</h3>
+							<small class="text-muted text-uppercase fw-bold">Chercheurs</small>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card stat-card shadow-sm border-0 p-4 rounded-4">
+					<div class="d-flex align-items-center">
+						<div class="icon-circle bg-warning-soft text-warning me-3 mb-0">
+							<i class="fas fa-user-tie"></i>
+						</div>
+						<div>
+							<h3 class="fw-bold mb-0">{{ totalRecruteurs }}</h3>
+							<small class="text-muted text-uppercase fw-bold">Recruteurs</small>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		{# Action Cards #}
 		<h4 class="fw-bold mb-4 px-1">Gestion Rapide</h4>
 		<div class="row g-4">
@@ -111,6 +154,61 @@
 					</div>
 				</a>
 			</div>
+			{# Recent Users #}
+			<div class="row g-4 mt-5">
+				<div class="col-md-6">
+					<div class="card shadow-sm border-0 rounded-4">
+						<div class="card-header bg-white p-4 border-0">
+							<h5 class="fw-bold mb-0">Nouveaux Chercheurs</h5>
+						</div>
+						<div class="card-body p-0">
+							<div class="list-group list-group-flush">
+								{% for c in recentChercheurs %}
+									<div class="list-group-item p-3 border-0 border-bottom">
+										<div class="d-flex align-items-center">
+											<div class="rounded-circle bg-primary-soft text-primary p-2 me-3">
+												<i class="fas fa-user small"></i>
+											</div>
+											<div>
+												<h6 class="mb-0 fw-bold">{{ c.prenom }}
+													{{ c.nom }}</h6>
+												<small class="text-muted">{{ c.email }}</small>
+											</div>
+										</div>
+									</div>
+								{% else %}
+									<p class="p-4 text-muted small italic">Aucun chercheur inscrit.</p>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="card shadow-sm border-0 rounded-4">
+						<div class="card-header bg-white p-4 border-0">
+							<h5 class="fw-bold mb-0">Nouveaux Recruteurs</h5>
+						</div>
+						<div class="card-body p-0">
+							<div class="list-group list-group-flush">
+								{% for r in recentRecruteurs %}
+									<div class="list-group-item p-3 border-0 border-bottom">
+										<div class="d-flex align-items-center">
+											<div class="rounded-circle bg-warning-soft text-warning p-2 me-3">
+												<i class="fas fa-building small"></i>
+											</div>
+											<div>
+												<h6 class="mb-0 fw-bold">{{ r.nom }}</h6>
+												<small class="text-muted">{{ r.email }}</small>
+											</div>
+										</div>
+									</div>
+								{% else %}
+									<p class="p-4 text-muted small italic">Aucun recruteur inscrit.</p>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
-{% endblock %}
+	{% endblock %}

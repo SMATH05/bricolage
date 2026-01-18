@@ -30,6 +30,13 @@ class Recruteur
     #[ORM\Column(length: 255)]
     private ?string $telephone = null;
 
+    #[ORM\OneToOne(inversedBy: 'recruteur', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?User $user = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $photo = null;
+
     /**
      * @var Collection<int, Annonce>
      */
@@ -139,6 +146,30 @@ class Recruteur
                 $annonce->setRecrutId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(?string $photo): static
+    {
+        $this->photo = $photo;
 
         return $this;
     }

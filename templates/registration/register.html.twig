@@ -1,41 +1,74 @@
-{% block stylesheets %} <link rel="stylesheet" href="{{ asset('styles/register.css') }}"> {% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('styles/register.css') }}">
+{% endblock %}
 
 
 {% block body %}
-<div class="register-container">
-    <form method="post" class="register-form">
-        <h1>Sign Up</h1>
+	<div class="auth-wrapper">
+		<div class="auth-card animate-fade-in">
+			<div class="auth-header">
+				<h1>Rejoignez Bricolage</h1>
+				<p>Entrez dans l'élite du service à domicile</p>
+			</div>
 
-        {{ form_start(registrationForm) }}
+			{{ form_start(registrationForm, {'attr': {'class': 'auth-form'}}) }}
+			<div class="form-group mb-4">
+				<label class="form-label" for="{{ registrationForm.email.vars.id }}">Votre Adresse Email</label>
+				{{ form_widget(registrationForm.email, {'attr': {'placeholder': 'exemple@domaine.com', 'class': 'premium-input'}}) }}
+			</div>
 
-            {{ form_row(registrationForm.email) }}
+			<div class="form-group mb-4">
+				<label class="form-label">Je souhaite m'inscrire en tant que :</label>
+				<div class="role-grid">
+					{% for role in registrationForm.roles %}
+						<div class="role-option">
+							<input type="radio" id="{{ role.vars.id }}" name="{{ role.vars.full_name }}" value="{{ role.vars.value }}" {% if role.vars.checked %} checked {% endif %}>
+							<label for="{{ role.vars.id }}">
+								{% if role.vars.label == 'Admin' %}
+									<i class="fas fa-user-shield"></i>
+								{% elseif role.vars.label == 'Recruteur' %}
+									<i class="fas fa-hammer"></i>
+								{% else %}
+									<i class="fas fa-search"></i>
+								{% endif %}
+								<span>{{ role.vars.label }}</span>
+							</label>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
 
-           <div class="roles-wrapper">
-    <p class="roles-title">Roles</p>
+			<div class="form-group mb-4">
+				<label class="form-label" for="{{ registrationForm.plainPassword.vars.id }}">Mot de Passe</label>
+				{{ form_widget(registrationForm.plainPassword, {'attr': {'placeholder': 'Sécurisez votre compte', 'class': 'premium-input'}}) }}
+			</div>
 
-    {% for role in registrationForm.roles %}
-        <label class="role-item">
-            {{ form_widget(role) }}
-            <span>{{ role.vars.label }}</span>
-        </label>
-    {% endfor %}
-</div>
+			<div class="form-check mb-4">
+				{{ form_widget(registrationForm.agreeTerms) }}
+				<label class="small text-white-50 ms-2" for="{{ registrationForm.agreeTerms.vars.id }}">
+					J'accepte les
+					<a href="#" class="text-primary fw-bold">conditions d'utilisation</a>
+				</label>
+			</div>
 
+			<button type="submit" class="btn-auth-primary">
+				Créer mon compte
+			</button>
 
-            {{ form_row(registrationForm.plainPassword) }}
+			<div class="auth-divider">
+				<span>Ou continuez avec</span>
+			</div>
 
-           <div class="agree-terms-wrapper">
-    <label class="agree-terms-label">
-        {{ form_widget(registrationForm.agreeTerms) }}
-        <span>Agree terms</span>
-    </label>
-</div>
+			<a href="{{ path('connect_google_start') }}" class="google-btn-premium">
+				<img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="Google" style="width: 20px;">
+				S'inscrire avec Google
+			</a>
 
-            <button type="submit">Register</button>
-
-        {{ form_end(registrationForm) }}
-    </form>
-</div>
-
-
+			<div class="auth-footer">
+				Vous avez déjà un compte ?
+				<a href="{{ path('app_login') }}">Se connecter</a>
+			</div>
+			{{ form_end(registrationForm, {'render_rest': false}) }}
+		</div>
+	</div>
 {% endblock %}

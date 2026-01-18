@@ -1,59 +1,70 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestion des Recruteurs{% endblock %}
+{% block title %}Gestion des Recruteurs
+{% endblock %}
 
 {% block body %}
-    <div class="container py-4">
-        <div class="d-flex align-items-center justify-content-between mb-4 border-bottom pb-2">
-            <h1>Recruteurs</h1>
-            <a href="{{ path('app_recruteur_ajouter') }}" class="btn btn-primary">
-                <i class="fas fa-plus me-1"></i> Nouveau Recruteur
-            </a>
-        </div>
+	<div class="container py-4">
+		<div class="d-flex align-items-center justify-content-between mb-4 border-bottom pb-2">
+			<h1>Recruteurs</h1>
+			<a href="{{ path('app_recruteur_ajouter') }}" class="btn btn-primary">
+				<i class="fas fa-plus me-1"></i>
+				Nouveau Recruteur
+			</a>
+		</div>
 
-        <div class="card border-0 shadow-sm">
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle mb-0">
-                        <thead class="table-light">
-                            <tr>
-                                <th class="ps-4">ID</th>
-                                <th>Nom</th>
-                                <th>Email</th>
-                                <th>Adresse</th>
-                                <th>Téléphone</th>
-                                <th class="text-end pe-4">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        {% for c in recruteurs %}
-                            <tr>
-                                <td class="ps-4 fw-bold">#{{ c.id }}</td>
-                                <td>{{ c.nom }}</td>
-                                <td><a href="mailto:{{ c.email }}" class="text-decoration-none">{{ c.email }}</a></td>
-                                <td>{{ c.adresse }}</td>
-                                <td>{{ c.telephone }}</td>
-                                <td class="text-end pe-4">
-                                    <a href="{{ path('app_recruteur_modifier', {id: c.id}) }}" class="btn btn-sm btn-link text-decoration-none" title="Modifier">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a href="{{ path('app_recruteur_supprimer', {id: c.id}) }}" 
-                                       class="btn btn-sm btn-link text-danger text-decoration-none" 
-                                       onclick="return confirm('Confirmer la suppression ?');"
-                                       title="Supprimer">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        {% else %}
-                            <tr>
-                                <td colspan="6" class="text-center py-5 text-muted">Aucun recruteur trouvé.</td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+		<div class="row g-4">
+			{% for r in recruteurs %}
+				<div class="col-md-6 col-lg-4">
+					<div class="card h-100 border-0 shadow-sm overflow-hidden">
+						<div class="card-body p-4">
+							<div class="d-flex align-items-center mb-3">
+								<div class="rounded bg-light d-flex align-items-center justify-content-center me-3" style="width: 60px; height: 60px;">
+									{% if r.photo %}
+										<img src="{{ asset('uploads/profiles/' ~ r.photo) }}" alt="{{ r.nom }}" class="rounded w-100 h-100" style="object-fit: cover;">
+									{% else %}
+										<i class="fas fa-building fa-2x text-muted opacity-25"></i>
+									{% endif %}
+								</div>
+								<div>
+									<h5 class="fw-bold mb-0">{{ r.nom }}</h5>
+									<small class="text-muted">
+										<i class="fas fa-phone me-1"></i>
+										{{ r.telephone }}</small>
+								</div>
+							</div>
+
+							<div class="text-muted small mb-4">
+								<p class="mb-1">
+									<i class="fas fa-map-marker-alt me-2 text-primary"></i>
+									{{ r.adresse }}</p>
+								<p class="mb-0">
+									<i class="fas fa-envelope me-2 text-primary"></i>
+									{{ r.email }}</p>
+							</div>
+
+							<div class="d-flex justify-content-end align-items-center mt-auto pt-3 border-top">
+								<div class="btn-group">
+									<a href="{{ path('app_recruteur_modifier', {id: r.id}) }}" class="btn btn-sm btn-outline-info" title="Modifier">
+										<i class="fas fa-edit"></i>
+									</a>
+									<a href="{{ path('app_recruteur_supprimer', {id: r.id}) }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Confirmer la suppression ?');" title="Supprimer">
+										<i class="fas fa-trash"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% else %}
+				<div class="col-12 text-center py-5">
+					<div class="alert alert-light border shadow-sm py-5">
+						<i class="fas fa-building fa-3x mb-3 opacity-25"></i>
+						<h4>Aucun recruteur trouvé</h4>
+						<p class="text-muted mb-0">La liste des entreprises est actuellement vide.</p>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
 {% endblock %}

@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Chercheur;
+use App\Entity\Recruteur;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
@@ -24,7 +26,7 @@ class RegistrationController extends AbstractController
     public function __construct(private EmailVerifier $emailVerifier)
     {
     }
-   #[Route('/register', name: 'app_register')]
+    #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
@@ -32,7 +34,6 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // تشفير كلمة السر
             $user->setPassword(
                 $passwordHasher->hashPassword(
                     $user,
@@ -40,23 +41,42 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            // تعيين الدور حسب اختيار المستخدم
-            $selectedRole = $form->get('roles')->getData(); // إذا multiple=false
+            $selectedRole = $form->get('roles')->getData();
             $user->setRoles([$selectedRole]);
 
-            // تفعيل الحساب
             $user->setIsVerified(true);
 
-            // حفظ المستخدم
             $entityManager->persist($user);
+
+            if ($selectedRole === 'ROLE_CHERCHEUR') {
+                $chercheur = new Chercheur();
+                $chercheur->setUser($user);
+                // Set default values or extract from form if added
+                $chercheur->setNom('Nom');
+                $chercheur->setPrenom('Prenom');
+                $chercheur->setEmail($user->getEmail());
+                $chercheur->setIdChercheur(uniqid('CH_'));
+                $chercheur->setDescription('Description...');
+                $chercheur->setDisponibilite('Disponible');
+                $chercheur->setMotDePasse('dummy');
+                $entityManager->persist($chercheur);
+            } elseif ($selectedRole === 'ROLE_RECRUTEUR') {
+                $recruteur = new Recruteur();
+                $recruteur->setUser($user);
+                $recruteur->setNom('Nom Recruteur');
+                $recruteur->setEmail($user->getEmail());
+                $recruteur->setTelephone('0000000000');
+                $recruteur->setPassword('dummy');
+                $entityManager->persist($recruteur);
+            }
+
             $entityManager->flush();
 
-            // التوجيه حسب الدور
             return match ($selectedRole) {
                 'ROLE_ADMIN' => $this->redirectToRoute('app_admin'),
-                'ROLE_CHERCHEUR' => $this->redirectToRoute('app_chercheur'),
-                'ROLE_RECRUTEUR' => $this->redirectToRoute('app_recruteur'),
-                default => $this->redirectToRoute('home'),
+                'ROLE_CHERCHEUR' => $this->redirectToRoute('app_annonce'), // Go to ads list
+                'ROLE_RECRUTEUR' => $this->redirectToRoute('app_annonce'), // Redirect to ads list
+                default => $this->redirectToRoute('app_home'),
             };
         }
 
@@ -65,7 +85,7 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-   
+
 
 
 
