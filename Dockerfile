@@ -56,15 +56,15 @@ EXPOSE 80
 RUN echo '#!/bin/bash' > /usr/local/bin/docker-entrypoint.sh && \
     echo 'set -e' >> /usr/local/bin/docker-entrypoint.sh && \
     echo 'echo "Detected PORT variable: ${PORT}"' >> /usr/local/bin/docker-entrypoint.sh && \
-    echo 'sed -i "s/Listen 80/Listen ${PORT:-80}/g" /etc/apache2/ports.conf' >> /usr/local/bin/docker-entrypoint.sh && \
-    echo 'sed -i "s/<VirtualHost \*:80>/<VirtualHost \*:${PORT:-80}>/g" /etc/apache2/sites-available/000-default.conf' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo 'grep -q "Listen ${PORT:-80}" /etc/apache2/ports.conf || sed -i "s/Listen 80/Listen 0.0.0.0:${PORT:-80}/g" /etc/apache2/ports.conf' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo 'sed -i "s/<VirtualHost \*:80>/<VirtualHost *:*>/" /etc/apache2/sites-available/000-default.conf' >> /usr/local/bin/docker-entrypoint.sh && \
     echo 'echo "Warming up cache..."' >> /usr/local/bin/docker-entrypoint.sh && \
     echo 'php bin/console cache:warmup --env=prod --no-interaction || true' >> /usr/local/bin/docker-entrypoint.sh && \
     echo 'echo "Running migrations..."' >> /usr/local/bin/docker-entrypoint.sh && \
     echo 'php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration || true' >> /usr/local/bin/docker-entrypoint.sh && \
     echo 'echo "Starting Apache on port ${PORT:-80}..."' >> /usr/local/bin/docker-entrypoint.sh && \
-    echo 'exec apache2-foreground' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo 'exec "$@"' >> /usr/local/bin/docker-entrypoint.sh && \
     chmod +x /usr/local/bin/docker-entrypoint.sh
 
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD []
+CMD ["apache2-foreground"]
