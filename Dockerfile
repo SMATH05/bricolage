@@ -53,21 +53,18 @@ ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 EXPOSE 80
 
 # Create entrypoint script internally to avoid CRLF issues
-RUN printf '#!/bin/bash\n\
-    set -e\n\
-    # Configure Apache to use Railway port\n\
-    sed -i "s/Listen 80/Listen ${PORT:-80}/g" /etc/apache2/ports.conf\n\
-    sed -i "s/<VirtualHost \*:80>/<VirtualHost \*:${PORT:-80}>/g" /etc/apache2/sites-available/000-default.conf\n\
-    \n\
-    echo "Warming up cache..."\n\
-    php bin/console cache:warmup --env=prod --no-interaction || true\n\
-    \n\
-    echo "Running migrations..."\n\
-    php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration || true\n\
-    \n\
-    echo "Starting Apache on port ${PORT:-80}..."\n\
-    exec apache2-foreground' > /usr/local/bin/docker-entrypoint.sh \
-    && chmod +x /usr/local/bin/docker-entrypoint.sh
+RUN echo '#!/bin/bash' > /usr/local/bin/docker-entrypoint.sh && \
+    echo 'set -e' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo 'echo "Detected PORT variable: ${PORT}"' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo 'sed -i "s/Listen 80/Listen ${PORT:-80}/g" /etc/apache2/ports.conf' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo 'sed -i "s/<VirtualHost \*:80>/<VirtualHost \*:${PORT:-80}>/g" /etc/apache2/sites-available/000-default.conf' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo 'echo "Warming up cache..."' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo 'php bin/console cache:warmup --env=prod --no-interaction || true' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo 'echo "Running migrations..."' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo 'php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration || true' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo 'echo "Starting Apache on port ${PORT:-80}..."' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo 'exec apache2-foreground' >> /usr/local/bin/docker-entrypoint.sh && \
+    chmod +x /usr/local/bin/docker-entrypoint.sh
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD []
