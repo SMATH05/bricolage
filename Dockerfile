@@ -10,6 +10,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader --no-scripts
+RUN composer install --no-dev --optimize-autoloader --no-scripts && \
+    composer dump-autoload --optimize
 
 CMD sh -c "php -S 0.0.0.0:${PORT:-80} -t public"
