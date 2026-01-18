@@ -10,7 +10,9 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader --no-scripts
+RUN composer install --optimize-autoloader --no-scripts
 COPY railway_autoload_runtime.php vendor/autoload_runtime.php
 
-CMD sh -c "php -S 0.0.0.0:${PORT:-80} -t public"
+ENV APP_ENV=dev
+
+CMD sh -c "php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration && php -S 0.0.0.0:${PORT:-80} -t public"
