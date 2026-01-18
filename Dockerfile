@@ -54,15 +54,19 @@ EXPOSE 80
 # Create entrypoint script internally to avoid CRLF issues
 RUN printf '#!/bin/bash\n\
     set -e\n\
-    echo "Waiting for database connection..."\n\
-    sleep 5\n\
+    # Configure Apache to use Railway port\n\
+    sed -i "s/Listen 80/Listen ${PORT:-80}/g" /etc/apache2/ports.conf\n\
+    sed -i "s/<VirtualHost \*:80>/<VirtualHost \*:${PORT:-80}>/g" /etc/apache2/sites-available/000-default.conf\n\
+    \n\
     echo "Warming up cache..."\n\
-    php bin/console cache:warmup --env=prod || true\n\
+    php bin/console cache:warmup --env=prod --no-interaction || true\n\
+    \n\
     echo "Running migrations..."\n\
     php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration || true\n\
-    echo "Starting Apache..."\n\
-    exec "$@"' > /usr/local/bin/docker-entrypoint.sh \
+    \n\
+    echo "Starting Apache on port ${PORT:-80}..."\n\
+    exec apache2-foreground' > /usr/local/bin/docker-entrypoint.sh \
     && chmod +x /usr/local/bin/docker-entrypoint.sh
 
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["apache2-foreground"]
+CMD []
