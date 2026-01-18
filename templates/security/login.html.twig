@@ -4,34 +4,38 @@
 
 {% block body %}
 	<div class="auth-wrapper">
+		<div class="auth-logo">BRICOLAGE</div>
+		<a href="{{ path('app_home') }}" class="auth-back-btn">← Retour au site</a>
+		<div class="auth-tagline">Capturing Moments, Creating Memories</div>
+		
 		<div class="auth-card animate-fade-in">
 			<div class="auth-header">
-				<h1>Bon retour</h1>
-				<p>Connectez-vous à votre espace personnel</p>
+				<h1>Se connecter</h1>
+				<p>Vous n'avez pas de compte ? <a href="{{ path('app_register') }}">Créer un compte</a></p>
 			</div>
 
 			<form method="post" class="auth-form">
 				{% if error %}
-					<div class="alert alert-danger rounded-4 border-0 shadow-sm mb-4 small">
+					<div class="alert alert-danger">
 						{{ error.messageKey|trans(error.messageData, 'security') }}
 					</div>
 				{% endif %}
 
-				<div class="form-group mb-4">
-					<label for="inputEmail" class="form-label">Adresse Email</label>
+				<div class="form-group">
+					<label for="inputEmail" class="form-label">Email</label>
 					<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="premium-input" autocomplete="email" required autofocus placeholder="votre@email.com">
 				</div>
 
-				<div class="form-group mb-4">
+				<div class="form-group">
 					<label for="inputPassword" class="form-label">Mot de passe</label>
-					<input type="password" name="password" id="inputPassword" class="premium-input" autocomplete="current-password" required placeholder="••••••••">
+					<input type="password" name="password" id="inputPassword" class="premium-input" autocomplete="current-password" required placeholder="Entrez votre mot de passe">
 				</div>
 
 				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-				<div class="form-check mb-4">
+				<div class="form-check">
 					<input type="checkbox" name="_remember_me" id="_remember_me">
-					<label class="small text-white-50 ms-2" for="_remember_me">
+					<label for="_remember_me">
 						Se souvenir de moi
 					</label>
 				</div>
@@ -41,18 +45,13 @@
 				</button>
 
 				<div class="auth-divider">
-					<span>Ou continuez avec</span>
+					<span>Ou connectez-vous avec</span>
 				</div>
 
 				<a href="{{ path('connect_google_start') }}" class="google-btn-premium">
-					<img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="Google" style="width: 20px;">
-					Se connecter avec Google
+					<img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="Google">
+					Google
 				</a>
-
-				<div class="auth-footer">
-					Nouveau sur Bricolage ?
-					<a href="{{ path('app_register') }}">Créer un compte</a>
-				</div>
 			</form>
 		</div>
 	</div>
