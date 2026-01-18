@@ -2,8 +2,9 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>
-			{% block title %}Welcome!
+			{% block title %}Bricolage
 			{% endblock %}
 		</title>
 
@@ -13,7 +14,7 @@
 		<link rel="stylesheet" href="https://bootswatch.com/5/litera/bootstrap.min.css">
 		<link rel="stylesheet" href="{{ asset('styles/premium.css') }}"> {% block stylesheets %}{% endblock %}
 		</head>
-		<body>
+		<body class="d-flex flex-column min-vh-100">
 			{% if app.request.attributes.get('_route') != 'app_home' %}
 				<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm py-3">
 					<div class="container">
@@ -124,7 +125,7 @@
 							</ul>
 						</div>
 						<div class="col-md-4 mb-4">
-							<h5 class="fw-bold mb-4">Contact us</h5>
+							<h5 class="fw-bold mb-4">Contactez-nous</h5>
 							<ul class="list-unstyled text-white-50 small">
 								<li>
 									<i class="fas fa-envelope me-2"></i>moubaramed@gmail.com</li>
@@ -135,7 +136,7 @@
 					</div>
 					<hr class="border-secondary mt-4 mb-4">
 					<div class="text-center">
-						<p class="text-white-50 small mb-0">&copy; 2026 Bricolage. All rights reserved.</p>
+						<p class="text-white-50 small mb-0">&copy; 2026 Bricolage. Tous droits réservés.</p>
 					</div>
 				</div>
 			</footer>
