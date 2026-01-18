@@ -1,0 +1,22 @@
+# Configuration Netlify pour Symfony
+# ATTENTION: Netlify ne supporte pas PHP/Symfony nativement
+# Cette configuration est pour référence uniquement
+
+[build]
+  # Base directory: laissez vide ou mettez "." pour la racine
+  base = "."
+  
+  # Build command: pour compiler les assets Symfony
+  command = "composer install --no-dev --optimize-autoloader && php bin/console asset-map:compile"
+  
+  # Publish directory: le dossier public de Symfony
+  publish = "public"
+
+[build.environment]
+  PHP_VERSION = "8.2"
+
+# Redirections pour Symfony
+[[redirects]]
+  from = "/*"
+  to = "/index.php"
+  status = 200
