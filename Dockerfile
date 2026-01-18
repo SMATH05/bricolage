@@ -38,11 +38,11 @@ RUN mkdir -p var/cache var/log public/uploads/annonces public/uploads/profiles \
 RUN echo '<VirtualHost *:80>\n\
     DocumentRoot /var/www/html/public\n\
     <Directory /var/www/html/public>\n\
-        AllowOverride All\n\
-        Require all granted\n\
-        FallbackResource /index.php\n\
+    AllowOverride All\n\
+    Require all granted\n\
+    FallbackResource /index.php\n\
     </Directory>\n\
-</VirtualHost>' > /etc/apache2/sites-available/000-default.conf
+    </VirtualHost>' > /etc/apache2/sites-available/000-default.conf
 
 # Set environment variables
 ENV APP_ENV=prod
@@ -51,9 +51,18 @@ ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 # Expose port 80
 EXPOSE 80
 
-# Start script
-COPY docker-entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+# Create entrypoint script internally to avoid CRLF issues
+RUN printf '#!/bin/bash\n\
+    set -e\n\
+    echo "Waiting for database connection..."\n\
+    sleep 5\n\
+    echo "Warming up cache..."\n\
+    php bin/console cache:warmup --env=prod || true\n\
+    echo "Running migrations..."\n\
+    php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration || true\n\
+    echo "Starting Apache..."\n\
+    exec "$@"' > /usr/local/bin/docker-entrypoint.sh \
+    && chmod +x /usr/local/bin/docker-entrypoint.sh
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["apache2-foreground"]
