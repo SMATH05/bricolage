@@ -48,12 +48,15 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user);
 
+            $nom = $form->get('nom')->getData();
+            $prenom = $form->get('prenom')->getData();
+
             if ($selectedRole === 'ROLE_CHERCHEUR') {
                 $chercheur = new Chercheur();
                 $chercheur->setUser($user);
-                // Set default values or extract from form if added
-                $chercheur->setNom('Nom');
-                $chercheur->setPrenom('Prenom');
+                // Set values from form
+                $chercheur->setNom($nom);
+                $chercheur->setPrenom($prenom);
                 $chercheur->setEmail($user->getEmail());
                 $chercheur->setIdChercheur(uniqid('CH_'));
                 $chercheur->setDescription('Description...');
@@ -63,7 +66,7 @@ class RegistrationController extends AbstractController
             } elseif ($selectedRole === 'ROLE_RECRUTEUR') {
                 $recruteur = new Recruteur();
                 $recruteur->setUser($user);
-                $recruteur->setNom('Nom Recruteur');
+                $recruteur->setNom($nom . ' ' . $prenom);
                 $recruteur->setEmail($user->getEmail());
                 $recruteur->setTelephone('0000000000');
                 $recruteur->setPassword('dummy');

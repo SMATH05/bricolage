@@ -8,23 +8,27 @@
 		<div class="auth-logo">BRICOLAGE</div>
 		<a href="{{ path('app_home') }}" class="auth-back-btn">← Retour au site</a>
 		<div class="auth-tagline">Capturing Moments, Creating Memories</div>
-		
+
 		<div class="auth-card animate-fade-in">
 			<div class="auth-header">
 				<h1>Créer un compte</h1>
-				<p>Vous avez déjà un compte ? <a href="{{ path('app_login') }}">Se connecter</a></p>
+				<p>Vous avez déjà un compte ?
+					<a href="{{ path('app_login') }}">Se connecter</a>
+				</p>
 			</div>
 
 			{{ form_start(registrationForm, {'attr': {'class': 'auth-form'}}) }}
-			
+
 			<div class="form-row">
 				<div class="form-group">
-					<label class="form-label" for="{{ registrationForm.email.vars.id }}">Prénom</label>
-					<input type="text" class="premium-input" placeholder="Prénom" disabled>
+					<label class="form-label" for="{{ registrationForm.prenom.vars.id }}">Prénom</label>
+					{{ form_widget(registrationForm.prenom) }}
+					{{ form_errors(registrationForm.prenom) }}
 				</div>
 				<div class="form-group">
-					<label class="form-label">Nom</label>
-					<input type="text" class="premium-input" placeholder="Nom" disabled>
+					<label class="form-label" for="{{ registrationForm.nom.vars.id }}">Nom</label>
+					{{ form_widget(registrationForm.nom) }}
+					{{ form_errors(registrationForm.nom) }}
 				</div>
 			</div>
 
@@ -62,7 +66,8 @@
 			<div class="form-check">
 				{{ form_widget(registrationForm.agreeTerms) }}
 				<label for="{{ registrationForm.agreeTerms.vars.id }}">
-					J'accepte les <a href="#">Conditions d'utilisation</a>
+					J'accepte les
+					<a href="#">Conditions d'utilisation</a>
 				</label>
 			</div>
 
@@ -84,7 +89,7 @@
 					Apple
 				</a>
 			</div>
-			
+
 			{{ form_end(registrationForm, {'render_rest': false}) }}
 		</div>
 	</div>
