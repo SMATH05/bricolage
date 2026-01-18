@@ -56,6 +56,10 @@ EXPOSE 80
 RUN echo '#!/bin/bash' > /usr/local/bin/docker-entrypoint.sh && \
     echo 'set -e' >> /usr/local/bin/docker-entrypoint.sh && \
     echo 'echo "Detected PORT variable: ${PORT}"' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo '# Fix Apache MPM at runtime to prevent conflicts' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo 'rm -f /etc/apache2/mods-enabled/mpm_event.load /etc/apache2/mods-enabled/mpm_event.conf' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo 'rm -f /etc/apache2/mods-enabled/mpm_worker.load /etc/apache2/mods-enabled/mpm_worker.conf' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo 'a2enmod mpm_prefork' >> /usr/local/bin/docker-entrypoint.sh && \
     echo 'grep -q "Listen ${PORT:-80}" /etc/apache2/ports.conf || sed -i "s/Listen 80/Listen 0.0.0.0:${PORT:-80}/g" /etc/apache2/ports.conf' >> /usr/local/bin/docker-entrypoint.sh && \
     echo 'sed -i "s/<VirtualHost \*:80>/<VirtualHost *:*>/" /etc/apache2/sites-available/000-default.conf' >> /usr/local/bin/docker-entrypoint.sh && \
     echo 'echo "Warming up cache..."' >> /usr/local/bin/docker-entrypoint.sh && \
