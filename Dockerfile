@@ -14,5 +14,6 @@ RUN composer install --optimize-autoloader --no-scripts
 COPY railway_autoload_runtime.php vendor/autoload_runtime.php
 
 ENV APP_ENV=dev
+ENV TRUSTED_PROXIES=*
 
 CMD sh -c "php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration && php -S 0.0.0.0:${PORT:-80} -t public"
