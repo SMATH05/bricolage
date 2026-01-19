@@ -64,7 +64,7 @@
 	<div class="row mb-5 align-items-end">
 		<div class="col-md-8">
 			<h6 class="text-accent-primary fw-bold text-uppercase mb-2">{{ 'Recrutement'|trans }}</h6>
-			<h1 class="display-5 fw-bold mb-0">{{ 'Candidatures ReÃ§ues'|trans }}</h1>
+			<h1 class="display-5 fw-bold mb-0">{{ 'Candidatures Reçues'|trans }}</h1>
 		</div>
 		<div class="col-md-4 text-md-end mt-3 mt-md-0">
 			<a href="{{ path('app_annonce') }}" class="btn btn-light rounded-pill px-4 fw-bold">
@@ -78,7 +78,7 @@
 		<div class="row g-4">
 			{% for candidature in candidatures %}
 				<div class="col-12">
-					<div class="candidate-card shadow-sm p-4 {% if candidature.statut == 'AcceptÃ©' %}status-accepted{% elseif candidature.statut == 'RefusÃ©' %}status-refused{% else %}status-pending{% endif %}">
+					<div class="candidate-card shadow-sm p-4 {% if candidature.statut == 'Accepté' %}status-accepted{% elseif candidature.statut == 'Refusé' %}status-refused{% else %}status-pending{% endif %}">
 						<div class="row align-items-center">
 							<div class="col-md-auto mb-3 mb-md-0">
 								<div class="avatar-box shadow-sm">
@@ -94,7 +94,7 @@
 								<div class="d-flex align-items-center gap-3 mb-2">
 									<h5 class="fw-bold mb-0">{{ candidature.chercheurId.nom }}
 										{{ candidature.chercheurId.prenom }}</h5>
-									<span class="badge {% if candidature.statut == 'AcceptÃ©' %}bg-success{% elseif candidature.statut == 'RefusÃ©' %}bg-danger{% else %}bg-warning text-dark{% endif %} rounded-pill px-3 py-2 fw-bold" style="font-size: 0.7rem;">
+									<span class="badge {% if candidature.statut == 'Accepté' %}bg-success{% elseif candidature.statut == 'Refusé' %}bg-danger{% else %}bg-warning text-dark{% endif %} rounded-pill px-3 py-2 fw-bold" style="font-size: 0.7rem;">
 										{{ candidature.statut|trans|upper }}
 									</span>
 								</div>
@@ -115,15 +115,15 @@
 
 							<div class="col-lg-auto text-end mt-4 mt-lg-0">
 								<div class="d-inline-flex action-btn-group shadow-sm">
-									{% if candidature.statut != 'AcceptÃ©' %}
-										<a href="{{ path('app_recruteur_candidature_statut', {id: candidature.id, statut: 'AcceptÃ©'}) }}" class="btn btn-success rounded-pill px-4 fw-bold me-1">
+									{% if candidature.statut != 'Accepté' %}
+										<a href="{{ path('app_recruteur_candidature_statut', {id: candidature.id, statut: 'Accepté'}) }}" class="btn btn-success rounded-pill px-4 fw-bold me-1">
 											<i class="fas fa-check me-2"></i>
 											{{ 'Accepter'|trans }}
 										</a>
 									{% endif %}
 
-									{% if candidature.statut != 'RefusÃ©' %}
-										<a href="{{ path('app_recruteur_candidature_statut', {id: candidature.id, statut: 'RefusÃ©'}) }}" class="btn btn-outline-danger border-0 rounded-pill px-4 fw-bold">
+									{% if candidature.statut != 'Refusé' %}
+										<a href="{{ path('app_recruteur_candidature_statut', {id: candidature.id, statut: 'Refusé'}) }}" class="btn btn-outline-danger border-0 rounded-pill px-4 fw-bold">
 											<i class="fas fa-times me-2"></i>
 											{{ 'Refuser'|trans }}
 										</a>
@@ -145,7 +145,7 @@
 				<i class="fas fa-inbox fa-5x text-accent-primary opacity-25"></i>
 			</div>
 			<h3 class="fw-bold">{{ 'Aucune candidature'|trans }}</h3>
-			<p class="text-muted mb-4 fs-5">{{ 'Vous recevrez une notification dÃ¨s qu\'un expert proposera ses services.'|trans }}</p>
+			<p class="text-muted mb-4 fs-5">{{ 'Vous recevrez une notification dès qu\'un expert proposera ses services.'|trans }}</p>
 				<a href="{{ path('app_annonces_ajouter') }}" class="btn btn-primary rounded-pill px-5 py-3 shadow-lg fw-bold">
 					<i class="fas fa-plus me-2"></i> {{ 'Publier une nouvelle offre'|trans }}
 				</a>
@@ -153,3 +153,4 @@
 		{% endif %}
 	</div>
 {% endblock %}
+ </p>

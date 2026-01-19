@@ -48,17 +48,29 @@
 						<hr class="my-4">
 
 						<h5 class="fw-bold mb-3">{{ 'Vendeur'|trans }}</h5>
-						<div class="d-flex align-items-center mb-4">
-							<div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3 shadow-sm" style="width: 50px; height: 50px; font-size: 1.2rem;">
-								{{ product.user.email|first|upper }}
+						<div class="d-flex align-items-center mb-4 justify-content-between">
+							<div class="d-flex align-items-center">
+								<div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3 shadow-sm" style="width: 50px; height: 50px; font-size: 1.2rem;">
+									{{ product.user.email|first|upper }}
+								</div>
+								<div>
+									<h6 class="mb-0 fw-bold">{{ product.user.email }}</h6>
+									<small class="text-muted">{{ product.user.followers|length }}
+										{{ 'abonnés'|trans }}</small>
+								</div>
 							</div>
-							<div>
-								<h6 class="mb-0 fw-bold">{{ product.user.email }}</h6>
-								{# Should use Name if available #}
-								<small class="text-muted">{{ 'Membre depuis'|trans }}
-									{{ product.user.id }}</small>
-								{# Fake join date #}
-							</div>
+							{% if app.user and app.user != product.user %}
+								{% if app.user.following.contains(product.user) %}
+									<a href="{{ path('app_unfollow', {id: product.user.id}) }}" class="btn btn-sm btn-outline-secondary rounded-pill px-3">
+										{{ 'Suivi'|trans }}
+									</a>
+								{% else %}
+									<a href="{{ path('app_follow', {id: product.user.id}) }}" class="btn btn-sm btn-primary rounded-pill px-3 shadow-sm">
+										<i class="fas fa-plus me-1"></i>
+										{{ 'Suivre'|trans }}
+									</a>
+								{% endif %}
+							{% endif %}
 						</div>
 
 						<div class="d-grid gap-2">

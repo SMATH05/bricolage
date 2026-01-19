@@ -98,6 +98,45 @@
 			font-weight: 700;
 			color: #64748b;
 			flex-shrink: 0;
+			overflow: hidden;
+		}
+
+		.user-avatar img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		.search-container {
+			padding: 15px 20px;
+			background: white;
+			border-bottom: 1px solid #f1f5f9;
+		}
+
+		.search-input-wrapper {
+			position: relative;
+			background: #f8fafc;
+			border-radius: 12px;
+			padding: 8px 15px;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			border: 1px solid transparent;
+			transition: all 0.2s;
+		}
+
+		.search-input-wrapper:focus-within {
+			background: white;
+			border-color: var(--accent-primary);
+			box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+		}
+
+		.search-input {
+			border: none;
+			background: transparent;
+			outline: none;
+			width: 100%;
+			font-size: 0.9rem;
 		}
 
 		.message-bubble {
@@ -200,11 +239,24 @@
 				<div class="p-4 border-bottom bg-light">
 					<h5 class="fw-bold mb-0">{{ 'Conversations'|trans }}</h5>
 				</div>
-				<div class="conversation-list">
+				<div class="search-container">
+					<div class="search-input-wrapper">
+						<i class="fas fa-search text-muted small"></i>
+						<input type="text" id="chatSearch" class="search-input" placeholder="{{ 'Rechercher...'|trans }}">
+					</div>
+				</div>
+				<div class="conversation-list" id="conversationList">
 					{% for conv in conversations %}
 						<a href="{{ path('app_chat_conversation', {id: conv.user.id}) }}" class="conversation-item {% if activeUser and activeUser.id == conv.user.id %}active{% endif %}">
 							<div class="user-avatar shadow-sm">
-								{{ conv.user.userIdentifier|slice(0, 1)|upper }}
+								{% if conv.user.chercheur and conv.user.chercheur.photo %}
+									<img src="{{ asset('uploads/profiles/' ~ conv.user.chercheur.photo) }}" alt="Avatar">
+								{% elseif conv.user.recruteur and conv.user.recruteur.photo is defined and conv.user.recruteur.photo %}
+									{# Logic for recruiter photo if exists #}
+									{{ conv.user.userIdentifier|slice(0, 1)|upper }}
+								{% else %}
+									{{ conv.user.userIdentifier|slice(0, 1)|upper }}
+								{% endif %}
 							</div>
 							<div class="flex-grow-1 overflow-hidden">
 								<h6 class="mb-1 fw-bold text-truncate">{{ conv.user.userIdentifier }}</h6>
@@ -239,7 +291,11 @@
 							</a>
 							<div class="d-flex align-items-center gap-3">
 								<div class="user-avatar" style="width: 40px; height: 40px; font-size: 0.9rem;">
-									{{ activeUser.userIdentifier|slice(0, 1)|upper }}
+									{% if activeUser.chercheur and activeUser.chercheur.photo %}
+										<img src="{{ asset('uploads/profiles/' ~ activeUser.chercheur.photo) }}" alt="Avatar">
+									{% else %}
+										{{ activeUser.userIdentifier|slice(0, 1)|upper }}
+									{% endif %}
 								</div>
 								<div>
 									<h6 class="mb-0 fw-bold">{{ activeUser.userIdentifier }}</h6>
@@ -256,9 +312,20 @@
 
 					<div class="messages-container" id="messagesContainer">
 						{% for message in messages %}
-							<div class="message-bubble {% if message.sender == app.user %}message-sent{% else %}message-received{% endif %}">
-								{{ message.content }}
-								<div class="mt-1" style="font-size: 0.65rem; opacity: 0.7; text-align: right;">
+							<div class="d-flex flex-column {% if message.sender == app.user %}align-items-end{% else %}align-items-start{% endif %} mb-3">
+								<div class="d-flex align-items-end gap-2 {% if message.sender == app.user %}flex-row-reverse{% endif %}">
+									<div class="user-avatar shadow-sm" style="width: 30px; height: 30px; font-size: 0.7rem; border-radius: 8px;">
+										{% if message.sender.chercheur and message.sender.chercheur.photo %}
+											<img src="{{ asset('uploads/profiles/' ~ message.sender.chercheur.photo) }}" alt="Avatar">
+										{% else %}
+											{{ message.sender.userIdentifier|slice(0, 1)|upper }}
+										{% endif %}
+									</div>
+									<div class="message-bubble mb-0 {% if message.sender == app.user %}message-sent{% else %}message-received{% endif %}">
+										{{ message.content }}
+									</div>
+								</div>
+								<div class="mt-1 px-5" style="font-size: 0.65rem; opacity: 0.7;">
 									{{ message.createdAt|date('H:i') }}
 								</div>
 							</div>
@@ -291,6 +358,25 @@
 const container = document.getElementById('messagesContainer');
 if (container) {
 container.scrollTop = container.scrollHeight;
+}
+
+// Search functionality
+const searchInput = document.getElementById('chatSearch');
+const conversationItems = document.querySelectorAll('.conversation-item');
+
+if (searchInput) {
+searchInput.addEventListener('input', (e) => {
+const term = e.target.value.toLowerCase();
+conversationItems.forEach(item => {
+const name = item.querySelector('h6').textContent.toLowerCase();
+const lastMsg = item.querySelector('p').textContent.toLowerCase();
+if (name.includes(term) || lastMsg.includes(term)) {
+item.style.display = 'flex';
+} else {
+item.style.display = 'none';
+}
+});
+});
 }
 	</script>
 {% endblock %}

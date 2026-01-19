@@ -52,6 +52,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->products = new \Doctrine\Common\Collections\ArrayCollection();
         $this->commandes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->followers = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->following = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function getId(): ?int
@@ -220,6 +222,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Commande::class)]
     private \Doctrine\Common\Collections\Collection $commandes;
 
+    #[ORM\ManyToMany(targetEntity: self::class, inversedBy: 'following')]
+    #[ORM\JoinTable(name: 'user_followers')]
+    private \Doctrine\Common\Collections\Collection $followers;
+
+    #[ORM\ManyToMany(targetEntity: self::class, mappedBy: 'followers')]
+    private \Doctrine\Common\Collections\Collection $following;
+
     /**
      * @return \Doctrine\Common\Collections\Collection<int, Commande>
      */
@@ -245,6 +254,57 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             if ($commande->getUser() === $this) {
                 $commande->setUser(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection<int, self>
+     */
+    public function getFollowers(): \Doctrine\Common\Collections\Collection
+    {
+        return $this->followers;
+    }
+
+    public function addFollower(self $follower): static
+    {
+        if (!$this->followers->contains($follower)) {
+            $this->followers->add($follower);
+        }
+
+        return $this;
+    }
+
+    public function removeFollower(self $follower): static
+    {
+        $this->followers->removeElement($follower);
+
+        return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection<int, self>
+     */
+    public function getFollowing(): \Doctrine\Common\Collections\Collection
+    {
+        return $this->following;
+    }
+
+    public function follow(self $user): static
+    {
+        if (!$this->following->contains($user)) {
+            $this->following->add($user);
+            $user->addFollower($this);
+        }
+
+        return $this;
+    }
+
+    public function unfollow(self $user): static
+    {
+        if ($this->following->removeElement($user)) {
+            $user->removeFollower($this);
         }
 
         return $this;
