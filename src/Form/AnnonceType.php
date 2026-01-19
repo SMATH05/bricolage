@@ -20,7 +20,7 @@ class AnnonceType extends AbstractType
             ->add('date_publication')
             ->add('budget')
             ->add('photo', FileType::class, [
-                'label' => 'Photo (Image file)',
+                'label' => 'Photo',
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [

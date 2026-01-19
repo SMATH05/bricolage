@@ -1,35 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter une annonce
+{% block title %}
+	{{ 'Ajouter une annonce'|trans }}
 {% endblock %}
 
 {% block body %}
-	<div class="container py-5">
-		<div class="row justify-content-center">
-			<div class="col-md-8">
-				<div class="card shadow-lg border-0 rounded-4">
-					<div class="card-header bg-primary text-white p-4 rounded-top-4">
-						<h3 class="mb-0 fw-bold">
-							<i class="fas fa-plus-circle me-2"></i>Publier une annonce</h3>
+<div class="container py-5">
+	<div class="row justify-content-center">
+		<div class="col-md-8">
+			<div class="card shadow-lg border-0 rounded-4">
+				<div class="card-header bg-primary text-white p-4 rounded-top-4">
+					<h3 class="mb-0 fw-bold">
+						<i class="fas fa-plus-circle me-2"></i>
+						{{ 'Publier une annonce'|trans }}</h3>
+				</div>
+				<div class="card-body p-4">
+					{{ form_start(form) }}
+					<div class="row g-4">
+						{% for field in form %}
+							{% if field.vars.name != '_token' %}
+								<div class="col-12">
+									{{ form_label(field, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+									{{ form_widget(field, {'attr': {'class': 'form-control rounded-3'}}) }}
+									{{ form_errors(field) }}
+								</div>
+							{% endif %}
+						{% endfor %}
 					</div>
-					<div class="card-body p-4">
-						{{ form_start(form) }}
-						<div class="row g-4">
-							{% for field in form %}
-								{% if field.vars.name != '_token' %}
-									<div class="col-12">
-										{{ form_label(field, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
-										{{ form_widget(field, {'attr': {'class': 'form-control rounded-3'}}) }}
-										{{ form_errors(field) }}
-									</div>
-								{% endif %}
-							{% endfor %}
-						</div>
-						<div class="mt-5 d-flex gap-3">
-							<button type="submit" class="btn btn-primary btn-lg px-5 rounded-pill shadow">
-								<i class="fas fa-check me-2"></i>Ajouter l'annonce
+					<div class="mt-5 d-flex gap-3">
+						<button type="submit" class="btn btn-primary btn-lg px-5 rounded-pill shadow">
+							<i class="fas fa-check me-2"></i>
+							{{ 'Ajouter l\'annonce'|trans }}
 							</button>
-							<a href="{{ path('app_annonce') }}" class="btn btn-light btn-lg px-4 rounded-pill">Annuler</a>
+							<a href="{{ path('app_annonce') }}" class="btn btn-light btn-lg px-4 rounded-pill">{{ 'Annuler'|trans }}</a>
 						</div>
 						{{ form_end(form) }}
 					</div>
