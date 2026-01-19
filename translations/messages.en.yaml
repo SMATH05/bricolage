@@ -50,4 +50,16 @@ Titre: Title
 Description: Description
 "Date publication": "Publication Date"
 Budget: Budget
-Photo: Photo
+# Login & Register
+"Se connecter": "Login"
+"Vous n'avez pas de compte ?": "Don't have an account?"
+"Créer un compte": "Create an account"
+"Retour au site": "Back to site"
+"Ou connectez-vous avec": "Or login with"
+"Se souvenir de moi": "Remember me"
+"Entrez votre mot de passe": "Enter your password"
+"Mot de passe": "Password"
+"Accepter les conditions": "Agree to terms"
+Nom: Last Name
+Prénom: First Name
+Email: Email

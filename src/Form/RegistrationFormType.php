@@ -20,8 +20,9 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
+            ->add('email', null, ['label' => 'Email'])
             ->add('nom', \Symfony\Component\Form\Extension\Core\Type\TextType::class, [
+                'label' => 'Nom',
                 'mapped' => false,
                 'attr' => ['class' => 'premium-input', 'placeholder' => 'Nom'],
                 'constraints' => [
@@ -29,6 +30,7 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('prenom', \Symfony\Component\Form\Extension\Core\Type\TextType::class, [
+                'label' => 'Prénom',
                 'mapped' => false,
                 'attr' => ['class' => 'premium-input', 'placeholder' => 'Prénom'],
                 'constraints' => [
@@ -46,6 +48,7 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
             ])
             ->add('agreeTerms', CheckboxType::class, [
+                'label' => 'Accepter les conditions',
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
@@ -54,6 +57,7 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('plainPassword', PasswordType::class, [
+                'label' => 'Mot de passe',
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
