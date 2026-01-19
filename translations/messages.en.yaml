@@ -1,4 +1,4 @@
-# Navbar
+# Navbar & Common
 Accueil: Home
 Connexion: Login
 Inscription: Sign Up
@@ -7,12 +7,15 @@ Administration: Administration
 Candidatures: Applications
 "Mon Profil": "My Profile"
 Déconnexion: Logout
+Annonces: Ads
+"Mes Candidatures": "My Applications"
 
 # Footer
 "La plateforme de référence pour connecter les talents et les besoins en bricolage et services professionnels.": "The leading platform for connecting talent and DIY needs with professional services."
 Fondateurs: Founders
 "Contactez-nous": "Contact Us"
 "Tous droits réservés.": "All rights reserved."
+
 # Dashboard
 "Tableau de bord": "Dashboard"
 "Nouvelle Annonce": "New Ad"
@@ -33,13 +36,14 @@ Par: By
 "Postulé à :": "Applied for:"
 "Le": "On"
 Accepter: Accept
-Refuser: Decline
+Refuser: Reject
 "Accepter la candidature": "Accept application"
 "Refuser la candidature": "Reject application"
 "Voir le profil": "View profile"
 "Aucune candidature pour le moment": "No applications yet"
 "Vos postulants apparaîtront ici dès qu'ils auront postulé à vos offres.": "Your applicants will appear here once they apply to your offers."
 "Créer une nouvelle annonce": "Create a new ad"
+"Tableau de bord - Annonces": "Dashboard - Ads"
 
 # Forms & Labels
 "Ajouter une annonce": "Add an ad"
@@ -50,6 +54,7 @@ Titre: Title
 Description: Description
 "Date publication": "Publication Date"
 Budget: Budget
+
 # Login & Register
 "Se connecter": "Login"
 "Vous n'avez pas de compte ?": "Don't have an account?"
@@ -68,49 +73,20 @@ Prénom: First Name
 "Ou inscrivez-vous avec": "Or sign up with"
 "Profil mis à jour.": "Profile updated."
 "Gestion des Chercheurs": "Manage Researchers"
-"Chercheurs": "Researchers"
+Chercheurs: Researchers
 "Nouveau Chercheur": "New Researcher"
 "Aucun chercheur trouvé": "No researcher found"
 "La liste des candidats est actuellement vide.": "The candidate list is currently empty."
 "Gestion des Recruteurs": "Manage Recruiters"
-"Recruteurs": "Recruiters"
+Recruteurs: Recruiters
 "Nouveau Recruteur": "New Recruiter"
 "Aucun recruteur trouvé": "No recruiter found"
 "La liste des entreprises est actuellement vide.": "The company list is currently empty."
-"Confirmer la suppression ?": "Confirm deletion?"
 "Statut de la candidature mis à jour.": "Application status updated."
-"Tableau de bord - Annonces": "Dashboard - Ads"
-"Tableau de bord": "Dashboard"
-"Nouvelle Annonce": "New Ad"
-"Candidats": "Candidates"
-"Postuler": "Apply"
-"Aucune annonce disponible": "No ads available"
-"Revenez plus tard pour découvrir de nouvelles opportunités.": "Check back later to discover new opportunities."
-"Mes Candidatures": "My Applications"
-"Candidatures": "Applications"
-"Modifier": "Edit"
-"Supprimer": "Delete"
-"Chercheur": "Researcher"
-"Recruteur": "Recruiter"
-"Admin": "Admin"
-"Capturing Moments, Creating Memories": "Connecting Talent, Building Projects"
-"Mes Candidatures": "My Applications"
-"Mes Annonces": "My Ads"
-"Annonces": "Ads"
-"Accueil": "Home"
-"Administration": "Administration"
-"Mon Profil": "My Profile"
-"Se connecter": "Login"
-"Créer un compte": "Create Account"
-"Inscription": "Sign Up"
-"Connexion": "Login"
-"Modifier": "Edit"
-"Supprimer": "Delete"
-"Accepter": "Accept"
-"Refuser": "Reject"
-"En attente": "Pending"
-"Accepté": "Accepted"
-"Refusé": "Rejected"
+Chercheur: Researcher
+Recruteur: Recruiter
+Admin: Admin
+
 # Profile
 "Modifier mes informations": "Edit my information"
 "Sauvegarder les modifications": "Save changes"
@@ -146,14 +122,10 @@ Vendeur: Seller
 "Détails du produit": "Product details"
 "Acheter maintenant": "Buy Now"
 "Contacter le vendeur": "Contact Seller"
-Description: Description
 
 # Payment
-"Acheter maintenant": "Buy Now"
-"Contacter le vendeur": "Contact Seller"
 "Paiement Réussi !": "Payment Successful!"
 "Merci pour votre achat. Votre commande a été enregistrée avec succès.": "Thank you for your purchase. Your order has been successfully recorded."
-"Retour au Marketplace": "Return to Marketplace"
 "Voir mon profil": "View My Profile"
 "Paiement Annulé": "Payment Cancelled"
 "La transaction a été annulée. Aucun montant n'a été débité.": "The transaction was cancelled. No amount was charged."
@@ -222,8 +194,6 @@ Description: Description
 "Erreur lors de la candidature : ": "Error during application: "
 "Stripe API Key is not configured in .env or Railway variables. Payment disabled.": "Stripe API Key is not configured. Payment disabled."
 "Stripe Error: ": "Stripe Error: "
-"Profil mis à jour.": "Profile updated."
-"Statut de la candidature mis à jour.": "Application status updated."
 "Veuillez vous connecter.": "Please log in."
 "Une erreur est survenue.": "An error occurred."
 "Succès": "Success"
