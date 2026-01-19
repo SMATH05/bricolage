@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vendre un article
+{% endblock %}
+
+{% block body %}
+	<div class="container py-5">
+		<div class="row justify-content-center">
+			<div class="col-md-8 col-lg-6">
+				<div class="d-flex align-items-center mb-4">
+					<a href="{{ path('app_marketplace') }}" class="btn btn-light rounded-circle shadow-sm me-3" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+						<i class="fas fa-arrow-left"></i>
+					</a>
+					<h2 class="mb-0 fw-bold">Nouvelle annonce</h2>
+				</div>
+
+				<div class="card shadow-lg border-0 rounded-4">
+					<div class="card-body p-4 p-md-5">
+						{{ form_start(form) }}
+						<div class="mb-4 text-center">
+							<div class="upload-placeholder p-4 bg-light rounded-3 border border-dashed mb-2" onclick="document.getElementById('product_image').click()" style="cursor: pointer;">
+								<i class="fas fa-camera fa-2x text-primary mb-2"></i>
+								<p class="mb-0 text-muted small fw-bold">Ajouter une photo</p>
+							</div>
+							{# The standard widget will be rendered below, we can hide it effectively or style it #}
+						</div>
+
+						<div class="row g-3">
+							<div class="col-12">
+								{{ form_label(form.title, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+								{{ form_widget(form.title, {'attr': {'class': 'form-control rounded-3 py-2'}}) }}
+								{{ form_errors(form.title) }}
+							</div>
+
+							<div class="col-md-6">
+								{{ form_label(form.price, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+								<div class="input-group">
+									{{ form_widget(form.price, {'attr': {'class': 'form-control rounded-3 py-2'}}) }}
+									<span class="input-group-text bg-light border-start-0 rounded-end-3">€</span>
+								</div>
+								{{ form_errors(form.price) }}
+							</div>
+
+							<div class="col-md-6">
+								{{ form_label(form.category, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+								{{ form_widget(form.category, {'attr': {'class': 'form-select rounded-3 py-2'}}) }}
+								{{ form_errors(form.category) }}
+							</div>
+
+							<div class="col-12">
+								{{ form_label(form.description, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+								{{ form_widget(form.description, {'attr': {'class': 'form-control rounded-3', 'rows': 4}}) }}
+								{{ form_errors(form.description) }}
+							</div>
+
+							<div class="col-12">
+								{{ form_label(form.image, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+								{{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+								{{ form_errors(form.image) }}
+							</div>
+						</div>
+
+						<div class="d-grid mt-5">
+							<button class="btn btn-primary btn-lg rounded-pill shadow-sm" type="submit">
+								Publier l'annonce
+							</button>
+						</div>
+						{{ form_end(form) }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
