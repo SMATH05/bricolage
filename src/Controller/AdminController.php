@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -28,13 +29,21 @@ final class AdminController extends AbstractController
     #[Route('/setup-one-time-admin-initial', name: 'app_admin_setup')]
     public function setupAdmin(
         \Doctrine\ORM\EntityManagerInterface $em,
-        \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $hasher
+        \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $hasher,
+        Request $request
     ): Response {
         $email = 'admin@bricolage.com';
+        $force = $request->query->get('force') === '1';
         $existing = $em->getRepository(\App\Entity\User::class)->findOneBy(['email' => $email]);
 
+        if ($existing && $force) {
+            $em->remove($existing);
+            $em->flush();
+            $existing = null;
+        }
+
         if ($existing) {
-            return new Response('Admin account already exists.');
+            return new Response('Admin account already exists. Use ?force=1 to reset it. Email: ' . $existing->getEmail() . ' Roles: ' . implode(', ', $existing->getRoles()));
         }
 
         $user = new \App\Entity\User();
@@ -46,6 +55,6 @@ final class AdminController extends AbstractController
         $em->persist($user);
         $em->flush();
 
-        return new Response('Admin account created: ' . $email . ' (Password: adminPassword123!) - PLEASE DELETE THIS ROUTE AFTER USE.');
+        return new Response('SUCCESS: Admin account created.<br>Email: <b>' . $email . '</b><br>Password: <b>adminPassword123!</b><br><br>Please visit /login to sign in.');
     }
 }
