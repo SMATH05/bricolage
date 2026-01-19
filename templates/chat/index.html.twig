@@ -9,8 +9,8 @@
 	{{ parent() }}
 	<style>
 		.chat-wrapper {
-			height: calc(100vh - 200px);
-			min-height: 600px;
+			height: calc(100vh - 160px);
+			min-height: 500px;
 			background: white;
 			border-radius: 24px;
 			overflow: hidden;
@@ -23,6 +23,7 @@
 			border-right: 1px solid #f1f5f9;
 			display: flex;
 			flex-direction: column;
+			transition: all 0.3s ease;
 		}
 
 		.chat-main {
@@ -30,6 +31,34 @@
 			display: flex;
 			flex-direction: column;
 			background: #f8fafc;
+			transition: all 0.3s ease;
+		}
+
+		/* Mobile Optimization */
+		@media(max-width: 768px) {
+			.chat-wrapper {
+				height: calc(100vh - 100px);
+				border-radius: 0;
+				margin: -1.5rem -0.75rem;
+			}
+
+			.chat-sidebar {
+				width: 100%;
+				{% if activeUser %}
+					display: none;
+				{% endif %}
+			}
+
+			.chat-main {
+				width: 100%;
+				{% if not activeUser %}
+					display: none;
+				{% endif %}
+			}
+
+			.message-bubble {
+				max-width: 85%;
+			}
 		}
 
 		.conversation-list {
@@ -38,7 +67,7 @@
 		}
 
 		.conversation-item {
-			padding: 20px;
+			padding: 15px 20px;
 			display: flex;
 			align-items: center;
 			gap: 15px;
@@ -59,8 +88,8 @@
 		}
 
 		.user-avatar {
-			width: 50px;
-			height: 50px;
+			width: 45px;
+			height: 45px;
 			border-radius: 12px;
 			background: #e2e8f0;
 			display: flex;
@@ -68,10 +97,11 @@
 			justify-content: center;
 			font-weight: 700;
 			color: #64748b;
+			flex-shrink: 0;
 		}
 
 		.message-bubble {
-			max-width: 70%;
+			max-width: 75%;
 			padding: 12px 18px;
 			border-radius: 18px;
 			margin-bottom: 15px;
@@ -98,22 +128,22 @@
 		.messages-container {
 			flex: 1;
 			overflow-y: auto;
-			padding: 30px;
+			padding: 20px;
 			display: flex;
 			flex-direction: column;
 		}
 
 		.chat-input-area {
 			background: white;
-			padding: 20px 30px;
+			padding: 15px 20px;
 			border-top: 1px solid #f1f5f9;
 		}
 
 		.chat-input-area form {
 			display: flex;
-			gap: 15px;
+			gap: 10px;
 			background: #f1f5f9;
-			padding: 8px;
+			padding: 6px;
 			border-radius: 100px;
 		}
 
@@ -121,13 +151,14 @@
 			flex: 1;
 			border: none;
 			background: transparent;
-			padding: 10px 20px;
+			padding: 8px 15px;
 			outline: none;
+			font-size: 0.95rem;
 		}
 
 		.send-btn {
-			width: 45px;
-			height: 45px;
+			width: 40px;
+			height: 40px;
 			border-radius: 50%;
 			background: var(--accent-primary);
 			color: white;
@@ -138,17 +169,24 @@
 			transition: transform 0.2s;
 		}
 
-		.send-btn:hover {
-			transform: scale(1.1);
-		}
-
 		.chat-header {
-			padding: 20px 30px;
+			padding: 12px 20px;
 			background: white;
 			border-bottom: 1px solid #f1f5f9;
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
+		}
+
+		.mobile-back-btn {
+			display: none;
+		}
+
+		@media(max-width: 768px) {
+			.mobile-back-btn {
+				display: block;
+				margin-right: 10px;
+			}
 		}
 	</style>
 {% endblock %}
@@ -195,13 +233,18 @@
 			<div class="chat-main">
 				{% if activeUser %}
 					<div class="chat-header">
-						<div class="d-flex align-items-center gap-3">
-							<div class="user-avatar" style="width: 40px; height: 40px; font-size: 0.9rem;">
-								{{ activeUser.userIdentifier|slice(0, 1)|upper }}
-							</div>
-							<div>
-								<h6 class="mb-0 fw-bold">{{ activeUser.userIdentifier }}</h6>
-								<small class="text-success fw-bold">En ligne</small>
+						<div class="d-flex align-items-center">
+							<a href="{{ path('app_chat') }}" class="btn btn-light rounded-circle mobile-back-btn">
+								<i class="fas fa-arrow-left"></i>
+							</a>
+							<div class="d-flex align-items-center gap-3">
+								<div class="user-avatar" style="width: 40px; height: 40px; font-size: 0.9rem;">
+									{{ activeUser.userIdentifier|slice(0, 1)|upper }}
+								</div>
+								<div>
+									<h6 class="mb-0 fw-bold">{{ activeUser.userIdentifier }}</h6>
+									<small class="text-success fw-bold">{{ 'En ligne'|trans }}</small>
+								</div>
 							</div>
 						</div>
 						<div>
