@@ -22,28 +22,39 @@ class PaymentController extends AbstractController
         }
 
         // Use test key if env var not set, for safety
-        $stripeSecretKey = $_ENV['STRIPE_SECRET_KEY'] ?? 'sk_test_51...Placeholder';
+        $stripeSecretKey = $_ENV['STRIPE_SECRET_KEY'] ?? null;
+
+        if (!$stripeSecretKey || str_contains($stripeSecretKey, 'Placeholder')) {
+            $this->addFlash('danger', 'Stripe API Key is not configured in .env or Railway variables. Payment disabled.');
+            return $this->redirectToRoute('app_marketplace');
+        }
+
         Stripe::setApiKey($stripeSecretKey);
 
-        $checkoutSession = Session::create([
-            'payment_method_types' => ['card'],
-            'line_items' => [
-                [
-                    'price_data' => [
-                        'currency' => 'eur',
-                        'product_data' => [
-                            'name' => $product->getTitle(),
-                            'images' => $product->getImage() ? [$this->getParameter('base_url') . '/uploads/products/' . $product->getImage()] : [],
+        try {
+            $checkoutSession = Session::create([
+                'payment_method_types' => ['card'],
+                'line_items' => [
+                    [
+                        'price_data' => [
+                            'currency' => 'eur',
+                            'product_data' => [
+                                'name' => $product->getTitle(),
+                                'images' => $product->getImage() ? [$this->getParameter('base_url') . '/uploads/products/' . $product->getImage()] : [],
+                            ],
+                            'unit_amount' => (int) ($product->getPrice() * 100), // Amount in cents
                         ],
-                        'unit_amount' => (int) ($product->getPrice() * 100), // Amount in cents
-                    ],
-                    'quantity' => 1,
-                ]
-            ],
-            'mode' => 'payment',
-            'success_url' => $this->generateUrl('app_payment_success', ['session_id' => '{CHECKOUT_SESSION_ID}'], UrlGeneratorInterface::ABSOLUTE_URL),
-            'cancel_url' => $this->generateUrl('app_payment_cancel', [], UrlGeneratorInterface::ABSOLUTE_URL),
-        ]);
+                        'quantity' => 1,
+                    ]
+                ],
+                'mode' => 'payment',
+                'success_url' => $this->generateUrl('app_payment_success', [], UrlGeneratorInterface::ABSOLUTE_URL) . '?session_id={CHECKOUT_SESSION_ID}',
+                'cancel_url' => $this->generateUrl('app_payment_cancel', [], UrlGeneratorInterface::ABSOLUTE_URL),
+            ]);
+        } catch (\Exception $e) {
+            $this->addFlash('danger', 'Stripe Error: ' . $e->getMessage());
+            return $this->redirectToRoute('app_marketplace');
+        }
 
         // Create a pending order
         $commande = new Commande();
