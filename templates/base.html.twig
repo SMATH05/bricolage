@@ -63,6 +63,20 @@
 								{% endif %}
 							</ul>
 							<ul class="navbar-nav ms-auto align-items-center">
+								<li class="nav-item dropdown me-2">
+									<a class="nav-link dropdown-toggle" href="#" id="langDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+										<i class="fas fa-globe me-1"></i>
+										{{ app.request.locale|upper }}
+									</a>
+									<ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2" aria-labelledby="langDropdown">
+										<li>
+											<a class="dropdown-item" href="{{ path('app_change_locale', {'locale': 'fr'}) }}">Français (FR)</a>
+										</li>
+										<li>
+											<a class="dropdown-item" href="{{ path('app_change_locale', {'locale': 'en'}) }}">English (EN)</a>
+										</li>
+									</ul>
+								</li>
 								{% if app.user %}
 									<li class="nav-item dropdown">
 										<a class="nav-link dropdown-toggle btn btn-outline-light border-0 px-3" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
