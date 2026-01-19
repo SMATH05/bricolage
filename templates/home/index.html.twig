@@ -432,58 +432,6 @@
 		</div>
 	</section>
 
-	{% if recentAnnonces|length > 0 %}
-		<section class="featured-ads">
-			<div class="container">
-				<div class="d-flex align-items-end justify-content-between mb-5">
-					<div>
-						<h6 class="text-primary fw-bold text-uppercase">{{ 'Nouveautés'|trans }}</h6>
-						<h2 class="display-6 fw-bold mb-0">{{ 'Offres de Projets'|trans }}</h2>
-					</div>
-					<a href="{{ path('app_annonce') }}" class="btn btn-primary rounded-pill px-4">{{ 'Voir Tout'|trans }}</a>
-				</div>
-				<div class="row g-4">
-					{% for annonce in recentAnnonces %}
-						<div class="col-md-4">
-							<div class="ad-card-custom rounded-4 p-0 shadow-sm bg-white overflow-hidden">
-								<div class="ad-image-container position-relative">
-									{% if annonce.photo %}
-										<img src="{{ asset('uploads/annonces/' ~ annonce.photo) }}" alt="{{ annonce.titre }}" class="w-100 h-100">
-									{% else %}
-										{% set fallback_images = [
-                                            'https://www.courant.fr/upload/media/actualite/1122-installationlectrique.jpg',
-                                            'https://images.unsplash.com/photo-1581578731522-745d05cb9721?auto=format&fit=crop&q=80&w=800',
-                                            'https://images.unsplash.com/photo-1621905252507-b354bcadcabc?auto=format&fit=crop&q=80&w=800',
-                                            'https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&q=80&w=800',
-                                            'https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&q=80&w=800'
-                                        ] %}
-										<img src="{{ fallback_images[annonce.id % 5] }}" alt="Bricolage" class="w-100 h-100" style="object-fit: cover;">
-									{% endif %}
-									<div class="position-absolute top-0 end-0 p-3">
-										<span class="badge-price shadow-sm">{{ annonce.budget }}
-											€</span>
-									</div>
-								</div>
-								<div class="p-4">
-									<h5 class="mb-2 text-dark">{{ annonce.titre }}</h5>
-									<p class="text-muted small mb-4">{{ annonce.description|slice(0, 110) }}...</p>
-									<div class="d-flex align-items-center justify-content-between border-top pt-3">
-										<div class="d-flex align-items-center">
-											<i class="fas fa-map-marker-alt text-primary me-2"></i>
-											<span class="small fw-bold">{{ 'Disponible'|trans }}</span>
-										</div>
-										<a href="{{ path('app_annonce') }}" class="text-primary fw-bold text-decoration-none">{{ 'Détails'|trans }}
-											<i class="fas fa-chevron-right ms-1"></i>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					{% endfor %}
-				</div>
-			</div>
-		</section>
-	{% endif %}
 
 	<section class="py-5 bg-white">
 		<div class="container py-5">

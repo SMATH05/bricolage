@@ -27,15 +27,7 @@ final class AnnonceController extends AbstractController
             return $this->redirectToRoute('app_annonce');
         }
 
-        $recentAnnonces = $annonceRepository->createQueryBuilder('a')
-            ->orderBy('a.date_publication', 'DESC')
-            ->setMaxResults(3)
-            ->getQuery()
-            ->getResult();
-
-        return $this->render('home/index.html.twig', [
-            'recentAnnonces' => $recentAnnonces,
-        ]);
+        return $this->render('home/index.html.twig');
     }
 
     #[IsGranted('ROLE_USER')]
