@@ -25,5 +25,27 @@ final class AdminController extends AbstractController
         ]);
     }
 
+    #[Route('/admin/setup-first-account', name: 'app_admin_setup')]
+    public function setupAdmin(
+        \Doctrine\ORM\EntityManagerInterface $em,
+        \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $hasher
+    ): Response {
+        $email = 'admin@bricolage.com';
+        $existing = $em->getRepository(\App\Entity\User::class)->findOneBy(['email' => $email]);
 
+        if ($existing) {
+            return new Response('Admin account already exists.');
+        }
+
+        $user = new \App\Entity\User();
+        $user->setEmail($email);
+        $user->setRoles(['ROLE_ADMIN']);
+        $user->setPassword($hasher->hashPassword($user, 'adminPassword123!'));
+        $user->setIsVerified(true);
+
+        $em->persist($user);
+        $em->flush();
+
+        return new Response('Admin account created: ' . $email . ' (Password: adminPassword123!) - PLEASE DELETE THIS ROUTE AFTER USE.');
+    }
 }
