@@ -42,7 +42,7 @@
 									<li class="nav-item">
 										<a class="nav-link px-3" href="{{ path('app_recruteur_candidatures') }}">
 											{{ 'Candidatures'|trans }}
-											{% if app.user.recruteur %}
+											{% if app.user.recruteur is defined and app.user.recruteur is not null %}
 												{% set cand_count = 0 %}
 												{% for ad in app.user.recruteur.annonces %}
 													{% set cand_count = cand_count + ad.candidatures|length %}
