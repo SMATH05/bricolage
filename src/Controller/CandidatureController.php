@@ -21,6 +21,12 @@ final class CandidatureController extends AbstractController
         /** @var \App\Entity\User $user */
         $user = $this->getUser();
         $chercheur = $user->getChercheur();
+
+        if (!$chercheur) {
+            $this->addFlash('warning', 'Vous devez créer un profil Chercheur pour voir vos candidatures.');
+            return $this->redirectToRoute('app_profile');
+        }
+
         $candidatures = $candidatureRepository->findBy(['chercheur_id' => $chercheur]);
 
         return $this->render('candidature/index.html.twig', [
@@ -38,10 +44,16 @@ final class CandidatureController extends AbstractController
             return $this->redirectToRoute('app_profile');
         }
 
-        $annonce = $entityManager->getRepository(Annonce::class)->find($annonce_id);
+        try {
+            $annonce = $entityManager->getRepository(Annonce::class)->find($annonce_id);
+        } catch (\Exception $e) {
+            $this->addFlash('danger', 'Erreur lors de la récupération de l\'annonce.');
+            return $this->redirectToRoute('app_annonce');
+        }
 
         if (!$annonce) {
-            throw $this->createNotFoundException('Annonce introuvable');
+            $this->addFlash('danger', 'Annonce introuvable');
+            return $this->redirectToRoute('app_annonce');
         }
 
         // Check if already applied
