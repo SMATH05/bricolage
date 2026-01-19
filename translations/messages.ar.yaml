@@ -95,3 +95,13 @@ Autre: "أخرى"
 "Commencer à vendre": "ابدأ البيع"
 "Envoyer un message": "إرسال رسالة"
 "Membre depuis": "عضو منذ"
+
+# Payment
+"Acheter maintenant": "اشترِ الآن"
+"Contacter le vendeur": "تواصل مع البائع"
+"Paiement Réussi !": "تم الدفع بنجاح!"
+"Merci pour votre achat. Votre commande a été enregistrée avec succès.": "شكراً لشرائكم. تم تسجيل طلبكم بنجاح."
+"Retour au Marketplace": "العودة للسوق"
+"Voir mon profil": "عرض ملفي الشخصي"
+"Paiement Annulé": "تم إلغاء الدفع"
+"La transaction a été annulée. Aucun montant n'a été débité.": "تم إلغاء المعاملة. لم يتم خصم أي مبلغ."

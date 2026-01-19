@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paiement Annulé
+{% endblock %}
+
+{% block body %}
+	<div class="container py-5 text-center">
+		<div class="mb-4">
+			<i class="fas fa-times-circle fa-5x text-danger"></i>
+		</div>
+		<h1 class="fw-bold mb-3">Paiement Annulé</h1>
+		<p class="lead text-muted mb-4">La transaction a été annulée. Aucun montant n'a été débité.</p>
+
+		<a href="{{ path('app_marketplace') }}" class="btn btn-primary rounded-pill px-4">
+			<i class="fas fa-arrow-left me-2"></i>Retour au Marketplace
+		</a>
+	</div>
+{% endblock %}

@@ -15,6 +15,7 @@
         "league/oauth2-google": "^4.1",
         "phpdocumentor/reflection-docblock": "^5.6",
         "phpstan/phpdoc-parser": "^2.3",
+        "stripe/stripe-php": "^19.2",
         "symfony/apache-pack": "*",
         "symfony/asset": "7.4.*",
         "symfony/asset-mapper": "7.4.*",

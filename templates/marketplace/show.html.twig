@@ -62,8 +62,11 @@
 						</div>
 
 						<div class="d-grid gap-2">
-							<a href="mailto:{{ product.user.email }}" class="btn btn-primary btn-lg rounded-pill shadow-sm">
-								<i class="fas fa-envelope me-2"></i>Envoyer un message
+							<a href="{{ path('app_payment_checkout', {id: product.id}) }}" class="btn btn-success btn-lg rounded-pill shadow-sm">
+								<i class="fas fa-shopping-cart me-2"></i>Acheter maintenant
+							</a>
+							<a href="mailto:{{ product.user.email }}" class="btn btn-outline-primary btn-lg rounded-pill shadow-sm">
+								<i class="fas fa-envelope me-2"></i>Contacter le vendeur
 							</a>
 							{# Optional: Add 'Share' button #}
 						</div>
