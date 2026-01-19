@@ -25,7 +25,7 @@ final class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/setup-first-account', name: 'app_admin_setup')]
+    #[Route('/setup-one-time-admin-initial', name: 'app_admin_setup')]
     public function setupAdmin(
         \Doctrine\ORM\EntityManagerInterface $em,
         \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $hasher
