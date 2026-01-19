@@ -7,11 +7,12 @@
 	<div class="container py-5">
 		<div class="d-flex justify-content-between align-items-center mb-4">
 			<div>
-				<h1 class="fw-bold mb-0">Marketplace</h1>
-				<p class="text-muted">Achetez et vendez vos outils et matériaux entre particuliers.</p>
+				<h1 class="fw-bold mb-0">{{ 'Marketplace'|trans }}</h1>
+				<p class="text-muted">{{ "Achetez et vendez vos outils et matériaux entre particuliers."|trans }}</p>
 			</div>
 			<a href="{{ path('app_marketplace_new') }}" class="btn btn-primary rounded-pill px-4 shadow-sm">
-				<i class="fas fa-plus me-2"></i>Vendre un article
+				<i class="fas fa-plus me-2"></i>
+				{{ 'Vendre un article'|trans }}
 			</a>
 		</div>
 
@@ -35,7 +36,7 @@
 								<h5 class="fw-bold text-dark mb-1">{{ product.price }}
 									€</h5>
 								<p class="card-text text-dark text-truncate mb-1">{{ product.title }}</p>
-								<small class="text-muted d-block">{{ product.category }}</small>
+								<small class="text-muted d-block">{{ product.category|trans }}</small>
 								<div class="d-flex align-items-center mt-2 pt-2 border-top">
 									<small class="text-muted text-truncate" style="font-size: 0.8rem;">
 										<i class="fas fa-map-marker-alt me-1"></i>
@@ -52,9 +53,9 @@
 					<div class="mb-4">
 						<i class="fas fa-store-slash fa-4x text-muted opacity-25"></i>
 					</div>
-					<h3>Aucun article en vente pour le moment.</h3>
-					<p class="text-muted">Soyez le premier à publier une annonce !</p>
-					<a href="{{ path('app_marketplace_new') }}" class="btn btn-outline-primary rounded-pill mt-3">Commencer à vendre</a>
+					<h3>{{ "Aucun article en vente pour le moment."|trans }}</h3>
+					<p class="text-muted">{{ "Soyez le premier à publier une annonce !"|trans }}</p>
+					<a href="{{ path('app_marketplace_new') }}" class="btn btn-outline-primary rounded-pill mt-3">{{ "Commencer à vendre"|trans }}</a>
 				</div>
 			{% endfor %}
 		</div>
@@ -63,7 +64,7 @@
 	<style>
 		.hover-shadow:hover {
 			transform: translateY(-2px);
-			box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, .15) !important;
+			box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 		}
 		.transition-all {
 			transition: all 0.3s ease;

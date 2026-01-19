@@ -26,7 +26,10 @@
 						</h4>
 						<p class="text-muted">{{ app.user.email }}</p>
 						<span class="badge bg-primary rounded-pill">
-							{% if is_granted('ROLE_RECRUTEUR') %}Recruteur{% else %}Chercheur
+							{% if is_granted('ROLE_RECRUTEUR') %}
+								{{ 'Recruteur'|trans }}
+							{% else %}
+								{{ 'Chercheur'|trans }}
 							{% endif %}
 						</span>
 					</div>
@@ -101,7 +104,7 @@
 											</div>
 											<div>
 												<span class="badge {% if candidature.statut == 'En attente' %}bg-warning{% elseif candidature.statut == 'Accepté' %}bg-success{% else %}bg-secondary{% endif %} rounded-pill">
-													{{ candidature.statut }}
+													{{ candidature.statut|trans }}
 												</span>
 											</div>
 										</div>

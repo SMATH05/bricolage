@@ -24,7 +24,7 @@
 
 				<div class="form-group">
 					<label for="inputEmail" class="form-label">Email</label>
-					<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="premium-input" autocomplete="email" required autofocus placeholder="votre@email.com">
+					<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="premium-input" autocomplete="email" required autofocus placeholder="{{ 'votre@email.com'|trans }}">
 				</div>
 
 				<div class="form-group">
@@ -42,11 +42,11 @@
 				</div>
 
 				<button type="submit" class="btn-auth-primary">
-					Se connecter
+					{{ 'Se connecter'|trans }}
 				</button>
 
 				<div class="auth-divider">
-					<span>Ou connectez-vous avec</span>
+					<span>{{ 'Ou connectez-vous avec'|trans }}</span>
 				</div>
 
 				<a href="{{ path('connect_google_start') }}" class="google-btn-premium">
@@ -57,4 +57,5 @@
 		</div>
 	</div>
 {% endblock %}
+ </p>
  </p>

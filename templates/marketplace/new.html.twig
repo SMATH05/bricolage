@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Vendre un article
+{% block title %}
+	{{ 'Vendre un article'|trans }}
 {% endblock %}
 
 {% block body %}
@@ -11,7 +12,7 @@
 					<a href="{{ path('app_marketplace') }}" class="btn btn-light rounded-circle shadow-sm me-3" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
 						<i class="fas fa-arrow-left"></i>
 					</a>
-					<h2 class="mb-0 fw-bold">Nouvelle annonce</h2>
+					<h2 class="mb-0 fw-bold">{{ 'Nouvelle annonce'|trans }}</h2>
 				</div>
 
 				<div class="card shadow-lg border-0 rounded-4">
@@ -20,7 +21,7 @@
 						<div class="mb-4 text-center">
 							<div class="upload-placeholder p-4 bg-light rounded-3 border border-dashed mb-2" onclick="document.getElementById('product_image').click()" style="cursor: pointer;">
 								<i class="fas fa-camera fa-2x text-primary mb-2"></i>
-								<p class="mb-0 text-muted small fw-bold">Ajouter une photo</p>
+								<p class="mb-0 text-muted small fw-bold">{{ "Ajouter une photo"|trans }}</p>
 							</div>
 							{# The standard widget will be rendered below, we can hide it effectively or style it #}
 						</div>
@@ -62,7 +63,7 @@
 
 						<div class="d-grid mt-5">
 							<button class="btn btn-primary btn-lg rounded-pill shadow-sm" type="submit">
-								Publier l'annonce
+								{{ "Publier l'annonce"|trans }}
 							</button>
 						</div>
 						{{ form_end(form) }}

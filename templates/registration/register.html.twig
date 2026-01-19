@@ -6,14 +6,15 @@
 {% block body %}
 	<div class="auth-wrapper">
 		<div class="auth-logo">BRICOLAGE</div>
-		<a href="{{ path('app_home') }}" class="auth-back-btn">← Retour au site</a>
+		<a href="{{ path('app_home') }}" class="auth-back-btn">←
+			{{ 'Retour au site'|trans }}</a>
 		<div class="auth-tagline">Capturing Moments, Creating Memories</div>
 
 		<div class="auth-card animate-fade-in">
 			<div class="auth-header">
-				<h1>Créer un compte</h1>
-				<p>Vous avez déjà un compte ?
-					<a href="{{ path('app_login') }}">Se connecter</a>
+				<h1>{{ 'Créer un compte'|trans }}</h1>
+				<p>{{ "Vous n'avez pas de compte ?"|trans }}
+					<a href="{{ path('app_login') }}">{{ 'Se connecter'|trans }}</a>
 				</p>
 			</div>
 
@@ -21,12 +22,12 @@
 
 			<div class="form-row">
 				<div class="form-group">
-					<label class="form-label" for="{{ registrationForm.prenom.vars.id }}">Prénom</label>
+					<label class="form-label" for="{{ registrationForm.prenom.vars.id }}">{{ 'Prénom'|trans }}</label>
 					{{ form_widget(registrationForm.prenom) }}
 					{{ form_errors(registrationForm.prenom) }}
 				</div>
 				<div class="form-group">
-					<label class="form-label" for="{{ registrationForm.nom.vars.id }}">Nom</label>
+					<label class="form-label" for="{{ registrationForm.nom.vars.id }}">{{ 'Nom'|trans }}</label>
 					{{ form_widget(registrationForm.nom) }}
 					{{ form_errors(registrationForm.nom) }}
 				</div>
@@ -40,13 +41,13 @@
 			</div>
 
 			<div class="form-group">
-				<label class="form-label" for="{{ registrationForm.plainPassword.vars.id }}">Mot de passe</label>
-				{{ form_widget(registrationForm.plainPassword, {'attr': {'placeholder': 'Entrez votre mot de passe', 'class': 'premium-input'}}) }}
+				<label class="form-label" for="{{ registrationForm.plainPassword.vars.id }}">{{ 'Mot de passe'|trans }}</label>
+				{{ form_widget(registrationForm.plainPassword, {'attr': {'placeholder': 'Entrez votre mot de passe'|trans, 'class': 'premium-input'}}) }}
 				{{ form_errors(registrationForm.plainPassword) }}
 			</div>
 
 			<div class="form-group">
-				<label class="form-label">Je souhaite m'inscrire en tant que :</label>
+				<label class="form-label">{{ "Je souhaite m'inscrire en tant que :"|trans }}</label>
 				<div class="role-grid">
 					{% for role in registrationForm.roles %}
 						<div class="role-option">
@@ -59,7 +60,7 @@
 								{% else %}
 									<i class="fas fa-search"></i>
 								{% endif %}
-								<span>{{ role.vars.label }}</span>
+								<span>{{ role.vars.label|trans }}</span>
 							</label>
 						</div>
 					{% endfor %}
@@ -69,17 +70,17 @@
 			<div class="form-check">
 				{{ form_widget(registrationForm.agreeTerms) }}
 				<label for="{{ registrationForm.agreeTerms.vars.id }}">
-					J'accepte les
-					<a href="#">Conditions d'utilisation</a>
+					{{ "J'accepte les"|trans }}
+					<a href="#">{{ "Conditions d'utilisation"|trans }}</a>
 				</label>
 			</div>
 
 			<button type="submit" class="btn-auth-primary">
-				Créer un compte
+				{{ 'Créer un compte'|trans }}
 			</button>
 
 			<div class="auth-divider">
-				<span>Ou inscrivez-vous avec</span>
+				<span>{{ 'Ou inscrivez-vous avec'|trans }}</span>
 			</div>
 
 			<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
