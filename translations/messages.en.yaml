@@ -62,4 +62,12 @@ Budget: Budget
 "Accepter les conditions": "Agree to terms"
 Nom: Last Name
 Prénom: First Name
-Email: Email
+# Profile
+"Modifier mes informations": "Edit my information"
+"Sauvegarder les modifications": "Save changes"
+"Publiée le": "Published on"
+"Postulée le": "Applied on"
+"Vous n'avez pas encore publié d'annonces.": "You haven't posted any ads yet."
+"Vous n'avez pas encore postulé à des annonces.": "You haven't applied to any ads yet."
+"Aucun profil associé": "No profile associated"
+"Votre compte utilisateur n'est pas lié à un profil Chercheur ou Recruteur.": "Your user account is not linked to a Researcher or Recruiter profile."
