@@ -4,87 +4,93 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container py-5">
-		<div class="d-flex align-items-center justify-content-between mb-5 border-bottom pb-4">
-			<div>
-				<h1 class="h2 fw-bold mb-1">Gestion des Candidatures</h1>
-				<p class="text-muted mb-0">Suivez et gérez les postulants pour vos offres.</p>
-			</div>
-			<a href="{{ path('app_annonce') }}" class="btn btn-outline-dark rounded-pill px-4 shadow-sm">
-				<i class="fas fa-arrow-left me-2"></i>Retour à mes annonces
-			</a>
+<div class="container py-5">
+	<div class="d-flex align-items-center justify-content-between mb-5 border-bottom pb-4">
+		<div>
+			<h1 class="h2 fw-bold mb-1">{{ 'Gestion des Candidatures'|trans }}</h1>
+			<p class="text-muted mb-0">{{ 'Suivez et gérez les postulants pour vos offres.'|trans }}</p>
 		</div>
+		<a href="{{ path('app_annonce') }}" class="btn btn-outline-dark rounded-pill px-4 shadow-sm">
+			<i class="fas fa-arrow-left me-2"></i>
+			{{ 'Retour à mes annonces'|trans }}
+		</a>
+	</div>
 
-		{% if candidatures %}
-			<div class="row g-4">
-				{% for candidature in candidatures %}
-					<div class="col-12">
-						<div class="card shadow-sm border-0 rounded-4 overflow-hidden animate-fade-in mb-3">
-							<div class="card-body p-4">
-								<div class="row align-items-center">
-									<div class="col-md-auto text-center mb-3 mb-md-0">
-										{% if candidature.chercheurId.photo %}
-											<img src="{{ asset('uploads/profiles/' ~ candidature.chercheurId.photo) }}" alt="Chercheur" class="rounded-circle shadow-sm" style="width: 80px; height: 80px; object-fit: cover;">
-										{% else %}
-											<div class="rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto" style="width: 80px; height: 80px;">
-												<i class="fas fa-user-tie fa-2x text-muted"></i>
-											</div>
-										{% endif %}
-									</div>
-									<div class="col-md ms-md-3">
-										<div class="d-flex flex-wrap align-items-center gap-2 mb-2">
-											<h5 class="fw-bold mb-0 text-dark">{{ candidature.chercheurId.nom }}
-												{{ candidature.chercheurId.prenom }}</h5>
-											<span class="badge {% if candidature.statut == 'En attente' %}bg-warning text-dark{% elseif candidature.statut == 'Accepté' %}bg-success{% else %}bg-secondary{% endif %} rounded-pill px-3 py-2 small fw-medium">
-												{{ candidature.statut }}
-											</span>
+	{% if candidatures %}
+		<div class="row g-4">
+			{% for candidature in candidatures %}
+				<div class="col-12">
+					<div class="card shadow-sm border-0 rounded-4 overflow-hidden animate-fade-in mb-3">
+						<div class="card-body p-4">
+							<div class="row align-items-center">
+								<div class="col-md-auto text-center mb-3 mb-md-0">
+									{% if candidature.chercheurId.photo %}
+										<img src="{{ asset('uploads/profiles/' ~ candidature.chercheurId.photo) }}" alt="Chercheur" class="rounded-circle shadow-sm" style="width: 80px; height: 80px; object-fit: cover;">
+									{% else %}
+										<div class="rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto" style="width: 80px; height: 80px;">
+											<i class="fas fa-user-tie fa-2x text-muted"></i>
 										</div>
-										<p class="text-muted mb-2 small">
-											<i class="fas fa-envelope me-2"></i>
-											{{ candidature.chercheurId.email }}
-											<span class="mx-2">|</span>
-											<i class="fas fa-briefcase me-2"></i>Postulé à :
-											<strong>{{ candidature.annonceId.titre }}</strong>
-										</p>
-										<div class="small text-muted mb-0">
-											<i class="fas fa-calendar-alt me-2"></i>Le
-											{{ candidature.datePro|date('d/m/Y à H:i') }}
-										</div>
+									{% endif %}
+								</div>
+								<div class="col-md ms-md-3">
+									<div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+										<h5 class="fw-bold mb-0 text-dark">{{ candidature.chercheurId.nom }}
+											{{ candidature.chercheurId.prenom }}</h5>
+										<span class="badge {% if candidature.statut == 'En attente' %}bg-warning text-dark{% elseif candidature.statut == 'Accepté' %}bg-success{% else %}bg-secondary{% endif %} rounded-pill px-3 py-2 small fw-medium">
+											{{ candidature.statut|trans }}
+										</span>
 									</div>
-									<div class="col-md-auto text-end mt-3 mt-md-0 pt-3 pt-md-0 border-top border-md-top-0">
-										<div class="btn-group gap-2">
-											{% if candidature.statut != 'Accepté' %}
-												<a href="{{ path('app_recruteur_candidature_statut', {id: candidature.id, statut: 'Accepté'}) }}" class="btn btn-success rounded-pill px-4 shadow-sm" title="Accepter la candidature">
-													<i class="fas fa-check me-2"></i>Accepter
-												</a>
-											{% endif %}
-											{% if candidature.statut != 'Refusé' %}
-												<a href="{{ path('app_recruteur_candidature_statut', {id: candidature.id, statut: 'Refusé'}) }}" class="btn btn-outline-danger rounded-pill px-4" title="Refuser la candidature">
-													<i class="fas fa-times me-2"></i>Refuser
-												</a>
-											{% endif %}
-											<a href="{{ path('app_profile') }}" class="btn btn-light rounded-pill px-3" title="Voir le profil">
-												<i class="fas fa-id-card"></i>
+									<p class="text-muted mb-2 small">
+										<i class="fas fa-envelope me-2"></i>
+										{{ candidature.chercheurId.email }}
+										<span class="mx-2">|</span>
+										<i class="fas fa-briefcase me-2"></i>
+										{{ 'Postulé à :'|trans }}
+										<strong>{{ candidature.annonceId.titre }}</strong>
+									</p>
+									<div class="small text-muted mb-0">
+										<i class="fas fa-calendar-alt me-2"></i>
+										{{ 'Le'|trans }}
+										{{ candidature.datePro|date('d/m/Y à H:i') }}
+									</div>
+								</div>
+								<div class="col-md-auto text-end mt-3 mt-md-0 pt-3 pt-md-0 border-top border-md-top-0">
+									<div class="btn-group gap-2">
+										{% if candidature.statut != 'Accepté' %}
+											<a href="{{ path('app_recruteur_candidature_statut', {id: candidature.id, statut: 'Accepté'}) }}" class="btn btn-success rounded-pill px-4 shadow-sm" title="{{ 'Accepter la candidature'|trans }}">
+												<i class="fas fa-check me-2"></i>
+												{{ 'Accepter'|trans }}
 											</a>
-										</div>
+										{% endif %}
+										{% if candidature.statut != 'Refusé' %}
+											<a href="{{ path('app_recruteur_candidature_statut', {id: candidature.id, statut: 'Refusé'}) }}" class="btn btn-outline-danger rounded-pill px-4" title="{{ 'Refuser la candidature'|trans }}">
+												<i class="fas fa-times me-2"></i>
+												{{ 'Refuser'|trans }}
+											</a>
+										{% endif %}
+										<a href="{{ path('app_profile') }}" class="btn btn-light rounded-pill px-3" title="{{ 'Voir le profil'|trans }}">
+											<i class="fas fa-id-card"></i>
+										</a>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				{% endfor %}
-			</div>
-		{% else %}
-			<div class="text-center py-5 bg-light rounded-4 shadow-sm border">
-				<div class="icon-circle bg-white shadow-sm mx-auto mb-4" style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
-					<i class="fas fa-inbox fa-3x text-muted opacity-50"></i>
 				</div>
-				<h4 class="fw-bold text-muted">Aucune candidature pour le moment</h4>
-				<p class="text-muted">Vos postulants apparaîtront ici dès qu'ils auront postulé à vos offres.</p>
+			{% endfor %}
+		</div>
+	{% else %}
+		<div class="text-center py-5 bg-light rounded-4 shadow-sm border">
+			<div class="icon-circle bg-white shadow-sm mx-auto mb-4" style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
+				<i class="fas fa-inbox fa-3x text-muted opacity-50"></i>
+			</div>
+			<h4 class="fw-bold text-muted">{{ 'Aucune candidature pour le moment'|trans }}</h4>
+			<p class="text-muted">{{ 'Vos postulants apparaîtront ici dès qu\'ils auront postulé à vos offres.'|trans }}</p>
 				<a href="{{ path('app_annonces_ajouter') }}" class="btn btn-primary rounded-pill px-5 mt-3 shadow">
-					<i class="fas fa-plus me-2"></i>Créer une nouvelle annonce
+					<i class="fas fa-plus me-2"></i>{{ 'Créer une nouvelle annonce'|trans }}
 				</a>
 			</div>
 		{% endif %}
 	</div>
 {% endblock %}
+ </p>
