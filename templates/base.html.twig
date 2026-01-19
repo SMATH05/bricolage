@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ app.request.locale }}" {% if app.request.locale == 'ar' %} dir="rtl" {% endif %}>
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,19 +29,19 @@
 						<div class="collapse navbar-collapse" id="navbarContent">
 							<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 								<li class="nav-item">
-									<a class="nav-link px-3" href="{{ path('app_home') }}">Accueil</a>
+									<a class="nav-link px-3" href="{{ path('app_home') }}">{{ 'Accueil'|trans }}</a>
 								</li>
 								{% if is_granted('ROLE_ADMIN') %}
 									<li class="nav-item">
-										<a class="nav-link px-3 fw-bold text-warning" href="{{ path('app_admin') }}">Administration</a>
+										<a class="nav-link px-3 fw-bold text-warning" href="{{ path('app_admin') }}">{{ 'Administration'|trans }}</a>
 									</li>
 								{% elseif is_granted('ROLE_RECRUTEUR') %}
 									<li class="nav-item">
-										<a class="nav-link px-3" href="{{ path('app_annonce') }}">Mes Annonces</a>
+										<a class="nav-link px-3" href="{{ path('app_annonce') }}">{{ 'Mes Annonces'|trans }}</a>
 									</li>
 									<li class="nav-item">
 										<a class="nav-link px-3" href="{{ path('app_recruteur_candidatures') }}">
-											Candidatures
+											{{ 'Candidatures'|trans }}
 											{% if app.user.recruteur %}
 												{% set cand_count = 0 %}
 												{% for ad in app.user.recruteur.annonces %}
@@ -55,10 +55,10 @@
 									</li>
 								{% elseif is_granted('ROLE_CHERCHEUR') %}
 									<li class="nav-item">
-										<a class="nav-link px-3" href="{{ path('app_annonce') }}">Annonces</a>
+										<a class="nav-link px-3" href="{{ path('app_annonce') }}">{{ 'Annonces'|trans }}</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link px-3" href="{{ path('app_candidature') }}">Mes Candidatures</a>
+										<a class="nav-link px-3" href="{{ path('app_candidature') }}">{{ 'Mes Candidatures'|trans }}</a>
 									</li>
 								{% endif %}
 							</ul>
@@ -75,6 +75,9 @@
 										<li>
 											<a class="dropdown-item" href="{{ path('app_change_locale', {'locale': 'en'}) }}">English (EN)</a>
 										</li>
+										<li>
+											<a class="dropdown-item" href="{{ path('app_change_locale', {'locale': 'ar'}) }}">العربية (AR)</a>
+										</li>
 									</ul>
 								</li>
 								{% if app.user %}
@@ -86,24 +89,26 @@
 										<ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2" aria-labelledby="profileDropdown">
 											<li>
 												<a class="dropdown-item py-2" href="{{ path('app_profile') }}">
-													<i class="fas fa-id-card me-2 opacity-50"></i>Mon Profil
+													<i class="fas fa-id-card me-2 opacity-50"></i>
+													{{ 'Mon Profil'|trans }}
 												</a>
 											</li>
 											<li><hr class="dropdown-divider"></li>
 											<li>
 												<a class="dropdown-item py-2 text-danger" href="{{ path('app_logout') }}">
-													<i class="fas fa-sign-out-alt me-2 opacity-50"></i>Déconnexion
+													<i class="fas fa-sign-out-alt me-2 opacity-50"></i>
+													{{ 'Déconnexion'|trans }}
 												</a>
 											</li>
 										</ul>
 									</li>
 								{% else %}
 									<li class="nav-item">
-										<a class="nav-link px-3" href="{{ path('app_login') }}">Connexion</a>
+										<a class="nav-link px-3" href="{{ path('app_login') }}">{{ 'Connexion'|trans }}</a>
 									</li>
 									<li class="nav-item ms-lg-2">
 										<a class="btn btn-primary px-4 rounded-pill shadow-sm" href="{{ path('app_register') }}">
-											Inscription
+											{{ 'Inscription'|trans }}
 										</a>
 									</li>
 								{% endif %}
@@ -130,10 +135,10 @@
 					<div class="row">
 						<div class="col-md-4 mb-4">
 							<h5 class="fw-bold mb-4 text-primary">Bricolage</h5>
-							<p class="text-white-50 small">La plateforme de référence pour connecter les talents et les besoins en bricolage et services professionnels.</p>
+							<p class="text-white-50 small">{{ 'La plateforme de référence pour connecter les talents et les besoins en bricolage et services professionnels.'|trans }}</p>
 						</div>
 						<div class="col-md-4 mb-4">
-							<h5 class="fw-bold mb-4">Fondateurs</h5>
+							<h5 class="fw-bold mb-4">{{ 'Fondateurs'|trans }}</h5>
 							<ul class="list-unstyled text-white-50 small">
 								<li>Moubaraki Mohammed</li>
 								<li>Benlaama Reda</li>
@@ -141,7 +146,7 @@
 							</ul>
 						</div>
 						<div class="col-md-4 mb-4">
-							<h5 class="fw-bold mb-4">Contactez-nous</h5>
+							<h5 class="fw-bold mb-4">{{ 'Contactez-nous'|trans }}</h5>
 							<ul class="list-unstyled text-white-50 small">
 								<li>
 									<i class="fas fa-envelope me-2"></i>moubaramed@gmail.com</li>
@@ -152,7 +157,8 @@
 					</div>
 					<hr class="border-secondary mt-4 mb-4">
 					<div class="text-center">
-						<p class="text-white-50 small mb-0">&copy; 2026 Bricolage. Tous droits réservés.</p>
+						<p class="text-white-50 small mb-0">&copy; 2026 Bricolage.
+							{{ 'Tous droits réservés.'|trans }}</p>
 					</div>
 				</div>
 			</footer>
