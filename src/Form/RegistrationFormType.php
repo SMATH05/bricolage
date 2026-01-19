@@ -39,7 +39,6 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('roles', ChoiceType::class, [
                 'choices' => [
-                    'Admin' => 'ROLE_ADMIN',
                     'Chercheur' => 'ROLE_CHERCHEUR',
                     'Recruteur' => 'ROLE_RECRUTEUR',
                 ],

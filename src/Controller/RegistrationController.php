@@ -42,6 +42,13 @@ class RegistrationController extends AbstractController
             );
 
             $selectedRole = $form->get('roles')->getData();
+
+            // Security lockdown: Only allow Researcher or Recruiter registration
+            if (!in_array($selectedRole, ['ROLE_CHERCHEUR', 'ROLE_RECRUTEUR'])) {
+                $this->addFlash('error', 'Role non autorisé.');
+                return $this->redirectToRoute('app_register');
+            }
+
             $user->setRoles([$selectedRole]);
 
             $user->setIsVerified(true);
@@ -76,9 +83,8 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
             return match ($selectedRole) {
-                'ROLE_ADMIN' => $this->redirectToRoute('app_admin'),
-                'ROLE_CHERCHEUR' => $this->redirectToRoute('app_annonce'), // Go to ads list
-                'ROLE_RECRUTEUR' => $this->redirectToRoute('app_annonce'), // Redirect to ads list
+                'ROLE_CHERCHEUR' => $this->redirectToRoute('app_annonce'),
+                'ROLE_RECRUTEUR' => $this->redirectToRoute('app_annonce'),
                 default => $this->redirectToRoute('app_home'),
             };
         }
