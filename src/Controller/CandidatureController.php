@@ -55,17 +55,22 @@ final class CandidatureController extends AbstractController
             return $this->redirectToRoute('app_annonce');
         }
 
-        $candidature = new Candidature();
-        $candidature->setChercheurId($chercheur);
-        $candidature->setAnnonceId($annonce);
-        $candidature->setDatePro(new \DateTime());
-        $candidature->setStatut('En attente');
-        $candidature->setIdCandidature(uniqid('CAN_'));
+        try {
+            $candidature = new Candidature();
+            $candidature->setChercheurId($chercheur);
+            $candidature->setAnnonceId($annonce);
+            $candidature->setDatePro(new \DateTime());
+            $candidature->setStatut('En attente');
+            $candidature->setIdCandidature(uniqid('CAN_'));
 
-        $entityManager->persist($candidature);
-        $entityManager->flush();
+            $entityManager->persist($candidature);
+            $entityManager->flush();
 
-        $this->addFlash('success', 'Votre candidature a été envoyée avec succès.');
+            $this->addFlash('success', 'Votre candidature a été envoyée avec succès.');
+        } catch (\Exception $e) {
+            $this->addFlash('danger', 'Erreur lors de la candidature : ' . $e->getMessage());
+        }
+
         return $this->redirectToRoute('app_candidature');
     }
 
