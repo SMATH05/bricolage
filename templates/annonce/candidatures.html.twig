@@ -129,8 +129,8 @@
 										</a>
 									{% endif %}
 
-									<a href="{{ path('app_profile') }}" class="btn btn-white rounded-circle shadow-sm ms-2" style="width: 42px; height: 42px; display: flex; align-items: center; justify-content: center;">
-										<i class="far fa-id-card text-primary"></i>
+									<a href="{{ path('app_chat_conversation', {id: candidature.chercheurId.id}) }}" class="btn btn-white rounded-circle shadow-sm ms-2" style="width: 42px; height: 42px; display: flex; align-items: center; justify-content: center;">
+										<i class="far fa-comment-dots text-primary"></i>
 									</a>
 								</div>
 							</div>
@@ -153,4 +153,5 @@
 		{% endif %}
 	</div>
 {% endblock %}
+ </p>
  </p>

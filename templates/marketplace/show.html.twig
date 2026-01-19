@@ -66,8 +66,8 @@
 								<i class="fas fa-shopping-cart me-2"></i>
 								{{ 'Acheter maintenant'|trans }}
 							</a>
-							<a href="mailto:{{ product.user.email }}" class="btn btn-outline-primary btn-lg rounded-pill shadow-sm">
-								<i class="fas fa-envelope me-2"></i>
+							<a href="{{ path('app_chat_conversation', {id: product.user.id}) }}" class="btn btn-outline-primary btn-lg rounded-pill shadow-sm">
+								<i class="fas fa-comments me-2"></i>
 								{{ 'Contacter le vendeur'|trans }}
 							</a>
 							{# Optional: Add 'Share' button #}
