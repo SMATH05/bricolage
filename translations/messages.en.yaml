@@ -9,6 +9,7 @@ Candidatures: Applications
 Déconnexion: Logout
 Annonces: Ads
 "Mes Candidatures": "My Applications"
+Messagerie: Messaging
 
 # Footer
 "La plateforme de référence pour connecter les talents et les besoins en bricolage et services professionnels.": "The leading platform for connecting talent and DIY needs with professional services."
@@ -16,8 +17,8 @@ Fondateurs: Founders
 "Contactez-nous": "Contact Us"
 "Tous droits réservés.": "All rights reserved."
 
-# Dashboard
-"Tableau de bord": "Dashboard"
+# Dashboard & Common Actions
+"Tableau de Bord": Dashboard
 "Nouvelle Annonce": "New Ad"
 Candidats: Candidates
 Modifier: Edit
@@ -44,6 +45,10 @@ Refuser: Reject
 "Vos postulants apparaîtront ici dès qu'ils auront postulé à vos offres.": "Your applicants will appear here once they apply to your offers."
 "Créer une nouvelle annonce": "Create a new ad"
 "Tableau de bord - Annonces": "Dashboard - Ads"
+Détails: Details
+Action: Action
+ID: ID
+Status: Status
 
 # Forms & Labels
 "Ajouter une annonce": "Add an ad"
@@ -54,6 +59,7 @@ Titre: Title
 Description: Description
 "Date publication": "Publication Date"
 Budget: Budget
+Utilisateur: User
 
 # Login & Register
 "Se connecter": "Login"
@@ -68,7 +74,7 @@ Budget: Budget
 Nom: Last Name
 Prénom: First Name
 "Je souhaite m'inscrire en tant que :": "I wish to register as:"
-"J'accepte les": "I accept the"
+"J'accepte les :": "I accept the:"
 "Conditions d'utilisation": "Terms of Use"
 "Ou inscrivez-vous avec": "Or sign up with"
 "Profil mis à jour.": "Profile updated."
@@ -80,7 +86,7 @@ Chercheurs: Researchers
 "Gestion des Recruteurs": "Manage Recruiters"
 Recruteurs: Recruiters
 "Nouveau Recruteur": "New Recruiter"
-"Aucun recruteur trouvé": "No recruiter found"
+"Aucun recruteur trouvé": "No researcher found"
 "La liste des entreprises est actuellement vide.": "The company list is currently empty."
 "Statut de la candidature mis à jour.": "Application status updated."
 Chercheur: Researcher
@@ -99,7 +105,9 @@ Admin: Admin
 
 # Marketplace
 Marketplace: Marketplace
+"Marketplace Bricolage": Bricolage Marketplace
 "Achetez et vendez vos outils et matériaux entre particuliers.": "Buy and sell tools and materials between individuals."
+"Trouvez les meilleurs outils, matériaux et équipements de qualité professionnelle à prix réduit.": Find the best professional tools, materials and equipment at a discount.
 "Vendre un article": "Sell an item"
 "Nouvelle annonce": "New listing"
 "Ajouter une photo": "Add a photo"
@@ -111,17 +119,20 @@ Matériaux: Materials
 Équipement: Equipment
 Jardin: Garden
 Autre: Other
-"Aucun article en vente pour le moment.": "No items for sale yet."
-"Soyez le premier à publier une annonce !": "Be the first to post a listing!"
-"Commencer à vendre": "Start selling"
+"Explorer plus": Explore more
+"Le marketplace est vide": The marketplace is empty
+"Soyez le premier à explorer et à vendre vos équipements.": Be the first to explore and sell your equipment.
+"Publier la première annonce": Publish first ad
+"Tous": All
+"Outils": Tools
+"Électrique": Electrical
+"Acheter maintenant": "Buy Now"
+"Contacter le vendeur": "Contact Seller"
+"Retour au Marketplace": "Back to Marketplace"
+"Détails du produit": "Product details"
 "Envoyer un message": "Send message"
 "Membre depuis": "Member since"
 Vendeur: Seller
-"Publié le": "Published on"
-"Retour au Marketplace": "Back to Marketplace"
-"Détails du produit": "Product details"
-"Acheter maintenant": "Buy Now"
-"Contacter le vendeur": "Contact Seller"
 
 # Payment
 "Paiement Réussi !": "Payment Successful!"
@@ -130,12 +141,19 @@ Vendeur: Seller
 "Paiement Annulé": "Payment Cancelled"
 "La transaction a été annulée. Aucun montant n'a été débité.": "The transaction was cancelled. No amount was charged."
 
-# Home & Extras
+# Messaging / Chat
+Conversations: Conversations
+"Nouvelle conversation": New conversation
+"Écrivez votre message ici...": Write your message here...
+"Votre Messagerie": Your Messages
+"Sélectionnez une conversation ou contactez un vendeur/candidat pour commencer à discuter.": Select a conversation or contact a seller/candidate to start chatting.
+"Accéder à la messagerie": Access Messaging
+"En ligne": Online
+
+# Home & Marketing
 "Trouvez l'expert idéal": "Find the perfect expert"
 "Connecting Talent, Building Projects": "Connecting Talent, Building Projects"
 "Travaillez avec les meilleurs Pros.": "Work with the best Pros."
-"les meilleurs Pros.": "the best Pros."
-"Travaillez avec": "Work with"
 "La marketplace d'excellence pour tous vos besoins de bricolage et services.": "The elite marketplace for all your DIY and service needs."
 "Quel service recherchez-vous ?": "What service are you looking for?"
 "Trouver un Expert": "Find an Expert"
@@ -157,9 +175,8 @@ Vendeur: Seller
 "Visualisez les profils, les avis et les portfolios avant de décider.": "View profiles, reviews, and portfolios before deciding."
 "Résultats d'Excellence": "Excellent Results"
 "Bénéficiez d'un service de qualité supérieure avec garantie Bricolage.": "Benefit from superior quality service with Bricolage guarantee."
-"Offres de Projets": "Project Offers"
-"Voir Tout": "View All"
-"Détails": "Details"
+"Opportunités de Projets": Project Opportunities
+"Découvrez les dernières annonces et proposez vos services aux meilleurs tarifs.": Discover latest ads and propose your services at best rates.
 "Confiance & Expertise": "Trust & Expertise"
 "Nos Experts les plus demandés": "Our Most Requested Experts"
 "Des professionnels certifiés, notés par la communauté.": "Certified professionals, rated by the community."
@@ -178,11 +195,31 @@ Vendeur: Seller
 "Déménagement": "Moving"
 "Peinture": "Painting"
 "Électricité": "Electricity"
-"Disponible": "Available"
-"Mettre à jour": "Update"
-"Retour": "Back"
-"Modifier l'annonce": "Edit ad"
 "Nouveautés": "New Arrivals"
+
+# Admin Dash
+"Zone Administrative": Admin Zone
+"Gérez votre plateforme avec des outils professionnels.": Manage your platform with professional tools.
+"Serveur opérationnel": Server operational
+"Total": Total
+"Talents": Talents
+"Clients": Clients
+"Experts Inscrits": Registered Experts
+"Recruteurs Actifs": Active Recruiters
+"Derniers Experts": Latest Experts
+"Recruteurs Récents": Recent Recruiters
+"Voir tous": See all
+
+# Candidate Management (Recruiter)
+"Recrutement": Recruitment
+"Candidatures Reçues": Applications Received
+"Postulants": Applicants
+"Client": Client
+"aucune candidature disponible": No candidates available
+"Veuillez revenir ultérieurement.": Please come back later.
+"Aucune candidature": No applications
+"Vous recevrez une notification dès qu'un expert proposera ses services.": You will receive a notification as soon as an expert offers their services.
+"Publier une nouvelle offre": Publish a new offer
 
 # Flash Messages & Errors
 "Vous devez créer un profil Chercheur pour voir vos candidatures.": "You must create a Researcher profile to view your applications."
@@ -199,58 +236,7 @@ Vendeur: Seller
 "Succès": "Success"
 "Attention": "Warning"
 "Erreur": "Error"
-Messagerie: Messaging
-"Contacter le vendeur": Contact Seller
-Conversations: Conversations
-"Nouvelle conversation": New conversation
-"Écrivez votre message ici...": Write your message here...
-"Votre Messagerie": Your Messages
-"Sélectionnez une conversation ou contactez un vendeur/candidat pour commencer à discuter.": Select a conversation or contact a seller/candidate to start chatting.
-"Derniers Experts": Latest Experts
-"Recruteurs Récents": Recent Recruiters
-"Zone Administrative": Admin Zone
-"Tableau de Bord": Dashboard
-"Serveur opérationnel": Server operational
-"En ligne": Online
-"Messagerie": Messaging
-"Accéder à la messagerie": Access Messaging
-"Détails": Details
-"Vendre un article": Sell an item
-"Marketplace Bricolage": Bricolage Marketplace
-"Trouvez les meilleurs outils, matériaux et équipements de qualité professionnelle à prix réduit.": Find the best professional tools, materials and equipment at a discount.
-"Explorer plus": Explore more
-"Le marketplace est vide": The marketplace is empty
-"Soyez le premier à explorer et à vendre vos équipements.": Be the first to explore and sell your equipment.
-"Publier la première annonce": Publish first ad
-"Tous": All
-"Outils": Tools
-"Matériaux": Materials
-"Jardin": Garden
-"Électrique": Electrical
-"Opportunités de Projets": Project Opportunities
-"Découvrez les dernières annonces et proposez vos services aux meilleurs tarifs.": Discover latest ads and propose your services at best rates.
 "Disponible": Available
-"Postulants": Applicants
-"Client": Client
-"aucune candidature disponible": No candidates available
-"Veuillez revenir ultérieurement.": Please come back later.
-"Candidatures Reçues": Applications Received
-"Recrutement": Recruitment
-"Aucune candidature": No applications
-"Vous recevrez une notification dès qu'un expert proposera ses services.": You will receive a notification as soon as an expert offers their services.
-"Publier une nouvelle offre": Publish a new offer
-"Gérez votre plateforme avec des outils professionnels.": Manage your platform with professional tools.
-"Administration": Administration
-"Voir tous": See all
-"Total": Total
-"Talents": Talents
-"Clients": Clients
-"Experts Inscrits": Registered Experts
-"Recruteurs Actifs": Active Recruiters
-"Derniers Experts": Latest Experts
-"ID": ID
-"Action": Action
-"Utilisateur": User
-"Recruteurs Récents": Recent Recruiters
-"Tableau de Bord": Dashboard
-
+"Mettre à jour": "Update"
+"Retour": "Back"
+"Modifier l'annonce": "Edit ad"

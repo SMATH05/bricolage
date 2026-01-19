@@ -9,6 +9,7 @@ Annonces: "الإعلانات"
 "Mes Candidatures": "طلباتي"
 "Mon Profil": "ملفي الشخصي"
 Déconnexion: "خروج"
+Messagerie: الرسائل
 
 # Footer
 "Bricolage": "بريكولاج"
@@ -17,8 +18,8 @@ Fondateurs: "المؤسسون"
 "Contactez-nous": "اتصل بنا"
 "Tous droits réservés.": "جميع الحقوق محفوظة."
 
-# Dashboard
-"Tableau de bord": "لوحة التحكم"
+# Dashboard & Common Actions
+"Tableau de Bord": "لوحة التحكم"
 "Nouvelle Annonce": "إعلان جديد"
 Candidats: "مرشحين"
 Modifier: "تعديل"
@@ -44,8 +45,11 @@ Refuser: "رفض"
 "Aucune candidature pour le moment": "لا توجد طلبات حتى الآن"
 "Vos postulants apparaîtront ici dès qu'ils auront postulé à vos offres.": "سيظهر المتقدمون هنا بمجرد تقدمهم لعروضك."
 "Créer une nouvelle annonce": "إنشاء إعلان جديد"
-"Statut de la candidature mis à jour.": "تم تحديث حالة الطلب."
 "Tableau de bord - Annonces": "لوحة التحكم - الإعلانات"
+"Détails": "تفاصيل"
+"Action": إجراء
+"ID": المعرف
+"Statut": "الحالة"
 
 # Forms & Labels
 "Ajouter une annonce": "إضافة إعلان"
@@ -56,6 +60,7 @@ Titre: "العنوان"
 Description: "الوصف"
 "Date publication": "تاريخ النشر"
 Budget: "الميزانية"
+Utilisateur: المستخدم
 
 # Login & Register
 "Se connecter": "تسجيل الدخول"
@@ -69,6 +74,10 @@ Budget: "الميزانية"
 "Accepter les conditions": "الموافقة على الشروط"
 Nom: "الاسم العائلي"
 Prénom: "الاسم الشخصي"
+"Je souhaite m'inscrire en tant que :": "أرغب في التسجيل كـ:"
+"J'accepte les :": "أوافق على :"
+"Conditions d'utilisation": "شروط الاستخدام"
+"Ou inscrivez-vous avec": "أو سجل عبر"
 "Profil mis à jour.": "تم تحديث الملف الشخصي."
 "Gestion des Chercheurs": "إدارة الباحثين"
 Chercheurs: "الباحثون"
@@ -80,12 +89,9 @@ Recruteurs: "أصحاب العمل"
 "Nouveau Recruteur": "صاحب عمل جديد"
 "Aucun recruteur trouvé": "لم يتم العثور على أي صاحب عمل"
 "La liste des entreprises est actuellement vide.": "قائمة الشركات فارغة حالياً."
-"Je souhaite m'inscrire en tant que :": "أرغب في التسجيل كـ:"
-"J'accepte les": "أوافق على"
-"Conditions d'utilisation": "شروط الاستخدام"
-"Ou inscrivez-vous avec": "أو سجل عبر"
-Recruteur: "صاحب عمل"
+"Statut de la candidature mis à jour.": "تم تحديث حالة الطلب."
 Chercheur: "باحث عن عمل"
+Recruteur: "صاحب عمل"
 Admin: "مدير"
 "votre@email.com": "بريدك@الإلكتروني.com"
 
@@ -97,12 +103,14 @@ Admin: "مدير"
 "Vous n'avez pas encore publié d'annonces.": "لم تقم بنشر أي إعلانات بعد."
 "Vous n'avez pas encore postulé à des annonces.": "لم تتقدم لأي إعلانات بعد."
 "Aucun profil associé": "لا يوجد ملف شخصي مرتبط"
-"Votre compte utilisateur n'est pas lié à un profil Chercheur ou Recruteur.": "حسابك غير مرتبط بملف باحث أو مسؤول توظيف."
+"Votre compte utilisateur n'est pas lié à un profil Chercheur or Recruteur.": "حسابك غير مرتبط بملف باحث أو مسؤول توظيف."
 
 # Marketplace
 Marketplace: "السوق"
+"Marketplace Bricolage": سوق بريكولاج
 "Achetez et vendez vos outils et matériaux entre particuliers.": "بيع وشراء الأدوات والمواد بين الأفراد."
-"Vendre un article": "بيع غرض"
+"Trouvez les meilleurs outils, matériaux et équipements de qualité professionnelle à prix réduit.": اعثر على أفضل الأدوات والمواد والمعدات الاحترافية بأسعار مخفضة.
+"Vendre un article": بيع قطعة
 "Nouvelle annonce": "إعلان جديد"
 "Ajouter une photo": "إضافة صورة"
 "Publier l'annonce": "نشر الإعلان"
@@ -113,17 +121,20 @@ Matériaux: "مواد"
 Équipement: "معدات"
 Jardin: "حدائق"
 Autre: "أخرى"
-"Aucun article en vente pour le moment.": "لا توجد عناصر للبيع حالياً."
-"Soyez le premier à publier une annonce !": "كن أول من ينشر إعلاناً!"
-"Commencer à vendre": "ابدأ البيع"
+"Explorer plus": استكشف المزيد
+"Le marketplace est vide": المتجر فارغ
+"Soyez le premier à explorer et à vendre vos équipements.": كن أول من يستكشف ويبيع معداتك.
+"Publier la première annonce": انشر أول إعلان
+"Tous": الكل
+"Outils": أدوات
+"Électrique": كهرباء
+"Acheter maintenant": "اشترِ الآن"
+"Contacter le vendeur": الاتصال بالبائع
+"Retour au Marketplace": "العودة للسوق"
+"Détails du produit": "تفاصيل المنتج"
 "Envoyer un message": "إرسال رسالة"
 "Membre depuis": "عضو منذ"
 Vendeur: "البائع"
-"Publié le": "نشر في"
-"Retour au Marketplace": "العودة للسوق"
-"Détails du produit": "تفاصيل المنتج"
-"Acheter maintenant": "اشترِ الآن"
-"Contacter le vendeur": "تواصل مع البائع"
 
 # Payment
 "Paiement Réussi !": "تم الدفع بنجاح!"
@@ -132,12 +143,19 @@ Vendeur: "البائع"
 "Paiement Annulé": "تم إلغاء الدفع"
 "La transaction a été annulée. Aucun montant n'a été débité.": "تم إلغاء المعاملة. لم يتم خصم أي مبلغ."
 
-# Home & Extras
+# Messaging / Chat
+Conversations: المحادثات
+"Nouvelle conversation": محادثة جديدة
+"Écrivez votre message ici...": اكتب رسالتك هنا...
+"Votre Messagerie": رسائلك
+"Sélectionnez une conversation ou contactez un vendeur/candidat pour commencer à discuter.": اختر محادثة أو اتصل ببائع/مرشح لبدء الدردشة.
+"Accéder à la messagerie": الوصول إلى الرسائل
+"En ligne": متصل
+
+# Home & Marketing
 "Trouvez l'expert idéal": "ابحث عن الخبير المثالي"
 "Connecting Talent, Building Projects": "ربط المواهب، بناء المشاريع"
 "Travaillez avec les meilleurs Pros.": "اعمل مع أفضل المحترفين."
-"les meilleurs Pros.": "أفضل المحترفين."
-"Travaillez avec": "اعمل مع"
 "La marketplace d'excellence pour tous vos besoins de bricolage et services.": "سوق التميز لجميع احتياجاتك من الأعمال اليدوية والخدمات."
 "Quel service recherchez-vous ?": "عن أي خدمة تبحث؟"
 "Trouver un Expert": "ابحث عن خبير"
@@ -159,9 +177,8 @@ Vendeur: "البائع"
 "Visualisez les profils, les avis et les portfolios avant de décider.": "اطلع على الملفات الشخصية والتقييمات والأعمال السابقة قبل اتخاذ القرار."
 "Résultats d'Excellence": "نتائج متميزة"
 "Bénéficiez d'un service de qualité supérieure avec garantie Bricolage.": "استفد من خدمة عالية الجودة بضمان بريكولاج."
-"Offres de Projets": "عروض المشاريع"
-"Voir Tout": "عرض الكل"
-"Détails": "تفاصيل"
+"Opportunités de Projets": فرص المشاريع
+"Découvrez les dernières annonces et proposez vos services aux meilleurs tarifs.": اكتشف أحدث الإعلانات وقدم خدماتك بأفضل الأسعار.
 "Confiance & Expertise": "ثقة وخبرة"
 "Nos Experts les plus demandés": "خبراؤنا الأكثر طلباً"
 "Des professionnels certifiés, notés par la communauté.": "محترفون معتمدون، مقيمون من قبل المجتمع."
@@ -176,15 +193,35 @@ Vendeur: "البائع"
 "En savoir plus": "اعرف المزيد"
 "Jardinage": "بستنة"
 "Informatique": "معلوماتية"
-"Plomberie": "سباكة"
+"Plomبريه": "سباكة"
 "Déménagement": "نقل أثاث"
 "Peinture": "صباغة"
 "Électricité": "كهرباء"
-"Disponible": "متاح"
-"Mettre à jour": "تحديث"
-"Retour": "رجوع"
-"Modifier l'annonce": "تعديل الإعلان"
 "Nouveautés": "وصل حديثاً"
+
+# Admin Dash
+"Zone Administrative": المنطقة الإدارية
+"Gérez votre plateforme avec des outils professionnels.": قم بإدارة منصتك باستخدام أدوات احترافية.
+"Serveur opérationnel": الخادم يعمل
+"Total": المجموع
+"Talents": المواهب
+"Clients": العملاء
+"Experts Inscrits": الخبراء المسجلين
+"Recruteurs Actifs": الموظفون النشطون
+"Derniers Experts": آخر الخبراء
+"Recruteurs Récents": أحدث الموظفين
+"Voir tous": عرض الكل
+
+# Candidate Management (Recruiter)
+"Recrutement": توظيف
+"Candidatures Reçues": الطلبات المستلمة
+"Postulants": المتقدمين
+"Client": عميل
+"aucune candidature disponible": لا يوجد مرشحين متاحين
+"Veuillez revenir ultérieurement.": يرجى العودة لاحقا.
+"Aucune candidature": لا توجد طلبات
+"Vous recevrez une notification dès qu'un expert proposera ses services.": ستتلقى إشعارًا بمجرد أن يقدم الخبير خدماته.
+"Publier une nouvelle offre": انشر عرضا جديدا
 
 # Flash Messages & Errors
 "Vous devez créer un profil Chercheur pour voir vos candidatures.": "يجب عليك إنشاء ملف تعريف باحث لمشاهدة طلباتك."
@@ -201,58 +238,7 @@ Vendeur: "البائع"
 "Succès": "نجاح"
 "Attention": "تنبيه"
 "Erreur": "خطأ"
-Messagerie: الرسائل
-"Contacter le vendeur": الاتصال بالبائع
-Conversations: المحادثات
-"Nouvelle conversation": محادثة جديدة
-"Écrivez votre message ici...": اكتب رسالتك هنا...
-"Votre Messagerie": رسائلك
-"Sélectionnez une conversation ou contactez un vendeur/candidat pour commencer à discuter.": اختر محادثة أو اتصل ببائع/مرشح لبدء الدردشة.
-"Derniers Experts": آخر الخبراء
-"Recruteurs Récents": أحدث الموظفين
-"Zone Administrative": المنطقة الإدارية
-"Tableau de Bord": لوحة التحكم
-"Serveur opérationnel": الخادم يعمل
-"En ligne": متصل
-"Messagerie": الرسائل
-"Accéder à la messagerie": الوصول إلى الرسائل
-"Détails": تفاصيل
-"Vendre un article": بيع قطعة
-"Marketplace Bricolage": سوق بريكولاج
-"Trouvez les meilleurs outils, matériaux et équipements de qualité professionnelle à prix réduit.": اعثر على أفضل الأدوات والمواد والمعدات الاحترافية بأسعار مخفضة.
-"Explorer plus": استكشف المزيد
-"Le marketplace est vide": المتجر فارغ
-"Soyez le premier à explorer et à vendre vos équipements.": كن أول من يستكشف ويبيع معداتك.
-"Publier la première annonce": انشر أول إعلان
-"Tous": الكل
-"Outils": أدوات
-"Matériaux": مواد
-"Jardin": حديقة
-"Électrique": كهرباء
-"Opportunités de Projets": فرص المشاريع
-"Découvrez les dernières annonces et proposez vos services aux meilleurs tarifs.": اكتشف أحدث الإعلانات وقدم خدماتك بأفضل الأسعار.
 "Disponible": متاح
-"Postulants": المتقدمين
-"Client": عميل
-"aucune candidature disponible": لا يوجد مرشحين متاحين
-"Veuillez revenir ultérieurement.": يرجى العودة لاحقا.
-"Candidatures Reçues": الطلبات المستلمة
-"Recrutement": توظيف
-"Aucune candidature": لا توجد طلبات
-"Vous recevrez une notification dès qu'un expert proposera ses services.": ستتلقى إشعارًا بمجرد أن يقدم الخبير خدماته.
-"Publier une nouvelle offre": انشر عرضا جديدا
-"Gérez votre plateforme avec des outils professionnels.": قم بإدارة منصتك باستخدام أدوات احترافية.
-"Administration": الإدارة
-"Voir tous": عرض الكل
-"Total": المجموع
-"Talents": المواهب
-"Clients": العملاء
-"Experts Inscrits": الخبراء المسجلين
-"Recruteurs Actifs": الموظفون النشطون
-"Derniers Experts": آخر الخبراء
-"ID": المعرف
-"Action": إجراء
-"Utilisateur": المستخدم
-"Recruteurs Récents": أحدث الموظفين
-"Tableau de Bord": لوحة التحكم
-
+"Mettre à jour": "تحديث"
+"Retour": "رجوع"
+"Modifier l'annonce": "تعديل الإعلان"
