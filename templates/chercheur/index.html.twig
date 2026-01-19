@@ -1,15 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestion des Chercheurs
+{% block title %}
+	{{ 'Gestion des Chercheurs'|trans }}
 {% endblock %}
 
 {% block body %}
 	<div class="container py-4">
 		<div class="d-flex align-items-center justify-content-between mb-4 border-bottom pb-2">
-			<h1>Chercheurs</h1>
+			<h1>{{ 'Chercheurs'|trans }}</h1>
 			<a href="{{ path('app_chercheur_ajouter') }}" class="btn btn-primary">
 				<i class="fas fa-plus me-1"></i>
-				Nouveau Chercheur
+				{{ 'Nouveau Chercheur'|trans }}
 			</a>
 		</div>
 
@@ -44,10 +45,10 @@
 									{{ chercheur.disponibilite }}
 								</span>
 								<div class="btn-group">
-									<a href="{{ path('app_chercheur_modifier', {id: chercheur.id}) }}" class="btn btn-sm btn-outline-info" title="Modifier">
+									<a href="{{ path('app_chercheur_modifier', {id: chercheur.id}) }}" class="btn btn-sm btn-outline-info" title="{{ 'Modifier'|trans }}">
 										<i class="fas fa-edit"></i>
 									</a>
-									<a href="{{ path('app_supprimerchercheur', {id: chercheur.id}) }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Confirmer la suppression ?');" title="Supprimer">
+									<a href="{{ path('app_supprimerchercheur', {id: chercheur.id}) }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('{{ 'Confirmer la suppression ?'|trans }}');" title="{{ 'Supprimer'|trans }}">
 										<i class="fas fa-trash"></i>
 									</a>
 								</div>
@@ -59,8 +60,8 @@
 				<div class="col-12 text-center py-5">
 					<div class="alert alert-light border shadow-sm py-5">
 						<i class="fas fa-users fa-3x mb-3 opacity-25"></i>
-						<h4>Aucun chercheur trouvé</h4>
-						<p class="text-muted mb-0">La liste des candidats est actuellement vide.</p>
+						<h4>{{ 'Aucun chercheur trouvé'|trans }}</h4>
+						<p class="text-muted mb-0">{{ 'La liste des candidats est actuellement vide.'|trans }}</p>
 					</div>
 				</div>
 			{% endfor %}
