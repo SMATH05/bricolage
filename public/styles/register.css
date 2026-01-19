@@ -10,26 +10,35 @@
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    height: 100vh;
-    overflow: hidden;
+    min-height: 100vh;
     background: #0f0f0f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Auth Wrapper - Two Column Layout */
 .auth-wrapper {
     display: flex;
-    height: 100vh;
-    max-height: 720px;
+    min-height: 100vh;
     width: 100%;
     max-width: 1200px;
     margin: auto;
     background: #1a1a1a;
-    border-radius: 16px;
-    overflow: hidden;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+}
+
+@media (min-width: 969px) {
+    .auth-wrapper {
+        height: 720px;
+        border-radius: 16px;
+        overflow: hidden;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 }
 
 /* Left Section - Image Background */
@@ -104,18 +113,26 @@ body {
 
 /* Right Section - Form */
 .auth-card {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 55%;
-    height: 100%;
+    position: relative;
+    width: 100%;
     background: #1a1a1a;
-    padding: 50px 60px;
+    padding: 50px 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     z-index: 4;
-    overflow-y: auto;
+}
+
+@media (min-width: 969px) {
+    .auth-card {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 55%;
+        height: 100%;
+        padding: 50px 60px;
+        overflow-y: auto;
+    }
 }
 
 /* Header */
@@ -260,7 +277,7 @@ body {
     font-size: 20px;
 }
 
-.role-option input[type="radio"]:checked + label {
+.role-option input[type="radio"]:checked+label {
     background: rgba(168, 85, 247, 0.2);
     border-color: #a855f7;
     color: white;
@@ -377,6 +394,7 @@ body {
         opacity: 0;
         transform: translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -391,29 +409,43 @@ body {
 @media (max-width: 968px) {
     .auth-wrapper {
         flex-direction: column;
-        max-height: 100vh;
-        border-radius: 0;
     }
-    
+
     .auth-wrapper::before,
     .auth-wrapper::after {
+        position: relative;
         width: 100%;
-        height: 30%;
+        height: 200px;
+        display: block;
     }
-    
+
+    .auth-logo {
+        top: 20px;
+        left: 20px;
+    }
+
+    .auth-back-btn {
+        top: 20px;
+        right: 20px;
+    }
+
+    .auth-tagline {
+        bottom: 20px;
+        left: 20px;
+    }
+
     .auth-card {
-        width: 100%;
-        padding: 40px 30px;
+        padding: 30px 20px;
     }
-    
+
     .auth-header h1 {
-        font-size: 28px;
+        font-size: 26px;
     }
-    
+
     .form-row {
         grid-template-columns: 1fr;
     }
-    
+
     .role-grid {
         grid-template-columns: 1fr;
     }
@@ -436,4 +468,3 @@ body {
 .auth-card::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.3);
 }
-
