@@ -170,3 +170,12 @@ body {
 .shadow-lg {
     box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1) !important;
 }
+
+/* RTL Support */
+html[dir="rtl"] .fa-arrow-left {
+    transform: rotate(180deg);
+}
+
+html[dir="rtl"] .fa-arrow-right {
+    transform: rotate(180deg);
+}
