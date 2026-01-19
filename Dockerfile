@@ -11,7 +11,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 COPY . .
 
 RUN composer install --optimize-autoloader --no-scripts
-# Standard runtime used
+COPY railway_autoload_runtime.php vendor/autoload_runtime.php
 RUN composer dump-autoload --optimize --classmap-authoritative --no-dev
 
 ENV APP_ENV=dev
