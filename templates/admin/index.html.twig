@@ -1,214 +1,234 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Dashboard Admin | Bricolage
+{% block title %}
+	{{ 'Administration'|trans }}
+	| Bricolage
 {% endblock %}
 
 {% block stylesheets %}
 	{{ parent() }}
 	<style>
-		.dashboard-card {
-			transition: all 0.3s ease;
-			border: none;
-			border-radius: 16px;
-			overflow: hidden;
-		}
-		.dashboard-card:hover {
-			transform: translateY(-5px);
-			box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1) !important;
-		}
-		.stat-card {
+		.admin-gradient-card {
 			background: white;
+			border: none;
+			border-radius: 20px;
+			transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 		}
-		.icon-circle {
-			width: 50px;
-			height: 50px;
-			border-radius: 50%;
+		.admin-gradient-card:hover {
+			transform: scale(1.02);
+			box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+		}
+		.stat-pill {
+			width: 60px;
+			height: 60px;
+			border-radius: 18px;
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			font-size: 1.2rem;
-			margin-bottom: 1rem;
+			font-size: 1.5rem;
+			color: white;
+			box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1);
 		}
-		.bg-gradient-primary-soft {
-			background: linear-gradient(135deg, #434343 0%, #000000 100%);
+		.bg-gradient-indigo {
+			background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
 		}
-		.bg-gradient-success-soft {
-			background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+		.bg-gradient-purple {
+			background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%);
 		}
-		.bg-gradient-warning-soft {
-			background: linear-gradient(135deg, #fccb90 0%, #d57eeb 100%);
+		.bg-gradient-pink {
+			background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
 		}
-		.welcome-header {
-			background: white;
-			border-radius: 16px;
-			padding: 2rem;
-			box-shadow: 0 2px 15px rgba(0, 0, 0, 0.03);
-			margin-bottom: 2rem;
-			border-left: 5px solid #000000;
+
+		.card-header-glass {
+			background: rgba(255, 255, 255, 0.4);
+			backdrop-filter: blur(10px);
+			border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+			padding: 1.5rem 2rem;
+			border-top-left-radius: 20px !important;
+			border-top-right-radius: 20px !important;
 		}
-		.action-link {
-			text-decoration: none;
-			color: inherit;
+
+		.user-avatar-initial {
+			width: 45px;
+			height: 45px;
+			background: #f1f5f9;
+			border-radius: 12px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-weight: 700;
+			color: #64748b;
+		}
+
+		.premium-table thead th {
+			text-transform: uppercase;
+			font-size: 0.75rem;
+			letter-spacing: 1px;
+			font-weight: 700;
+			color: #94a3b8;
+			padding: 1rem 1.5rem;
+			border-bottom: 2px solid #f1f5f9;
+		}
+
+		.premium-table tbody td {
+			padding: 1rem 1.5rem;
+			vertical-align: middle;
 		}
 	</style>
 {% endblock %}
+
 {% block body %}
 	<div
-		class="container py-5">
-		{# Welcome Section #}
-		<div class="welcome-header d-flex justify-content-between align-items-center animate__animated animate__fadeIn">
-			<div>
-				<h1 class="h2 fw-bold mb-1">Tableau de Bord</h1>
-				<p class="text-muted mb-0">Bienvenue dans votre espace d'administration.</p>
+		class="container py-5 mt-4">
+		{# Header #}
+		<div class="row mb-5 align-items-center">
+			<div class="col-md-6">
+				<h6 class="text-accent-primary fw-bold text-uppercase mb-2" style="color: var(--accent-primary) !important;">{{ 'Zone Administrative'|trans }}</h6>
+				<h1 class="display-5 fw-bold mb-0 text-primary-color" style="color: var(--primary-color) !important;">{{ 'Tableau de Bord'|trans }}</h1>
+				<p class="text-muted mt-2 fs-5">{{ 'Gérez votre plateforme avec des outils professionnels.'|trans }}</p>
 			</div>
-			<div class="text-end">
-				<span class="badge bg-light text-dark border px-3 py-2 rounded-pill">
-					<i class="fas fa-calendar-alt me-2"></i>
-					{{ "now"|date("d M Y") }}
-				</span>
+			<div class="col-md-6 text-md-end">
+				<div class="d-inline-flex align-items-center glass-card p-3 rounded-pill">
+					<div class="rounded-circle bg-success me-3" style="width: 12px; height: 12px; box-shadow: 0 0 15px #198754;"></div>
+					<span class="fw-bold text-dark me-2">{{ 'Serveur opérationnel'|trans }}</span>
+					<span class="badge bg-light text-muted border rounded-pill">{{ "now"|date("H:i") }}</span>
+				</div>
 			</div>
 		</div>
 
-		{# Quick Stats #}
+		{# Statistics Grid #}
 		<div class="row g-4 mb-5">
-			<div class="col-md-4">
-				<div class="card stat-card shadow-sm border-0 p-4 rounded-4">
-					<div class="d-flex align-items-center">
-						<div class="icon-circle bg-primary-soft text-primary me-3 mb-0">
-							<i class="fas fa-bullhorn"></i>
-						</div>
-						<div>
-							<h3 class="fw-bold mb-0">{{ totalAnnonces }}</h3>
-							<small class="text-muted text-uppercase fw-bold">Annonces</small>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="card stat-card shadow-sm border-0 p-4 rounded-4">
-					<div class="d-flex align-items-center">
-						<div class="icon-circle bg-success-soft text-success me-3 mb-0">
-							<i class="fas fa-user-graduate"></i>
-						</div>
-						<div>
-							<h3 class="fw-bold mb-0">{{ totalChercheurs }}</h3>
-							<small class="text-muted text-uppercase fw-bold">Chercheurs</small>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="card stat-card shadow-sm border-0 p-4 rounded-4">
-					<div class="d-flex align-items-center">
-						<div class="icon-circle bg-warning-soft text-warning me-3 mb-0">
-							<i class="fas fa-user-tie"></i>
-						</div>
-						<div>
-							<h3 class="fw-bold mb-0">{{ totalRecruteurs }}</h3>
-							<small class="text-muted text-uppercase fw-bold">Recruteurs</small>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		{# Action Cards #}
-		<h4 class="fw-bold mb-4 px-1">Gestion Rapide</h4>
-		<div class="row g-4">
-			<div class="col-md-4">
-				<a href="{{ path('app_annonce') }}" class="action-link">
-					<div class="card dashboard-card h-100 shadow-sm border-0">
-						<div class="card-body p-4 text-center">
-							<div class="icon-circle bg-primary text-white mx-auto mb-3" style="width: 70px; height: 70px; font-size: 1.5rem; background: linear-gradient(135deg, #434343 0%, #000000 100%);">
+			<div class="col-lg-4">
+				<div class="card admin-gradient-card shadow-sm h-100">
+					<div class="card-body p-4 p-xl-5">
+						<div class="d-flex justify-content-between align-items-start mb-4">
+							<div class="stat-pill bg-gradient-indigo">
 								<i class="fas fa-bullhorn"></i>
 							</div>
-							<h5 class="fw-bold">Gérer les Annonces</h5>
-							<p class="text-muted small mb-0">Créer, modifier ou supprimer des offres.</p>
+							<span class="badge bg-soft-indigo text-accent-primary rounded-pill px-3 py-2" style="background: rgba(99, 102, 241, 0.1);">{{ 'Total'|trans }}</span>
 						</div>
-					</div>
-				</a>
-			</div>
-			<div class="col-md-4">
-				<a href="{{ path('app_recruteur') }}" class="action-link">
-					<div class="card dashboard-card h-100 shadow-sm border-0">
-						<div class="card-body p-4 text-center">
-							<div class="icon-circle bg-info text-white mx-auto mb-3" style="width: 70px; height: 70px; font-size: 1.5rem; background: linear-gradient(135deg, #0ba360 0%, #3cba92 100%);">
-								<i class="fas fa-user-tie"></i>
-							</div>
-							<h5 class="fw-bold">Gérer les Recruteurs</h5>
-							<p class="text-muted small mb-0">Administrer les comptes entreprises.</p>
-						</div>
-					</div>
-				</a>
-			</div>
-
-			<div class="col-md-4">
-				<a href="{{ path('app_chercheur') }}" class="action-link">
-					<div class="card dashboard-card h-100 shadow-sm border-0">
-						<div class="card-body p-4 text-center">
-							<div class="icon-circle bg-success text-white mx-auto mb-3" style="width: 70px; height: 70px; font-size: 1.5rem; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
-								<i class="fas fa-user-graduate"></i>
-							</div>
-							<h5 class="fw-bold">Gérer les Candidats</h5>
-							<p class="text-muted small mb-0">Suivre les profils chercheurs d'emploi.</p>
-						</div>
-					</div>
-				</a>
-			</div>
-			{# Recent Users #}
-			<div class="row g-4 mt-5">
-				<div class="col-md-6">
-					<div class="card shadow-sm border-0 rounded-4">
-						<div class="card-header bg-white p-4 border-0">
-							<h5 class="fw-bold mb-0">Nouveaux Chercheurs</h5>
-						</div>
-						<div class="card-body p-0">
-							<div class="list-group list-group-flush">
-								{% for c in recentChercheurs %}
-									<div class="list-group-item p-3 border-0 border-bottom">
-										<div class="d-flex align-items-center">
-											<div class="rounded-circle bg-primary-soft text-primary p-2 me-3">
-												<i class="fas fa-user small"></i>
-											</div>
-											<div>
-												<h6 class="mb-0 fw-bold">{{ c.prenom }}
-													{{ c.nom }}</h6>
-												<small class="text-muted">{{ c.email }}</small>
-											</div>
-										</div>
-									</div>
-								{% else %}
-									<p class="p-4 text-muted small italic">Aucun chercheur inscrit.</p>
-								{% endfor %}
-							</div>
-						</div>
+						<h2 class="display-4 fw-black mb-1" style="font-weight: 800;">{{ totalAnnonces }}</h2>
+						<p class="text-muted fw-bold text-uppercase small mb-0">{{ 'Annonces Publiées'|trans }}</p>
 					</div>
 				</div>
-				<div class="col-md-6">
-					<div class="card shadow-sm border-0 rounded-4">
-						<div class="card-header bg-white p-4 border-0">
-							<h5 class="fw-bold mb-0">Nouveaux Recruteurs</h5>
-						</div>
-						<div class="card-body p-0">
-							<div class="list-group list-group-flush">
-								{% for r in recentRecruteurs %}
-									<div class="list-group-item p-3 border-0 border-bottom">
-										<div class="d-flex align-items-center">
-											<div class="rounded-circle bg-warning-soft text-warning p-2 me-3">
-												<i class="fas fa-building small"></i>
-											</div>
-											<div>
-												<h6 class="mb-0 fw-bold">{{ r.nom }}</h6>
-												<small class="text-muted">{{ r.email }}</small>
-											</div>
-										</div>
-									</div>
-								{% else %}
-									<p class="p-4 text-muted small italic">Aucun recruteur inscrit.</p>
-								{% endfor %}
+			</div>
+			<div class="col-lg-4">
+				<div class="card admin-gradient-card shadow-sm h-100">
+					<div class="card-body p-4 p-xl-5">
+						<div class="d-flex justify-content-between align-items-start mb-4">
+							<div class="stat-pill bg-gradient-purple">
+								<i class="fas fa-hammer"></i>
 							</div>
+							<span class="badge text-purple rounded-pill px-3 py-2" style="background: rgba(168, 85, 247, 0.1); color: #a855f7;">{{ 'Talents'|trans }}</span>
 						</div>
+						<h2 class="display-4 fw-black mb-1" style="font-weight: 800;">{{ totalChercheurs }}</h2>
+						<p class="text-muted fw-bold text-uppercase small mb-0">{{ 'Experts Inscrits'|trans }}</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="card admin-gradient-card shadow-sm h-100">
+					<div class="card-body p-4 p-xl-5">
+						<div class="d-flex justify-content-between align-items-start mb-4">
+							<div class="stat-pill bg-gradient-pink">
+								<i class="fas fa-building"></i>
+							</div>
+							<span class="badge text-pink rounded-pill px-3 py-2" style="background: rgba(236, 72, 153, 0.1); color: #ec4899;">{{ 'Clients'|trans }}</span>
+						</div>
+						<h2 class="display-4 fw-black mb-1" style="font-weight: 800;">{{ totalRecruteurs }}</h2>
+						<p class="text-muted fw-bold text-uppercase small mb-0">{{ 'Recruteurs Actifs'|trans }}</p>
 					</div>
 				</div>
 			</div>
 		</div>
-	{% endblock %}
+
+		{# Table Views #}
+		<div class="row g-4">
+			<div class="col-xl-7">
+				<div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+					<div class="card-header bg-white p-4 d-flex justify-content-between align-items-center">
+						<h5 class="fw-bold mb-0">
+							<i class="fas fa-sync text-muted me-2"></i>
+							{{ 'Derniers Experts'|trans }}</h5>
+						<a href="{{ path('app_chercheur') }}" class="btn btn-sm btn-light rounded-pill px-3 fw-bold">{{ 'Voir tous'|trans }}</a>
+					</div>
+					<div class="card-body p-0">
+						<div class="table-responsive">
+							<table class="table premium-table align-middle mb-0">
+								<thead>
+									<tr>
+										<th>{{ 'Utilisateur'|trans }}</th>
+										<th>{{ 'ID'|trans }}</th>
+										<th>{{ 'Action'|trans }}</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for c in recentChercheurs %}
+										<tr>
+											<td>
+												<div class="d-flex align-items-center">
+													<div class="user-avatar-initial me-3">
+														{{ c.prenom|slice(0, 1)|upper }}
+													</div>
+													<div>
+														<h6 class="mb-0 fw-bold">{{ c.prenom }}
+															{{ c.nom }}</h6>
+														<small class="text-muted">{{ c.email|slice(0, 20) }}...</small>
+													</div>
+												</div>
+											</td>
+											<td>
+												<span class="font-monospace small text-muted">{{ c.idChercheur|slice(0, 8) }}</span>
+											</td>
+											<td>
+												<button class="btn btn-sm btn-light rounded-pill">
+													<i class="fas fa-eye"></i>
+												</button>
+											</td>
+										</tr>
+									{% else %}
+										<tr>
+											<td colspan="3" class="text-center py-4 text-muted">{{ 'Aucun chercheur inscrit.'|trans }}</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-xl-5">
+				<div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+					<div class="card-header bg-white p-4 border-0">
+						<h5 class="fw-bold mb-0">
+							<i class="fas fa-briefcase text-muted me-2"></i>
+							{{ 'Recruteurs Récents'|trans }}</h5>
+					</div>
+					<div class="card-body p-0">
+						<ul class="list-group list-group-flush">
+							{% for r in recentRecruteurs %}
+								<li class="list-group-item p-4 border-0 border-bottom d-flex align-items-center justify-content-between">
+									<div class="d-flex align-items-center">
+										<div class="rounded-pill bg-light p-2 me-3" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
+											<i class="fas fa-building text-warning"></i>
+										</div>
+										<div>
+											<h6 class="mb-0 fw-bold text-primary-color">{{ r.nom }}</h6>
+											<small class="text-muted">{{ r.email|slice(0, 25) }}...</small>
+										</div>
+									</div>
+									<a href="{{ path('app_recruteur') }}" class="btn btn-sm btn-light-primary rounded-circle" style="width: 32px; height: 32px; padding: 0;">
+										<i class="fas fa-chevron-right small"></i>
+									</a>
+								</li>
+							{% else %}
+								<li class="list-group-item p-4 text-center text-muted">{{ 'Aucun recruteur inscrit.'|trans }}</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

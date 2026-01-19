@@ -1,106 +1,201 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tableau de bord - Annonces
+{% block title %}
+	{{ 'Annonces'|trans }}
+	| Bricolage
 {% endblock %}
 
 {% block stylesheets %}
 	{{ parent() }}
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<style>
+		.annonce-hero {
+			background: white;
+			border-bottom: 1px solid #f1f5f9;
+			padding: 40px 0;
+			margin-bottom: 40px;
+		}
+
+		.job-card {
+			border: none;
+			border-radius: 20px;
+			background: white;
+			transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+			overflow: hidden;
+			display: flex;
+			flex-direction: column;
+			height: 100%;
+		}
+
+		.job-card:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08);
+		}
+
+		.job-card-image {
+			height: 200px;
+			position: relative;
+			background: #f8fafc;
+		}
+
+		.job-card-image img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		.budget-overlay {
+			position: absolute;
+			top: 15px;
+			right: 15px;
+			background: rgba(15, 23, 42, 0.9);
+			color: white;
+			backdrop-filter: blur(8px);
+			padding: 6px 14px;
+			border-radius: 10px;
+			font-weight: 700;
+			font-size: 0.9rem;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+			z-index: 2;
+		}
+
+		.job-type-badge {
+			position: absolute;
+			bottom: 15px;
+			left: 15px;
+			background: white;
+			padding: 4px 12px;
+			border-radius: 8px;
+			font-size: 0.75rem;
+			font-weight: 800;
+			text-transform: uppercase;
+			letter-spacing: 0.5px;
+			color: var(--accent-primary);
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+		}
+
+		.job-card h5 {
+			font-size: 1.15rem;
+			font-weight: 700;
+			color: #1e293b;
+			margin-bottom: 10px;
+		}
+
+		.job-meta-list {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 12px;
+		}
+
+		.job-meta-item {
+			font-size: 0.8rem;
+			color: #64748b;
+			display: flex;
+			align-items: center;
+		}
+
+		.job-meta-item i {
+			margin-right: 6px;
+			opacity: 0.6;
+		}
+	</style>
 {% endblock %}
 
 {% block body %}
-	<div
-		class="container py-4">
-		<!-- Header -->
-		<div class="d-flex align-items-center justify-content-between mb-4 border-bottom pb-2">
-			<h1>{{ 'Tableau de bord'|trans }}</h1>
-			{% if is_granted('ROLE_RECRUTEUR') or is_granted('ROLE_ADMIN') %}
-				<a href="{{ path('app_annonces_ajouter') }}" class="btn btn-primary">
-					<i class="fas fa-plus me-1"></i>
-					{{ 'Nouvelle Annonce'|trans }}
-				</a>
-			{% endif %}
+	<div class="annonce-hero">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-md-8">
+					<h1 class="fw-bold mb-2">{{ 'Opportunités de Projets'|trans }}</h1>
+					<p class="text-muted mb-0">{{ 'Découvrez les dernières annonces et proposez vos services aux meilleurs tarifs.'|trans }}</p>
+				</div>
+				<div class="col-md-4 text-md-end mt-3 mt-md-0">
+					{% if is_granted('ROLE_RECRUTEUR') or is_granted('ROLE_ADMIN') %}
+						<a href="{{ path('app_annonces_ajouter') }}" class="btn btn-primary rounded-pill px-4 py-2 fw-bold shadow-lg">
+							<i class="fas fa-plus me-2"></i>
+							{{ 'Nouvelle Annonce'|trans }}
+						</a>
+					{% endif %}
+				</div>
+			</div>
 		</div>
+	</div>
 
-		<!-- Metric Cards -->
-
-		<!-- Cards removed as per request -->
-
-
+	<div class="container pb-5">
 		<div class="row g-4">
 			{% for annonce in annonces %}
 				<div class="col-md-6 col-lg-4">
-					<div class="card h-100 border-0 shadow-sm overflow-hidden">
-						<div class="position-relative">
+					<div class="job-card shadow-sm">
+						<div class="job-card-image">
+							<div class="budget-overlay">{{ annonce.budget|number_format(0) }}
+								€</div>
+							<span class="job-type-badge">{{ 'Disponible'|trans }}</span>
 							{% if annonce.photo %}
-								<img src="{{ asset('uploads/annonces/' ~ annonce.photo) }}" alt="{{ annonce.titre }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+								<img src="{{ asset('uploads/annonces/' ~ annonce.photo) }}" alt="{{ annonce.titre }}">
 							{% else %}
 								{% set fallback_images = [
                                     'https://images.unsplash.com/photo-1581578731522-745d05cb9721?auto=format&fit=crop&q=80&w=800',
                                     'https://images.unsplash.com/photo-1595844730298-b960ff98fee0?auto=format&fit=crop&q=80&w=800',
-                                    'https://images.unsplash.com/photo-1621905252507-b354bcadcabc?auto=format&fit=crop&q=80&w=800',
-                                    'https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&q=80&w=800',
-                                    'https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&q=80&w=800'
+                                    'https://images.unsplash.com/photo-1621905252507-b354bcadcabc?auto=format&fit=crop&q=80&w=800'
                                 ] %}
-								<img src="{{ fallback_images[annonce.id % 5] }}" alt="Bricolage" class="card-img-top" style="height: 200px; object-fit: cover;">
+								<img src="{{ fallback_images[annonce.id % 3] }}" alt="Bricolage">
 							{% endif %}
-							<div class="position-absolute top-0 end-0 m-3 d-flex flex-column gap-2 align-items-end">
-								<span class="badge bg-white text-dark shadow-sm py-2 px-3">
-									<i class="fas fa-coins text-warning me-1"></i>
-									{{ annonce.budget|number_format(0, ',', ' ') }}
-									€
-								</span>
-								{% if is_granted('ROLE_RECRUTEUR') or is_granted('ROLE_ADMIN') %}
-									<span class="badge bg-primary shadow-sm py-2 px-3">
-										<i class="fas fa-users me-1"></i>
-										{{ annonce.candidatures|length }}
-										{{ 'Candidats'|trans }}
-									</span>
-								{% endif %}
-							</div>
 						</div>
-						<div class="card-body p-4">
-							<div class="d-flex align-items-center mb-2">
-								<small class="text-muted">
-									<i class="far fa-calendar-alt me-1"></i>
-									{{ annonce.datePublication|date('d/m/Y') }}
-								</small>
-							</div>
-							<h5 class="card-title fw-bold">{{ annonce.titre }}</h5>
-							<p class="card-text text-muted small mb-4">{{ annonce.description|slice(0, 120) }}...</p>
+						<div class="card-body p-4 d-flex flex-column">
+							<ul class="job-meta-list mb-3">
+								<li class="job-meta-item">
+									<i class="far fa-calendar-alt"></i>
+									{{ annonce.datePublication|date('d M Y') }}
+								</li>
+								{% if is_granted('ROLE_RECRUTEUR') or is_granted('ROLE_ADMIN') %}
+									<li class="job-meta-item">
+										<i class="fas fa-users"></i>
+										{{ annonce.candidatures|length }}
+										{{ 'Postulants'|trans }}
+									</li>
+								{% endif %}
+							</ul>
 
-							<div class="d-flex justify-content-between align-items-center mt-auto pt-3 border-top">
+							<h5>{{ annonce.titre }}</h5>
+							<p class="text-muted small mb-4 flex-grow-1">{{ annonce.description|slice(0, 110) }}...</p>
+
+							<div class="d-flex align-items-center justify-content-between pt-3 border-top">
 								<div class="btn-group">
 									{% if is_granted('ROLE_RECRUTEUR') or is_granted('ROLE_ADMIN') %}
-										<a href="{{ path('app_annonce_modifier', {id: annonce.id}) }}" class="btn btn-sm btn-outline-primary" title="{{ 'Modifier'|trans }}">
-											<i class="fas fa-edit"></i>
+										<a href="{{ path('app_annonce_modifier', {id: annonce.id}) }}" class="btn btn-sm btn-light border rounded-pill me-2">
+											<i class="fas fa-pen text-muted"></i>
 										</a>
-										<a href="{{ path('app_annonce_supprimer', {id: annonce.id}) }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('{{ 'Confirmer la suppression ?'|trans }}');" title="{{ 'Supprimer'|trans }}">
-											<i class="fas fa-trash"></i>
+										<a href="{{ path('app_annonce_supprimer', {id: annonce.id}) }}" class="btn btn-sm btn-light border rounded-pill" onclick="return confirm('{{ 'Confirmer la suppression ?'|trans }}');">
+											<i class="fas fa-trash text-danger"></i>
 										</a>
 									{% endif %}
 
 									{% if is_granted('ROLE_CHERCHEUR') %}
-										<a href="{{ path('app_candidature_ajouter', {annonce_id: annonce.id}) }}" class="btn btn-primary px-4 ms-2">
+										<a href="{{ path('app_candidature_ajouter', {annonce_id: annonce.id}) }}" class="btn btn-primary rounded-pill px-4 py-2 shadow-sm">
 											<i class="fas fa-paper-plane me-1"></i>
 											{{ 'Postuler'|trans }}
 										</a>
 									{% endif %}
 								</div>
+
 								{% if annonce.recrutId %}
-									<small class="text-muted italic">{{ 'Par'|trans }}
-										{{ annonce.recrutId.nom }}</small>
+									<div class="text-end d-none d-sm-block">
+										<small class="text-muted d-block" style="font-size: 0.7rem;">{{ 'Client'|trans }}</small>
+										<span class="fw-bold small">{{ annonce.recrutId.nom|slice(0, 15) }}</span>
+									</div>
 								{% endif %}
 							</div>
 						</div>
 					</div>
 				</div>
 			{% else %}
-				<div class="col-12 text-center py-5">
-					<div class="alert alert-light border shadow-sm py-5">
-						<i class="fas fa-search fa-3x mb-3 opacity-25"></i>
-						<h4>{{ 'Aucune annonce disponible'|trans }}</h4>
-						<p class="text-muted mb-0">{{ 'Revenez plus tard pour découvrir de nouvelles opportunités.'|trans }}</p>
+				<div class="col-12 py-5">
+					<div class="glass-card text-center p-5 rounded-4">
+						<i class="fas fa-search fa-3x mb-3 text-muted opacity-25"></i>
+						<h4 class="fw-bold">{{ 'Aucune annonce disponible'|trans }}</h4>
+						<p class="text-muted mb-0">{{ 'Veuillez revenir ultérieurement.'|trans }}</p>
 					</div>
 				</div>
 			{% endfor %}
