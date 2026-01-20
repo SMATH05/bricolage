@@ -39,7 +39,9 @@ document.documentElement.setAttribute('data-theme', theme);
 						<div class="collapse navbar-collapse" id="navbarContent">
 							<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 								<li class="nav-item">
-									<a class="nav-link px-3" href="{{ path('app_social_feed') }}">{{ 'Accueil'|trans }}</a>
+									<a class="nav-link px-3" href="{{ path('app_social_feed') }}">
+										<i class="fas fa-stream me-2"></i>
+										{{ 'Feed'|trans }}</a>
 								</li>
 								{% if is_granted('ROLE_ADMIN') %}
 									<li class="nav-item">
