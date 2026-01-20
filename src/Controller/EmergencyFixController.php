@@ -29,17 +29,15 @@ class EmergencyFixController extends AbstractController
             'CREATE INDEX IF NOT EXISTS IDX_7F75D508930F3294 ON chercheur_skill (chercheur_id)',
             'CREATE INDEX IF NOT EXISTS IDX_7F75D5085585C142 ON chercheur_skill (skill_id)',
 
-            // 4. Social Feed (BricoGram)
-            'CREATE TABLE IF NOT EXISTS post (id SERIAL NOT NULL, author_id INT NOT NULL, content TEXT, media VARCHAR(255), media_type VARCHAR(20) DEFAULT \'text\', created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))',
-            'CREATE TABLE IF NOT EXISTS post_like (id SERIAL NOT NULL, post_id INT NOT NULL, user_id INT NOT NULL, PRIMARY KEY(id))',
-            'CREATE TABLE IF NOT EXISTS post_comment (id SERIAL NOT NULL, post_id INT NOT NULL, author_id INT NOT NULL, content TEXT NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))',
+            // 4. Social Feed (BricoGram) - Using double quotes for Postgres safety
+            'CREATE TABLE IF NOT EXISTS "post" (id SERIAL PRIMARY KEY, author_id INT NOT NULL, content TEXT, media VARCHAR(255), media_type VARCHAR(20) DEFAULT \'text\', created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL)',
+            'CREATE TABLE IF NOT EXISTS "post_like" (id SERIAL PRIMARY KEY, post_id INT NOT NULL, user_id INT NOT NULL)',
+            'CREATE TABLE IF NOT EXISTS "post_comment" (id SERIAL PRIMARY KEY, post_id INT NOT NULL, author_id INT NOT NULL, content TEXT NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL)',
 
             // Indices for Social Feed
-            'CREATE INDEX IF NOT EXISTS IDX_POST_AUTHOR ON post (author_id)',
-            'CREATE INDEX IF NOT EXISTS IDX_LIKE_POST ON post_like (post_id)',
-            'CREATE INDEX IF NOT EXISTS IDX_LIKE_USER ON post_like (user_id)',
-            'CREATE INDEX IF NOT EXISTS IDX_COMMENT_POST ON post_comment (post_id)',
-            'CREATE INDEX IF NOT EXISTS IDX_COMMENT_AUTHOR ON post_comment (author_id)',
+            'CREATE INDEX IF NOT EXISTS idx_post_author_social ON "post" (author_id)',
+            'CREATE INDEX IF NOT EXISTS idx_like_post_social ON "post_like" (post_id)',
+            'CREATE INDEX IF NOT EXISTS idx_comment_post_social ON "post_comment" (post_id)',
         ];
 
         foreach ($sqls as $sql) {

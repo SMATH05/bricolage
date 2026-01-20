@@ -1,3 +1,4 @@
+# Force rebuild - 2026-01-20
 FROM php:8.2-cli
 
 WORKDIR /app
