@@ -83,7 +83,10 @@ class SocialController extends AbstractController
             error_log('Upload debug - Directory: ' . $this->getParameter('posts_directory'));
             error_log('Upload debug - File size: ' . $mediaFile->getSize());
             error_log('Upload debug - Mime type: ' . $mediaFile->getMimeType());
-            error_log('Upload debug - Temp file: ' . $mediaFile->getRealPath());
+            
+            // Get file content immediately before temp file is deleted
+            $fileContent = file_get_contents($mediaFile->getPathname());
+            error_log('Upload debug - Got file content, size: ' . strlen($fileContent));
 
             try {
                 // Ensure directory exists and is writable
@@ -99,39 +102,20 @@ class SocialController extends AbstractController
                     return $this->redirectToRoute('app_social_feed');
                 }
                 
-                // Create a simple test file first
-                $testFile = $uploadDir . '/test-' . time() . '.txt';
-                file_put_contents($testFile, 'Test file created at ' . date('Y-m-d H:i:s'));
-                error_log('Test file created: ' . $testFile);
-                
-                // Try the standard move first
-                try {
-                    $mediaFile->move(
-                        $uploadDir,
-                        $newFilename
-                    );
-                    error_log('File moved using standard move method');
-                } catch (\Exception $moveException) {
-                    error_log('Standard move failed: ' . $moveException->getMessage());
-                    
-                    // Fallback: try copy and unlink
-                    $tempPath = $mediaFile->getRealPath();
-                    $targetPath = $uploadDir . '/' . $newFilename;
-                    
-                    if (copy($tempPath, $targetPath)) {
-                        error_log('File copied using fallback method');
-                        unlink($tempPath);
-                    } else {
-                        throw new \Exception('Both move and copy methods failed');
-                    }
+                // Write file directly from content instead of moving temp file
+                $targetPath = $uploadDir . '/' . $newFilename;
+                if (file_put_contents($targetPath, $fileContent)) {
+                    error_log('File written successfully using file_put_contents');
+                } else {
+                    throw new \Exception('Failed to write file using file_put_contents');
                 }
                 
                 $post->setMedia($newFilename);
                 
-                error_log('Upload debug - File moved successfully: ' . $newFilename);
-                error_log('Upload debug - Full path: ' . $uploadDir . '/' . $newFilename);
-                error_log('Upload debug - File exists after move: ' . (file_exists($uploadDir . '/' . $newFilename) ? 'Yes' : 'No'));
-                error_log('Upload debug - Directory listing: ' . print_r(scandir($uploadDir), true));
+                error_log('Upload debug - File written successfully: ' . $newFilename);
+                error_log('Upload debug - Full path: ' . $targetPath);
+                error_log('Upload debug - File exists after write: ' . (file_exists($targetPath) ? 'Yes' : 'No'));
+                error_log('Upload debug - File size: ' . filesize($targetPath) . ' bytes');
                 
                 $ext = strtolower($mediaFile->guessExtension());
                 if (in_array($ext, ['mp4', 'webm', 'ogg', 'mov'])) {
