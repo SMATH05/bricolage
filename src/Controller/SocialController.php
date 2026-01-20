@@ -16,7 +16,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class SocialController extends AbstractController
 {
-    #[Route('/feed', name: 'app_social_feed')]
+    #[Route('/accueil', name: 'app_social_feed')]
     public function feed(PostRepository $postRepository): Response
     {
         try {
