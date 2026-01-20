@@ -73,7 +73,7 @@ class SocialController extends AbstractController
             $entityManager->persist($post);
             $entityManager->flush();
         } catch (\Exception $e) {
-            $this->addFlash('error', 'La base de données n\'est pas encore configurée. Veuillez visiter /system/fix-database');
+            $this->addFlash('error', 'Erreur de publication : ' . $e->getMessage());
             return $this->redirectToRoute('app_social_feed');
         }
 
