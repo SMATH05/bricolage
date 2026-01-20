@@ -48,12 +48,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
     private ?Recruteur $recruteur = null;
 
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Post::class, orphanRemoval: true)]
+    private \Doctrine\Common\Collections\Collection $posts;
+
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Product::class)]
     private \Doctrine\Common\Collections\Collection $products;
 
     public function __construct()
     {
         $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
         $this->commandes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->followers = new \Doctrine\Common\Collections\ArrayCollection();
         $this->following = new \Doctrine\Common\Collections\ArrayCollection();
@@ -312,6 +316,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setTheme(string $theme): static
     {
         $this->theme = $theme;
+
+        return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection<int, Post>
+     */
+    public function getPosts(): \Doctrine\Common\Collections\Collection
+    {
+        return $this->posts;
+    }
+
+    public function addPost(Post $post): static
+    {
+        if (!$this->posts->contains($post)) {
+            $this->posts->add($post);
+            $post->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removePost(Post $post): static
+    {
+        if ($this->posts->removeElement($post)) {
+            // set the owning side to null (unless already changed)
+            if ($post->getAuthor() === $this) {
+                $post->setAuthor(null);
+            }
+        }
 
         return $this;
     }

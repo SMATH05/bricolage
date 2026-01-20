@@ -10,6 +10,7 @@ parameters:
     annonces_directory: '%kernel.project_dir%/public/uploads/annonces'
     profiles_directory: '%kernel.project_dir%/public/uploads/profiles'
     products_directory: '%kernel.project_dir%/public/uploads/products'
+    posts_directory: '%kernel.project_dir%/public/uploads/posts'
     base_url: '%env(default:base_url_default:RAILWAY_PUBLIC_DOMAIN)%'
     base_url_default: 'http://localhost:8000'
 
