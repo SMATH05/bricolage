@@ -99,6 +99,11 @@ class SocialController extends AbstractController
                     return $this->redirectToRoute('app_social_feed');
                 }
                 
+                // Create a simple test file first
+                $testFile = $uploadDir . '/test-' . time() . '.txt';
+                file_put_contents($testFile, 'Test file created at ' . date('Y-m-d H:i:s'));
+                error_log('Test file created: ' . $testFile);
+                
                 // Try the standard move first
                 try {
                     $mediaFile->move(
@@ -126,7 +131,8 @@ class SocialController extends AbstractController
                 error_log('Upload debug - File moved successfully: ' . $newFilename);
                 error_log('Upload debug - Full path: ' . $uploadDir . '/' . $newFilename);
                 error_log('Upload debug - File exists after move: ' . (file_exists($uploadDir . '/' . $newFilename) ? 'Yes' : 'No'));
-
+                error_log('Upload debug - Directory listing: ' . print_r(scandir($uploadDir), true));
+                
                 $ext = strtolower($mediaFile->guessExtension());
                 if (in_array($ext, ['mp4', 'webm', 'ogg', 'mov'])) {
                     $post->setMediaType('video');
