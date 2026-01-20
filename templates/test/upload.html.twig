@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Upload Test{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Upload Debug Information</h1>
+    
+    <h3>Debug Information:</h3>
+    <pre>{{ dump(debug) }}</pre>
+    
+    <h3>Test Image:</h3>
+    <img src="/uploads/posts/test.jpg" alt="Test image" onerror="console.error('Test image failed to load');">
+    
+    <h3>Directory Listing:</h3>
+    <ul>
+    {% for file in debug.files_in_directory %}
+        <li>{{ file }}</li>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock %}

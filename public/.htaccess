@@ -1,0 +1,29 @@
+# Use the front controller as index file. It serves all the requests
+# from the public directory.
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Determine the RewriteBase automatically
+    RewriteCond %{REQUEST_URI}::$1 ^(/.+)/(.*)::\2$
+    RewriteRule ^(.*) - [E=BASE:%1]
+    
+    # Redirect to URI without front controller to prevent duplicate content
+    RewriteCond %{ENV:REDIRECT_STATUS} ^$
+    RewriteRule ^index\.php(?:/(.*)|$) %{ENV:BASE}/$1 [R=301,L]
+    
+    # If the requested filename exists, simply serve it.
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule .? - [L]
+    
+    # If the requested filename doesn't exist, forward to index.php
+    RewriteRule .? %{ENV:BASE}/index.php [L]
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+    <IfModule mod_alias.c>
+        # When mod_rewrite is not available, we instruct a temporary redirect
+        RedirectMatch 302 ^/$ /index.php/
+    </IfModule>
+</IfModule>

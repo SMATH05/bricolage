@@ -36,6 +36,15 @@ class SocialController extends AbstractController
     {
         $content = $request->request->get('content');
         $mediaFile = $request->files->get('media');
+        
+        // Debug: Log request data
+        error_log('Request debug - Content: ' . $content);
+        error_log('Request debug - Has file: ' . ($mediaFile ? 'Yes' : 'No'));
+        if ($mediaFile) {
+            error_log('Request debug - File name: ' . $mediaFile->getClientOriginalName());
+            error_log('Request debug - File size: ' . $mediaFile->getSize());
+            error_log('Request debug - File error: ' . $mediaFile->getError());
+        }
 
         if (!$content && !$mediaFile) {
             $this->addFlash('error', 'Le post ne peut pas être vide.');
@@ -50,6 +59,10 @@ class SocialController extends AbstractController
             $originalFilename = pathinfo($mediaFile->getClientOriginalName(), PATHINFO_FILENAME);
             $safeFilename = $slugger->slug($originalFilename);
             $newFilename = $safeFilename . '-' . uniqid() . '.' . $mediaFile->guessExtension();
+            
+            // Debug: Log upload info
+            error_log('Upload debug - Original: ' . $originalFilename . ', New: ' . $newFilename);
+            error_log('Upload debug - Directory: ' . $this->getParameter('posts_directory'));
 
             try {
                 $mediaFile->move(
@@ -57,6 +70,8 @@ class SocialController extends AbstractController
                     $newFilename
                 );
                 $post->setMedia($newFilename);
+                
+                error_log('Upload debug - File moved successfully: ' . $newFilename);
 
                 $ext = strtolower($mediaFile->guessExtension());
                 if (in_array($ext, ['mp4', 'webm', 'ogg', 'mov'])) {
@@ -65,7 +80,8 @@ class SocialController extends AbstractController
                     $post->setMediaType('image');
                 }
             } catch (\Exception $e) {
-                $this->addFlash('error', 'Erreur lors de l\'upload du média.');
+                error_log('Upload error: ' . $e->getMessage());
+                $this->addFlash('error', 'Erreur lors de l\'upload du média: ' . $e->getMessage());
             }
         }
 
