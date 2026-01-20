@@ -39,6 +39,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private bool $isVerified = false;
 
+    #[ORM\Column(length: 10, options: ['default' => 'light'])]
+    private string $theme = 'light';
+
     #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
     private ?Chercheur $chercheur = null;
 
@@ -306,6 +309,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if ($this->following->removeElement($user)) {
             $user->removeFollower($this);
         }
+
+        return $this;
+    }
+
+    public function getTheme(): string
+    {
+        return $this->theme;
+    }
+
+    public function setTheme(string $theme): static
+    {
+        $this->theme = $theme;
 
         return $this;
     }

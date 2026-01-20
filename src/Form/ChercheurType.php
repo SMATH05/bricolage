@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Chercheur;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -33,6 +34,13 @@ class ChercheurType extends AbstractType
                         'mimeTypesMessage' => 'Veuillez télécharger une image JPEG ou PNG valide',
                     ])
                 ],
+            ])
+            ->add('skills', CollectionType::class, [
+                'entry_type' => SkillType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
             ])
         ;
     }
