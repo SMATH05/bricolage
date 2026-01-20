@@ -1,4 +1,4 @@
-# Navbar & Common
+﻿# Navbar & Common
 Accueil: Home
 Connexion: Login
 Inscription: Sign Up
@@ -6,16 +6,16 @@ Administration: Administration
 "Mes Annonces": "My Ads"
 Candidatures: Applications
 "Mon Profil": "My Profile"
-Déconnexion: Logout
+DÃ©connexion: Logout
 Annonces: Ads
 "Mes Candidatures": "My Applications"
 Messagerie: Messaging
 
 # Footer
-"La plateforme de référence pour connecter les talents et les besoins en bricolage et services professionnels.": "The leading platform for connecting talent and DIY needs with professional services."
+"La plateforme de rÃ©fÃ©rence pour connecter les talents et les besoins en bricolage et services professionnels.": "The leading platform for connecting talent and DIY needs with professional services."
 Fondateurs: Founders
 "Contactez-nous": "Contact Us"
-"Tous droits réservés.": "All rights reserved."
+"Tous droits rÃ©servÃ©s.": "All rights reserved."
 
 # Dashboard & Common Actions
 "Tableau de Bord": Dashboard
@@ -27,14 +27,14 @@ Supprimer: Delete
 Postuler: Apply
 Par: By
 "Aucune annonce disponible": "No ads available"
-"Revenez plus tard pour découvrir de nouvelles opportunités.": "Check back later for new opportunities."
+"Revenez plus tard pour dÃ©couvrir de nouvelles opportunitÃ©s.": "Check back later for new opportunities."
 "Gestion des Candidatures": "Application Management"
-"Suivez et gérez les postulants pour vos offres.": "Track and manage applicants for your offers."
-"Retour à mes annonces": "Back to my ads"
+"Suivez et gÃ©rez les postulants pour vos offres.": "Track and manage applicants for your offers."
+"Retour Ã  mes annonces": "Back to my ads"
 "En attente": "Pending"
-"Accepté": "Accepted"
-"Refusé": "Rejected"
-"Postulé à :": "Applied for:"
+"AcceptÃ©": "Accepted"
+"RefusÃ©": "Rejected"
+"PostulÃ© Ã  :": "Applied for:"
 "Le": "On"
 Accepter: Accept
 Refuser: Reject
@@ -42,10 +42,10 @@ Refuser: Reject
 "Refuser la candidature": "Reject application"
 "Voir le profil": "View profile"
 "Aucune candidature pour le moment": "No applications yet"
-"Vos postulants apparaîtront ici dès qu'ils auront postulé à vos offres.": "Your applicants will appear here once they apply to your offers."
-"Créer une nouvelle annonce": "Create a new ad"
+"Vos postulants apparaÃ®tront ici dÃ¨s qu'ils auront postulÃ© Ã  vos offres.": "Your applicants will appear here once they apply to your offers."
+"CrÃ©er une nouvelle annonce": "Create a new ad"
 "Tableau de bord - Annonces": "Dashboard - Ads"
-Détails: Details
+DÃ©tails: Details
 Action: Action
 ID: ID
 Status: Status
@@ -64,7 +64,7 @@ Utilisateur: User
 # Login & Register
 "Se connecter": "Login"
 "Vous n'avez pas de compte ?": "Don't have an account?"
-"Créer un compte": "Create an account"
+"CrÃ©er un compte": "Create an account"
 "Retour au site": "Back to site"
 "Ou connectez-vous avec": "Or login with"
 "Se souvenir de moi": "Remember me"
@@ -72,23 +72,23 @@ Utilisateur: User
 "Mot de passe": "Password"
 "Accepter les conditions": "Agree to terms"
 Nom: Last Name
-Prénom: First Name
+PrÃ©nom: First Name
 "Je souhaite m'inscrire en tant que :": "I wish to register as:"
 "J'accepte les :": "I accept the:"
 "Conditions d'utilisation": "Terms of Use"
 "Ou inscrivez-vous avec": "Or sign up with"
-"Profil mis à jour.": "Profile updated."
+"Profil mis Ã  jour.": "Profile updated."
 "Gestion des Chercheurs": "Manage Researchers"
 Chercheurs: Researchers
 "Nouveau Chercheur": "New Researcher"
-"Aucun chercheur trouvé": "No researcher found"
+"Aucun chercheur trouvÃ©": "No researcher found"
 "La liste des candidats est actuellement vide.": "The candidate list is currently empty."
 "Gestion des Recruteurs": "Manage Recruiters"
 Recruteurs: Recruiters
 "Nouveau Recruteur": "New Recruiter"
-"Aucun recruteur trouvé": "No researcher found"
+"Aucun recruteur trouvÃ©": "No researcher found"
 "La liste des entreprises est actuellement vide.": "The company list is currently empty."
-"Statut de la candidature mis à jour.": "Application status updated."
+"Statut de la candidature mis Ã  jour.": "Application status updated."
 Chercheur: Researcher
 Recruteur: Recruiter
 Admin: Admin
@@ -96,147 +96,147 @@ Admin: Admin
 # Profile
 "Modifier mes informations": "Edit my information"
 "Sauvegarder les modifications": "Save changes"
-"Publiée le": "Published on"
-"Postulée le": "Applied on"
-"Vous n'avez pas encore publié d'annonces.": "You haven't posted any ads yet."
-"Vous n'avez pas encore postulé à des annonces.": "You haven't applied to any ads yet."
-"Aucun profil associé": "No profile associated"
-"Votre compte utilisateur n'est pas lié à un profil Chercheur ou Recruteur.": "Your user account is not linked to a Researcher or Recruiter profile."
+"PubliÃ©e le": "Published on"
+"PostulÃ©e le": "Applied on"
+"Vous n'avez pas encore publiÃ© d'annonces.": "You haven't posted any ads yet."
+"Vous n'avez pas encore postulÃ© Ã  des annonces.": "You haven't applied to any ads yet."
+"Aucun profil associÃ©": "No profile associated"
+"Votre compte utilisateur n'est pas liÃ© Ã  un profil Chercheur ou Recruteur.": "Your user account is not linked to a Researcher or Recruiter profile."
 
 # Marketplace
 Marketplace: Marketplace
 "Marketplace Bricolage": Bricolage Marketplace
-"Achetez et vendez vos outils et matériaux entre particuliers.": "Buy and sell tools and materials between individuals."
-"Trouvez les meilleurs outils, matériaux et équipements de qualité professionnelle à prix réduit.": Find the best professional tools, materials and equipment at a discount.
+"Achetez et vendez vos outils et matÃ©riaux entre particuliers.": "Buy and sell tools and materials between individuals."
+"Trouvez les meilleurs outils, matÃ©riaux et Ã©quipements de qualitÃ© professionnelle Ã  prix rÃ©duit.": Find the best professional tools, materials and equipment at a discount.
 "Vendre un article": "Sell an item"
 "Nouvelle annonce": "New listing"
 "Ajouter une photo": "Add a photo"
 "Publier l'annonce": "Publish listing"
-Catégorie: Category
+CatÃ©gorie: Category
 Prix: Price
 Outillage: Tools
-Matériaux: Materials
-Équipement: Equipment
+MatÃ©riaux: Materials
+Ã‰quipement: Equipment
 Jardin: Garden
 Autre: Other
 "Explorer plus": Explore more
 "Le marketplace est vide": The marketplace is empty
-"Soyez le premier à explorer et à vendre vos équipements.": Be the first to explore and sell your equipment.
-"Publier la première annonce": Publish first ad
+"Soyez le premier Ã  explorer et Ã  vendre vos Ã©quipements.": Be the first to explore and sell your equipment.
+"Publier la premiÃ¨re annonce": Publish first ad
 "Tous": All
 "Outils": Tools
-"Électrique": Electrical
+"Ã‰lectrique": Electrical
 "Acheter maintenant": "Buy Now"
 "Contacter le vendeur": "Contact Seller"
 "Retour au Marketplace": "Back to Marketplace"
-"Détails du produit": "Product details"
+"DÃ©tails du produit": "Product details"
 "Envoyer un message": "Send message"
 "Membre depuis": "Member since"
 Vendeur: Seller
 
 # Payment
-"Paiement Réussi !": "Payment Successful!"
-"Merci pour votre achat. Votre commande a été enregistrée avec succès.": "Thank you for your purchase. Your order has been successfully recorded."
+"Paiement RÃ©ussi !": "Payment Successful!"
+"Merci pour votre achat. Votre commande a Ã©tÃ© enregistrÃ©e avec succÃ¨s.": "Thank you for your purchase. Your order has been successfully recorded."
 "Voir mon profil": "View My Profile"
-"Paiement Annulé": "Payment Cancelled"
-"La transaction a été annulée. Aucun montant n'a été débité.": "The transaction was cancelled. No amount was charged."
+"Paiement AnnulÃ©": "Payment Cancelled"
+"La transaction a Ã©tÃ© annulÃ©e. Aucun montant n'a Ã©tÃ© dÃ©bitÃ©.": "The transaction was cancelled. No amount was charged."
 
 # Messaging / Chat
 Conversations: Conversations
 "Nouvelle conversation": New conversation
-"Écrivez votre message ici...": Write your message here...
+"Ã‰crivez votre message ici...": Write your message here...
 "Votre Messagerie": Your Messages
-"Sélectionnez une conversation ou contactez un vendeur/candidat pour commencer à discuter.": Select a conversation or contact a seller/candidate to start chatting.
-"Accéder à la messagerie": Access Messaging
+"SÃ©lectionnez une conversation ou contactez un vendeur/candidat pour commencer Ã  discuter.": Select a conversation or contact a seller/candidate to start chatting.
+"AccÃ©der Ã  la messagerie": Access Messaging
 "En ligne": Online
 
 # Home & Marketing
-"Trouvez l'expert idéal": "Find the perfect expert"
+"Trouvez l'expert idÃ©al": "Find the perfect expert"
 "Connecting Talent, Building Projects": "Connecting Talent, Building Projects"
 "Travaillez avec les meilleurs Pros.": "Work with the best Pros."
 "La marketplace d'excellence pour tous vos besoins de bricolage et services.": "The elite marketplace for all your DIY and service needs."
 "Quel service recherchez-vous ?": "What service are you looking for?"
 "Trouver un Expert": "Find an Expert"
-"100% Vérifiés": "100% Verified"
-"Paiement Sécurisé": "Secure Payment"
-"Garantie Qualité": "Quality Guarantee"
-"Experts Diplômés": "Certified Experts"
+"100% VÃ©rifiÃ©s": "100% Verified"
+"Paiement SÃ©curisÃ©": "Secure Payment"
+"Garantie QualitÃ©": "Quality Guarantee"
+"Experts DiplÃ´mÃ©s": "Certified Experts"
 "Satisfaction Client": "Customer Satisfaction"
-"Réponse Moyenne": "Average Response"
+"RÃ©ponse Moyenne": "Average Response"
 "Transactions": "Transactions"
-"Securisé": "Secure"
-"Découvrez par secteur": "Discover by Sector"
+"SecurisÃ©": "Secure"
+"DÃ©couvrez par secteur": "Discover by Sector"
 "Nos Services Populaires": "Our Popular Services"
 "Processus Premium": "Premium Process"
-"Efficacité Garantie": "Guaranteed Efficiency"
-"Expérience Personnalisée": "Personalized Experience"
-"Décrivez vos besoins et nous trouvons le match parfait pour vous.": "Describe your needs and we find the perfect match for you."
+"EfficacitÃ© Garantie": "Guaranteed Efficiency"
+"ExpÃ©rience PersonnalisÃ©e": "Personalized Experience"
+"DÃ©crivez vos besoins et nous trouvons le match parfait pour vous.": "Describe your needs and we find the perfect match for you."
 "Transparence Totale": "Total Transparency"
-"Visualisez les profils, les avis et les portfolios avant de décider.": "View profiles, reviews, and portfolios before deciding."
-"Résultats d'Excellence": "Excellent Results"
-"Bénéficiez d'un service de qualité supérieure avec garantie Bricolage.": "Benefit from superior quality service with Bricolage guarantee."
-"Opportunités de Projets": Project Opportunities
-"Découvrez les dernières annonces et proposez vos services aux meilleurs tarifs.": Discover latest ads and propose your services at best rates.
+"Visualisez les profils, les avis et les portfolios avant de dÃ©cider.": "View profiles, reviews, and portfolios before deciding."
+"RÃ©sultats d'Excellence": "Excellent Results"
+"BÃ©nÃ©ficiez d'un service de qualitÃ© supÃ©rieure avec garantie Bricolage.": "Benefit from superior quality service with Bricolage guarantee."
+"OpportunitÃ©s de Projets": Project Opportunities
+"DÃ©couvrez les derniÃ¨res annonces et proposez vos services aux meilleurs tarifs.": Discover latest ads and propose your services at best rates.
 "Confiance & Expertise": "Trust & Expertise"
-"Nos Experts les plus demandés": "Our Most Requested Experts"
-"Des professionnels certifiés, notés par la communauté.": "Certified professionals, rated by the community."
+"Nos Experts les plus demandÃ©s": "Our Most Requested Experts"
+"Des professionnels certifiÃ©s, notÃ©s par la communautÃ©.": "Certified professionals, rated by the community."
 "Expert Plombier": "Expert Plumber"
-"Jardinière Pro": "Pro Gardener"
-"Électricien Expert": "Expert Electrician"
-"Architecte Intérieur": "Interior Architect"
+"JardiniÃ¨re Pro": "Pro Gardener"
+"Ã‰lectricien Expert": "Expert Electrician"
+"Architecte IntÃ©rieur": "Interior Architect"
 "avis": "reviews"
-"Rejoignez l'élite du Bricolage.": "Join the Bricolage Elite."
-"Que vous soyez un expert cherchant des projets ou un client exigeant, vivez l'expérience Bricolage dès aujourd'hui.": "Whether you are an expert looking for projects or a demanding client, experience Bricolage today."
+"Rejoignez l'Ã©lite du Bricolage.": "Join the Bricolage Elite."
+"Que vous soyez un expert cherchant des projets ou un client exigeant, vivez l'expÃ©rience Bricolage dÃ¨s aujourd'hui.": "Whether you are an expert looking for projects or a demanding client, experience Bricolage today."
 "Commencer Maintenant": "Get Started Now"
 "En savoir plus": "Learn More"
 "Jardinage": "Gardening"
 "Informatique": "IT & Computers"
 "Plomberie": "Plumbing"
-"Déménagement": "Moving"
+"DÃ©mÃ©nagement": "Moving"
 "Peinture": "Painting"
-"Électricité": "Electricity"
-"Nouveautés": "New Arrivals"
+"Ã‰lectricitÃ©": "Electricity"
+"NouveautÃ©s": "New Arrivals"
 
 # Admin Dash
 "Zone Administrative": Admin Zone
-"Gérez votre plateforme avec des outils professionnels.": Manage your platform with professional tools.
-"Serveur opérationnel": Server operational
+"GÃ©rez votre plateforme avec des outils professionnels.": Manage your platform with professional tools.
+"Serveur opÃ©rationnel": Server operational
 "Total": Total
 "Talents": Talents
 "Clients": Clients
 "Experts Inscrits": Registered Experts
 "Recruteurs Actifs": Active Recruiters
 "Derniers Experts": Latest Experts
-"Recruteurs Récents": Recent Recruiters
+"Recruteurs RÃ©cents": Recent Recruiters
 "Voir tous": See all
 
 # Candidate Management (Recruiter)
 "Recrutement": Recruitment
-"Candidatures Reçues": Applications Received
+"Candidatures ReÃ§ues": Applications Received
 "Postulants": Applicants
 "Client": Client
 "aucune candidature disponible": No candidates available
-"Veuillez revenir ultérieurement.": Please come back later.
+"Veuillez revenir ultÃ©rieurement.": Please come back later.
 "Aucune candidature": No applications
-"Vous recevrez une notification dès qu'un expert proposera ses services.": You will receive a notification as soon as an expert offers their services.
+"Vous recevrez une notification dÃ¨s qu'un expert proposera ses services.": You will receive a notification as soon as an expert offers their services.
 "Publier une nouvelle offre": Publish a new offer
 
 # Flash Messages & Errors
-"Vous devez créer un profil Chercheur pour voir vos candidatures.": "You must create a Researcher profile to view your applications."
+"Vous devez crÃ©er un profil Chercheur pour voir vos candidatures.": "You must create a Researcher profile to view your applications."
 "Votre profil chercheur est incomplet.": "Your researcher profile is incomplete."
-"Erreur lors de la récupération de l'annonce.": "Error while retrieving the ad."
+"Erreur lors de la rÃ©cupÃ©ration de l'annonce.": "Error while retrieving the ad."
 "Annonce introuvable": "Ad not found"
-"Vous avez déjà postulé à cette annonce.": "You have already applied for this ad."
-"Votre candidature a été envoyée avec succès.": "Your application has been sent successfully."
+"Vous avez dÃ©jÃ  postulÃ© Ã  cette annonce.": "You have already applied for this ad."
+"Votre candidature a Ã©tÃ© envoyÃ©e avec succÃ¨s.": "Your application has been sent successfully."
 "Erreur lors de la candidature : ": "Error during application: "
 "Stripe API Key is not configured in .env or Railway variables. Payment disabled.": "Stripe API Key is not configured. Payment disabled."
 "Stripe Error: ": "Stripe Error: "
 "Veuillez vous connecter.": "Please log in."
 "Une erreur est survenue.": "An error occurred."
-"Succès": "Success"
+"SuccÃ¨s": "Success"
 "Attention": "Warning"
 "Erreur": "Error"
 "Disponible": Available
-"Mettre à jour": "Update"
+"Mettre Ã  jour": "Update"
 "Retour": "Back"
 "Modifier l'annonce": "Edit ad"

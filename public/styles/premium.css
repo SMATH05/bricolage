@@ -33,14 +33,18 @@
     --card-bg: #1e293b;
     --text-color: #f1f5f9;
     --text-muted: #94a3b8;
-    --border-color: rgba(255, 255, 255, 0.08);
+    --border-color: rgba(255, 255, 255, 0.1);
     --glass-bg: rgba(30, 41, 59, 0.7);
     --glass-border: rgba(255, 255, 255, 0.05);
-    --navbar-bg: rgba(15, 23, 42, 0.9);
-    --footer-bg: #1e293b;
+    --navbar-bg: #1e293b;
+    --footer-bg: #0f172a;
     --heading-color: #ffffff;
     --shadow-sm: 0 4px 10px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+* {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.1s ease;
 }
 
 body {
@@ -126,8 +130,8 @@ h6 {
     background-color: var(--card-bg);
     border-bottom: 1px solid var(--border-color);
     padding: 1.5rem;
-    border-top-left-radius: var(--border-radius) !important;
-    border-top-right-radius: var(--border-radius) !important;
+    border-top-left-radius: 20px !important;
+    border-top-right-radius: 20px !important;
 }
 
 /* Button Styling */
@@ -168,8 +172,8 @@ h6 {
 }
 
 .table tbody tr {
-    background-color: #fff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+    background-color: var(--card-bg);
+    box-shadow: var(--shadow-sm);
     border-radius: 10px;
 }
 

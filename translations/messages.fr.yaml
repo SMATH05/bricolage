@@ -1,0 +1,250 @@
+﻿# Navbar & Common
+Accueil: Accueil
+Connexion: Connexion
+Inscription: Inscription
+Administration: Administration
+"Mes Annonces": "Mes Annonces"
+Candidatures: Candidatures
+"Mon Profil": "Mon Profil"
+DÃ©connexion: DÃ©connexion
+Annonces: Annonces
+"Mes Candidatures": "Mes Candidatures"
+Messagerie: Messagerie
+
+# Footer
+"La plateforme de rÃ©fÃ©rence pour connecter les talents et les besoins en bricolage et services professionnels.": "La plateforme de rÃ©fÃ©rence pour connecter les talents et les besoins en bricolage et services professionnels."
+Fondateurs: Fondateurs
+"Contactez-nous": "Contactez-nous"
+"Tous droits rÃ©servÃ©s.": "Tous droits rÃ©servÃ©s."
+
+# Dashboard & Common Actions
+"Tableau de Bord": "Tableau de Bord"
+"Nouvelle Annonce": "Nouvelle Annonce"
+Candidats: Candidats
+Modifier: Modifier
+Supprimer: Supprimer
+"Confirmer la suppression ?": "Confirmer la suppression ?"
+Postuler: Postuler
+Par: Par
+"Aucune annonce disponible": "Aucune annonce disponible"
+"Revenez plus tard pour dÃ©couvrir de nouvelles opportunitÃ©s.": "Revenez plus tard pour dÃ©couvrir de nouvelles opportunitÃ©s."
+"Gestion des Candidatures": "Gestion des Candidatures"
+"Suivez et gÃ©rez les postulants pour vos offres.": "Suivez et gÃ©rez les postulants pour vos offres."
+"Retour Ã  mes annonces": "Retour Ã  mes annonces"
+"En attente": "En attente"
+"AcceptÃ©": "AcceptÃ©"
+"RefusÃ©": "RefusÃ©"
+"PostulÃ© Ã  :": "PostulÃ© Ã  :"
+"Le": "Le"
+Accepter: Accepter
+Refuser: Refuser
+"Accepter la candidature": "Accepter la candidature"
+"Refuser la candidature": "Refuser la candidature"
+"Voir le profil": "Voir le profil"
+"Aucune candidature pour le moment": "Aucune candidature pour le moment"
+"Vos postulants apparaÃ®tront ici dÃ¨s qu'ils auront postulÃ© Ã  vos offres.": "Vos postulants apparaÃ®tront ici dÃ¨s qu'ils auront postulÃ© Ã  vos offres."
+"CrÃ©er une nouvelle annonce": "CrÃ©er une nouvelle annonce"
+"Tableau de bord - Annonces": "Tableau de bord - Annonces"
+DÃ©tails: DÃ©tails
+Action: Action
+ID: ID
+Status: Statut
+
+# Forms & Labels
+"Ajouter une annonce": "Ajouter une annonce"
+"Publier une annonce": "Publier une annonce"
+"Ajouter l'annonce": "Ajouter l'annonce"
+"Annuler": "Annuler"
+Titre: Titre
+Description: Description
+"Date publication": "Date de publication"
+Budget: Budget
+Utilisateur: Utilisateur
+
+# Login & Register
+"Se connecter": "Se connecter"
+"Vous n'avez pas de compte ?": "Vous n'avez pas de compte ?"
+"CrÃ©er un compte": "CrÃ©er un compte"
+"Retour au site": "Retour au site"
+"Ou connectez-vous avec": "Ou connectez-vous avec"
+"Se souvenir de moi": "Se souvenir de moi"
+"Entrez votre mot de passe": "Entrez votre mot de passe"
+"Mot de passe": "Mot de passe"
+"Accepter les conditions": "Accepter les conditions"
+Nom: Nom
+PrÃ©nom: PrÃ©nom
+"Je souhaite m'inscrire en tant que :": "Je souhaite m'inscrire en tant que :"
+"J'accepte les :": "J'accepte les :"
+"Conditions d'utilisation": "Conditions d'utilisation"
+"Ou inscrivez-vous avec": "Ou inscrivez-vous avec"
+"Profil mis Ã  jour.": "Profil mis Ã  jour."
+"Gestion des Chercheurs": "Gestion des Chercheurs"
+Chercheurs: Chercheurs
+"Nouveau Chercheur": "Nouveau Chercheur"
+"Aucun chercheur trouvÃ©": "Aucun chercheur trouvÃ©"
+"La liste des candidats est actuellement vide.": "La liste des candidats est actuellement vide."
+"Gestion des Recruteurs": "Gestion des Recruteurs"
+Recruteurs: Recruteurs
+"Nouveau Recruteur": "Nouveau Recruteur"
+"Aucun recruteur trouvÃ©": "Aucun recruteur trouvÃ©"
+"La liste des entreprises est actuellement vide.": "La liste des entreprises est actuellement vide."
+"Statut de la candidature mis Ã  jour.": "Statut de la candidature mis Ã  jour."
+Chercheur: Chercheur
+Recruteur: Recruteur
+Admin: Admin
+
+# Profile
+"Modifier mes informations": "Modifier mes informations"
+"Sauvegarder les modifications": "Sauvegarder les modifications"
+"PubliÃ©e le": "PubliÃ©e le"
+"PostulÃ©e le": "PostulÃ©e le"
+"Vous n'avez pas encore publiÃ© d'annonces.": "Vous n'avez pas encore publiÃ© d'annonces."
+"Vous n'avez pas encore postulÃ© Ã  des annonces.": "Vous n'avez pas encore postulÃ© Ã  des annonces."
+"Aucun profil associÃ©": "Aucun profil associÃ©"
+"Votre compte utilisateur n'est pas liÃ© Ã  un profil Chercheur ou Recruteur.": "Votre compte utilisateur n'est pas liÃ© Ã  un profil Chercheur ou Recruteur."
+
+# Marketplace
+Marketplace: Marketplace
+"Marketplace Bricolage": "Marketplace Bricolage"
+"Achetez et vendez vos outils et matÃ©riaux entre particuliers.": "Achetez et vendez vos outils et matÃ©riaux entre particuliers."
+"Trouvez les meilleurs outils, matÃ©riaux et Ã©quipements de qualitÃ© professionnelle Ã  prix rÃ©duit.": "Trouvez les meilleurs outils, matÃ©riaux et Ã©quipements de qualitÃ© professionnelle Ã  prix rÃ©duit."
+"Vendre un article": "Vendre un article"
+"Nouvelle annonce": "Nouvelle annonce"
+"Ajouter une photo": "Ajouter une photo"
+"Publier l'annonce": "Publier l'annonce"
+CatÃ©gorie: CatÃ©gorie
+Prix: Prix
+Outillage: Outillage
+MatÃ©riaux: MatÃ©riaux
+Ã‰quipement: Ã‰quipement
+Jardin: Jardin
+Autre: Autre
+"Explorer plus": "Explorer plus"
+"Le marketplace est vide": "Le marketplace est vide"
+"Soyez le premier Ã  explorer et Ã  vendre vos Ã©quipements.": "Soyez le premier Ã  explorer et Ã  vendre vos Ã©quipements."
+"Publier la premiÃ¨re annonce": "Publier la premiÃ¨re annonce"
+"Tous": "Tous"
+"Outils": "Outils"
+"Ã‰lectrique": "Ã‰lectrique"
+"Acheter maintenant": "Acheter maintenant"
+"Contacter le vendeur": "Contacter le vendeur"
+"Retour au Marketplace": "Retour au Marketplace"
+"DÃ©tails du produit": "DÃ©tails du produit"
+"Envoyer un message": "Envoyer un message"
+"Membre depuis": "Membre depuis"
+Vendeur: Vendeur
+
+# Payment
+"Paiement RÃ©ussi !": "Paiement RÃ©ussi !"
+"Merci pour votre achat. Votre commande a Ã©tÃ© enregistrÃ©e avec succÃ¨s.": "Merci pour votre achat. Votre commande a Ã©tÃ© enregistrÃ©e avec succÃ¨s."
+"Voir mon profil": "Voir mon profil"
+"Paiement AnnulÃ©": "Paiement AnnulÃ©"
+"La transaction a Ã©tÃ© annulÃ©e. Aucun montant n'a Ã©tÃ© dÃ©bitÃ©.": "La transaction a Ã©tÃ© annulÃ©e. Aucun montant n'a Ã©tÃ© dÃ©bitÃ©."
+
+# Messaging / Chat
+Conversations: Conversations
+"Nouvelle conversation": "Nouvelle conversation"
+"Ã‰crivez votre message ici...": "Ã‰crivez votre message ici..."
+"Votre Messagerie": "Votre Messagerie"
+"SÃ©lectionnez une conversation ou contactez un vendeur/candidat pour commencer Ã  discuter.": "SÃ©lectionnez une conversation ou contactez un vendeur/candidat pour commencer Ã  discuter."
+"AccÃ©der Ã  la messagerie": "AccÃ©der Ã  la messagerie"
+"En ligne": "En ligne"
+
+# Home & Marketing
+"Trouvez l'expert idÃ©al": "Trouvez l'expert idÃ©al"
+"Connecting Talent, Building Projects": "Connecter les Talents, Construire des Projets"
+"Travaillez avec les meilleurs Pros.": "Travaillez avec les meilleurs Pros."
+"La marketplace d'excellence pour tous vos besoins de bricolage et services.": "La marketplace d'excellence pour tous vos besoins de bricolage et services."
+"Quel service recherchez-vous ?": "Quel service recherchez-vous ?"
+"Trouver un Expert": "Trouver un Expert"
+"100% VÃ©rifiÃ©s": "100% VÃ©rifiÃ©s"
+"Paiement SÃ©curisÃ©": "Paiement SÃ©curisÃ©"
+"Garantie QualitÃ©": "Garantie QualitÃ©"
+"Experts DiplÃ´mÃ©s": "Experts DiplÃ´mÃ©s"
+"Satisfaction Client": "Satisfaction Client"
+"RÃ©ponse Moyenne": "RÃ©ponse Moyenne"
+"Transactions": "Transactions"
+"SecurisÃ©": "SecurisÃ©"
+"DÃ©couvrez par secteur": "DÃ©couvrez par secteur"
+"Nos Services Populaires": "Nos Services Populaires"
+"Processus Premium": "Processus Premium"
+"EfficacitÃ© Garantie": "EfficacitÃ© Garantie"
+"ExpÃ©rience PersonnalisÃ©e": "ExpÃ©rience PersonnalisÃ©e"
+"DÃ©crivez vos besoins et nous trouvons le match parfait pour vous.": "DÃ©crivez vos besoins et nous trouvons le match parfait pour vous."
+"Transparence Totale": "Transparence Totale"
+"Visualisez les profils, les avis et les portfolios avant de dÃ©cider.": "Visualisez les profils, les avis et les portfolios avant de dÃ©cider."
+"RÃ©sultats d'Excellence": "RÃ©sultats d'Excellence"
+"BÃ©nÃ©ficiez d'un service de qualitÃ© supÃ©rieure avec garantie Bricolage.": "BÃ©nÃ©ficiez d'un service de qualitÃ© supÃ©rieure avec garantie Bricolage."
+"OpportunitÃ©s de Projets": "OpportunitÃ©s de Projets"
+"DÃ©couvrez les derniÃ¨res annonces et proposez vos services aux meilleurs tarifs.": "DÃ©couvrez les derniÃ¨res annonces et proposez vos services aux meilleurs tarifs."
+"Confiance & Expertise": "Confiance & Expertise"
+"Nos Experts les plus demandÃ©s": "Nos Experts les plus demandÃ©s"
+"Des professionnels certifiÃ©s, notÃ©s par la communautÃ©.": "Des professionnels certifiÃ©s, notÃ©s par la communautÃ©."
+"Expert Plombier": "Expert Plombier"
+"JardiniÃ¨re Pro": "JardiniÃ¨re Pro"
+"Ã‰lectricien Expert": "Ã‰lectricien Expert"
+"Architecte IntÃ©rieur": "Architecte IntÃ©rieur"
+"avis": "avis"
+"Rejoignez l'Ã©lite du Bricolage.": "Rejoignez l'Ã©lite du Bricolage."
+"Que vous soyez un expert cherchant des projets ou un client exigeant, vivez l'expÃ©rience Bricolage dÃ¨s aujourd'hui.": "Que vous soyez un expert cherchant des projets ou un client exigeant, vivez l'expÃ©rience Bricolage dÃ¨s aujourd'hui."
+"Commencer Maintenant": "Commencer Maintenant"
+"En savoir plus": "En savoir plus"
+"Jardinage": "Jardinage"
+"Informatique": "Informatique"
+"Plomberie": "Plomberie"
+"DÃ©mÃ©nagement": "DÃ©mÃ©nagement"
+"Peinture": "Peinture"
+"Ã‰lectricitÃ©": "Ã‰lectricitÃ©"
+"NouveautÃ©s": "NouveautÃ©s"
+
+# Admin Dash
+"Zone Administrative": "Zone Administrative"
+"GÃ©rez votre plateforme avec des outils professionnels.": "GÃ©rez votre plateforme avec des outils professionnels."
+"Serveur opÃ©rationnel": "Serveur opÃ©rationnel"
+"Total": "Total"
+"Talents": "Talents"
+"Clients": "Clients"
+"Experts Inscrits": "Experts Inscrits"
+"Recruteurs Actifs": "Recruteurs Actifs"
+"Derniers Experts": "Derniers Experts"
+"Recruteurs RÃ©cents": "Recruteurs RÃ©cents"
+"Voir tous": "Voir tous"
+
+# Candidate Management (Recruiter)
+"Recrutement": "Recrutement"
+"Candidatures ReÃ§ues": "Candidatures ReÃ§ues"
+"Postulants": "Postulants"
+"Client": "Client"
+"aucune candidature disponible": "aucune candidature disponible"
+"Veuillez revenir ultÃ©rieurement.": "Veuillez revenir ultÃ©rieurement."
+"Aucune candidature": "Aucune candidature"
+"Vous recevrez une notification dÃ¨s qu'un expert proposera ses services.": "Vous recevrez une notification dÃ¨s qu'un expert proposera ses services."
+"Publier une nouvelle offre": "Publier une nouvelle offre"
+
+# Flash Messages & Errors
+"Vous devez crÃ©er un profil Chercheur pour voir vos candidatures.": "Vous devez crÃ©er un profil Chercheur pour voir vos candidatures."
+"Votre profil chercheur est incomplet.": "Votre profil chercheur est incomplet."
+"Erreur lors de la rÃ©cupÃ©ration de l'annonce.": "Erreur lors de la rÃ©cupÃ©ration de l'annonce."
+"Annonce introuvable": "Annonce introuvable"
+"Vous avez dÃ©jÃ  postulÃ© Ã  cette annonce.": "Vous avez dÃ©jÃ  postulÃ© Ã  cette annonce."
+"Votre candidature a Ã©tÃ© envoyÃ©e avec succÃ¨s.": "Votre candidature a Ã©tÃ© envoyÃ©e avec succÃ¨s."
+"Erreur lors de la candidature : ": "Erreur lors de la candidature : "
+"Stripe API Key is not configured in .env or Railway variables. Payment disabled.": "La clÃ© Stripe n'est pas configurÃ©e. Paiement dÃ©sactivÃ©."
+"Stripe Error: ": "Erreur Stripe : "
+"Veuillez vous connecter.": "Veuillez vous connecter."
+"Une erreur est survenue.": "Une erreur est survenue."
+"SuccÃ¨s": "SuccÃ¨s"
+"Attention": "Attention"
+"Erreur": "Erreur"
+"Disponible": "Disponible"
+"Mettre Ã  jour": "Mettre Ã  jour"
+"Retour": "Retour"
+"Modifier l'annonce": "Modifier l'annonce"
+"AbonnÃ©s": "AbonnÃ©s"
+"Suivis": "Suivis"
+"CompÃ©tences": "CompÃ©tences"
+"Aucune compÃ©tence ajoutÃ©e": "Aucune compÃ©tence ajoutÃ©e"
+"Mes CompÃ©tences": "Mes CompÃ©tences"
+"Ajouter une compÃ©tence": "Ajouter une compÃ©tence"
+"Messagerie": "Messagerie"
+"Changer de thÃ¨me": "Changer de thÃ¨me"
