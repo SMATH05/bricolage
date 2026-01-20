@@ -34,6 +34,9 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setEmail($form->get('email')->getData());
+            $user->setNom($form->get('nom')->getData());
+            $user->setPrenom($form->get('prenom')->getData());
             $user->setPassword(
                 $passwordHasher->hashPassword(
                     $user,
@@ -51,32 +54,15 @@ class RegistrationController extends AbstractController
 
             $user->setRoles([$selectedRole]);
 
-            $user->setIsVerified(true);
-
-            $entityManager->persist($user);
-
-            $nom = $form->get('nom')->getData();
-            $prenom = $form->get('prenom')->getData();
+            // Create profile based on role
 
             if ($selectedRole === 'ROLE_CHERCHEUR') {
                 $chercheur = new Chercheur();
                 $chercheur->setUser($user);
-                // Set values from form
-                $chercheur->setNom($nom);
-                $chercheur->setPrenom($prenom);
-                $chercheur->setEmail($user->getEmail());
-                $chercheur->setIdChercheur(uniqid('CH_'));
-                $chercheur->setDescription('Description...');
-                $chercheur->setDisponibilite('Disponible');
-                $chercheur->setMotDePasse('dummy');
                 $entityManager->persist($chercheur);
             } elseif ($selectedRole === 'ROLE_RECRUTEUR') {
                 $recruteur = new Recruteur();
                 $recruteur->setUser($user);
-                $recruteur->setNom($nom . ' ' . $prenom);
-                $recruteur->setEmail($user->getEmail());
-                $recruteur->setTelephone('0000000000');
-                $recruteur->setPassword('dummy');
                 $entityManager->persist($recruteur);
             }
 

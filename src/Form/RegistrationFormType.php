@@ -23,23 +23,31 @@ class RegistrationFormType extends AbstractType
             ->add('email', null, ['label' => 'Email'])
             ->add('nom', \Symfony\Component\Form\Extension\Core\Type\TextType::class, [
                 'label' => 'Nom',
-                'mapped' => false,
                 'attr' => ['class' => 'premium-input', 'placeholder' => 'Nom'],
                 'constraints' => [
                     new NotBlank(['message' => 'Veuillez entrer votre nom']),
+                    new Length(['min' => 2, 'max' => 50, 'minMessage' => 'Votre nom doit faire au moins 2 caractères', 'maxMessage' => 'Votre nom ne peut pas dépasser 50 caractères']),
                 ],
             ])
             ->add('prenom', \Symfony\Component\Form\Extension\Core\Type\TextType::class, [
                 'label' => 'Prénom',
-                'mapped' => false,
                 'attr' => ['class' => 'premium-input', 'placeholder' => 'Prénom'],
                 'constraints' => [
                     new NotBlank(['message' => 'Veuillez entrer votre prénom']),
+                    new Length(['min' => 2, 'max' => 50, 'minMessage' => 'Votre prénom doit faire au moins 2 caractères', 'maxMessage' => 'Votre prénom ne peut pas dépasser 50 caractères']),
+                ],
+            ])
+            ->add('plainPassword', PasswordType::class, [
+                'label' => 'Mot de passe',
+                'attr' => ['class' => 'premium-input', 'placeholder' => 'Mot de passe'],
+                'constraints' => [
+                    new NotBlank(['message' => 'Veuillez entrer un mot de passe']),
+                    new Length(['min' => 6, 'maxMessage' => 'Votre mot de passe ne peut pas dépasser 4096 caractères']),
                 ],
             ])
             ->add('roles', ChoiceType::class, [
                 'choices' => [
-                    'Chercheur' => 'ROLE_CHERCHEUR',
+                    'Chercheur d\'emploi' => 'ROLE_CHERCHEUR',
                     'Recruteur' => 'ROLE_RECRUTEUR',
                 ],
                 'expanded' => true,

@@ -118,10 +118,19 @@ class SocialController extends AbstractController
                 error_log('Upload debug - File size: ' . filesize($targetPath) . ' bytes');
                 
                 $ext = strtolower($mediaFile->guessExtension());
-                if (in_array($ext, ['mp4', 'webm', 'ogg', 'mov'])) {
+                $mimeType = strtolower($mediaFile->getMimeType());
+                
+                // Enhanced video detection
+                if (in_array($ext, ['mp4', 'webm', 'ogg', 'mov', 'avi', 'mkv', 'wmv']) || 
+                    in_array($mimeType, ['video/mp4', 'video/webm', 'video/ogg', 'video/quicktime', 'video/x-msvideo', 'video/x-matroska'])) {
                     $post->setMediaType('video');
-                } else {
+                } elseif (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'svg']) || 
+                          in_array($mimeType, ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/bmp', 'image/svg+xml'])) {
                     $post->setMediaType('image');
+                } else {
+                    // Default to image if unsure
+                    $post->setMediaType('image');
+                    error_log('Unknown media type - Extension: ' . $ext . ', MIME: ' . $mimeType . ' - Defaulting to image');
                 }
             } catch (\Exception $e) {
                 error_log('Upload exception: ' . $e->getMessage());
