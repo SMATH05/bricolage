@@ -16,6 +16,20 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class SocialController extends AbstractController
 {
+    #[Route('/feed', name: 'app_social_feed')]
+    public function feed(PostRepository $postRepository): Response
+    {
+        try {
+            $posts = $postRepository->findAllByDate();
+        } catch (\Exception $e) {
+            $posts = [];
+        }
+
+        return $this->render('social/feed.html.twig', [
+            'posts' => $posts
+        ]);
+    }
+
     #[Route('/social/post', name: 'app_social_post_create', methods: ['POST'])]
     public function createPost(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
@@ -24,7 +38,7 @@ class SocialController extends AbstractController
 
         if (!$content && !$mediaFile) {
             $this->addFlash('error', 'Le post ne peut pas être vide.');
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_social_feed');
         }
 
         $post = new Post();
@@ -57,7 +71,7 @@ class SocialController extends AbstractController
         $entityManager->persist($post);
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_home');
+        return $this->redirectToRoute('app_social_feed');
     }
 
     #[Route('/social/like/{id}', name: 'app_social_like', methods: ['POST'])]
@@ -95,7 +109,7 @@ class SocialController extends AbstractController
     {
         $content = $request->request->get('content');
         if (!$content) {
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_social_feed');
         }
 
         $comment = new PostComment();
@@ -106,6 +120,6 @@ class SocialController extends AbstractController
         $entityManager->persist($comment);
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_home');
+        return $this->redirectToRoute('app_social_feed');
     }
 }

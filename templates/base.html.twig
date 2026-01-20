@@ -41,6 +41,11 @@ document.documentElement.setAttribute('data-theme', theme);
 								<li class="nav-item">
 									<a class="nav-link px-3" href="{{ path('app_home') }}">{{ 'Accueil'|trans }}</a>
 								</li>
+								<li class="nav-item">
+									<a class="nav-link px-3" href="{{ path('app_social_feed') }}">
+										<i class="fas fa-stream me-1"></i>
+										{{ 'Feed'|trans }}</a>
+								</li>
 								{% if is_granted('ROLE_ADMIN') %}
 									<li class="nav-item">
 										<a class="nav-link px-3 fw-bold text-warning" href="{{ path('app_admin') }}">{{ 'Administration'|trans }}</a>
