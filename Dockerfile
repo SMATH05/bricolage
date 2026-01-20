@@ -5,7 +5,7 @@ WORKDIR /var/www/html
 RUN apt-get update && apt-get install -y \
     git unzip libicu-dev libzip-dev libpq-dev zip \
     && docker-php-ext-install intl pdo pdo_pgsql zip \
-    && a2dismod mpm_event || true \
+    && a2dismod mpm_event mpm_worker || true \
     && a2enmod mpm_prefork \
     && a2enmod rewrite
 
