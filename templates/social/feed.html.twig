@@ -87,10 +87,16 @@
 					<div class="p-3 d-flex align-items-center justify-content-between">
 						<div class="d-flex align-items-center gap-3">
 							<div class="avatar-md rounded-circle" style="width: 40px; height: 40px; background: #eee; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid #fff; box-shadow: 0 0 10px rgba(0,0,0,0.05);">
-								{{ post.author.userIdentifier|slice(0, 1)|upper }}
+								{{ post.author.prenom ? post.author.prenom|slice(0, 1)|upper : post.author.email|slice(0, 1)|upper }}
 							</div>
 							<div>
-								<h6 class="mb-0 fw-bold">{{ post.author.userIdentifier }}</h6>
+								<h6 class="mb-0 fw-bold">
+									{% if post.author.prenom and post.author.nom %}
+										{{ post.author.prenom }} {{ post.author.nom }}
+									{% else %}
+										{{ post.author.email }}
+									{% endif %}
+								</h6>
 								<small class="text-muted">{{ post.createdAt|date('d/m/Y H:i') }}</small>
 							</div>
 						</div>
