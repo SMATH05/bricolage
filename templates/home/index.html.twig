@@ -265,236 +265,282 @@
 {% endblock %}
 
 {% block body %}
-<div
-	class="container py-5" style="margin-top: 80px; max-width: 600px;">
-	<!-- New Post Section -->
 	{% if app.user %}
-		<div class="glass-card p-4 mb-5 animate-slide-up shadow-sm">
-			<div class="d-flex align-items-center gap-3 mb-3">
-				<div class="avatar-sm rounded-circle shadow-sm" style="width: 45px; height: 45px; background: linear-gradient(45deg, var(--primary-color), var(--accent-color)); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
-					{{ app.user.userIdentifier|slice(0, 1)|upper }}
+		<section class="dashboard-home py-5" style="background: var(--bg-color); margin-top: 80px;">
+			<div class="container py-4">
+				<div class="glass-card p-5 mb-5 animate-slide-up">
+					<div class="row align-items-center">
+						<div class="col-md-8">
+							<h2 class="fw-bold mb-2">
+								{{ 'Bienvenue,'|trans }}
+								{{ app.user.userIdentifier }}
+								👋
+							</h2>
+							<p class="text-muted mb-0">{{ "Ravi de vous revoir sur votre espace Bricolage. Voici un résumé de votre activité."|trans }}</p>
+						</div>
+						<div class="col-md-4 text-md-end mt-3 mt-md-0">
+							{% if is_granted('ROLE_RECRUTEUR') %}
+								<a href="{{ path('app_annonces_ajouter') }}" class="btn btn-primary rounded-pill px-4 shadow-lg">
+									<i class="fas fa-plus me-2"></i>
+									{{ 'Nouvelle Annonce'|trans }}
+								</a>
+							{% else %}
+								<a href="{{ path('app_annonce') }}" class="btn btn-primary rounded-pill px-4 shadow-lg">
+									<i class="fas fa-search me-2"></i>
+									{{ 'Trouver une Mission'|trans }}
+								</a>
+							{% endif %}
+						</div>
+					</div>
 				</div>
-				<button class="btn btn-light bg-hover-soft w-100 rounded-pill text-start text-muted px-4 py-2 border" data-bs-toggle="modal" data-bs-target="#createPostModal">
-					{{ 'Partagez vos travaux, ' ~ app.user.userIdentifier ~ '...' }}
-				</button>
+
+				<div class="row g-4 mb-5">
+					<div class="col-md-4">
+						<div class="premium-card p-4 h-100">
+							<div class="d-flex align-items-center gap-3 mb-3">
+								<div class="rounded-circle bg-primary-soft p-3">
+									<i class="fas fa-bullhorn text-primary"></i>
+								</div>
+								<h5 class="fw-bold mb-0">
+									{% if is_granted('ROLE_RECRUTEUR') %}
+										{{ 'Vos Annonces'|trans }}
+									{% else %}
+										{{ 'Missions Disponibles'|trans }}
+									{% endif %}
+								</h5>
+							</div>
+							<p class="text-muted small">{{ "Gérez vos publications ou explorez de nouvelles opportunités en un clic."|trans }}</p>
+							<a href="{{ path('app_annonce') }}" class="btn btn-link p-0 text-decoration-none fw-bold">
+								{{ 'Voir tout'|trans }}
+								<i class="fas fa-arrow-right ms-1 small"></i>
+							</a>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="premium-card p-4 h-100">
+							<div class="d-flex align-items-center gap-3 mb-3">
+								<div class="rounded-circle bg-success-soft p-3">
+									<i class="fas fa-file-invoice text-success"></i>
+								</div>
+								<h5 class="fw-bold mb-0">{{ 'Candidatures'|trans }}</h5>
+							</div>
+							<p class="text-muted small">{{ "Suivez l'état de vos demandes ou gérez les postulants pour vos offres."|trans }}</p>
+							{% if is_granted('ROLE_RECRUTEUR') %}
+								<a href="{{ path('app_recruteur_candidatures') }}" class="btn btn-link p-0 text-decoration-none fw-bold">
+									{{ 'Gérer les demandes'|trans }}
+									<i class="fas fa-arrow-right ms-1 small"></i>
+								</a>
+							{% else %}
+								<a href="{{ path('app_candidature') }}" class="btn btn-link p-0 text-decoration-none fw-bold">
+									{{ 'Mes demandes'|trans }}
+									<i class="fas fa-arrow-right ms-1 small"></i>
+								</a>
+							{% endif %}
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="premium-card p-4 h-100">
+							<div class="d-flex align-items-center gap-3 mb-3">
+								<div class="rounded-circle bg-info-soft p-3">
+									<i class="fas fa-comments text-info"></i>
+								</div>
+								<h5 class="fw-bold mb-0">{{ 'Messagerie'|trans }}</h5>
+							</div>
+							<p class="text-muted small">{{ "Restez en contact avec vos collaborateurs et discutez des détails de vos projets."|trans }}</p>
+							<a href="{{ path('app_chat') }}" class="btn btn-link p-0 text-decoration-none fw-bold">
+								{{ 'Ouvrir les messages'|trans }}
+								<i class="fas fa-arrow-right ms-1 small"></i>
+							</a>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="d-flex justify-content-around border-top pt-3">
-				<button class="btn btn-link text-decoration-none text-muted fw-bold d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#createPostModal">
-					<i class="fas fa-image text-success"></i>
-					{{ 'Photo'|trans }}
-				</button>
-				<button class="btn btn-link text-decoration-none text-muted fw-bold d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#createPostModal">
-					<i class="fas fa-video text-primary"></i>
-					{{ 'Video'|trans }}
-				</button>
-				<button class="btn btn-link text-decoration-none text-muted fw-bold d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#createPostModal">
-					<i class="fas fa-pen text-warning"></i>
-					{{ 'Texte'|trans }}
-				</button>
+		</section>
+	{% else %}
+		<section class="hero-section">
+			<div class="video-background">
+				<video autoplay muted loop playsinline id="bg-video">
+					<source src="{{ asset('video/video2.mp4') }}" type="video/mp4"/>
+				</video>
 			</div>
-		</div>
+			<div class="hero-overlay"></div>
+
+			<!-- Nav Overlay -->
+			<div class="position-absolute top-0 start-0 w-100 p-4 d-flex justify-content-between align-items-center" style="z-index: 100;">
+				<a class="text-white fw-bold fs-3 text-decoration-none" href="{{ path('app_home') }}">
+					<i class="fas fa-hammer me-2 text-primary"></i>Bricolage
+				</a>
+				<div class="d-flex gap-3 align-items-center">
+					<a href="{{ path('app_login') }}" class="text-white fw-bold text-decoration-none px-3">{{ 'Connexion'|trans }}</a>
+					<a href="{{ path('app_register') }}" class="btn btn-primary rounded-pill px-4 fw-bold shadow">{{ 'Inscription'|trans }}</a>
+				</div>
+			</div>
+
+			<div class="hero-content animate-fade-in">
+				<h1 class="display-1">{{ "Travaillez avec"|trans }}<br>{{ "les meilleurs Pros."|trans }}</h1>
+				<p>{{ "La marketplace d'excellence pour tous vos besoins de bricolage et services."|trans }}</p>
+
+				<form action="{{ path('app_annonce') }}" method="GET" class="glass-search">
+					<i class="fas fa-search ms-3 text-white"></i>
+					<input type="text" name="q" placeholder="{{ 'Quel service recherchez-vous ?'|trans }}">
+					<button type="submit">{{ 'Trouver un Expert'|trans }}</button>
+				</form>
+
+				<div class="mt-5 d-flex justify-content-center gap-5 d-none d-md-flex">
+					<div class="d-flex align-items-center gap-3">
+						<div class="rounded-circle bg-success p-1">
+							<i class="fas fa-check text-white small"></i>
+						</div>
+						<span class="fw-bold">{{ '100% Vérifiés'|trans }}</span>
+					</div>
+					<div class="d-flex align-items-center gap-3">
+						<div class="rounded-circle bg-success p-1">
+							<i class="fas fa-check text-white small"></i>
+						</div>
+						<span class="fw-bold">{{ 'Paiement Sécurisé'|trans }}</span>
+					</div>
+					<div class="d-flex align-items-center gap-3">
+						<div class="rounded-circle bg-success p-1">
+							<i class="fas fa-check text-white small"></i>
+						</div>
+						<span class="fw-bold">{{ 'Garantie Qualité'|trans }}</span>
+					</div>
+				</div>
+			</div>
+		</section>
 	{% endif %}
 
-	<!-- Feed Section -->
-	<div class="social-feed">
-		{% if posts is empty %}
-			<div class="text-center py-5 glass-card animate-fade-in">
-				<div class="mb-4">
-					<i class="fas fa-stream fa-4x text-muted opacity-25"></i>
-				</div>
-				<h3 class="fw-bold">{{ 'Aucun post pour le moment'|trans }}</h3>
-				<p class="text-muted">{{ 'Soyez le premier à partager votre expérience !'|trans }}</p>
-				{% if not app.user %}
-					<a href="{{ path('app_login') }}" class="btn btn-primary rounded-pill px-4 mt-3">{{ 'Connectez-vous pour poster'|trans }}</a>
-				{% endif %}
+	<div class="container">
+		<div class="row stats-bar mx-0 align-items-center">
+			<div class="col-md-3 stat-item">
+				<span class="stat-number">25K+</span>
+				<span class="stat-label">{{ 'Experts Diplômés'|trans }}</span>
 			</div>
-		{% else %}
-			{% for post in posts %}
-				<div
-					class="post-card mb-4 animate-slide-up bg-white rounded-4 overflow-hidden border shadow-sm">
-					<!-- Post Header -->
-					<div class="p-3 d-flex align-items-center justify-content-between">
-						<div class="d-flex align-items-center gap-3">
-							<div class="avatar-md rounded-circle" style="width: 40px; height: 40px; background: #eee; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid #fff; box-shadow: 0 0 10px rgba(0,0,0,0.05);">
-								{{ post.author.userIdentifier|slice(0, 1)|upper }}
-							</div>
-							<div>
-								<h6 class="mb-0 fw-bold">{{ post.author.userIdentifier }}</h6>
-								<small class="text-muted">{{ post.createdAt|date('d/m/Y H:i') }}</small>
-							</div>
-						</div>
-						<div class="dropdown">
-							<button class="btn btn-link text-muted p-0" data-bs-toggle="dropdown">
-								<i class="fas fa-ellipsis-h"></i>
-							</button>
-							<ul class="dropdown-menu dropdown-menu-end border-0 shadow">
-								<li>
-									<a class="dropdown-item" href="#">
-										<i class="fas fa-flag me-2"></i>
-										{{ 'Signaler'|trans }}</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-
-					<!-- Post Content -->
-					{% if post.content %}
-						<div class="px-3 pb-3">
-							<p class="mb-0">{{ post.content }}</p>
-						</div>
-					{% endif %}
-
-					<!-- Post Media -->
-					{% if post.media %}
-						<div class="post-media-container bg-light" style="min-height: 300px; display: flex; align-items: center; justify-content: center;">
-							{% if post.mediaType == 'image' %}
-								<img src="{{ asset('uploads/posts/' ~ post.media) }}" class="img-fluid w-100" style="max-height: 600px; object-fit: cover;" alt="Post media">
-							{% elseif post.mediaType == 'video' %}
-								<video controls class="w-100" style="max-height: 600px; background: #000;">
-									<source src="{{ asset('uploads/posts/' ~ post.media) }}" type="video/mp4">
-									{{ 'Votre navigateur ne supporte pas la balise vidéo.'|trans }}
-								</video>
-							{% endif %}
-						</div>
-					{% endif %}
-
-					<!-- Post Actions -->
-					<div class="p-3">
-						<div class="d-flex align-items-center gap-4 mb-2">
-							<button class="btn btn-link p-0 text-decoration-none post-action-like" data-id="{{ post.id }}" style="font-size: 1.5rem; color: #262626;">
-								<i class="far fa-heart"></i>
-							</button>
-							<button class="btn btn-link p-0 text-decoration-none" style="font-size: 1.5rem; color: #262626;" onclick="document.getElementById('comment-input-{{ post.id }}').focus()">
-								<i class="far fa-comment"></i>
-							</button>
-							<button class="btn btn-link p-0 text-decoration-none" style="font-size: 1.5rem; color: #262626;">
-								<i class="far fa-paper-plane"></i>
-							</button>
-						</div>
-						<div class="fw-bold mb-2">
-							<span id="likes-count-{{ post.id }}">{{ post.likes|length }}</span>
-							{{ 'J\'aime'|trans }}
-							</div>
-
-							<!-- Comments List -->
-							<div class="comments-preview mb-3">
-								{% for comment in post.comments|slice(0, 3) %}
-									<div class="mb-1">
-										<span class="fw-bold">{{ comment.author.userIdentifier }}</span> {{ comment.content }}
-									</div>
-								{% endfor %}
-								{% if post.comments|length > 3 %}
-									<a href="#" class="text-muted small text-decoration-none">{{ 'Voir les ' ~ post.comments|length ~ ' commentaires'|trans }}</a>
-								{% endif %}
-							</div>
-
-							<!-- Comment Input -->
-							{% if app.user %}
-								<form action="{{ path('app_social_comment', {id: post.id}) }}" method="POST" class="mt-2 border-top pt-2 d-flex align-items-center gap-2">
-									<input type="text" id="comment-input-{{ post.id }}" name="content" class="form-control border-0 shadow-none px-0" placeholder="{{ 'Ajouter un commentaire...'|trans }}" required>
-									<button type="submit" class="btn btn-link fw-bold text-primary text-decoration-none">{{ 'Publier'|trans }}</button>
-								</form>
-							{% endif %}
-						</div>
-					</div>
-				{% endfor %}
-			{% endif %}
+			<div class="col-md-3 stat-item">
+				<span class="stat-number">5.0</span>
+				<span class="stat-label">{{ 'Satisfaction Client'|trans }}</span>
+			</div>
+			<div class="col-md-3 stat-item">
+				<span class="stat-number">2H</span>
+				<span class="stat-label">{{ 'Réponse Moyenne'|trans }}</span>
+			</div>
+			<div class="col-md-3 stat-item">
+				<span class="stat-number">{{ 'Securisé'|trans }}</span>
+				<span class="stat-label">{{ 'Transactions'|trans }}</span>
+			</div>
 		</div>
 	</div>
 
-	<!-- Modal Creation Post -->
-	{% if app.user %}
-		<div class="modal fade" id="createPostModal" tabindex="-1" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content border-0 shadow-lg rounded-4">
-					<div class="modal-header border-bottom-0">
-						<h5 class="modal-title fw-bold w-100 text-center">{{ 'Créer une publication'|trans }}</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<form action="{{ path('app_social_post_create') }}" method="POST" enctype="multipart/form-data">
-						<div class="modal-body">
-							<div class="d-flex align-items-center gap-3 mb-3">
-								<div class="avatar-sm rounded-circle" style="width: 35px; height: 35px; background: #eee; display: flex; align-items: center; justify-content: center; font-weight: bold;">
-									{{ app.user.userIdentifier|slice(0, 1)|upper }}
-								</div>
-								<span class="fw-bold">{{ app.user.userIdentifier }}</span>
-							</div>
-							<textarea name="content" class="form-control border-0 shadow-none p-0 mb-3" rows="3" placeholder="{{ 'Que voulez-vous partager ?'|trans }}" style="font-size: 1.2rem; resize: none;"></textarea>
-							
-							<div class="preview-container mb-3 d-none">
-								<img id="mediaPreview" src="#" class="img-fluid rounded-3 border" style="max-height: 200px; display: block; margin: 0 auto;">
-							</div>
+	<section class="categories-section">
+		<div class="container">
+			<div class="text-center mb-5 pb-4">
+				<h6 class="text-primary fw-bold text-uppercase ls-2">{{ 'Découvrez par secteur'|trans }}</h6>
+				<h2 class="display-4 fw-bold text-dark">{{ 'Nos Services Populaires'|trans }}</h2>
+			</div>
+			<div class="row g-4">
+				{% set categories = [
+                    {'name': 'Jardinage', 'img': 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&q=80&w=800'},
+                    {'name': 'Informatique', 'img': 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=800'},
+                    {'name': 'Plomberie', 'img': 'https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&q=80&w=800'},
+                    {'name': 'Déménagement', 'img': 'https://res.cloudinary.com/casden-edito/images/f_auto,q_auto/v1674127296/prod/MAG-demenagement_933836381/MAG-demenagement_933836381.jpg?_i=AA'},
+                    {'name': 'Peinture', 'img': 'https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&q=80&w=800'},
+                    {'name': 'Électricité', 'img': 'https://www.courant.fr/upload/media/actualite/1122-installationlectrique.jpg'}
+                ] %}
 
-							<div class="border rounded-3 p-3">
-								<p class="text-muted small mb-2">{{ 'Ajouter à votre publication'|trans }}</p>
-								<div class="d-flex gap-3">
-									<label class="btn btn-light bg-hover-soft rounded-pill px-3 py-2 border mb-0 cursor-pointer">
-										<i class="fas fa-images text-success me-2"></i> {{ 'Photos/Vidéos'|trans }}
-										<input type="file" name="media" class="d-none" accept="image/*,video/*" onchange="previewFile(this)">
-									</label>
-								</div>
+				{% for cat in categories %}
+					<div class="col-6 col-lg-4 col-xl-2">
+						<a href="{{ path('app_annonce') }}" class="category-card">
+							<img src="{{ cat.img }}" alt="{{ cat.name }}">
+							<div class="category-overlay"></div>
+							<div class="category-content text-center">
+								<h5>{{ cat.name|trans }}</h5>
 							</div>
-						</div>
-						<div class="modal-footer border-top-0 p-3">
-							<button type="submit" class="btn btn-primary w-100 rounded-pill fw-bold py-2 shadow-sm">{{ 'Publier'|trans }}</button>
-						</div>
-					</form>
+						</a>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+
+	<section class="how-it-works">
+		<div class="container">
+			<div class="text-center mb-5">
+				<h6 class="text-primary fw-bold text-uppercase">{{ 'Processus Premium'|trans }}</h6>
+				<h2 class="display-5 fw-bold">{{ 'Efficacité Garantie'|trans }}</h2>
+			</div>
+			<div class="row g-4 text-center">
+				<div class="col-md-4">
+					<div class="step-card">
+						<div class="step-icon mx-auto rounded-circle bg-white fw-bold text-primary d-flex align-items-center justify-content-center border">1</div>
+						<h4>{{ 'Expérience Personnalisée'|trans }}</h4>
+						<p>{{ 'Décrivez vos besoins et nous trouvons le match parfait pour vous.'|trans }}</p>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="step-card">
+						<div class="step-icon mx-auto rounded-circle bg-white fw-bold text-primary d-flex align-items-center justify-content-center border">2</div>
+						<h4>{{ 'Transparence Totale'|trans }}</h4>
+						<p>{{ 'Visualisez les profils, les avis et les portfolios avant de décider.'|trans }}</p>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="step-card">
+						<div class="step-icon mx-auto rounded-circle bg-white fw-bold text-primary d-flex align-items-center justify-content-center border">3</div>
+						<h4>{{ 'Résultats d\'Excellence'|trans }}</h4>
+						<p>{{ 'Bénéficiez d\'un service de qualité supérieure avec garantie Bricolage.'|trans }}</p>
+					</div>
 				</div>
 			</div>
 		</div>
-	{% endif %}
+	</section>
 
-	<script>
-		function previewFile(input) {
-			const container = document.querySelector('.preview-container');
-			const preview = document.getElementById('mediaPreview');
-			
-			if (input.files && input.files[0]) {
-				const reader = new FileReader();
-				reader.onload = function(e) {
-					preview.src = e.target.result;
-					container.classList.remove('d-none');
-				}
-				reader.readAsDataURL(input.files[0]);
-			}
-		}
 
-		// Like AJAX
-		document.querySelectorAll('.post-action-like').forEach(button => {
-			button.addEventListener('click', function(e) {
-				e.preventDefault();
-				const postId = this.dataset.id;
-				const icon = this.querySelector('i');
-				const countSpan = document.getElementById(`likes-count-${postId}`);
+	<section class="py-5 bg-white">
+		<div class="container py-5">
+			<div class="text-center mb-5">
+				<h6 class="text-primary fw-bold text-uppercase">{{ 'Confiance & Expertise'|trans }}</h6>
+				<h2 class="display-5 fw-bold">{{ 'Nos Experts les plus demandés'|trans }}</h2>
+				<p class="text-muted">{{ 'Des professionnels certifiés, notés par la communauté.'|trans }}</p>
+			</div>
+			<div class="row g-4">
+				{% set experts = [
+                    {'name': 'Jean Dupont', 'role': 'Expert Plombier', 'rating': '4.9', 'img': 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=300'},
+                    {'name': 'Marie Laurent', 'role': 'Jardinière Pro', 'rating': '5.0', 'img': 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300'},
+                    {'name': 'Ahmed Saidi', 'role': 'Électricien Expert', 'rating': '4.8', 'img': 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=300'},
+                    {'name': 'Sophie Martin', 'role': 'Architecte Intérieur', 'rating': '4.9', 'img': 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=300'}
+                ] %}
+				{% for expert in experts %}
+					<div class="col-6 col-md-3">
+						<div class="text-center">
+							<div class="position-relative d-inline-block mb-3">
+								<img src="{{ expert.img }}" alt="{{ expert.name }}" class="rounded-circle shadow-lg border border-3 border-white" style="width: 150px; height: 150px; object-fit: cover;">
+								<span class="position-absolute bottom-0 end-0 bg-success text-white rounded-circle p-2 shadow" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;">
+									<i class="fas fa-check fa-xs"></i>
+								</span>
+							</div>
+							<h5 class="fw-bold mb-0">{{ expert.name }}</h5>
+							<p class="text-primary small fw-bold mb-1">{{ expert.role|trans }}</p>
+							<div class="text-warning small">
+								<i class="fas fa-star"></i>
+								{{ expert.rating }}
+								<span class="text-muted">(120+
+									{{ 'avis'|trans }})</span>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
 
-				fetch(`/social/like/${postId}`, {
-					method: 'POST',
-					headers: {'X-Requested-With': 'XMLHttpRequest'}
-				})
-				.then(response => response.json())
-				.then(data => {
-					if (data.liked) {
-						icon.classList.remove('far');
-						icon.classList.add('fas');
-						icon.style.color = '#ed4956';
-					} else {
-						icon.classList.remove('fas');
-						icon.classList.add('far');
-						icon.style.color = '#262626';
-					}
-					countSpan.textContent = data.likesCount;
-				});
-			});
-		});
-	</script>
-
-	<style>
-		.cursor-pointer { cursor: pointer; }
-		.bg-hover-soft:hover { background-color: #f8f9fa !important; }
-		.post-card { border-color: rgba(0,0,0,.1) !important; }
-		.avatar-sm, .avatar-md { flex-shrink: 0; }
-		.post-media-container { overflow: hidden; background: #000; }
-		.post-action-like i { transition: transform 0.2s cubic-bezier(.17,.67,.83,.67); }
-		.post-action-like:active i { transform: scale(1.3); }
-	</style>
+	<section class="cta-section text-white text-center">
+		<div class="container py-5">
+			<h2 class="display-3 fw-bold mb-4">{{ "Rejoignez l'élite du Bricolage."|trans }}</h2>
+			<p class="mb-5 lead opacity-90 mx-auto" style="max-width: 700px;">{{ "Que vous soyez un expert cherchant des projets ou un client exigeant, vivez l'expérience Bricolage dès aujourd'hui."|trans }}</p>
+			<div class="d-flex justify-content-center gap-4 flex-wrap">
+				<a href="{{ path('app_register') }}" class="btn btn-white-premium">{{ "Commencer Maintenant"|trans }}</a>
+				<a href="{{ path('app_home') }}" class="btn btn-outline-light btn-lg px-5 rounded-pill fw-bold border-2">{{ "En savoir plus"|trans }}</a>
+			</div>
+		</div>
+	</section>
 {% endblock %}

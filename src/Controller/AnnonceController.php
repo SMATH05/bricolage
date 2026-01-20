@@ -11,24 +11,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\AnnonceRepository;
 use App\Repository\CandidatureRepository;
-use App\Repository\PostRepository;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 final class AnnonceController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(PostRepository $postRepository): Response
+    public function index(): Response
     {
-        try {
-            $posts = $postRepository->findAllByDate();
-        } catch (\Exception $e) {
-            $posts = [];
-        }
-
-        return $this->render('home/index.html.twig', [
-            'posts' => $posts
-        ]);
+        return $this->render('home/index.html.twig');
     }
 
     #[IsGranted('ROLE_USER')]
