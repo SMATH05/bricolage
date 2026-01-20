@@ -10,16 +10,16 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify it to your needs!
  */
-final class Version20260121000000_AddUserFields extends AbstractMigration
+final class Version20260121000001_FixUserTable extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return 'Add nom and prenom fields to User table';
+        return 'Fix user table with proper column names and data';
     }
 
     public function up(Schema $schema): void
     {
-        // Add nom and prenom columns
+        // Add nom and prenom columns if they don't exist
         $table = $schema->getTable('user');
         
         if (!$table->hasColumn('nom')) {
@@ -39,12 +39,12 @@ final class Version20260121000000_AddUserFields extends AbstractMigration
             END,
             prenom = CASE 
             WHEN LOCATE(\'@\', email) > 0 THEN 
-                SUBSTRING_INDEX(SUBSTRING_INDEX(email, 1, LOCATE(\'@\', email)) + 1, LOCATE(\' \', SUBSTRING_INDEX(email, 1, LOCATE(\'@\', email)))) - 1
+                SUBSTRING_INDEX(SUBSTRING_INDEX(email, 1, LOCATE(\'@\', email)) + 1, LOCATE(\'.\', SUBSTRING_INDEX(email, 1, LOCATE(\'@\', email)))) - 1
             ELSE 
                 SUBSTRING_INDEX(SUBSTRING_INDEX(email, 1, LOCATE(\'.\', SUBSTRING_INDEX(email, 1, LOCATE(\'@\', email)))) - 1
             END
             WHERE nom IS NULL OR prenom IS NULL');
-            
+        
         $this->addSql('UPDATE user SET email = LOWER(email)');
         $this->addSql('UPDATE user SET nom = COALESCE(NULLIF(TRIM(nom), \'\'), CONCAT(COALESCE(NULLIF(TRIM(prenom), \'\'), \' \'), COALESCE(NULLIF(TRIM(nom), \'\'))))');
         $this->addSql('UPDATE user SET prenom = COALESCE(NULLIF(TRIM(prenom), \'\'), SUBSTRING_INDEX(email, 1, LOCATE(\'@\', email)) - 1, SUBSTRING_INDEX(email, 1, LOCATE(\'.\', SUBSTRING_INDEX(email, 1, LOCATE(\'@\', email)))) - 1)');
@@ -57,4 +57,3 @@ final class Version20260121000000_AddUserFields extends AbstractMigration
             ELSE JSON_ARRAY(roles)
             END WHERE roles IS NULL OR roles = '' OR roles = '[]'");
     }
-}
