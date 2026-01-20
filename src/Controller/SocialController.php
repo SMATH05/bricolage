@@ -99,14 +99,33 @@ class SocialController extends AbstractController
                     return $this->redirectToRoute('app_social_feed');
                 }
                 
-                $mediaFile->move(
-                    $uploadDir,
-                    $newFilename
-                );
+                // Try the standard move first
+                try {
+                    $mediaFile->move(
+                        $uploadDir,
+                        $newFilename
+                    );
+                    error_log('File moved using standard move method');
+                } catch (\Exception $moveException) {
+                    error_log('Standard move failed: ' . $moveException->getMessage());
+                    
+                    // Fallback: try copy and unlink
+                    $tempPath = $mediaFile->getRealPath();
+                    $targetPath = $uploadDir . '/' . $newFilename;
+                    
+                    if (copy($tempPath, $targetPath)) {
+                        error_log('File copied using fallback method');
+                        unlink($tempPath);
+                    } else {
+                        throw new \Exception('Both move and copy methods failed');
+                    }
+                }
+                
                 $post->setMedia($newFilename);
                 
                 error_log('Upload debug - File moved successfully: ' . $newFilename);
                 error_log('Upload debug - Full path: ' . $uploadDir . '/' . $newFilename);
+                error_log('Upload debug - File exists after move: ' . (file_exists($uploadDir . '/' . $newFilename) ? 'Yes' : 'No'));
 
                 $ext = strtolower($mediaFile->guessExtension());
                 if (in_array($ext, ['mp4', 'webm', 'ogg', 'mov'])) {
