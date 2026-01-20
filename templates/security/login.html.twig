@@ -1,22 +1,24 @@
 ﻿{% extends 'base.html.twig' %}
 
-{% block title %}Login | Bricolage{% endblock %}
+{% block title %}Login | Bricolage
+{% endblock %}
 
 {% block stylesheets %}
-{{ parent() }}
-<link rel="stylesheet" href="{{ asset('styles/register.css') }}">
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('styles/register.css') }}">
 {% endblock %}
 
 {% block body %}
 <div class="auth-wrapper">
-<div class="auth-logo">BRICOLAGE</div>
-<a href="{{ path('app_home') }}" class="auth-back-btn"> {{ 'Retour au site'|trans }}</a>
-<div class="auth-tagline">Capturing Moments, Creating Memories</div>
+	<div class="auth-logo">BRICOLAGE</div>
+	<a href="{{ path('app_home') }}" class="auth-back-btn">
+		{{ 'Retour au site'|trans }}</a>
+	<div class="auth-tagline">Capturing Moments, Creating Memories</div>
 
-<div class="auth-card animate-fade-in">
-<div class="auth-header">
-<h1>{{ 'Se connecter'|trans }}</h1>
-<p>{{ 'Vous n\'avez pas de compte ?'|trans }} <a href="{{ path('app_register') }}">{{ 'Créer un compte'|trans }}</a></p>
+	<div class="auth-card animate-fade-in">
+		<div class="auth-header">
+			<h1>{{ 'Se connecter'|trans }}</h1>
+			<p>{{ 'Vous n\'avez pas de compte ?'|trans }} <a href="{{ path('app_register') }}">{{ 'Créer un compte'|trans }}</a></p>
 </div>
 
 <form method="post" class="auth-form">
@@ -28,12 +30,12 @@
 
 <div class="form-group">
 <label for="inputEmail" class="form-label">Email</label>
-<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="premium-input" autocomplete="email" required autofocus placeholder="{{ 'votre@email.com'|trans }}">
+<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="premium-input" autocomplete="email" required autofocus placeholder="{{ 'votre@email.com'|trans }}" autocapitalize="none" autocorrect="off" spellcheck="false">
 </div>
 
 <div class="form-group">
 <label for="inputPassword" class="form-label">{{ 'Mot de passe'|trans }}</label>
-<input type="password" name="password" id="inputPassword" class="premium-input" autocomplete="current-password" required placeholder="{{ 'Entrez votre mot de passe'|trans }}">
+<input type="password" name="password" id="inputPassword" class="premium-input" autocomplete="current-password" required placeholder="{{ 'Entrez votre mot de passe'|trans }}" autocapitalize="none" autocorrect="off" spellcheck="false">
 </div>
 
 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
@@ -61,3 +63,4 @@ Google
 </div>
 </div>
 {% endblock %}
+ </p>
