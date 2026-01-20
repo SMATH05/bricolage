@@ -24,8 +24,8 @@ RUN mkdir -p public/uploads/annonces public/uploads/profiles public/uploads/prod
 ENV APP_ENV=dev
 ENV TRUSTED_PROXIES=*
 
-# Apache looks at $PORT automatically if using correct config, but we can override
+# Apache port configuration for Railway
 RUN sed -i 's/Listen 80/Listen ${PORT}/' /etc/apache2/ports.conf
 RUN sed -i 's/:80/:${PORT}/' /etc/apache2/sites-available/000-default.conf
 
-CMD sh -c "php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration; apache2-foreground"
+CMD ["sh", "-c", "php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration; apache2-foreground"]
