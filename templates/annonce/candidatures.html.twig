@@ -146,11 +146,11 @@
 			</div>
 			<h3 class="fw-bold">{{ 'Aucune candidature'|trans }}</h3>
 			<p class="text-muted mb-4 fs-5">{{ 'Vous recevrez une notification dès qu\'un expert proposera ses services.'|trans }}</p>
-				<a href="{{ path('app_annonces_ajouter') }}" class="btn btn-primary rounded-pill px-5 py-3 shadow-lg fw-bold">
-					<i class="fas fa-plus me-2"></i> {{ 'Publier une nouvelle offre'|trans }}
-				</a>
-			</div>
-		{% endif %}
-	</div>
+			<a href="{{ path('app_annonces_ajouter') }}" class="btn btn-primary rounded-pill px-5 py-3 shadow-lg fw-bold">
+				<i class="fas fa-plus me-2"></i> {{ 'Publier une nouvelle offre'|trans }}
+			</a>
+		</div>
+	{% endif %}
+</div>
 {% endblock %}
  </p>
