@@ -69,6 +69,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->email;
     }
 
+    // Normalizes email to lowercase and trims whitespace
     public function setEmail(string $email): static
     {
         $this->email = strtolower(trim($email));
