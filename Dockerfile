@@ -1,34 +1,20 @@
-FROM php:8.2-apache
+FROM php:8.2-cli
 
-WORKDIR /var/www/html
+WORKDIR /app
 
 RUN apt-get update && apt-get install -y \
     git unzip libicu-dev libzip-dev libpq-dev zip \
-    && docker-php-ext-install intl pdo pdo_pgsql zip \
-    && a2dismod mpm_event mpm_worker || true \
-    && a2enmod mpm_prefork \
-    && a2enmod rewrite
+    && docker-php-ext-install intl pdo pdo_pgsql zip
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
-
-# Enable Apache remote IP for proxies
-RUN echo "RemoteIPHeader X-Forwarded-For" > /etc/apache2/conf-available/remoteip.conf \
-    && a2enconf remoteip
 
 COPY . .
 
 RUN composer install --optimize-autoloader --no-scripts
 COPY railway_autoload_runtime.php vendor/autoload_runtime.php
-
-RUN mkdir -p public/uploads/annonces public/uploads/profiles public/uploads/products public/uploads/posts && \
-    chmod -R 777 public/uploads
+RUN composer dump-autoload --optimize --classmap-authoritative --no-dev
 
 ENV APP_ENV=dev
 ENV TRUSTED_PROXIES=*
 
-# Apache configuration for Symfony
-RUN sed -i 's/Listen 80/Listen ${PORT}/' /etc/apache2/ports.conf
-RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
-RUN sed -i 's/:80/:${PORT}/' /etc/apache2/sites-available/000-default.conf
-
-CMD ["sh", "-c", "php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration; apache2-foreground"]
+CMD sh -c "php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration && php -S 0.0.0.0:${PORT:-80} -t public"
