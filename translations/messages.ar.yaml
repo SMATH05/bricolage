@@ -1,244 +1,244 @@
 # Navbar & Common
-Accueil: "الرئيسية"
-Connexion: "تسجيل الدخول"
-Inscription: "إنشاء حساب"
-Administration: "الإدارة"
-"Mes Annonces": "إعلاناتي"
-Candidatures: "الطلبات"
-Annonces: "الإعلانات"
-"Mes Candidatures": "طلباتي"
-"Mon Profil": "ملفي الشخصي"
-Déconnexion: "خروج"
-Messagerie: الرسائل
+Accueil: "Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©"
+Connexion: "ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„"
+Inscription: "Ø¥Ù†Ø´Ø§Ø¡ Ø­Ø³Ø§Ø¨"
+Administration: "Ø§Ù„Ø¥Ø¯Ø§Ø±Ø©"
+"Mes Annonces": "Ø¥Ø¹Ù„Ø§Ù†Ø§ØªÙŠ"
+Candidatures: "Ø§Ù„Ø·Ù„Ø¨Ø§Øª"
+Annonces: "Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†Ø§Øª"
+"Mes Candidatures": "Ø·Ù„Ø¨Ø§ØªÙŠ"
+"Mon Profil": "Ù…Ù„ÙÙŠ Ø§Ù„Ø´Ø®ØµÙŠ"
+DÃ©connexion: "Ø®Ø±ÙˆØ¬"
+Messagerie: Ø§Ù„Ø±Ø³Ø§Ø¦Ù„
 
 # Footer
-"Bricolage": "بريكولاج"
-"La plateforme de référence pour connecter les talents et les besoins en bricolage et services professionnels.": "المنصة الرائدة لربط المواهب واحتياجات العمل اليدوي بالخدمات المهنية."
-Fondateurs: "المؤسسون"
-"Contactez-nous": "اتصل بنا"
-"Tous droits réservés.": "جميع الحقوق محفوظة."
+"Bricolage": "Ø¨Ø±ÙŠÙƒÙˆÙ„Ø§Ø¬"
+"La plateforme de rÃ©fÃ©rence pour connecter les talents et les besoins en bricolage et services professionnels.": "Ø§Ù„Ù…Ù†ØµØ© Ø§Ù„Ø±Ø§Ø¦Ø¯Ø© Ù„Ø±Ø¨Ø· Ø§Ù„Ù…ÙˆØ§Ù‡Ø¨ ÙˆØ§Ø­ØªÙŠØ§Ø¬Ø§Øª Ø§Ù„Ø¹Ù…Ù„ Ø§Ù„ÙŠØ¯ÙˆÙŠ Ø¨Ø§Ù„Ø®Ø¯Ù…Ø§Øª Ø§Ù„Ù…Ù‡Ù†ÙŠØ©."
+Fondateurs: "Ø§Ù„Ù…Ø¤Ø³Ø³ÙˆÙ†"
+"Contactez-nous": "Ø§ØªØµÙ„ Ø¨Ù†Ø§"
+"Tous droits rÃ©servÃ©s.": "Ø¬Ù…ÙŠØ¹ Ø§Ù„Ø­Ù‚ÙˆÙ‚ Ù…Ø­ÙÙˆØ¸Ø©."
 
 # Dashboard & Common Actions
-"Tableau de Bord": "لوحة التحكم"
-"Nouvelle Annonce": "إعلان جديد"
-Candidats: "مرشحين"
-Modifier: "تعديل"
-Supprimer: "حذف"
-"Confirmer la suppression ?": "تأكيد الحذف؟"
-Postuler: "تقدم"
-Par: "بواسطة"
-"Aucune annonce disponible": "لا توجد إعلانات متاحة"
-"Revenez plus tard pour découvrir de nouvelles opportunités.": "عد لاحقاً لاكتشاف فرص جديدة."
-"Gestion des Candidatures": "إدارة الطلبات"
-"Suivez et gérez les postulants pour vos offres.": "تتبع وإدارة المتقدمين لعروضك."
-"Retour à mes annonces": "العودة إلى إعلاناتي"
-"En attente": "قيد الانتظار"
-"Accepté": "مقبول"
-"Refusé": "مرفوض"
-"Postulé à :": "تقدم لـ:"
-"Le": "في"
-Accepter: "قبول"
-Refuser: "رفض"
-"Accepter la candidature": "قبول الطلب"
-"Refuser la candidature": "رفض الطلب"
-"Voir le profil": "عرض الملف الشخصي"
-"Aucune candidature pour le moment": "لا توجد طلبات حتى الآن"
-"Vos postulants apparaîtront ici dès qu'ils auront postulé à vos offres.": "سيظهر المتقدمون هنا بمجرد تقدمهم لعروضك."
-"Créer une nouvelle annonce": "إنشاء إعلان جديد"
-"Tableau de bord - Annonces": "لوحة التحكم - الإعلانات"
-"Détails": "تفاصيل"
-"Action": إجراء
-"ID": المعرف
-"Statut": "الحالة"
+"Tableau de Bord": "Ù„ÙˆØ­Ø© Ø§Ù„ØªØ­ÙƒÙ…"
+"Nouvelle Annonce": "Ø¥Ø¹Ù„Ø§Ù† Ø¬Ø¯ÙŠØ¯"
+Candidats: "Ù…Ø±Ø´Ø­ÙŠÙ†"
+Modifier: "ØªØ¹Ø¯ÙŠÙ„"
+Supprimer: "Ø­Ø°Ù"
+"Confirmer la suppression ?": "ØªØ£ÙƒÙŠØ¯ Ø§Ù„Ø­Ø°ÙØŸ"
+Postuler: "ØªÙ‚Ø¯Ù…"
+Par: "Ø¨ÙˆØ§Ø³Ø·Ø©"
+"Aucune annonce disponible": "Ù„Ø§ ØªÙˆØ¬Ø¯ Ø¥Ø¹Ù„Ø§Ù†Ø§Øª Ù…ØªØ§Ø­Ø©"
+"Revenez plus tard pour dÃ©couvrir de nouvelles opportunitÃ©s.": "Ø¹Ø¯ Ù„Ø§Ø­Ù‚Ø§Ù‹ Ù„Ø§ÙƒØªØ´Ø§Ù ÙØ±Øµ Ø¬Ø¯ÙŠØ¯Ø©."
+"Gestion des Candidatures": "Ø¥Ø¯Ø§Ø±Ø© Ø§Ù„Ø·Ù„Ø¨Ø§Øª"
+"Suivez et gÃ©rez les postulants pour vos offres.": "ØªØªØ¨Ø¹ ÙˆØ¥Ø¯Ø§Ø±Ø© Ø§Ù„Ù…ØªÙ‚Ø¯Ù…ÙŠÙ† Ù„Ø¹Ø±ÙˆØ¶Ùƒ."
+"Retour Ã  mes annonces": "Ø§Ù„Ø¹ÙˆØ¯Ø© Ø¥Ù„Ù‰ Ø¥Ø¹Ù„Ø§Ù†Ø§ØªÙŠ"
+"En attente": "Ù‚ÙŠØ¯ Ø§Ù„Ø§Ù†ØªØ¸Ø§Ø±"
+"AcceptÃ©": "Ù…Ù‚Ø¨ÙˆÙ„"
+"RefusÃ©": "Ù…Ø±ÙÙˆØ¶"
+"PostulÃ© Ã  :": "ØªÙ‚Ø¯Ù… Ù„Ù€:"
+"Le": "ÙÙŠ"
+Accepter: "Ù‚Ø¨ÙˆÙ„"
+Refuser: "Ø±ÙØ¶"
+"Accepter la candidature": "Ù‚Ø¨ÙˆÙ„ Ø§Ù„Ø·Ù„Ø¨"
+"Refuser la candidature": "Ø±ÙØ¶ Ø§Ù„Ø·Ù„Ø¨"
+"Voir le profil": "Ø¹Ø±Ø¶ Ø§Ù„Ù…Ù„Ù Ø§Ù„Ø´Ø®ØµÙŠ"
+"Aucune candidature pour le moment": "Ù„Ø§ ØªÙˆØ¬Ø¯ Ø·Ù„Ø¨Ø§Øª Ø­ØªÙ‰ Ø§Ù„Ø¢Ù†"
+"Vos postulants apparaÃ®tront ici dÃ¨s qu'ils auront postulÃ© Ã  vos offres.": "Ø³ÙŠØ¸Ù‡Ø± Ø§Ù„Ù…ØªÙ‚Ø¯Ù…ÙˆÙ† Ù‡Ù†Ø§ Ø¨Ù…Ø¬Ø±Ø¯ ØªÙ‚Ø¯Ù…Ù‡Ù… Ù„Ø¹Ø±ÙˆØ¶Ùƒ."
+"CrÃ©er une nouvelle annonce": "Ø¥Ù†Ø´Ø§Ø¡ Ø¥Ø¹Ù„Ø§Ù† Ø¬Ø¯ÙŠØ¯"
+"Tableau de bord - Annonces": "Ù„ÙˆØ­Ø© Ø§Ù„ØªØ­ÙƒÙ… - Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†Ø§Øª"
+"DÃ©tails": "ØªÙØ§ØµÙŠÙ„"
+"Action": Ø¥Ø¬Ø±Ø§Ø¡
+"ID": Ø§Ù„Ù…Ø¹Ø±Ù
+"Statut": "Ø§Ù„Ø­Ø§Ù„Ø©"
 
 # Forms & Labels
-"Ajouter une annonce": "إضافة إعلان"
-"Publier une annonce": "نشر إعلان"
-"Ajouter l'annonce": "إضافة الإعلان"
-"Annuler": "إلغاء"
-Titre: "العنوان"
-Description: "الوصف"
-"Date publication": "تاريخ النشر"
-Budget: "الميزانية"
-Utilisateur: المستخدم
+"Ajouter une annonce": "Ø¥Ø¶Ø§ÙØ© Ø¥Ø¹Ù„Ø§Ù†"
+"Publier une annonce": "Ù†Ø´Ø± Ø¥Ø¹Ù„Ø§Ù†"
+"Ajouter l'annonce": "Ø¥Ø¶Ø§ÙØ© Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†"
+"Annuler": "Ø¥Ù„ØºØ§Ø¡"
+Titre: "Ø§Ù„Ø¹Ù†ÙˆØ§Ù†"
+Description: "Ø§Ù„ÙˆØµÙ"
+"Date publication": "ØªØ§Ø±ÙŠØ® Ø§Ù„Ù†Ø´Ø±"
+Budget: "Ø§Ù„Ù…ÙŠØ²Ø§Ù†ÙŠØ©"
+Utilisateur: Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…
 
 # Login & Register
-"Se connecter": "تسجيل الدخول"
-"Vous n'avez pas de compte ?": "ليس لديك حساب؟"
-"Créer un compte": "إنشاء حساب"
-"Retour au site": "العودة للموقع"
-"Ou connectez-vous avec": "أو سجل الدخول عبر"
-"Se souvenir de moi": "تذكرني"
-"Entrez votre mot de passe": "أدخل كلمة المرور"
-"Mot de passe": "كلمة المرور"
-"Accepter les conditions": "الموافقة على الشروط"
-Nom: "الاسم العائلي"
-Prénom: "الاسم الشخصي"
-"Je souhaite m'inscrire en tant que :": "أرغب في التسجيل كـ:"
-"J'accepte les :": "أوافق على :"
-"Conditions d'utilisation": "شروط الاستخدام"
-"Ou inscrivez-vous avec": "أو سجل عبر"
-"Profil mis à jour.": "تم تحديث الملف الشخصي."
-"Gestion des Chercheurs": "إدارة الباحثين"
-Chercheurs: "الباحثون"
-"Nouveau Chercheur": "باحث جديد"
-"Aucun chercheur trouvé": "لم يتم العثور على أي باحث"
-"La liste des candidats est actuellement vide.": "قائمة المرشحين فارغة حالياً."
-"Gestion des Recruteurs": "إدارة أصحاب العمل"
-Recruteurs: "أصحاب العمل"
-"Nouveau Recruteur": "صاحب عمل جديد"
-"Aucun recruteur trouvé": "لم يتم العثور على أي صاحب عمل"
-"La liste des entreprises est actuellement vide.": "قائمة الشركات فارغة حالياً."
-"Statut de la candidature mis à jour.": "تم تحديث حالة الطلب."
-Chercheur: "باحث عن عمل"
-Recruteur: "صاحب عمل"
-Admin: "مدير"
-"votre@email.com": "بريدك@الإلكتروني.com"
+"Se connecter": "ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„"
+"Vous n'avez pas de compte ?": "Ù„ÙŠØ³ Ù„Ø¯ÙŠÙƒ Ø­Ø³Ø§Ø¨ØŸ"
+"CrÃ©er un compte": "Ø¥Ù†Ø´Ø§Ø¡ Ø­Ø³Ø§Ø¨"
+"Retour au site": "Ø§Ù„Ø¹ÙˆØ¯Ø© Ù„Ù„Ù…ÙˆÙ‚Ø¹"
+"Ou connectez-vous avec": "Ø£Ùˆ Ø³Ø¬Ù„ Ø§Ù„Ø¯Ø®ÙˆÙ„ Ø¹Ø¨Ø±"
+"Se souvenir de moi": "ØªØ°ÙƒØ±Ù†ÙŠ"
+"Entrez votre mot de passe": "Ø£Ø¯Ø®Ù„ ÙƒÙ„Ù…Ø© Ø§Ù„Ù…Ø±ÙˆØ±"
+"Mot de passe": "ÙƒÙ„Ù…Ø© Ø§Ù„Ù…Ø±ÙˆØ±"
+"Accepter les conditions": "Ø§Ù„Ù…ÙˆØ§ÙÙ‚Ø© Ø¹Ù„Ù‰ Ø§Ù„Ø´Ø±ÙˆØ·"
+Nom: "Ø§Ù„Ø§Ø³Ù… Ø§Ù„Ø¹Ø§Ø¦Ù„ÙŠ"
+PrÃ©nom: "Ø§Ù„Ø§Ø³Ù… Ø§Ù„Ø´Ø®ØµÙŠ"
+"Je souhaite m'inscrire en tant que :": "Ø£Ø±ØºØ¨ ÙÙŠ Ø§Ù„ØªØ³Ø¬ÙŠÙ„ ÙƒÙ€:"
+"J'accepte les :": "Ø£ÙˆØ§ÙÙ‚ Ø¹Ù„Ù‰ :"
+"Conditions d'utilisation": "Ø´Ø±ÙˆØ· Ø§Ù„Ø§Ø³ØªØ®Ø¯Ø§Ù…"
+"Ou inscrivez-vous avec": "Ø£Ùˆ Ø³Ø¬Ù„ Ø¹Ø¨Ø±"
+"Profil mis Ã  jour.": "ØªÙ… ØªØ­Ø¯ÙŠØ« Ø§Ù„Ù…Ù„Ù Ø§Ù„Ø´Ø®ØµÙŠ."
+"Gestion des Chercheurs": "Ø¥Ø¯Ø§Ø±Ø© Ø§Ù„Ø¨Ø§Ø­Ø«ÙŠÙ†"
+Chercheurs: "Ø§Ù„Ø¨Ø§Ø­Ø«ÙˆÙ†"
+"Nouveau Chercheur": "Ø¨Ø§Ø­Ø« Ø¬Ø¯ÙŠØ¯"
+"Aucun chercheur trouvÃ©": "Ù„Ù… ÙŠØªÙ… Ø§Ù„Ø¹Ø«ÙˆØ± Ø¹Ù„Ù‰ Ø£ÙŠ Ø¨Ø§Ø­Ø«"
+"La liste des candidats est actuellement vide.": "Ù‚Ø§Ø¦Ù…Ø© Ø§Ù„Ù…Ø±Ø´Ø­ÙŠÙ† ÙØ§Ø±ØºØ© Ø­Ø§Ù„ÙŠØ§Ù‹."
+"Gestion des Recruteurs": "Ø¥Ø¯Ø§Ø±Ø© Ø£ØµØ­Ø§Ø¨ Ø§Ù„Ø¹Ù…Ù„"
+Recruteurs: "Ø£ØµØ­Ø§Ø¨ Ø§Ù„Ø¹Ù…Ù„"
+"Nouveau Recruteur": "ØµØ§Ø­Ø¨ Ø¹Ù…Ù„ Ø¬Ø¯ÙŠØ¯"
+"Aucun recruteur trouvÃ©": "Ù„Ù… ÙŠØªÙ… Ø§Ù„Ø¹Ø«ÙˆØ± Ø¹Ù„Ù‰ Ø£ÙŠ ØµØ§Ø­Ø¨ Ø¹Ù…Ù„"
+"La liste des entreprises est actuellement vide.": "Ù‚Ø§Ø¦Ù…Ø© Ø§Ù„Ø´Ø±ÙƒØ§Øª ÙØ§Ø±ØºØ© Ø­Ø§Ù„ÙŠØ§Ù‹."
+"Statut de la candidature mis Ã  jour.": "ØªÙ… ØªØ­Ø¯ÙŠØ« Ø­Ø§Ù„Ø© Ø§Ù„Ø·Ù„Ø¨."
+Chercheur: "Ø¨Ø§Ø­Ø« Ø¹Ù† Ø¹Ù…Ù„"
+Recruteur: "ØµØ§Ø­Ø¨ Ø¹Ù…Ù„"
+Admin: "Ù…Ø¯ÙŠØ±"
+"votre@email.com": "Ø¨Ø±ÙŠØ¯Ùƒ@Ø§Ù„Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ.com"
 
 # Profile
-"Modifier mes informations": "تعديل معلوماتي"
-"Sauvegarder les modifications": "حفظ التعديلات"
-"Publiée le": "نشر في"
-"Postulée le": "تم التقديم في"
-"Vous n'avez pas encore publié d'annonces.": "لم تقم بنشر أي إعلانات بعد."
-"Vous n'avez pas encore postulé à des annonces.": "لم تتقدم لأي إعلانات بعد."
-"Aucun profil associé": "لا يوجد ملف شخصي مرتبط"
-"Votre compte utilisateur n'est pas lié à un profil Chercheur or Recruteur.": "حسابك غير مرتبط بملف باحث أو مسؤول توظيف."
+"Modifier mes informations": "ØªØ¹Ø¯ÙŠÙ„ Ù…Ø¹Ù„ÙˆÙ…Ø§ØªÙŠ"
+"Sauvegarder les modifications": "Ø­ÙØ¸ Ø§Ù„ØªØ¹Ø¯ÙŠÙ„Ø§Øª"
+"PubliÃ©e le": "Ù†Ø´Ø± ÙÙŠ"
+"PostulÃ©e le": "ØªÙ… Ø§Ù„ØªÙ‚Ø¯ÙŠÙ… ÙÙŠ"
+"Vous n'avez pas encore publiÃ© d'annonces.": "Ù„Ù… ØªÙ‚Ù… Ø¨Ù†Ø´Ø± Ø£ÙŠ Ø¥Ø¹Ù„Ø§Ù†Ø§Øª Ø¨Ø¹Ø¯."
+"Vous n'avez pas encore postulÃ© Ã  des annonces.": "Ù„Ù… ØªØªÙ‚Ø¯Ù… Ù„Ø£ÙŠ Ø¥Ø¹Ù„Ø§Ù†Ø§Øª Ø¨Ø¹Ø¯."
+"Aucun profil associÃ©": "Ù„Ø§ ÙŠÙˆØ¬Ø¯ Ù…Ù„Ù Ø´Ø®ØµÙŠ Ù…Ø±ØªØ¨Ø·"
+"Votre compte utilisateur n'est pas liÃ© Ã  un profil Chercheur or Recruteur.": "Ø­Ø³Ø§Ø¨Ùƒ ØºÙŠØ± Ù…Ø±ØªØ¨Ø· Ø¨Ù…Ù„Ù Ø¨Ø§Ø­Ø« Ø£Ùˆ Ù…Ø³Ø¤ÙˆÙ„ ØªÙˆØ¸ÙŠÙ."
 
 # Marketplace
-Marketplace: "السوق"
-"Marketplace Bricolage": سوق بريكولاج
-"Achetez et vendez vos outils et matériaux entre particuliers.": "بيع وشراء الأدوات والمواد بين الأفراد."
-"Trouvez les meilleurs outils, matériaux et équipements de qualité professionnelle à prix réduit.": اعثر على أفضل الأدوات والمواد والمعدات الاحترافية بأسعار مخفضة.
-"Vendre un article": بيع قطعة
-"Nouvelle annonce": "إعلان جديد"
-"Ajouter une photo": "إضافة صورة"
-"Publier l'annonce": "نشر الإعلان"
-Catégorie: "الفئة"
-Prix: "السعر"
-Outillage: "أدوات"
-Matériaux: "مواد"
-Équipement: "معدات"
-Jardin: "حدائق"
-Autre: "أخرى"
-"Explorer plus": استكشف المزيد
-"Le marketplace est vide": المتجر فارغ
-"Soyez le premier à explorer et à vendre vos équipements.": كن أول من يستكشف ويبيع معداتك.
-"Publier la première annonce": انشر أول إعلان
-"Tous": الكل
-"Outils": أدوات
-"Électrique": كهرباء
-"Acheter maintenant": "اشترِ الآن"
-"Contacter le vendeur": الاتصال بالبائع
-"Retour au Marketplace": "العودة للسوق"
-"Détails du produit": "تفاصيل المنتج"
-"Envoyer un message": "إرسال رسالة"
-"Membre depuis": "عضو منذ"
-Vendeur: "البائع"
+Marketplace: "Ø§Ù„Ø³ÙˆÙ‚"
+"Marketplace Bricolage": Ø³ÙˆÙ‚ Ø¨Ø±ÙŠÙƒÙˆÙ„Ø§Ø¬
+"Achetez et vendez vos outils et matÃ©riaux entre particuliers.": "Ø¨ÙŠØ¹ ÙˆØ´Ø±Ø§Ø¡ Ø§Ù„Ø£Ø¯ÙˆØ§Øª ÙˆØ§Ù„Ù…ÙˆØ§Ø¯ Ø¨ÙŠÙ† Ø§Ù„Ø£ÙØ±Ø§Ø¯."
+"Trouvez les meilleurs outils, matÃ©riaux et Ã©quipements de qualitÃ© professionnelle Ã  prix rÃ©duit.": Ø§Ø¹Ø«Ø± Ø¹Ù„Ù‰ Ø£ÙØ¶Ù„ Ø§Ù„Ø£Ø¯ÙˆØ§Øª ÙˆØ§Ù„Ù…ÙˆØ§Ø¯ ÙˆØ§Ù„Ù…Ø¹Ø¯Ø§Øª Ø§Ù„Ø§Ø­ØªØ±Ø§ÙÙŠØ© Ø¨Ø£Ø³Ø¹Ø§Ø± Ù…Ø®ÙØ¶Ø©.
+"Vendre un article": Ø¨ÙŠØ¹ Ù‚Ø·Ø¹Ø©
+"Nouvelle annonce": "Ø¥Ø¹Ù„Ø§Ù† Ø¬Ø¯ÙŠØ¯"
+"Ajouter une photo": "Ø¥Ø¶Ø§ÙØ© ØµÙˆØ±Ø©"
+"Publier l'annonce": "Ù†Ø´Ø± Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†"
+CatÃ©gorie: "Ø§Ù„ÙØ¦Ø©"
+Prix: "Ø§Ù„Ø³Ø¹Ø±"
+Outillage: "Ø£Ø¯ÙˆØ§Øª"
+MatÃ©riaux: "Ù…ÙˆØ§Ø¯"
+Ã‰quipement: "Ù…Ø¹Ø¯Ø§Øª"
+Jardin: "Ø­Ø¯Ø§Ø¦Ù‚"
+Autre: "Ø£Ø®Ø±Ù‰"
+"Explorer plus": Ø§Ø³ØªÙƒØ´Ù Ø§Ù„Ù…Ø²ÙŠØ¯
+"Le marketplace est vide": Ø§Ù„Ù…ØªØ¬Ø± ÙØ§Ø±Øº
+"Soyez le premier Ã  explorer et Ã  vendre vos Ã©quipements.": ÙƒÙ† Ø£ÙˆÙ„ Ù…Ù† ÙŠØ³ØªÙƒØ´Ù ÙˆÙŠØ¨ÙŠØ¹ Ù…Ø¹Ø¯Ø§ØªÙƒ.
+"Publier la premiÃ¨re annonce": Ø§Ù†Ø´Ø± Ø£ÙˆÙ„ Ø¥Ø¹Ù„Ø§Ù†
+"Tous": Ø§Ù„ÙƒÙ„
+"Outils": Ø£Ø¯ÙˆØ§Øª
+"Ã‰lectrique": ÙƒÙ‡Ø±Ø¨Ø§Ø¡
+"Acheter maintenant": "Ø§Ø´ØªØ±Ù Ø§Ù„Ø¢Ù†"
+"Contacter le vendeur": Ø§Ù„Ø§ØªØµØ§Ù„ Ø¨Ø§Ù„Ø¨Ø§Ø¦Ø¹
+"Retour au Marketplace": "Ø§Ù„Ø¹ÙˆØ¯Ø© Ù„Ù„Ø³ÙˆÙ‚"
+"DÃ©tails du produit": "ØªÙØ§ØµÙŠÙ„ Ø§Ù„Ù…Ù†ØªØ¬"
+"Envoyer un message": "Ø¥Ø±Ø³Ø§Ù„ Ø±Ø³Ø§Ù„Ø©"
+"Membre depuis": "Ø¹Ø¶Ùˆ Ù…Ù†Ø°"
+Vendeur: "Ø§Ù„Ø¨Ø§Ø¦Ø¹"
 
 # Payment
-"Paiement Réussi !": "تم الدفع بنجاح!"
-"Merci pour votre achat. Votre commande a été enregistrée avec succès.": "شكراً لشرائكم. تم تسجيل طلبكم بنجاح."
-"Voir mon profil": "عرض ملفي الشخصي"
-"Paiement Annulé": "تم إلغاء الدفع"
-"La transaction a été annulée. Aucun montant n'a été débité.": "تم إلغاء المعاملة. لم يتم خصم أي مبلغ."
+"Paiement RÃ©ussi !": "ØªÙ… Ø§Ù„Ø¯ÙØ¹ Ø¨Ù†Ø¬Ø§Ø­!"
+"Merci pour votre achat. Votre commande a Ã©tÃ© enregistrÃ©e avec succÃ¨s.": "Ø´ÙƒØ±Ø§Ù‹ Ù„Ø´Ø±Ø§Ø¦ÙƒÙ…. ØªÙ… ØªØ³Ø¬ÙŠÙ„ Ø·Ù„Ø¨ÙƒÙ… Ø¨Ù†Ø¬Ø§Ø­."
+"Voir mon profil": "Ø¹Ø±Ø¶ Ù…Ù„ÙÙŠ Ø§Ù„Ø´Ø®ØµÙŠ"
+"Paiement AnnulÃ©": "ØªÙ… Ø¥Ù„ØºØ§Ø¡ Ø§Ù„Ø¯ÙØ¹"
+"La transaction a Ã©tÃ© annulÃ©e. Aucun montant n'a Ã©tÃ© dÃ©bitÃ©.": "ØªÙ… Ø¥Ù„ØºØ§Ø¡ Ø§Ù„Ù…Ø¹Ø§Ù…Ù„Ø©. Ù„Ù… ÙŠØªÙ… Ø®ØµÙ… Ø£ÙŠ Ù…Ø¨Ù„Øº."
 
 # Messaging / Chat
-Conversations: المحادثات
-"Nouvelle conversation": محادثة جديدة
-"Écrivez votre message ici...": اكتب رسالتك هنا...
-"Votre Messagerie": رسائلك
-"Sélectionnez une conversation ou contactez un vendeur/candidat pour commencer à discuter.": اختر محادثة أو اتصل ببائع/مرشح لبدء الدردشة.
-"Accéder à la messagerie": الوصول إلى الرسائل
-"En ligne": متصل
+Conversations: Ø§Ù„Ù…Ø­Ø§Ø¯Ø«Ø§Øª
+"Nouvelle conversation": Ù…Ø­Ø§Ø¯Ø«Ø© Ø¬Ø¯ÙŠØ¯Ø©
+"Ã‰crivez votre message ici...": Ø§ÙƒØªØ¨ Ø±Ø³Ø§Ù„ØªÙƒ Ù‡Ù†Ø§...
+"Votre Messagerie": Ø±Ø³Ø§Ø¦Ù„Ùƒ
+"SÃ©lectionnez une conversation ou contactez un vendeur/candidat pour commencer Ã  discuter.": Ø§Ø®ØªØ± Ù…Ø­Ø§Ø¯Ø«Ø© Ø£Ùˆ Ø§ØªØµÙ„ Ø¨Ø¨Ø§Ø¦Ø¹/Ù…Ø±Ø´Ø­ Ù„Ø¨Ø¯Ø¡ Ø§Ù„Ø¯Ø±Ø¯Ø´Ø©.
+"AccÃ©der Ã  la messagerie": Ø§Ù„ÙˆØµÙˆÙ„ Ø¥Ù„Ù‰ Ø§Ù„Ø±Ø³Ø§Ø¦Ù„
+"En ligne": Ù…ØªØµÙ„
 
 # Home & Marketing
-"Trouvez l'expert idéal": "ابحث عن الخبير المثالي"
-"Connecting Talent, Building Projects": "ربط المواهب، بناء المشاريع"
-"Travaillez avec les meilleurs Pros.": "اعمل مع أفضل المحترفين."
-"La marketplace d'excellence pour tous vos besoins de bricolage et services.": "سوق التميز لجميع احتياجاتك من الأعمال اليدوية والخدمات."
-"Quel service recherchez-vous ?": "عن أي خدمة تبحث؟"
-"Trouver un Expert": "ابحث عن خبير"
-"100% Vérifiés": "100% موثق"
-"Paiement Sécurisé": "دفع آمن"
-"Garantie Qualité": "ضمان الجودة"
-"Experts Diplômés": "خبراء معتمدون"
-"Satisfaction Client": "رضا العملاء"
-"Réponse Moyenne": "متوسط الرد"
-"Transactions": "معاملات"
-"Securisé": "آمن"
-"Découvrez par secteur": "اكتشف حسب القطاع"
-"Nos Services Populaires": "خدماتنا الأكثر شعبية"
-"Processus Premium": "عملية متميزة"
-"Efficacité Garantie": "فعالية مضمونة"
-"Expérience Personnalisée": "تجربة مخصصة"
-"Décrivez vos besoins et nous trouvons le match parfait pour vous.": "حدد احتياجاتك وسنجد لك الخيار الأمثل."
-"Transparence Totale": "شفافية مطلقة"
-"Visualisez les profils, les avis et les portfolios avant de décider.": "اطلع على الملفات الشخصية والتقييمات والأعمال السابقة قبل اتخاذ القرار."
-"Résultats d'Excellence": "نتائج متميزة"
-"Bénéficiez d'un service de qualité supérieure avec garantie Bricolage.": "استفد من خدمة عالية الجودة بضمان بريكولاج."
-"Opportunités de Projets": فرص المشاريع
-"Découvrez les dernières annonces et proposez vos services aux meilleurs tarifs.": اكتشف أحدث الإعلانات وقدم خدماتك بأفضل الأسعار.
-"Confiance & Expertise": "ثقة وخبرة"
-"Nos Experts les plus demandés": "خبراؤنا الأكثر طلباً"
-"Des professionnels certifiés, notés par la communauté.": "محترفون معتمدون، مقيمون من قبل المجتمع."
-"Expert Plombier": "سباك خبير"
-"Jardinière Pro": "بستانية محترفة"
-"Électricien Expert": "كهربائي خبير"
-"Architecte Intérieur": "مهندس ديكور"
-"avis": "تقييم"
-"Rejoignez l'élite du Bricolage.": "انضم إلى نخبة بريكولاج."
-"Que vous soyez un expert cherchant des projets ou un client exigeant, vivez l'expérience Bricolage dès aujourd'hui.": "سواء كنت خبيراً يبحث عن مشاريع أو عميلاً يطمح للأفضل، عش تجربة بريكولاج اليوم."
-"Commencer Maintenant": "ابدأ الآن"
-"En savoir plus": "اعرف المزيد"
-"Jardinage": "بستنة"
-"Informatique": "معلوماتية"
-"Plomبريه": "سباكة"
-"Déménagement": "نقل أثاث"
-"Peinture": "صباغة"
-"Électricité": "كهرباء"
-"Nouveautés": "وصل حديثاً"
+"Trouvez l'expert idÃ©al": "Ø§Ø¨Ø­Ø« Ø¹Ù† Ø§Ù„Ø®Ø¨ÙŠØ± Ø§Ù„Ù…Ø«Ø§Ù„ÙŠ"
+"Connecting Talent, Building Projects": "Ø±Ø¨Ø· Ø§Ù„Ù…ÙˆØ§Ù‡Ø¨ØŒ Ø¨Ù†Ø§Ø¡ Ø§Ù„Ù…Ø´Ø§Ø±ÙŠØ¹"
+"Travaillez avec les meilleurs Pros.": "Ø§Ø¹Ù…Ù„ Ù…Ø¹ Ø£ÙØ¶Ù„ Ø§Ù„Ù…Ø­ØªØ±ÙÙŠÙ†."
+"La marketplace d'excellence pour tous vos besoins de bricolage et services.": "Ø³ÙˆÙ‚ Ø§Ù„ØªÙ…ÙŠØ² Ù„Ø¬Ù…ÙŠØ¹ Ø§Ø­ØªÙŠØ§Ø¬Ø§ØªÙƒ Ù…Ù† Ø§Ù„Ø£Ø¹Ù…Ø§Ù„ Ø§Ù„ÙŠØ¯ÙˆÙŠØ© ÙˆØ§Ù„Ø®Ø¯Ù…Ø§Øª."
+"Quel service recherchez-vous ?": "Ø¹Ù† Ø£ÙŠ Ø®Ø¯Ù…Ø© ØªØ¨Ø­Ø«ØŸ"
+"Trouver un Expert": "Ø§Ø¨Ø­Ø« Ø¹Ù† Ø®Ø¨ÙŠØ±"
+"100% VÃ©rifiÃ©s": "100% Ù…ÙˆØ«Ù‚"
+"Paiement SÃ©curisÃ©": "Ø¯ÙØ¹ Ø¢Ù…Ù†"
+"Garantie QualitÃ©": "Ø¶Ù…Ø§Ù† Ø§Ù„Ø¬ÙˆØ¯Ø©"
+"Experts DiplÃ´mÃ©s": "Ø®Ø¨Ø±Ø§Ø¡ Ù…Ø¹ØªÙ…Ø¯ÙˆÙ†"
+"Satisfaction Client": "Ø±Ø¶Ø§ Ø§Ù„Ø¹Ù…Ù„Ø§Ø¡"
+"RÃ©ponse Moyenne": "Ù…ØªÙˆØ³Ø· Ø§Ù„Ø±Ø¯"
+"Transactions": "Ù…Ø¹Ø§Ù…Ù„Ø§Øª"
+"SecurisÃ©": "Ø¢Ù…Ù†"
+"DÃ©couvrez par secteur": "Ø§ÙƒØªØ´Ù Ø­Ø³Ø¨ Ø§Ù„Ù‚Ø·Ø§Ø¹"
+"Nos Services Populaires": "Ø®Ø¯Ù…Ø§ØªÙ†Ø§ Ø§Ù„Ø£ÙƒØ«Ø± Ø´Ø¹Ø¨ÙŠØ©"
+"Processus Premium": "Ø¹Ù…Ù„ÙŠØ© Ù…ØªÙ…ÙŠØ²Ø©"
+"EfficacitÃ© Garantie": "ÙØ¹Ø§Ù„ÙŠØ© Ù…Ø¶Ù…ÙˆÙ†Ø©"
+"ExpÃ©rience PersonnalisÃ©e": "ØªØ¬Ø±Ø¨Ø© Ù…Ø®ØµØµØ©"
+"DÃ©crivez vos besoins et nous trouvons le match parfait pour vous.": "Ø­Ø¯Ø¯ Ø§Ø­ØªÙŠØ§Ø¬Ø§ØªÙƒ ÙˆØ³Ù†Ø¬Ø¯ Ù„Ùƒ Ø§Ù„Ø®ÙŠØ§Ø± Ø§Ù„Ø£Ù…Ø«Ù„."
+"Transparence Totale": "Ø´ÙØ§ÙÙŠØ© Ù…Ø·Ù„Ù‚Ø©"
+"Visualisez les profils, les avis et les portfolios avant de dÃ©cider.": "Ø§Ø·Ù„Ø¹ Ø¹Ù„Ù‰ Ø§Ù„Ù…Ù„ÙØ§Øª Ø§Ù„Ø´Ø®ØµÙŠØ© ÙˆØ§Ù„ØªÙ‚ÙŠÙŠÙ…Ø§Øª ÙˆØ§Ù„Ø£Ø¹Ù…Ø§Ù„ Ø§Ù„Ø³Ø§Ø¨Ù‚Ø© Ù‚Ø¨Ù„ Ø§ØªØ®Ø§Ø° Ø§Ù„Ù‚Ø±Ø§Ø±."
+"RÃ©sultats d'Excellence": "Ù†ØªØ§Ø¦Ø¬ Ù…ØªÙ…ÙŠØ²Ø©"
+"BÃ©nÃ©ficiez d'un service de qualitÃ© supÃ©rieure avec garantie Bricolage.": "Ø§Ø³ØªÙØ¯ Ù…Ù† Ø®Ø¯Ù…Ø© Ø¹Ø§Ù„ÙŠØ© Ø§Ù„Ø¬ÙˆØ¯Ø© Ø¨Ø¶Ù…Ø§Ù† Ø¨Ø±ÙŠÙƒÙˆÙ„Ø§Ø¬."
+"OpportunitÃ©s de Projets": ÙØ±Øµ Ø§Ù„Ù…Ø´Ø§Ø±ÙŠØ¹
+"DÃ©couvrez les derniÃ¨res annonces et proposez vos services aux meilleurs tarifs.": Ø§ÙƒØªØ´Ù Ø£Ø­Ø¯Ø« Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†Ø§Øª ÙˆÙ‚Ø¯Ù… Ø®Ø¯Ù…Ø§ØªÙƒ Ø¨Ø£ÙØ¶Ù„ Ø§Ù„Ø£Ø³Ø¹Ø§Ø±.
+"Confiance & Expertise": "Ø«Ù‚Ø© ÙˆØ®Ø¨Ø±Ø©"
+"Nos Experts les plus demandÃ©s": "Ø®Ø¨Ø±Ø§Ø¤Ù†Ø§ Ø§Ù„Ø£ÙƒØ«Ø± Ø·Ù„Ø¨Ø§Ù‹"
+"Des professionnels certifiÃ©s, notÃ©s par la communautÃ©.": "Ù…Ø­ØªØ±ÙÙˆÙ† Ù…Ø¹ØªÙ…Ø¯ÙˆÙ†ØŒ Ù…Ù‚ÙŠÙ…ÙˆÙ† Ù…Ù† Ù‚Ø¨Ù„ Ø§Ù„Ù…Ø¬ØªÙ…Ø¹."
+"Expert Plombier": "Ø³Ø¨Ø§Ùƒ Ø®Ø¨ÙŠØ±"
+"JardiniÃ¨re Pro": "Ø¨Ø³ØªØ§Ù†ÙŠØ© Ù…Ø­ØªØ±ÙØ©"
+"Ã‰lectricien Expert": "ÙƒÙ‡Ø±Ø¨Ø§Ø¦ÙŠ Ø®Ø¨ÙŠØ±"
+"Architecte IntÃ©rieur": "Ù…Ù‡Ù†Ø¯Ø³ Ø¯ÙŠÙƒÙˆØ±"
+"avis": "ØªÙ‚ÙŠÙŠÙ…"
+"Rejoignez l'Ã©lite du Bricolage.": "Ø§Ù†Ø¶Ù… Ø¥Ù„Ù‰ Ù†Ø®Ø¨Ø© Ø¨Ø±ÙŠÙƒÙˆÙ„Ø§Ø¬."
+"Que vous soyez un expert cherchant des projets ou un client exigeant, vivez l'expÃ©rience Bricolage dÃ¨s aujourd'hui.": "Ø³ÙˆØ§Ø¡ ÙƒÙ†Øª Ø®Ø¨ÙŠØ±Ø§Ù‹ ÙŠØ¨Ø­Ø« Ø¹Ù† Ù…Ø´Ø§Ø±ÙŠØ¹ Ø£Ùˆ Ø¹Ù…ÙŠÙ„Ø§Ù‹ ÙŠØ·Ù…Ø­ Ù„Ù„Ø£ÙØ¶Ù„ØŒ Ø¹Ø´ ØªØ¬Ø±Ø¨Ø© Ø¨Ø±ÙŠÙƒÙˆÙ„Ø§Ø¬ Ø§Ù„ÙŠÙˆÙ…."
+"Commencer Maintenant": "Ø§Ø¨Ø¯Ø£ Ø§Ù„Ø¢Ù†"
+"En savoir plus": "Ø§Ø¹Ø±Ù Ø§Ù„Ù…Ø²ÙŠØ¯"
+"Jardinage": "Ø¨Ø³ØªÙ†Ø©"
+"Informatique": "Ù…Ø¹Ù„ÙˆÙ…Ø§ØªÙŠØ©"
+"PlomØ¨Ø±ÙŠÙ‡": "Ø³Ø¨Ø§ÙƒØ©"
+"DÃ©mÃ©nagement": "Ù†Ù‚Ù„ Ø£Ø«Ø§Ø«"
+"Peinture": "ØµØ¨Ø§ØºØ©"
+"Ã‰lectricitÃ©": "ÙƒÙ‡Ø±Ø¨Ø§Ø¡"
+"NouveautÃ©s": "ÙˆØµÙ„ Ø­Ø¯ÙŠØ«Ø§Ù‹"
 
 # Admin Dash
-"Zone Administrative": المنطقة الإدارية
-"Gérez votre plateforme avec des outils professionnels.": قم بإدارة منصتك باستخدام أدوات احترافية.
-"Serveur opérationnel": الخادم يعمل
-"Total": المجموع
-"Talents": المواهب
-"Clients": العملاء
-"Experts Inscrits": الخبراء المسجلين
-"Recruteurs Actifs": الموظفون النشطون
-"Derniers Experts": آخر الخبراء
-"Recruteurs Récents": أحدث الموظفين
-"Voir tous": عرض الكل
+"Zone Administrative": Ø§Ù„Ù…Ù†Ø·Ù‚Ø© Ø§Ù„Ø¥Ø¯Ø§Ø±ÙŠØ©
+"GÃ©rez votre plateforme avec des outils professionnels.": Ù‚Ù… Ø¨Ø¥Ø¯Ø§Ø±Ø© Ù…Ù†ØµØªÙƒ Ø¨Ø§Ø³ØªØ®Ø¯Ø§Ù… Ø£Ø¯ÙˆØ§Øª Ø§Ø­ØªØ±Ø§ÙÙŠØ©.
+"Serveur opÃ©rationnel": Ø§Ù„Ø®Ø§Ø¯Ù… ÙŠØ¹Ù…Ù„
+"Total": Ø§Ù„Ù…Ø¬Ù…ÙˆØ¹
+"Talents": Ø§Ù„Ù…ÙˆØ§Ù‡Ø¨
+"Clients": Ø§Ù„Ø¹Ù…Ù„Ø§Ø¡
+"Experts Inscrits": Ø§Ù„Ø®Ø¨Ø±Ø§Ø¡ Ø§Ù„Ù…Ø³Ø¬Ù„ÙŠÙ†
+"Recruteurs Actifs": Ø§Ù„Ù…ÙˆØ¸ÙÙˆÙ† Ø§Ù„Ù†Ø´Ø·ÙˆÙ†
+"Derniers Experts": Ø¢Ø®Ø± Ø§Ù„Ø®Ø¨Ø±Ø§Ø¡
+"Recruteurs RÃ©cents": Ø£Ø­Ø¯Ø« Ø§Ù„Ù…ÙˆØ¸ÙÙŠÙ†
+"Voir tous": Ø¹Ø±Ø¶ Ø§Ù„ÙƒÙ„
 
 # Candidate Management (Recruiter)
-"Recrutement": توظيف
-"Candidatures Reçues": الطلبات المستلمة
-"Postulants": المتقدمين
-"Client": عميل
-"aucune candidature disponible": لا يوجد مرشحين متاحين
-"Veuillez revenir ultérieurement.": يرجى العودة لاحقا.
-"Aucune candidature": لا توجد طلبات
-"Vous recevrez une notification dès qu'un expert proposera ses services.": ستتلقى إشعارًا بمجرد أن يقدم الخبير خدماته.
-"Publier une nouvelle offre": انشر عرضا جديدا
+"Recrutement": ØªÙˆØ¸ÙŠÙ
+"Candidatures ReÃ§ues": Ø§Ù„Ø·Ù„Ø¨Ø§Øª Ø§Ù„Ù…Ø³ØªÙ„Ù…Ø©
+"Postulants": Ø§Ù„Ù…ØªÙ‚Ø¯Ù…ÙŠÙ†
+"Client": Ø¹Ù…ÙŠÙ„
+"aucune candidature disponible": Ù„Ø§ ÙŠÙˆØ¬Ø¯ Ù…Ø±Ø´Ø­ÙŠÙ† Ù…ØªØ§Ø­ÙŠÙ†
+"Veuillez revenir ultÃ©rieurement.": ÙŠØ±Ø¬Ù‰ Ø§Ù„Ø¹ÙˆØ¯Ø© Ù„Ø§Ø­Ù‚Ø§.
+"Aucune candidature": Ù„Ø§ ØªÙˆØ¬Ø¯ Ø·Ù„Ø¨Ø§Øª
+"Vous recevrez une notification dÃ¨s qu'un expert proposera ses services.": Ø³ØªØªÙ„Ù‚Ù‰ Ø¥Ø´Ø¹Ø§Ø±Ù‹Ø§ Ø¨Ù…Ø¬Ø±Ø¯ Ø£Ù† ÙŠÙ‚Ø¯Ù… Ø§Ù„Ø®Ø¨ÙŠØ± Ø®Ø¯Ù…Ø§ØªÙ‡.
+"Publier une nouvelle offre": Ø§Ù†Ø´Ø± Ø¹Ø±Ø¶Ø§ Ø¬Ø¯ÙŠØ¯Ø§
 
 # Flash Messages & Errors
-"Vous devez créer un profil Chercheur pour voir vos candidatures.": "يجب عليك إنشاء ملف تعريف باحث لمشاهدة طلباتك."
-"Votre profil chercheur est incomplet.": "ملف الباحث الخاص بك غير مكتمل."
-"Erreur lors de la récupération de l'annonce.": "خطأ أثناء استرداد الإعلان."
-"Annonce introuvable": "الإعلان غير موجود"
-"Vous avez déjà postulé à cette annonce.": "لقد تقدمت بالفعل لهذا الإعلان."
-"Votre candidature a été envoyée avec succès.": "تم إرسال طلبك بنجاح."
-"Erreur lors de la candidature : ": "خطأ أثناء التقديم: "
-"Stripe API Key is not configured in .env or Railway variables. Payment disabled.": "مفتاح Stripe غير مهيأ. الدفع معطل."
-"Stripe Error: ": "خطأ في Stripe: "
-"Veuillez vous connecter.": "يرجى تسجيل الدخول."
-"Une erreur est survenue.": "حدث خطأ ما."
-"Succès": "نجاح"
-"Attention": "تنبيه"
-"Erreur": "خطأ"
-"Disponible": متاح
-"Mettre à jour": "تحديث"
-"Retour": "رجوع"
-"Modifier l'annonce": "تعديل الإعلان"
+"Vous devez crÃ©er un profil Chercheur pour voir vos candidatures.": "ÙŠØ¬Ø¨ Ø¹Ù„ÙŠÙƒ Ø¥Ù†Ø´Ø§Ø¡ Ù…Ù„Ù ØªØ¹Ø±ÙŠÙ Ø¨Ø§Ø­Ø« Ù„Ù…Ø´Ø§Ù‡Ø¯Ø© Ø·Ù„Ø¨Ø§ØªÙƒ."
+"Votre profil chercheur est incomplet.": "Ù…Ù„Ù Ø§Ù„Ø¨Ø§Ø­Ø« Ø§Ù„Ø®Ø§Øµ Ø¨Ùƒ ØºÙŠØ± Ù…ÙƒØªÙ…Ù„."
+"Erreur lors de la rÃ©cupÃ©ration de l'annonce.": "Ø®Ø·Ø£ Ø£Ø«Ù†Ø§Ø¡ Ø§Ø³ØªØ±Ø¯Ø§Ø¯ Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†."
+"Annonce introuvable": "Ø§Ù„Ø¥Ø¹Ù„Ø§Ù† ØºÙŠØ± Ù…ÙˆØ¬ÙˆØ¯"
+"Vous avez dÃ©jÃ  postulÃ© Ã  cette annonce.": "Ù„Ù‚Ø¯ ØªÙ‚Ø¯Ù…Øª Ø¨Ø§Ù„ÙØ¹Ù„ Ù„Ù‡Ø°Ø§ Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†."
+"Votre candidature a Ã©tÃ© envoyÃ©e avec succÃ¨s.": "ØªÙ… Ø¥Ø±Ø³Ø§Ù„ Ø·Ù„Ø¨Ùƒ Ø¨Ù†Ø¬Ø§Ø­."
+"Erreur lors de la candidature : ": "Ø®Ø·Ø£ Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„ØªÙ‚Ø¯ÙŠÙ…: "
+"Stripe API Key is not configured in .env or Railway variables. Payment disabled.": "Ù…ÙØªØ§Ø­ Stripe ØºÙŠØ± Ù…Ù‡ÙŠØ£. Ø§Ù„Ø¯ÙØ¹ Ù…Ø¹Ø·Ù„."
+"Stripe Error: ": "Ø®Ø·Ø£ ÙÙŠ Stripe: "
+"Veuillez vous connecter.": "ÙŠØ±Ø¬Ù‰ ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„."
+"Une erreur est survenue.": "Ø­Ø¯Ø« Ø®Ø·Ø£ Ù…Ø§."
+"SuccÃ¨s": "Ù†Ø¬Ø§Ø­"
+"Attention": "ØªÙ†Ø¨ÙŠÙ‡"
+"Erreur": "Ø®Ø·Ø£"
+"Disponible": Ù…ØªØ§Ø­
+"Mettre Ã  jour": "ØªØ­Ø¯ÙŠØ«"
+"Retour": "Ø±Ø¬ÙˆØ¹"
+"Modifier l'annonce": "ØªØ¹Ø¯ÙŠÙ„ Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†"
