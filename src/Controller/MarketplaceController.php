@@ -18,10 +18,21 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class MarketplaceController extends AbstractController
 {
     #[Route('/', name: 'app_marketplace')]
-    public function index(ProductRepository $productRepository): Response
+    public function index(ProductRepository $productRepository, Request $request): Response
     {
+        $search = $request->query->get('search', '');
+        $category = $request->query->get('category', '');
+        
+        if ($search || $category) {
+            $products = $productRepository->findBySearchAndCategory($search, $category);
+        } else {
+            $products = $productRepository->findBy([], ['createdAt' => 'DESC']);
+        }
+        
         return $this->render('marketplace/index.html.twig', [
-            'products' => $productRepository->findBy([], ['createdAt' => 'DESC']),
+            'products' => $products,
+            'search' => $search,
+            'category' => $category,
         ]);
     }
 

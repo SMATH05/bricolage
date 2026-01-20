@@ -21,7 +21,26 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-    //    /**
+    public function findBySearchAndCategory(string $search = '', string $category = ''): array
+    {
+        $qb = $this->createQueryBuilder('p');
+        
+        if ($search) {
+            $qb->andWhere('p.title LIKE :search OR p.description LIKE :search')
+               ->setParameter('search', '%' . $search . '%');
+        }
+        
+        if ($category) {
+            $qb->andWhere('p.category = :category')
+               ->setParameter('category', $category);
+        }
+        
+        return $qb->orderBy('p.createdAt', 'DESC')
+                  ->getQuery()
+                  ->getResult();
+    }
+
+//    /**
 //     * @return Product[] Returns an array of Product objects
 //     */
 //    public function findByExampleField($value): array
@@ -36,7 +55,7 @@ class ProductRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-    //    public function findOneBySomeField($value): ?Product
+//    public function findOneBySomeField($value): ?Product
 //    {
 //        return $this->createQueryBuilder('p')
 //            ->andWhere('p.exampleField = :val')

@@ -137,13 +137,60 @@
 
 	<div
 		class="container py-5 mt-4" id="articles">
+		{# Search Form #}
+		<div class="row mb-4">
+			<div class="col-12">
+				<div class="glass-card p-4 rounded-4 shadow-sm">
+					<form method="GET" action="{{ path('app_marketplace') }}" class="row g-3 align-items-end">
+						<div class="col-md-5">
+							<label for="search" class="form-label fw-bold">{{ 'Rechercher un produit'|trans }}</label>
+							<input type="text" 
+								   id="search" 
+								   name="search" 
+								   class="form-control form-control-lg rounded-pill border-0 shadow-sm" 
+								   placeholder="{{ 'Mots-clés, marque, modèle...'|trans }}"
+								   value="{{ search }}">
+						</div>
+						<div class="col-md-4">
+							<label for="category" class="form-label fw-bold">{{ 'Catégorie'|trans }}</label>
+							<select id="category" 
+									name="category" 
+									class="form-select form-select-lg rounded-pill border-0 shadow-sm">
+								<option value="">{{ 'Toutes les catégories'|trans }}</option>
+								<option value="Outils" {{ category == 'Outils' ? 'selected' : '' }}>{{ 'Outils'|trans }}</option>
+								<option value="Matériaux" {{ category == 'Matériaux' ? 'selected' : '' }}>{{ 'Matériaux'|trans }}</option>
+								<option value="Jardin" {{ category == 'Jardin' ? 'selected' : '' }}>{{ 'Jardin'|trans }}</option>
+								<option value="Électrique" {{ category == 'Électrique' ? 'selected' : '' }}>{{ 'Électrique'|trans }}</option>
+							</select>
+						</div>
+						<div class="col-md-3">
+							<button type="submit" class="btn btn-primary btn-lg rounded-pill w-100 shadow-sm">
+								<i class="fas fa-search me-2"></i>
+								{{ 'Rechercher'|trans }}
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
 		{# Filter Pills (Visual only for now) #}
 		<div class="d-flex flex-wrap gap-2 mb-5 overflow-auto pb-2" style="scrollbar-width: none;">
-			<button class="btn btn-dark rounded-pill px-4 fw-bold shadow-sm">{{ 'Tous'|trans }}</button>
-			<button class="btn btn-white border shadow-sm rounded-pill px-4 fw-bold text-muted">{{ 'Outils'|trans }}</button>
-			<button class="btn btn-white border shadow-sm rounded-pill px-4 fw-bold text-muted">{{ 'Matériaux'|trans }}</button>
-			<button class="btn btn-white border shadow-sm rounded-pill px-4 fw-bold text-muted">{{ 'Jardin'|trans }}</button>
-			<button class="btn btn-white border shadow-sm rounded-pill px-4 fw-bold text-muted">{{ 'Électrique'|trans }}</button>
+			<a href="{{ path('app_marketplace') }}" class="btn {{ (search == '' and category == '') ? 'btn-dark' : 'btn-white border' }} rounded-pill px-4 fw-bold shadow-sm text-decoration-none">
+				{{ 'Tous'|trans }}
+			</a>
+			<a href="{{ path('app_marketplace', {category: 'Outils'}) }}" class="btn {{ category == 'Outils' ? 'btn-dark' : 'btn-white border' }} rounded-pill px-4 fw-bold shadow-sm text-decoration-none">
+				{{ 'Outils'|trans }}
+			</a>
+			<a href="{{ path('app_marketplace', {category: 'Matériaux'}) }}" class="btn {{ category == 'Matériaux' ? 'btn-dark' : 'btn-white border' }} rounded-pill px-4 fw-bold shadow-sm text-decoration-none">
+				{{ 'Matériaux'|trans }}
+			</a>
+			<a href="{{ path('app_marketplace', {category: 'Jardin'}) }}" class="btn {{ category == 'Jardin' ? 'btn-dark' : 'btn-white border' }} rounded-pill px-4 fw-bold shadow-sm text-decoration-none">
+				{{ 'Jardin'|trans }}
+			</a>
+			<a href="{{ path('app_marketplace', {category: 'Électrique'}) }}" class="btn {{ category == 'Électrique' ? 'btn-dark' : 'btn-white border' }} rounded-pill px-4 fw-bold shadow-sm text-decoration-none">
+				{{ 'Électrique'|trans }}
+			</a>
 		</div>
 
 		<div class="row g-4">
