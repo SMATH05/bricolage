@@ -17,16 +17,8 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 final class AnnonceController extends AbstractController
 {
-    #[Route('/', name: 'app_home')]
     public function index(AnnonceRepository $annonceRepository): Response
     {
-        if ($this->getUser()) {
-            if ($this->isGranted('ROLE_ADMIN')) {
-                return $this->redirectToRoute('app_admin');
-            }
-            return $this->redirectToRoute('app_annonce');
-        }
-
         return $this->render('home/index.html.twig');
     }
 
