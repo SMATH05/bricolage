@@ -28,6 +28,18 @@ class EmergencyFixController extends AbstractController
             'CREATE TABLE IF NOT EXISTS chercheur_skill (chercheur_id INT NOT NULL, skill_id INT NOT NULL, PRIMARY KEY(chercheur_id, skill_id))',
             'CREATE INDEX IF NOT EXISTS IDX_7F75D508930F3294 ON chercheur_skill (chercheur_id)',
             'CREATE INDEX IF NOT EXISTS IDX_7F75D5085585C142 ON chercheur_skill (skill_id)',
+
+            // 4. Social Feed (BricoGram)
+            'CREATE TABLE IF NOT EXISTS post (id SERIAL NOT NULL, author_id INT NOT NULL, content TEXT, media VARCHAR(255), media_type VARCHAR(20) DEFAULT \'text\', created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))',
+            'CREATE TABLE IF NOT EXISTS post_like (id SERIAL NOT NULL, post_id INT NOT NULL, user_id INT NOT NULL, PRIMARY KEY(id))',
+            'CREATE TABLE IF NOT EXISTS post_comment (id SERIAL NOT NULL, post_id INT NOT NULL, author_id INT NOT NULL, content TEXT NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))',
+
+            // Indices for Social Feed
+            'CREATE INDEX IF NOT EXISTS IDX_POST_AUTHOR ON post (author_id)',
+            'CREATE INDEX IF NOT EXISTS IDX_LIKE_POST ON post_like (post_id)',
+            'CREATE INDEX IF NOT EXISTS IDX_LIKE_USER ON post_like (user_id)',
+            'CREATE INDEX IF NOT EXISTS IDX_COMMENT_POST ON post_comment (post_id)',
+            'CREATE INDEX IF NOT EXISTS IDX_COMMENT_AUTHOR ON post_comment (author_id)',
         ];
 
         foreach ($sqls as $sql) {
