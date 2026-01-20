@@ -20,7 +20,12 @@ final class AnnonceController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(PostRepository $postRepository): Response
     {
-        $posts = $postRepository->findAllByDate();
+        try {
+            $posts = $postRepository->findAllByDate();
+        } catch (\Exception $e) {
+            $posts = [];
+        }
+
         return $this->render('home/index.html.twig', [
             'posts' => $posts
         ]);
