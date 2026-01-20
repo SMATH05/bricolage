@@ -56,6 +56,24 @@ class SocialController extends AbstractController
         $post->setAuthor($this->getUser());
 
         if ($mediaFile) {
+            // Check for upload errors
+            if ($mediaFile->getError() !== UPLOAD_ERR_OK) {
+                $errorMessages = [
+                    UPLOAD_ERR_INI_SIZE => 'The uploaded file exceeds the upload_max_filesize directive in php.ini',
+                    UPLOAD_ERR_FORM_SIZE => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form',
+                    UPLOAD_ERR_PARTIAL => 'The uploaded file was only partially uploaded',
+                    UPLOAD_ERR_NO_FILE => 'No file was uploaded',
+                    UPLOAD_ERR_NO_TMP_DIR => 'Missing a temporary folder',
+                    UPLOAD_ERR_CANT_WRITE => 'Failed to write file to disk',
+                    UPLOAD_ERR_EXTENSION => 'A PHP extension stopped the file upload',
+                ];
+                
+                $errorMsg = $errorMessages[$mediaFile->getError()] ?? 'Unknown upload error';
+                error_log('Upload error code: ' . $mediaFile->getError() . ' - ' . $errorMsg);
+                $this->addFlash('error', 'Upload error: ' . $errorMsg);
+                return $this->redirectToRoute('app_social_feed');
+            }
+            
             $originalFilename = pathinfo($mediaFile->getClientOriginalName(), PATHINFO_FILENAME);
             $safeFilename = $slugger->slug($originalFilename);
             $newFilename = $safeFilename . '-' . uniqid() . '.' . $mediaFile->guessExtension();
@@ -63,15 +81,32 @@ class SocialController extends AbstractController
             // Debug: Log upload info
             error_log('Upload debug - Original: ' . $originalFilename . ', New: ' . $newFilename);
             error_log('Upload debug - Directory: ' . $this->getParameter('posts_directory'));
+            error_log('Upload debug - File size: ' . $mediaFile->getSize());
+            error_log('Upload debug - Mime type: ' . $mediaFile->getMimeType());
+            error_log('Upload debug - Temp file: ' . $mediaFile->getRealPath());
 
             try {
+                // Ensure directory exists and is writable
+                $uploadDir = $this->getParameter('posts_directory');
+                if (!is_dir($uploadDir)) {
+                    mkdir($uploadDir, 0777, true);
+                    error_log('Created upload directory: ' . $uploadDir);
+                }
+                
+                if (!is_writable($uploadDir)) {
+                    error_log('Upload directory is not writable: ' . $uploadDir);
+                    $this->addFlash('error', 'Upload directory is not writable');
+                    return $this->redirectToRoute('app_social_feed');
+                }
+                
                 $mediaFile->move(
-                    $this->getParameter('posts_directory'),
+                    $uploadDir,
                     $newFilename
                 );
                 $post->setMedia($newFilename);
                 
                 error_log('Upload debug - File moved successfully: ' . $newFilename);
+                error_log('Upload debug - Full path: ' . $uploadDir . '/' . $newFilename);
 
                 $ext = strtolower($mediaFile->guessExtension());
                 if (in_array($ext, ['mp4', 'webm', 'ogg', 'mov'])) {
@@ -80,7 +115,8 @@ class SocialController extends AbstractController
                     $post->setMediaType('image');
                 }
             } catch (\Exception $e) {
-                error_log('Upload error: ' . $e->getMessage());
+                error_log('Upload exception: ' . $e->getMessage());
+                error_log('Upload exception trace: ' . $e->getTraceAsString());
                 $this->addFlash('error', 'Erreur lors de l\'upload du média: ' . $e->getMessage());
             }
         }
@@ -88,7 +124,13 @@ class SocialController extends AbstractController
         try {
             $entityManager->persist($post);
             $entityManager->flush();
+            
+            // Debug: Log post creation
+            error_log('Post created successfully - ID: ' . $post->getId() . ', Media: ' . ($post->getMedia() ?: 'None') . ', Type: ' . $post->getMediaType());
+            
+            $this->addFlash('success', 'Post created successfully! Media: ' . ($post->getMedia() ?: 'None'));
         } catch (\Exception $e) {
+            error_log('Database error: ' . $e->getMessage());
             $this->addFlash('error', 'Erreur de publication : ' . $e->getMessage());
             return $this->redirectToRoute('app_social_feed');
         }
