@@ -31,132 +31,134 @@
 							{% else %}
 								{{ 'Chercheur'|trans }}
 							{% endif %}
-							<div class="d-flex justify-content-center gap-4 mt-1 mb-4">
-								<div class="text-center">
-									<h6 class="fw-bold mb-0">{{ app.user.followers|length }}</h6>
-									<small class="text-muted small text-uppercase">{{ 'Abonnés'|trans }}</small>
-								</div>
-								<div class="text-center">
-									<h6 class="fw-bold mb-0">{{ app.user.following|length }}</h6>
-									<small class="text-muted small text-uppercase">{{ 'Suivis'|trans }}</small>
-								</div>
-							</div>
+						</span>
 
-							{% if is_granted('ROLE_CHERCHEUR') and profile.skills is defined %}
-								<div class="mt-4 text-start">
-									<h6 class="fw-bold mb-3 small text-uppercase text-muted">{{ 'Compétences'|trans }}</h6>
-									<div class="d-flex flex-wrap gap-2">
-										{% for skill in profile.skills %}
-											<span class="badge bg-light text-primary border border-primary-subtle rounded-pill px-3 py-2">
-												<i class="fas fa-check-circle me-1 small"></i>
-												{{ skill.name }}
-											</span>
-										{% else %}
-											<p class="text-muted small italic mb-0">{{ 'Aucune compétence ajoutée'|trans }}</p>
-										{% endfor %}
-									</div>
-								</div>
-							{% endif %}
+						<div class="d-flex justify-content-center gap-4 mt-1 mb-4">
+							<div class="text-center">
+								<h6 class="fw-bold mb-0">{{ app.user.followers|length }}</h6>
+								<small class="text-muted small text-uppercase">{{ 'Abonnés'|trans }}</small>
+							</div>
+							<div class="text-center">
+								<h6 class="fw-bold mb-0">{{ app.user.following|length }}</h6>
+								<small class="text-muted small text-uppercase">{{ 'Suivis'|trans }}</small>
+							</div>
 						</div>
-					</div>
-					<div class="col-md-8">
-						<div class="card shadow-sm border-0">
-							<div class="card-header bg-white border-bottom-0 pt-4 px-4">
-								<h5 class="card-title mb-0">{{ 'Modifier mes informations'|trans }}</h5>
-							</div>
-							<div class="card-body p-4">
-								{{ form_start(form) }}
-								<div class="row g-4">
-									{% for field in form %}
-										{% if field.vars.name != '_token' and field.vars.name != 'skills' %}
-											<div class="col-md-6">
-												{{ form_label(field, null, {'label_attr': {'class': 'form-label fw-bold small text-uppercase'}}) }}
-												{{ form_widget(field, {'attr': {'class': 'form-control rounded-3'}}) }}
-												{{ form_errors(field) }}
-											</div>
-										{% endif %}
+
+						{% if is_granted('ROLE_CHERCHEUR') and profile.skills is defined %}
+							<div class="mt-4 text-start">
+								<h6 class="fw-bold mb-3 small text-uppercase text-muted">{{ 'Compétences'|trans }}</h6>
+								<div class="d-flex flex-wrap gap-2">
+									{% for skill in profile.skills %}
+										<span class="badge bg-light text-primary border border-primary-subtle rounded-pill px-3 py-2">
+											<i class="fas fa-check-circle me-1 small"></i>
+											{{ skill.name }}
+										</span>
+									{% else %}
+										<p class="text-muted small italic mb-0">{{ 'Aucune compétence ajoutée'|trans }}</p>
 									{% endfor %}
-
-									{% if form.skills is defined %}
-										<div class="col-12 mt-4">
-											<label class="form-label fw-bold small text-uppercase">{{ 'Mes Compétences'|trans }}</label>
-											<div id="skills-collection" data-prototype="{{ form_widget(form.skills.vars.prototype)|e('html_attr') }}" data-index="{{ form.skills|length }}">
-
-												<div class="skills-list d-flex flex-wrap gap-2 mb-3">
-													{% for skillField in form.skills %}
-														<div class="skill-item badge bg-primary-soft text-primary d-flex align-items-center gap-2 p-2 rounded-3 border">
-															{{ form_widget(skillField.name, {'attr': {'class': 'form-control-plaintext form-control-sm p-0 border-0', 'style': 'width: auto; min-width: 80px'}}) }}
-															<button type="button" class="btn-close btn-close-sm remove-skill" style="font-size: 0.5rem;"></button>
-														</div>
-													{% endfor %}
-												</div>
-
-												<button type="button" class="btn btn-outline-primary btn-sm rounded-pill add-skill-btn">
-													<i class="fas fa-plus me-1"></i>
-													{{ 'Ajouter une compétence'|trans }}
-												</button>
-											</div>
+								</div>
+							</div>
+						{% endif %}
+					</div>
+				</div>
+				<div class="col-md-8">
+					<div class="card shadow-sm border-0">
+						<div class="card-header bg-white border-bottom-0 pt-4 px-4">
+							<h5 class="card-title mb-0">{{ 'Modifier mes informations'|trans }}</h5>
+						</div>
+						<div class="card-body p-4">
+							{{ form_start(form) }}
+							<div class="row g-4">
+								{% for field in form %}
+									{% if field.vars.name != '_token' and field.vars.name != 'skills' %}
+										<div class="col-md-6">
+											{{ form_label(field, null, {'label_attr': {'class': 'form-label fw-bold small text-uppercase'}}) }}
+											{{ form_widget(field, {'attr': {'class': 'form-control rounded-3'}}) }}
+											{{ form_errors(field) }}
 										</div>
 									{% endif %}
+								{% endfor %}
+
+								{% if form.skills is defined %}
+									<div class="col-12 mt-4">
+										<label class="form-label fw-bold small text-uppercase">{{ 'Mes Compétences'|trans }}</label>
+										<div id="skills-collection" data-prototype="{{ form_widget(form.skills.vars.prototype)|e('html_attr') }}" data-index="{{ form.skills|length }}">
+
+											<div class="skills-list d-flex flex-wrap gap-2 mb-3">
+												{% for skillField in form.skills %}
+													<div class="skill-item badge bg-primary-soft text-primary d-flex align-items-center gap-2 p-2 rounded-3 border">
+														{{ form_widget(skillField.name, {'attr': {'class': 'form-control-plaintext form-control-sm p-0 border-0', 'style': 'width: auto; min-width: 80px'}}) }}
+														<button type="button" class="btn-close btn-close-sm remove-skill" style="font-size: 0.5rem;"></button>
+													</div>
+												{% endfor %}
+											</div>
+
+											<button type="button" class="btn btn-outline-primary btn-sm rounded-pill add-skill-btn">
+												<i class="fas fa-plus me-1"></i>
+												{{ 'Ajouter une compétence'|trans }}
+											</button>
+										</div>
+									</div>
+								{% endif %}
+							</div>
+							<div class="mt-5 border-top pt-4">
+								<button type="submit" class="btn btn-primary btn-lg px-5 rounded-pill shadow">
+									<i class="fas fa-save me-2"></i>
+									{{ 'Sauvegarder les modifications'|trans }}
+								</button>
+							</div>
+							{{ form_end(form) }}
+						</div>
+					</div>
+
+					{% if is_granted('ROLE_RECRUTEUR') %}
+						<div class="card shadow-sm border-0 mt-4">
+							<div class="card-header bg-white border-bottom-0 pt-4 px-4">
+								<h5 class="card-title mb-0">{{ 'Mes Annonces'|trans }}</h5>
+							</div>
+							<div class="card-body p-4">
+								<div class="list-group list-group-flush">
+									{% for annonce in profile.annonces %}
+										<div class="list-group-item px-0 py-3 d-flex align-items-center">
+											<div class="flex-grow-1">
+												<h6 class="mb-1">{{ annonce.titre }}</h6>
+												<small class="text-muted">{{ 'Publiée le'|trans }}
+													{{ annonce.datePublication|date('d/m/Y') }}</small>
+											</div>
+											<div>
+												<a href="{{ path('app_annonce_modifier', {id: annonce.id}) }}" class="btn btn-sm btn-outline-info">
+													<i class="fas fa-edit"></i>
+												</a>
+											</div>
+										</div>
+									{% else %}
+										<p class="text-muted italic">{{ 'Vous n\'avez pas encore publié d\'annonces.'|trans }}</p>
+									{% endfor %}
 								</div>
-								<div class="mt-5 border-top pt-4">
-									<button type="submit" class="btn btn-primary btn-lg px-5 rounded-pill shadow">
-										<i class="fas fa-save me-2"></i>
-										{{ 'Sauvegarder les modifications'|trans }}
-									</button>
-								</div>
-								{{ form_end(form) }}
 							</div>
 						</div>
-
-						{% if is_granted('ROLE_RECRUTEUR') %}
-							<div class="card shadow-sm border-0 mt-4">
-								<div class="card-header bg-white border-bottom-0 pt-4 px-4">
-									<h5 class="card-title mb-0">{{ 'Mes Annonces'|trans }}</h5>
-								</div>
-								<div class="card-body p-4">
-									<div class="list-group list-group-flush">
-										{% for annonce in profile.annonces %}
-											<div class="list-group-item px-0 py-3 d-flex align-items-center">
-												<div class="flex-grow-1">
-													<h6 class="mb-1">{{ annonce.titre }}</h6>
-													<small class="text-muted">{{ 'Publiée le'|trans }}
-														{{ annonce.datePublication|date('d/m/Y') }}</small>
-												</div>
-												<div>
-													<a href="{{ path('app_annonce_modifier', {id: annonce.id}) }}" class="btn btn-sm btn-outline-info">
-														<i class="fas fa-edit"></i>
-													</a>
-												</div>
-											</div>
-										{% else %}
-											<p class="text-muted italic">{{ 'Vous n\'avez pas encore publié d\'annonces.'|trans }}</p>
-										{% endfor %}
-									</div>
-								</div>
+					{% elseif is_granted('ROLE_CHERCHEUR') %}
+						<div class="card shadow-sm border-0 mt-4">
+							<div class="card-header bg-white border-bottom-0 pt-4 px-4">
+								<h5 class="card-title mb-0">{{ 'Mes Candidatures'|trans }}</h5>
 							</div>
-						{% elseif is_granted('ROLE_CHERCHEUR') %}
-							<div class="card shadow-sm border-0 mt-4">
-								<div class="card-header bg-white border-bottom-0 pt-4 px-4">
-									<h5 class="card-title mb-0">{{ 'Mes Candidatures'|trans }}</h5>
-								</div>
-								<div class="card-body p-4">
-									<div class="list-group list-group-flush">
-										{% for candidature in profile.candidatures %}
-											<div class="list-group-item px-0 py-3 d-flex align-items-center">
-												<div class="flex-grow-1">
-													<h6 class="mb-1">{{ candidature.annonceId.titre }}</h6>
-													<small class="text-muted">{{ 'Postulée le'|trans }}
-														{{ candidature.datePro|date('d/m/Y') }}</small>
-												</div>
-												<div>
-													<span class="badge {% if candidature.statut == 'En attente' %}bg-warning{% elseif candidature.statut == 'Accepté' %}bg-success{% else %}bg-secondary{% endif %} rounded-pill">
-														{{ candidature.statut|trans }}
-													</span>
-												</div>
+							<div class="card-body p-4">
+								<div class="list-group list-group-flush">
+									{% for candidature in profile.candidatures %}
+										<div class="list-group-item px-0 py-3 d-flex align-items-center">
+											<div class="flex-grow-1">
+												<h6 class="mb-1">{{ candidature.annonceId.titre }}</h6>
+												<small class="text-muted">{{ 'Postulée le'|trans }}
+													{{ candidature.datePro|date('d/m/Y') }}</small>
 											</div>
-										{% else %}
-											<p class="text-muted italic">{{ 'Vous n\'avez pas encore postulé à des annonces.'|trans }}</p>
+											<div>
+												<span class="badge {% if candidature.statut == 'En attente' %}bg-warning{% elseif candidature.statut == 'Accepté' %}bg-success{% else %}bg-secondary{% endif %} rounded-pill">
+													{{ candidature.statut|trans }}
+												</span>
+											</div>
+										</div>
+									{% else %}
+										<p class="text-muted italic">{{ 'Vous n\'avez pas encore postulé à des annonces.'|trans }}</p>
 									{% endfor %}
 								</div>
 							</div>
@@ -169,12 +171,15 @@
 				<i class="fas fa-info-circle fa-2x mb-3"></i>
 				<h4>{{ 'Aucun profil associé'|trans }}</h4>
 				<p class="mb-0">{{ 'Votre compte utilisateur n\'est pas lié à un profil Chercheur ou Recruteur.'|trans }}</p>
-											<script>
-												document.addEventListener('DOMContentLoaded', function () {
+									</div>
+								{% endif %}
+							</div>
+
+							<script>
+								document.addEventListener('DOMContentLoaded', function () {
 const collectionHolder = document.getElementById('skills-collection');
 if (! collectionHolder) 
 return;
-
 
 
 const skillsList = collectionHolder.querySelector('.skills-list');
@@ -189,7 +194,6 @@ collectionHolder.dataset.index = index + 1;
 const wrapper = document.createElement('div');
 wrapper.className = 'skill-item badge bg-primary-soft text-primary d-flex align-items-center gap-2 p-2 rounded-3 border';
 
-// Extract the input from the autogenerated form
 const temp = document.createElement('div');
 temp.innerHTML = newForm;
 const input = temp.querySelector('input');
@@ -215,5 +219,5 @@ e.target.closest('.skill-item').remove();
 }
 });
 });
-											</script>
-										{% endblock %}
+							</script>
+						{% endblock %}
