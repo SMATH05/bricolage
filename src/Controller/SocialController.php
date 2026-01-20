@@ -22,6 +22,7 @@ class SocialController extends AbstractController
         try {
             $posts = $postRepository->findAllByDate();
         } catch (\Exception $e) {
+            $this->addFlash('error', 'Feed Error: ' . $e->getMessage());
             $posts = [];
         }
 
