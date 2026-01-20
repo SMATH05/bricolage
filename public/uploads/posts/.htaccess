@@ -1,0 +1,31 @@
+# Allow access to uploaded files
+<IfModule mod_authz_core.c>
+    Require all granted
+</IfModule>
+<IfModule mod_authz_host.c>
+    Order allow,deny
+    Allow from all
+</IfModule>
+
+# Set proper content types
+<FilesMatch "\.(jpg|jpeg|png|gif|webp)$">
+    Header set Content-Type "image/jpeg"
+    Header set Cache-Control "public, max-age=31536000"
+</FilesMatch>
+
+<FilesMatch "\.png$">
+    Header set Content-Type "image/png"
+</FilesMatch>
+
+<FilesMatch "\.gif$">
+    Header set Content-Type "image/gif"
+</FilesMatch>
+
+<FilesMatch "\.webp$">
+    Header set Content-Type "image/webp"
+</FilesMatch>
+
+<FilesMatch "\.(mp4|webm|ogg|mov)$">
+    Header set Content-Type "video/mp4"
+    Header set Cache-Control "public, max-age=31536000"
+</FilesMatch>

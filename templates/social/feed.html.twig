@@ -119,12 +119,14 @@
 					{% if post.media %}
 						<div class="post-media-container bg-light" style="min-height: 300px; display: flex; align-items: center; justify-content: center;">
 							{% if post.mediaType == 'image' %}
-								<img src="{{ asset('uploads/posts/' ~ post.media) }}" class="img-fluid w-100" style="max-height: 600px; object-fit: cover;" alt="Post media">
+								<img src="/uploads/posts/{{ post.media }}" class="img-fluid w-100" style="max-height: 600px; object-fit: cover;" alt="Post media" onerror="console.error('Image failed to load:', this.src); this.style.display='none';">
+								<!-- Debug: {{ post.media }} - {{ post.mediaType }} -->
 							{% elseif post.mediaType == 'video' %}
 								<video controls class="w-100" style="max-height: 600px; background: #000;">
-									<source src="{{ asset('uploads/posts/' ~ post.media) }}" type="video/mp4">
+									<source src="/uploads/posts/{{ post.media }}" type="video/mp4">
 									{{ 'Votre navigateur ne supporte pas la balise vidéo.'|trans }}
 								</video>
+								<!-- Debug: {{ post.media }} - {{ post.mediaType }} -->
 							{% endif %}
 						</div>
 					{% endif %}
