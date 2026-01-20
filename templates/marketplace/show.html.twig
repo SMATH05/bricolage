@@ -55,22 +55,8 @@
 								</div>
 								<div>
 									<h6 class="mb-0 fw-bold">{{ product.user.email }}</h6>
-									<small class="text-muted">{{ product.user.followers|length }}
-										{{ 'abonnés'|trans }}</small>
 								</div>
 							</div>
-							{% if app.user and app.user != product.user %}
-								{% if app.user.following.contains(product.user) %}
-									<a href="{{ path('app_unfollow', {id: product.user.id}) }}" class="btn btn-sm btn-outline-secondary rounded-pill px-3">
-										{{ 'Suivi'|trans }}
-									</a>
-								{% else %}
-									<a href="{{ path('app_follow', {id: product.user.id}) }}" class="btn btn-sm btn-primary rounded-pill px-3 shadow-sm">
-										<i class="fas fa-plus me-1"></i>
-										{{ 'Suivre'|trans }}
-									</a>
-								{% endif %}
-							{% endif %}
 						</div>
 
 						<div class="d-grid gap-2">
