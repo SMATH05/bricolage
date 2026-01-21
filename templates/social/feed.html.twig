@@ -693,5 +693,15 @@
 			card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
 			observer.observe(card);
 		});
+
+		// Handle create post form submission
+		const createPostForm = document.querySelector('form[action*="/social/post"]');
+		if (createPostForm) {
+			createPostForm.addEventListener('submit', function(e) {
+				// Let the form submit normally - it will redirect to feed
+				// The page will reload with the new post
+				console.log('Post form submitted - redirecting to feed...');
+			});
+		}
 	</script>
 {% endblock %}
