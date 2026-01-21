@@ -580,6 +580,29 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- Comment Modals for each post -->
+	{% for post in posts %}
+		<div class="modal fade" id="commentModal{{ post.id }}" tabindex="-1" aria-labelledby="commentModalLabel{{ post.id }}" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="commentModalLabel{{ post.id }}">{{ 'Ajouter un commentaire'|trans }}</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form method="POST" action="{{ path('app_social_comment', {id: post.id}) }}">
+							<div class="mb-3">
+								<label for="commentContent{{ post.id }}" class="form-label">{{ 'Votre commentaire'|trans }}</label>
+								<textarea name="content" id="commentContent{{ post.id }}" class="form-control" rows="3" placeholder="{{ 'Écrivez votre commentaire...'|trans }}" required></textarea>
+							</div>
+							<button type="submit" class="btn btn-primary w-100">{{ 'Publier'|trans }}</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
 {% endblock %}
 
 {% block javascripts %}
