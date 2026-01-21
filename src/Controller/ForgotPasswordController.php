@@ -14,7 +14,6 @@ use App\Entity\User;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class ForgotPasswordController extends AbstractController
 {
