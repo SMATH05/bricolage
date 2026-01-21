@@ -62,6 +62,7 @@ class RegistrationFormType extends AbstractType
                 'label' => 'Rôle',
                 'mapped' => false,
                 'expanded' => true,
+                'required' => true,
                 'constraints' => [
                     new NotBlank(['message' => 'Veuillez sélectionner un rôle']),
                 ],
