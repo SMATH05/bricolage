@@ -100,6 +100,10 @@ class SocialController extends AbstractController
                     throw new \Exception('Upload directory not writable: ' . $uploadDir);
                 }
                 
+                // Store file info BEFORE moving (temp file will be deleted)
+                $ext = strtolower($mediaFile->guessExtension());
+                $mimeType = strtolower($mediaFile->getMimeType());
+                
                 // Use Symfony's move method which is more reliable than manual file_put_contents
                 try {
                     $mediaFile->move($uploadDir, $newFilename);
@@ -120,10 +124,7 @@ class SocialController extends AbstractController
                 
                 $post->setMedia($newFilename);
                 
-                $ext = strtolower($mediaFile->guessExtension());
-                $mimeType = strtolower($mediaFile->getMimeType());
-                
-                // Enhanced video detection
+                // Enhanced video detection using stored values
                 if (in_array($ext, ['mp4', 'webm', 'ogg', 'mov', 'avi', 'mkv', 'wmv']) || 
                     in_array($mimeType, ['video/mp4', 'video/webm', 'video/ogg', 'video/quicktime', 'video/x-msvideo', 'video/x-matroska'])) {
                     $post->setMediaType('video');
@@ -136,31 +137,10 @@ class SocialController extends AbstractController
                     error_log('Unknown media type - Extension: ' . $ext . ', MIME: ' . $mimeType . ' - Defaulting to image');
                 }
             } catch (\Exception $e) {
-                // Check if file was actually created despite the exception
-                $targetPath = $this->getParameter('posts_directory') . '/' . $newFilename;
-                if (!file_exists($targetPath)) {
-                    // Only show error if file wasn't created
-                    error_log('Upload exception: ' . $e->getMessage());
-                    error_log('Upload exception trace: ' . $e->getTraceAsString());
-                    $this->addFlash('error', 'Erreur lors de l\'upload du média: ' . $e->getMessage());
-                } else {
-                    // File was created successfully, ignore the exception
-                    error_log('Upload successful despite exception: ' . $e->getMessage());
-                    $post->setMedia($newFilename);
-                    
-                    $ext = strtolower($mediaFile->guessExtension());
-                    $mimeType = strtolower($mediaFile->getMimeType());
-                    
-                    if (in_array($ext, ['mp4', 'webm', 'ogg', 'mov', 'avi', 'mkv', 'wmv']) || 
-                        in_array($mimeType, ['video/mp4', 'video/webm', 'video/ogg', 'video/quicktime', 'video/x-msvideo', 'video/x-matroska'])) {
-                        $post->setMediaType('video');
-                    } elseif (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'svg']) || 
-                              in_array($mimeType, ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/bmp', 'image/svg+xml'])) {
-                        $post->setMediaType('image');
-                    } else {
-                        $post->setMediaType('image');
-                    }
-                }
+                // Only show error if it's a real problem
+                error_log('Upload exception: ' . $e->getMessage());
+                error_log('Upload exception trace: ' . $e->getTraceAsString());
+                $this->addFlash('error', 'Erreur lors de l\'upload du média: ' . $e->getMessage());
             }
         }
 
