@@ -66,6 +66,7 @@ class RegistrationController extends AbstractController
                 $entityManager->persist($recruteur);
             }
 
+            $entityManager->persist($user);
             $entityManager->flush();
 
             return match ($selectedRole) {
