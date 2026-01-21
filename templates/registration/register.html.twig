@@ -358,6 +358,11 @@
 					</div>
 				{% endfor %}
 			</div>
+			{% if form_errors(registrationForm.roles) %}
+				<div style="color: #dc2626; font-size: 0.875rem; margin-top: 8px;">
+					{{ form_errors(registrationForm.roles) }}
+				</div>
+			{% endif %}
 		</div>
 
 		<div class="form-check">
