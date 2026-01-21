@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{ 'Feed Social'|trans }} | Bricolage
+	{{ 'Feed Social'|trans }}
+	| Bricolage
 {% endblock %}
 
 {% block stylesheets %}
@@ -103,7 +104,7 @@
 			background: white;
 			border: 1px solid #dbdbdb;
 			border-radius: 8px;
-			margin: 0 auto 24px auto;
+			margin: 0 auto 24px;
 			overflow: hidden;
 			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 			width: 100%;
@@ -349,7 +350,8 @@
 		}
 
 		@keyframes pulse {
-			0%, 100% {
+			0,
+			100% {
 				transform: scale(1);
 			}
 			50% {
@@ -370,7 +372,7 @@
 		}
 
 		/* Responsive */
-		@media (max-width: 768px) {
+		@media(max-width: 768px) {
 			.feed-container {
 				padding: 20px 16px;
 			}
@@ -435,7 +437,8 @@
 
 		<!-- Posts Feed -->
 		{% for post in posts %}
-			<div class="post-card animate-fade-in">
+			<div
+				class="post-card animate-fade-in">
 				<!-- Post Header -->
 				<div class="post-header">
 					<div class="post-author">
@@ -453,7 +456,8 @@
 						<div class="author-info">
 							<h6>
 								{% if post.author.prenom and post.author.nom %}
-									{{ post.author.prenom }} {{ post.author.nom }}
+									{{ post.author.prenom }}
+									{{ post.author.nom }}
 								{% else %}
 									{{ post.author.userIdentifier }}
 								{% endif %}
@@ -498,14 +502,13 @@
 					{% if post.media %}
 						<div class="post-media">
 							{% if post.mediaType == 'image' %}
-								<img src="{{ asset('uploads/posts/' ~ post.media) }}" 
-									 alt="Post media" 
-									 style="width: 100%; height: 100%;">
+								<img src="{{ asset('uploads/posts/' ~ post.media) }}" alt="Post media" style="width: 100%; height: 100%;">
 							{% elseif post.mediaType == 'video' %}
 								{% set _ext = post.media|split('.')|last|lower %}
-								{% set _mime = _ext == 'mp4' ? 'video/mp4' : (_ext == 'webm' ? 'video/webm' : ((_ext == 'ogg' or _ext == 'ogv') ? 'video/ogg' : (_ext == 'mov' ? 'video/quicktime' : 'application/octet-stream'))) %}
-								<video controls preload="metadata" style="width: 100%; height: 100%;">
+								{% set _mime = _ext == 'mp4' ? 'video/mp4' : (_ext == 'webm' ? 'video/webm' : ((_ext == 'ogg' or _ext == 'ogv') ? 'video/ogg' : (_ext == 'mov' ? 'video/quicktime' : 'video/mp4'))) %}
+								<video controls playsinline preload="auto" style="width: 100%; height: 100%;">
 									<source src="{{ asset('uploads/posts/' ~ post.media) }}" type="{{ _mime }}">
+									Votre navigateur ne supporte pas la lecture de vidéos.
 								</video>
 							{% endif %}
 						</div>
@@ -526,182 +529,180 @@
 					</div>
 					<div class="likes-count">
 						<span id="likes-count-{{ post.id }}">{{ post.likes|length }}</span> {{ 'J\'aime'|trans }}
-					</div>
-				</div>
-			</div>
-		{% endfor %}
-
-		{% if not app.user %}
-			<!-- Welcome Section -->
-			<div class="text-center py-5 animate-fade-in">
-				<div class="user-avatar mb-4" style="width: 80px; height: 80px; font-size: 2rem; margin: 0 auto;">
-					<i class="fas fa-hammer"></i>
-				</div>
-				<h2 class="mb-3">{{ 'Bienvenue sur Bricolage'|trans }}</h2>
-				<p class="text-muted mb-4">{{ 'Rejoignez la communauté pour partager vos projets et découvrir ceux des autres.'|trans }}</p>
-				<div class="d-flex gap-3 justify-content-center">
-					<a href="{{ path('app_register') }}" class="btn btn-primary btn-lg rounded-pill px-5 py-3">
-						<i class="fas fa-user-plus me-2"></i>
-						{{ 'Inscription'|trans }}
-					</a>
-					<a href="{{ path('app_login') }}" class="btn btn-outline-primary btn-lg rounded-pill px-4 py-3">
-						<i class="fas fa-sign-in-alt me-2"></i>
-						{{ 'Connexion'|trans }}
-					</a>
-				</div>
-			</div>
-		{% endif %}
-	</div>
-
-	<!-- Create Post Modal -->
-	<div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="createPostModalLabel">{{ 'Créer une publication'|trans }}</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-				<form method="POST" action="{{ path('app_social_post_create') }}" enctype="multipart/form-data">
-						<div class="mb-3">
-							<label for="content" class="form-label">{{ 'Que voulez-vous partager ?'|trans }}</label>
-							<textarea name="content" class="form-control" rows="4" placeholder="{{ 'Décrivez votre projet...'|trans }}"></textarea>
-						</div>
-						<div class="mb-3">
-							<label class="form-label">{{ 'Ajouter un média'|trans }}</label>
-							<input type="file" name="media" class="form-control" accept="image/*,video/*">
-						</div>
-						<div class="preview-container mb-3 d-none">
-							<!-- Preview will be inserted here -->
-						</div>
-						<button type="submit" class="btn btn-primary w-100">{{ 'Publier'|trans }}</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Comment Modals for each post -->
-	{% for post in posts %}
-		<div class="modal fade" id="commentModal{{ post.id }}" tabindex="-1" aria-labelledby="commentModalLabel{{ post.id }}" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="commentModalLabel{{ post.id }}">{{ 'Ajouter un commentaire'|trans }}</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						<form method="POST" action="{{ path('app_social_comment', {id: post.id}) }}">
-							<div class="mb-3">
-								<label for="commentContent{{ post.id }}" class="form-label">{{ 'Votre commentaire'|trans }}</label>
-								<textarea name="content" id="commentContent{{ post.id }}" class="form-control" rows="3" placeholder="{{ 'Écrivez votre commentaire...'|trans }}" required></textarea>
 							</div>
-							<button type="submit" class="btn btn-primary w-100">{{ 'Publier'|trans }}</button>
-						</form>
+						</div>
+					</div>
+				{% endfor %}
+
+				{% if not app.user %}
+					<!-- Welcome Section -->
+					<div class="text-center py-5 animate-fade-in">
+						<div class="user-avatar mb-4" style="width: 80px; height: 80px; font-size: 2rem; margin: 0 auto;">
+							<i class="fas fa-hammer"></i>
+						</div>
+						<h2 class="mb-3">{{ 'Bienvenue sur Bricolage'|trans }}</h2>
+						<p class="text-muted mb-4">{{ 'Rejoignez la communauté pour partager vos projets et découvrir ceux des autres.'|trans }}</p>
+						<div class="d-flex gap-3 justify-content-center">
+							<a href="{{ path('app_register') }}" class="btn btn-primary btn-lg rounded-pill px-5 py-3">
+								<i class="fas fa-user-plus me-2"></i>
+								{{ 'Inscription'|trans }}
+							</a>
+							<a href="{{ path('app_login') }}" class="btn btn-outline-primary btn-lg rounded-pill px-4 py-3">
+								<i class="fas fa-sign-in-alt me-2"></i>
+								{{ 'Connexion'|trans }}
+							</a>
+						</div>
+					</div>
+				{% endif %}
+			</div>
+
+			<!-- Create Post Modal -->
+			<div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="createPostModalLabel">{{ 'Créer une publication'|trans }}</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<form method="POST" action="{{ path('app_social_post_create') }}" enctype="multipart/form-data">
+								<div class="mb-3">
+									<label for="content" class="form-label">{{ 'Que voulez-vous partager ?'|trans }}</label>
+									<textarea name="content" class="form-control" rows="4" placeholder="{{ 'Décrivez votre projet...'|trans }}"></textarea>
+								</div>
+								<div class="mb-3">
+									<label class="form-label">{{ 'Ajouter un média'|trans }}</label>
+									<input type="file" name="media" class="form-control" accept="image/*,video/*">
+								</div>
+								<div
+									class="preview-container mb-3 d-none"><!-- Preview will be inserted here -->
+								</div>
+								<button type="submit" class="btn btn-primary w-100">{{ 'Publier'|trans }}</button>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	{% endfor %}
-{% endblock %}
 
-{% block javascripts %}
-	<script>
-		// Like functionality
-		document.querySelectorAll('.post-action-like').forEach(button => {
-			button.addEventListener('click', function(e) {
-				e.preventDefault();
-				const postId = this.dataset.id;
-				const icon = this.querySelector('i');
-				const countSpan = document.getElementById(`likes-count-${postId}`);
+			<!-- Comment Modals for each post -->
+			{% for post in posts %}
+				<div class="modal fade" id="commentModal{{ post.id }}" tabindex="-1" aria-labelledby="commentModalLabel{{ post.id }}" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="commentModalLabel{{ post.id }}">{{ 'Ajouter un commentaire'|trans }}</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<form method="POST" action="{{ path('app_social_comment', {id: post.id}) }}">
+									<div class="mb-3">
+										<label for="commentContent{{ post.id }}" class="form-label">{{ 'Votre commentaire'|trans }}</label>
+										<textarea name="content" id="commentContent{{ post.id }}" class="form-control" rows="3" placeholder="{{ 'Écrivez votre commentaire...'|trans }}" required></textarea>
+									</div>
+									<button type="submit" class="btn btn-primary w-100">{{ 'Publier'|trans }}</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		{% endblock %}
 
-				fetch(`/social/like/${postId}`, {
-					method: 'POST',
-					headers: {'X-Requested-With': 'XMLHttpRequest'}
-				})
-				.then(response => response.json())
-				.then(data => {
-					if (data.liked) {
-						icon.classList.remove('far');
-						icon.classList.add('fas');
-						this.classList.add('liked');
-					} else {
-						icon.classList.remove('fas');
-						icon.classList.add('far');
-						this.classList.remove('liked');
-					}
-					countSpan.textContent = data.likesCount;
-				})
-				.catch(error => console.error('Error:', error));
-			});
-		});
+		{% block javascripts %}
+			<script>
+				// Like functionality
+document.querySelectorAll('.post-action-like').forEach(button => {
+button.addEventListener('click', function (e) {
+e.preventDefault();
+const postId = this.dataset.id;
+const icon = this.querySelector('i');
+const countSpan = document.getElementById (`likes-count-${postId}`);
 
-		// File preview
-		const mediaInput = document.querySelector('input[name="media"]');
-		const previewContainer = document.querySelector('.preview-container');
+fetch (`/social/like/${postId}`, {
+method: 'POST',
+headers: {
+'X-Requested-With': 'XMLHttpRequest'
+}
+}).then(response => response.json()).then(data => {
+if (data.liked) {
+icon.classList.remove('far');
+icon.classList.add('fas');
+this.classList.add('liked');
+} else {
+icon.classList.remove('fas');
+icon.classList.add('far');
+this.classList.remove('liked');
+} countSpan.textContent = data.likesCount;
+}).catch(error => console.error('Error:', error));
+});
+});
 
-		if (mediaInput) {
-			mediaInput.addEventListener('change', function(e) {
-				const file = e.target.files[0];
-				if (file) {
-					const reader = new FileReader();
-					reader.onload = function(e) {
-						previewContainer.innerHTML = '';
-						previewContainer.classList.remove('d-none');
+// File preview
+const mediaInput = document.querySelector('input[name="media"]');
+const previewContainer = document.querySelector('.preview-container');
 
-						if (file.type.startsWith('image/')) {
-							const img = document.createElement('img');
-							img.src = e.target.result;
-							img.className = 'img-fluid rounded-3';
-							img.style.maxHeight = '200px';
-							previewContainer.appendChild(img);
-						} else if (file.type.startsWith('video/')) {
-							const video = document.createElement('video');
-							video.src = e.target.result;
-							video.className = 'img-fluid rounded-3';
-							video.style.maxHeight = '200px';
-							video.controls = true;
-							previewContainer.appendChild(video);
-						}
-					};
-					reader.readAsDataURL(file);
-				} else {
-					previewContainer.innerHTML = '';
-					previewContainer.classList.add('d-none');
-				}
-			});
-		}
+if (mediaInput) {
+mediaInput.addEventListener('change', function (e) {
+const file = e.target.files[0];
+if (file) {
+const reader = new FileReader();
+reader.onload = function (e) {
+previewContainer.innerHTML = '';
+previewContainer.classList.remove('d-none');
 
-		// Intersection Observer for animations
-		const observerOptions = {
-			threshold: 0.1,
-			rootMargin: '0px 0px -50px 0px'
-		};
+if (file.type.startsWith('image/')) {
+const img = document.createElement('img');
+img.src = e.target.result;
+img.className = 'img-fluid rounded-3';
+img.style.maxHeight = '200px';
+previewContainer.appendChild(img);
+} else if (file.type.startsWith('video/')) {
+const video = document.createElement('video');
+video.src = e.target.result;
+video.className = 'img-fluid rounded-3';
+video.style.maxHeight = '200px';
+video.controls = true;
+previewContainer.appendChild(video);
+}
+};
+reader.readAsDataURL(file);
+} else {
+previewContainer.innerHTML = '';
+previewContainer.classList.add('d-none');
+}
+});
+}
 
-		const observer = new IntersectionObserver((entries) => {
-			entries.forEach(entry => {
-				if (entry.isIntersecting) {
-					entry.target.style.opacity = '1';
-					entry.target.style.transform = 'translateY(0)';
-				}
-			});
-		}, observerOptions);
+// Intersection Observer for animations
+const observerOptions = {
+threshold: 0.1,
+rootMargin: '0px 0px -50px 0px'
+};
 
-		document.querySelectorAll('.post-card').forEach(card => {
-			card.style.opacity = '0';
-			card.style.transform = 'translateY(20px)';
-			card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-			observer.observe(card);
-		});
+const observer = new IntersectionObserver((entries) => {
+entries.forEach(entry => {
+if (entry.isIntersecting) {
+entry.target.style.opacity = '1';
+entry.target.style.transform = 'translateY(0)';
+}
+});
+}, observerOptions);
 
-		// Handle create post form submission
-		const createPostForm = document.querySelector('form[action*="/social/post"]');
-		if (createPostForm) {
-			createPostForm.addEventListener('submit', function(e) {
-				// Let the form submit normally - it will redirect to feed
-				// The page will reload with the new post
-				console.log('Post form submitted - redirecting to feed...');
-			});
-		}
-	</script>
-{% endblock %}
+document.querySelectorAll('.post-card').forEach(card => {
+card.style.opacity = '0';
+card.style.transform = 'translateY(20px)';
+card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+observer.observe(card);
+});
+
+// Handle create post form submission
+const createPostForm = document.querySelector('form[action*="/social/post"]');
+if (createPostForm) {
+createPostForm.addEventListener('submit', function (e) {
+// Let the form submit normally - it will redirect to feed
+// The page will reload with the new post
+console.log('Post form submitted - redirecting to feed...');
+});
+}
+			</script>
+		{% endblock %}

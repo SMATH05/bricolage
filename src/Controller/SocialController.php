@@ -36,7 +36,7 @@ class SocialController extends AbstractController
     {
         $content = $request->request->get('content');
         $mediaFile = $request->files->get('media');
-        
+
         // Debug: Log request data
         error_log('Request debug - Content: ' . $content);
         error_log('Request debug - Has file: ' . ($mediaFile ? 'Yes' : 'No'));
@@ -67,43 +67,49 @@ class SocialController extends AbstractController
                     UPLOAD_ERR_CANT_WRITE => 'Failed to write file to disk',
                     UPLOAD_ERR_EXTENSION => 'A PHP extension stopped the file upload',
                 ];
-                
+
                 $errorMsg = $errorMessages[$mediaFile->getError()] ?? 'Unknown upload error';
                 error_log('Upload error code: ' . $mediaFile->getError() . ' - ' . $errorMsg);
                 $this->addFlash('error', 'Upload error: ' . $errorMsg);
                 return $this->redirectToRoute('app_social_feed');
             }
-            
+
             $originalFilename = pathinfo($mediaFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $originalExtension = strtolower(pathinfo($mediaFile->getClientOriginalName(), PATHINFO_EXTENSION));
             $safeFilename = $slugger->slug($originalFilename);
-            $newFilename = $safeFilename . '-' . uniqid() . '.' . $mediaFile->guessExtension();
-            
+
+            // Use guessExtension, but fallback to original extension for videos (guessExtension can return null for some video formats)
+            $guessedExt = $mediaFile->guessExtension();
+            $extension = $guessedExt ?: $originalExtension;
+
+            $newFilename = $safeFilename . '-' . uniqid() . '.' . $extension;
+
             error_log('Upload started - File: ' . $newFilename);
 
             try {
                 // Ensure directory exists with proper permissions
                 $uploadDir = $this->getParameter('posts_directory');
-                
+
                 if (!is_dir($uploadDir)) {
                     @mkdir($uploadDir, 0777, true);
                     error_log('Created directory: ' . $uploadDir);
                 }
-                
+
                 // Ensure writable
                 @chmod($uploadDir, 0777);
-                
+
                 if (!is_dir($uploadDir)) {
                     throw new \Exception('Could not create upload directory: ' . $uploadDir);
                 }
-                
+
                 if (!is_writable($uploadDir)) {
                     throw new \Exception('Upload directory not writable: ' . $uploadDir);
                 }
-                
+
                 // Store file info BEFORE moving (temp file will be deleted)
-                $ext = strtolower($mediaFile->guessExtension());
-                $mimeType = strtolower($mediaFile->getMimeType());
-                
+                $ext = $extension; // Use the same computed extension 
+                $mimeType = strtolower($mediaFile->getMimeType() ?? '');
+
                 // Use Symfony's move method which is more reliable than manual file_put_contents
                 try {
                     $mediaFile->move($uploadDir, $newFilename);
@@ -111,25 +117,29 @@ class SocialController extends AbstractController
                     error_log('Move exception: ' . $e->getMessage());
                     // Continue anyway - the file might have been moved successfully
                 }
-                
+
                 // Verify file was actually written
                 $targetPath = $uploadDir . '/' . $newFilename;
                 if (!file_exists($targetPath)) {
                     error_log('❌ File not found after upload: ' . $targetPath);
                     throw new \Exception('File was not written to disk: ' . $targetPath);
                 }
-                
+
                 error_log('✅ File uploaded successfully: ' . $targetPath);
                 error_log('File size: ' . filesize($targetPath) . ' bytes');
-                
+
                 $post->setMedia($newFilename);
-                
+
                 // Enhanced video detection using stored values
-                if (in_array($ext, ['mp4', 'webm', 'ogg', 'mov', 'avi', 'mkv', 'wmv']) || 
-                    in_array($mimeType, ['video/mp4', 'video/webm', 'video/ogg', 'video/quicktime', 'video/x-msvideo', 'video/x-matroska'])) {
+                if (
+                    in_array($ext, ['mp4', 'webm', 'ogg', 'mov', 'avi', 'mkv', 'wmv']) ||
+                    in_array($mimeType, ['video/mp4', 'video/webm', 'video/ogg', 'video/quicktime', 'video/x-msvideo', 'video/x-matroska'])
+                ) {
                     $post->setMediaType('video');
-                } elseif (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'svg']) || 
-                          in_array($mimeType, ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/bmp', 'image/svg+xml'])) {
+                } elseif (
+                    in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'svg']) ||
+                    in_array($mimeType, ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/bmp', 'image/svg+xml'])
+                ) {
                     $post->setMediaType('image');
                 } else {
                     // Default to image if unsure
@@ -147,10 +157,10 @@ class SocialController extends AbstractController
         try {
             $entityManager->persist($post);
             $entityManager->flush();
-            
+
             // Debug: Log post creation
             error_log('Post created successfully - ID: ' . $post->getId() . ', Media: ' . ($post->getMedia() ?: 'None') . ', Type: ' . $post->getMediaType());
-            
+
             $this->addFlash('success', 'Post created successfully! Media: ' . ($post->getMedia() ?: 'None'));
         } catch (\Exception $e) {
             error_log('Database error: ' . $e->getMessage());

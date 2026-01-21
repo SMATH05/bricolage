@@ -26,6 +26,9 @@ class Post
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $media = null;
 
+    #[ORM\Column(type: Types::BLOB, nullable: true)]
+    private $mediaData = null;
+
     #[ORM\Column(length: 20)]
     private ?string $mediaType = 'text'; // image, video, text
 
@@ -136,6 +139,17 @@ class Post
             $this->comments->add($comment);
             $comment->setPost($this);
         }
+        return $this;
+    }
+
+    public function getMediaData()
+    {
+        return $this->mediaData;
+    }
+
+    public function setMediaData($mediaData): static
+    {
+        $this->mediaData = $mediaData;
         return $this;
     }
 }

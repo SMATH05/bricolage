@@ -25,22 +25,31 @@
     Header set Content-Type "image/webp"
 </FilesMatch>
 
+# Enable byte-range requests (essential for video streaming)
+<IfModule mod_headers.c>
+    Header set Accept-Ranges "bytes"
+</IfModule>
+
 <FilesMatch "\.mp4$">
     Header set Content-Type "video/mp4"
     Header set Cache-Control "public, max-age=31536000"
+    Header set Accept-Ranges "bytes"
 </FilesMatch>
 
 <FilesMatch "\.webm$">
     Header set Content-Type "video/webm"
     Header set Cache-Control "public, max-age=31536000"
+    Header set Accept-Ranges "bytes"
 </FilesMatch>
 
 <FilesMatch "\.(ogg|ogv)$">
     Header set Content-Type "video/ogg"
     Header set Cache-Control "public, max-age=31536000"
+    Header set Accept-Ranges "bytes"
 </FilesMatch>
 
 <FilesMatch "\.mov$">
     Header set Content-Type "video/quicktime"
     Header set Cache-Control "public, max-age=31536000"
+    Header set Accept-Ranges "bytes"
 </FilesMatch>
