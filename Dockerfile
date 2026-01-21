@@ -19,4 +19,7 @@ RUN composer dump-autoload --optimize --classmap-authoritative --no-dev
 ENV APP_ENV=dev
 ENV TRUSTED_PROXIES=*
 
+# Create uploads directory with proper permissions
+RUN mkdir -p public/uploads/annonces public/uploads/profiles public/uploads/products public/uploads/posts && chmod -R 777 public/uploads
+
 CMD sh -c "mkdir -p public/uploads/annonces public/uploads/profiles public/uploads/products public/uploads/posts && chmod -R 777 public/uploads && php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration && php -S 0.0.0.0:${PORT:-80} -t public"
