@@ -1,0 +1,162 @@
+{# Modern Footer Component #}
+<footer class="footer-modern">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <h5 class="footer-title">
+                    <div class="footer-icon">
+                        <i class="fas fa-hammer"></i>
+                    </div>
+                    Bricolage
+                </h5>
+                <p class="footer-text">{{ 'La plateforme de référence pour connecter les talents et les besoins en bricolage et services professionnels.'|trans }}</p>
+            </div>
+            <div class="col-md-4 mb-4">
+                <h5 class="footer-title">
+                    <div class="footer-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    {{ 'Fondateurs'|trans }}
+                </h5>
+                <ul class="footer-links">
+                    <li>
+                        <a href="#" class="footer-link">
+                            <i class="fas fa-user me-2"></i>
+                            Moubaraki Mohammed
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="footer-link">
+                            <i class="fas fa-user me-2"></i>
+                            Benlaama Reda
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="footer-link">
+                            <i class="fas fa-user me-2"></i>
+                            Traihy Soukaina
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4 mb-4">
+                <h5 class="footer-title">
+                    <div class="footer-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    {{ 'Contactez-nous'|trans }}
+                </h5>
+                <ul class="footer-links">
+                    <li>
+                        <a href="mailto:moubaramed@gmail.com" class="footer-link">
+                            <i class="fas fa-envelope me-2"></i>
+                            moubaramed@gmail.com
+                        </a>
+                    </li>
+                    <li>
+                        <a href="tel:+21266569562" class="footer-link">
+                            <i class="fas fa-phone me-2"></i>
+                            +212 66569562
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <hr class="footer-divider">
+        <div class="text-center">
+            <p class="footer-copyright">
+                &copy; 2026 Bricolage. {{ 'Tous droits réservés.'|trans }}
+            </p>
+        </div>
+    </div>
+</footer>
+
+<style>
+.footer-modern {
+    background: linear-gradient(135deg, #1e293b 0%, #2d3748 100%);
+    color: white;
+    padding: 60px 0 30px;
+    margin-top: 80px;
+}
+
+.footer-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.footer-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.footer-text {
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-link {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+}
+
+.footer-link:hover {
+    color: white;
+    transform: translateX(5px);
+}
+
+.footer-divider {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    margin: 40px 0 30px;
+}
+
+.footer-copyright {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .footer-modern {
+        padding: 40px 0 20px;
+        margin-top: 60px;
+    }
+    
+    .footer-title {
+        font-size: 1.1rem;
+        margin-bottom: 16px;
+    }
+    
+    .footer-links {
+        text-align: center;
+    }
+    
+    .footer-link {
+        justify-content: center;
+    padding: 6px 0;
+    }
+}
+</style>

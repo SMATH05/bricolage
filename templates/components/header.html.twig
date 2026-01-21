@@ -1,0 +1,265 @@
+{# Modern Header Component #}
+<nav class="navbar navbar-expand-lg navbar-modern shadow-sm py-3">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center w-100">
+            <!-- Logo -->
+            <a class="navbar-brand fw-bold fs-3 d-flex align-items-center" href="{{ path('app_home') }}">
+                <div class="brand-icon me-2">
+                    <i class="fas fa-hammer"></i>
+                </div>
+                <span class="brand-text">Bricolage</span>
+            </a>
+
+            <!-- Navigation Links -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="{{ path('app_social_feed') }}">
+                            <i class="fas fa-stream me-2"></i>
+                            <span class="nav-text">{{ 'Feed'|trans }}</span>
+                        </a>
+                    </li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item">
+                            <a class="nav-link px-3 fw-bold text-warning" href="{{ path('app_admin') }}">
+                                <i class="fas fa-shield-alt me-2"></i>
+                                <span class="nav-text">{{ 'Administration'|trans }}</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_RECRUTEUR') %}
+                        <li class="nav-item">
+                            <a class="nav-link px-3" href="{{ path('app_annonce') }}">
+                                <i class="fas fa-briefcase me-2"></i>
+                                <span class="nav-text">{{ 'Mes Annonces'|trans }}</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_CHERCHEUR') %}
+                        <li class="nav-item">
+                            <a class="nav-link px-3" href="{{ path('app_annonce') }}">
+                                <i class="fas fa-search me-2"></i>
+                                <span class="nav-text">{{ 'Annonces'|trans }}</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="{{ path('app_marketplace') }}">
+                            <i class="fas fa-shopping-bag me-2"></i>
+                            <span class="nav-text">{{ 'Marketplace'|trans }}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="{{ path('app_chat') }}">
+                            <i class="fas fa-comments me-1"></i>
+                            <span class="nav-text">{{ 'Messagerie'|trans }}</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Right Side Actions -->
+                <div class="d-flex align-items-center gap-3">
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="btn btn-link nav-link px-2" title="{{ 'Changer de thème'|trans }}">
+                        <i class="fas fa-moon fa-lg theme-icon-dark d-none"></i>
+                        <i class="fas fa-sun fa-lg theme-icon-light"></i>
+                    </button>
+
+                    <!-- Language Switcher -->
+                    <div class="dropdown">
+                        <button class="btn btn-link nav-link dropdown-toggle px-2" id="langDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-globe me-1"></i>
+                            <span class="current-lang">{{ app.request.locale|upper }}</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2" aria-labelledby="langDropdown">
+                            <li>
+                                <a class="dropdown-item" href="{{ path('app_change_locale', {'locale': 'fr'}) }}">
+                                    <i class="fas fa-flag me-2"></i>
+                                    Français (FR)
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ path('app_change_locale', {'locale': 'en'}) }}">
+                                    <i class="fas fa-flag me-2"></i>
+                                    English (EN)
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ path('app_change_locale', {'locale': 'ar'}) }}">
+                                    <i class="fas fa-flag me-2"></i>
+                                    العربية (AR)
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- User Profile -->
+                    {% if app.user %}
+                        <div class="dropdown">
+                            <button class="btn btn-link nav-link dropdown-toggle btn-profile-modern px-3" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="user-avatar-small">
+                                    {% if app.user.prenom and app.user.nom %}
+                                        {{ app.user.prenom|slice(0, 1)|upper }}{{ app.user.nom|slice(0, 1)|upper }}
+                                    {% else %}
+                                        {{ app.user.userIdentifier|slice(0, 1)|upper }}
+                                    {% endif %}
+                                </div>
+                                <span class="user-name">{{ app.user.userIdentifier }}</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2" aria-labelledby="profileDropdown">
+                                <li>
+                                    <a class="dropdown-item py-2" href="{{ path('app_profile') }}">
+                                        <i class="fas fa-id-card me-2 opacity-50"></i>
+                                        <span class="nav-text">{{ 'Mon Profil'|trans }}</span>
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item py-2 text-danger" href="{{ path('app_logout') }}">
+                                        <i class="fas fa-sign-out-alt me-2 opacity-50"></i>
+                                        <span class="nav-text">{{ 'Déconnexion'|trans }}</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link px-3" href="{{ path('app_login') }}">
+                                <i class="fas fa-sign-in-alt me-2"></i>
+                                <span class="nav-text">{{ 'Connexion'|trans }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-primary px-4 rounded-pill" href="{{ path('app_register') }}">
+                                <span class="nav-text">{{ 'Inscription'|trans }}</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<style>
+.navbar-modern {
+    background: linear-gradient(135deg, #1e293b 0%, #2d3748 100%);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.navbar-modern .navbar-brand {
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.navbar-modern .navbar-brand:hover {
+    transform: translateY(-2px);
+    color: #f8f9fa;
+}
+
+.brand-icon {
+    width: 35px;
+    height: 35px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #1e293b;
+}
+
+.brand-text {
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-left: 8px;
+}
+
+.navbar-modern .nav-link {
+    color: rgba(255, 255, 255, 0.9);
+    border-radius: 25px;
+    padding: 8px 16px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.navbar-modern .nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1));
+    transition: all 0.3s ease;
+}
+
+.navbar-modern .nav-link:hover {
+    color: #1e293b;
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-modern .nav-link:hover::before {
+    left: 0;
+}
+
+.nav-text {
+    margin-left: 8px;
+    font-weight: 500;
+}
+
+.user-avatar-small {
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: white;
+    font-size: 12px;
+}
+
+.user-name {
+    font-weight: 600;
+    margin-left: 8px;
+}
+
+.btn-profile-modern {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
+    padding: 6px 12px;
+    transition: all 0.3s ease;
+}
+
+.btn-profile-modern:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+.navbar-modern .navbar-toggler-icon {
+    background-image: linear-gradient(to right, #1e293b, #1e293b);
+}
+
+@media (max-width: 768px) {
+    .navbar-modern .nav-text {
+        display: none;
+    }
+    
+    .navbar-modern .user-name {
+        display: none;
+    }
+}
+</style>

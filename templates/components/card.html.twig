@@ -1,0 +1,190 @@
+{# Modern Card Component #}
+<div class="card-modern {{ card_class|default('') }} shadow-sm border-0 overflow-hidden">
+    {% if card_image %}
+        <div class="card-image-container">
+            <img src="{{ card_image }}" alt="{{ card_title }}" class="card-img" onerror="this.parentElement.innerHTML='<div class=\"card-img-placeholder\"><i class=\"fas fa-image\"></i></div>'">
+            {% if card_badge %}
+                <span class="card-badge">{{ card_badge }}</span>
+            {% endif %}
+        </div>
+    {% endif %}
+    
+    <div class="card-body p-4">
+        {% if card_category %}
+            <span class="category-chip-modern">{{ card_category }}</span>
+        {% endif %}
+        
+        {% if card_title %}
+            <h5 class="card-title-modern">
+                <a href="{{ card_link|default('#') }}" class="text-decoration-none">
+                    {{ card_title }}
+                </a>
+            </h5>
+        {% endif %}
+        
+        {% if card_description %}
+            <p class="card-description">{{ card_description }}</p>
+        {% endif %}
+        
+        {% if card_price %}
+            <div class="card-price-modern">{{ card_price }} €</div>
+        {% endif %}
+        
+        {% if card_meta %}
+            <div class="card-meta">
+                {% for meta_item in card_meta %}
+                    <div class="meta-item">
+                        <i class="fas fa-{{ meta_item.icon }} me-2"></i>
+                        <span>{{ meta_item.text }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        {% if card_action %}
+            <div class="card-action">
+                <a href="{{ card_action.link }}" class="btn btn-modern {{ card_action.class|default('btn-primary') }}">
+                    <i class="fas fa-{{ card_action.icon }} me-2"></i>
+                    {{ card_action.text }}
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+.card-modern {
+    border-radius: 16px;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    background: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-modern:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.card-image-container {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.card-modern:hover .card-img {
+    transform: scale(1.1);
+}
+
+.card-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.75rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card-title-modern {
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 12px;
+    color: #1e293b;
+}
+
+.card-title-modern a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.card-title-modern a:hover {
+    color: #667eea;
+}
+
+.card-description {
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+.card-price-modern {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #1e293b;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 8px 16px;
+    border-radius: 12px;
+    display: inline-block;
+    margin-bottom: 16px;
+}
+
+.card-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #64748b;
+    font-size: 0.875rem;
+}
+
+.card-action {
+    margin-top: auto;
+}
+
+.btn-modern {
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-modern:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.category-chip-modern {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.card-img-placeholder {
+    width: 100%;
+    height: 100%;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+}
+</style>

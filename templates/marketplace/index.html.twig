@@ -152,99 +152,92 @@
 								   value="{{ search }}">
 						</div>
 						<div class="col-md-4">
-							<label for="category" class="form-label fw-bold">{{ 'Catégorie'|trans }}</label>
-							<select id="category" 
-									name="category" 
-									class="form-select form-select-lg rounded-pill border-0 shadow-sm">
-								<option value="">{{ 'Toutes les catégories'|trans }}</option>
-								<option value="Outils" {{ category == 'Outils' ? 'selected' : '' }}>{{ 'Outils'|trans }}</option>
-								<option value="Matériaux" {{ category == 'Matériaux' ? 'selected' : '' }}>{{ 'Matériaux'|trans }}</option>
-								<option value="Jardin" {{ category == 'Jardin' ? 'selected' : '' }}>{{ 'Jardin'|trans }}</option>
-								<option value="Électrique" {{ category == 'Électrique' ? 'selected' : '' }}>{{ 'Électrique'|trans }}</option>
-							</select>
-						</div>
-						<div class="col-md-3">
-							<button type="submit" class="btn btn-primary btn-lg rounded-pill w-100 shadow-sm">
-								<i class="fas fa-search me-2"></i>
-								{{ 'Rechercher'|trans }}
-							</button>
-						</div>
-					</form>
+
+				<select id="category" 
+						name="category" 
+						class="form-select form-select-lg rounded-pill border-0 shadow-sm">
+					<option value="">{{ 'Toutes les catégories'|trans }}</option>
+					<option value="Outils" {{ category == 'Outils' ? 'selected' : '' }}>{{ 'Outils'|trans }}</option>
+					<option value="Matériaux" {{ category == 'Matériaux' ? 'selected' : '' }}>{{ 'Matériaux'|trans }}</option>
+					<option value="Jardin" {{ category == 'Jardin' ? 'selected' : '' }}>{{ 'Jardin'|trans }}</option>
+					<option value="Électrique" {{ category == 'Électrique' ? 'selected' : '' }}>{{ 'Électrique'|trans }}</option>
+				</select>
+			</div>
+		</div>
+
+		<!-- Category Pills -->
+		<div class="row mb-4">
+			<div class="col-12">
+				<div class="d-flex gap-2 flex-wrap">
+					<button class="category-pill animate-fade-in" data-category="">{{ 'Tous'|trans }}</button>
+					<button class="category-pill animate-fade-in" data-category="outillage">{{ 'Outils'|trans }}</button>
+					<button class="category-pill animate-fade-in" data-category="materiaux">{{ 'Matériaux'|trans }}</button>
+					<button class="category-pill animate-fade-in" data-category="equipement">{{ 'Équipement'|trans }}</button>
+					<button class="category-pill animate-fade-in" data-category="jardin">{{ 'Jardin'|trans }}</button>
+					<button class="category-pill animate-fade-in" data-category="autre">{{ 'Autre'|trans }}</button>
 				</div>
 			</div>
 		</div>
 
-		{# Filter Pills (Visual only for now) #}
-		<div class="d-flex flex-wrap gap-2 mb-5 overflow-auto pb-2" style="scrollbar-width: none;">
-			<a href="{{ path('app_marketplace') }}" class="btn {{ (search == '' and category == '') ? 'btn-dark' : 'btn-white border' }} rounded-pill px-4 fw-bold shadow-sm text-decoration-none">
-				{{ 'Tous'|trans }}
-			</a>
-			<a href="{{ path('app_marketplace', {category: 'Outils'}) }}" class="btn {{ category == 'Outils' ? 'btn-dark' : 'btn-white border' }} rounded-pill px-4 fw-bold shadow-sm text-decoration-none">
-				{{ 'Outils'|trans }}
-			</a>
-			<a href="{{ path('app_marketplace', {category: 'Matériaux'}) }}" class="btn {{ category == 'Matériaux' ? 'btn-dark' : 'btn-white border' }} rounded-pill px-4 fw-bold shadow-sm text-decoration-none">
-				{{ 'Matériaux'|trans }}
-			</a>
-			<a href="{{ path('app_marketplace', {category: 'Jardin'}) }}" class="btn {{ category == 'Jardin' ? 'btn-dark' : 'btn-white border' }} rounded-pill px-4 fw-bold shadow-sm text-decoration-none">
-				{{ 'Jardin'|trans }}
-			</a>
-			<a href="{{ path('app_marketplace', {category: 'Électrique'}) }}" class="btn {{ category == 'Électrique' ? 'btn-dark' : 'btn-white border' }} rounded-pill px-4 fw-bold shadow-sm text-decoration-none">
-				{{ 'Électrique'|trans }}
-			</a>
-		</div>
-
-		<div class="row g-4">
+		<!-- Products Grid -->
+		<div class="product-grid">
 			{% for product in products %}
-				<div class="col-md-6 col-lg-4 col-xl-3">
-					<div class="product-card shadow-sm h-100">
-						<div class="product-image-wrapper">
-							<div class="price-tag">{{ product.price }}
-								€</div>
-							{% if product.image %}
-								<img src="{{ asset('uploads/products/' ~ product.image) }}" alt="{{ product.title }}" onerror="console.error('Product image failed to load:', this.src); this.style.display='none'; this.parentElement.innerHTML='<div class=\"w-100 h-100 bg-light d-flex align-items-center justify-content-center\"><i class=\"fas fa-toolbox fa-3x text-muted opacity-25\"></i></div>';">
-							{% else %}
-								<div class="w-100 h-100 bg-light d-flex align-items-center justify-content-center">
-									<i class="fas fa-toolbox fa-3x text-muted opacity-25"></i>
-								</div>
-							{% endif %}
-						</div>
-						<div class="card-body p-4">
-							<span class="category-chip">{{ product.category|trans }}</span>
-							<a href="{{ path('app_marketplace_show', {id: product.id}) }}" class="text-decoration-none">
-								<h5 class="product-title">{{ product.title }}</h5>
-							</a>
-
-							<div class="seller-info">
-								<div class="seller-avatar">
-									{{ product.user.email|slice(0, 1)|upper }}
-								</div>
-								<div class="overflow-hidden">
-									<small class="text-muted d-block text-truncate">{{ product.user.email }}</small>
-								</div>
-							</div>
-
-							<div class="mt-4">
-								<a href="{{ path('app_marketplace_show', {id: product.id}) }}" class="btn btn-outline-primary w-100 rounded-pill fw-bold py-2">
-									{{ 'Détails'|trans }}
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			{% else %}
-				<div class="col-12 py-5">
-					<div class="glass-card text-center p-5 rounded-4">
-						<div class="mb-4">
-							<i class="fas fa-shopping-basket fa-4x text-accent-primary opacity-25"></i>
-						</div>
-						<h3 class="fw-bold">{{ "Le marketplace est vide"|trans }}</h3>
-						<p class="text-muted mb-4 fs-5">{{ "Soyez le premier à explorer et à vendre vos équipements."|trans }}</p>
-						<a href="{{ path('app_marketplace_new') }}" class="btn btn-primary btn-lg rounded-pill px-5">
-							{{ "Publier la première annonce"|trans }}
-						</a>
-					</div>
-				</div>
+				{% include 'components/card.html.twig' with {
+					'card_image': asset('uploads/products/' ~ product.image),
+					'card_title': product.title,
+					'card_category': product.category,
+					'card_price': product.price,
+					'card_link': path('app_marketplace_show', {id: product.id}),
+					'card_action': {
+						'link': path('app_marketplace_show', {id: product.id}),
+						'class': 'btn-primary',
+						'icon': 'shopping-bag',
+						'text': 'Acheter maintenant'|trans
+					},
+					'card_meta': [
+						{
+							'icon': 'user',
+							'text': product.user.userIdentifier
+						}
+					],
+					'card_badge': product.price ~ ' €'
+				} %}
 			{% endfor %}
 		</div>
+
+		{% if products is empty %}
+			<div class="text-center py-5 animate-fade-in">
+				{% include 'components/hero.html.twig' with {
+					'hero_title': 'Le marketplace est vide'|trans,
+					'hero_subtitle': 'Soyez le premier à explorer et à vendre vos équipements.'|trans,
+					'hero_actions': [
+						{
+							'link': path('app_marketplace_new'),
+							'class': 'btn-primary btn-lg',
+							'icon': 'plus-circle',
+							'text': 'Publier la première annonce'|trans
+						}
+					]
+				} %}
+			</div>
+		{% endif %}
 	</div>
+{% endblock %}
+
+{% block javascripts %}
+	<script>
+		// Category filter
+		document.querySelectorAll('.category-pill').forEach(pill => {
+			pill.addEventListener('click', function() {
+				const category = this.dataset.category;
+				const url = new URL(window.location);
+				if (category) {
+					url.searchParams.set('category', category);
+				} else {
+					url.searchParams.delete('category');
+				}
+				window.location.href = url.toString();
+			});
+		});
+	</script>
 {% endblock %}

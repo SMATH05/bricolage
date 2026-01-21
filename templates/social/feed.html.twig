@@ -67,50 +67,56 @@
 	{% endif %}
 
 	<!-- Feed Section -->
-	<div class="social-feed">
-		{% if posts is empty %}
-			<div class="text-center py-5 glass-card animate-fade-in rounded-4">
-				<div class="mb-4">
-					<i class="fas fa-stream fa-4x text-muted opacity-25"></i>
-				</div>
-				<h3 class="fw-bold">{{ 'Aucun post pour le moment'|trans }}</h3>
-				<p class="text-muted">{{ 'Soyez le premier à partager votre expérience !'|trans }}</p>
-				{% if not app.user %}
-					<a href="{{ path('app_login') }}" class="btn btn-primary rounded-pill px-4 mt-3">{{ 'Connectez-vous pour poster'|trans }}</a>
-				{% endif %}
-			</div>
-		{% else %}
 			{% for post in posts %}
-				<div
-					class="post-card mb-4 animate-slide-up bg-white rounded-4 overflow-hidden border shadow-sm">
-					<!-- Post Header -->
-					<div class="p-3 d-flex align-items-center justify-content-between">
-						<div class="d-flex align-items-center gap-3">
-							<div class="avatar-md rounded-circle" style="width: 40px; height: 40px; background: #eee; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid #fff; box-shadow: 0 0 10px rgba(0,0,0,0.05);">
-								{{ post.author.prenom ? post.author.prenom|slice(0, 1)|upper : post.author.email|slice(0, 1)|upper }}
-							</div>
-							<div>
-								<h6 class="mb-0 fw-bold">
+				<div class="col-md-6 col-lg-4 col-xl-3 mb-4 animate-fade-in">
+					<div class="post-card">
+						<!-- Post Header -->
+						<div class="p-3 d-flex align-items-center justify-content-between">
+							<div class="d-flex align-items-center gap-3">
+								<div class="avatar-md rounded-circle" style="width: 40px; height: 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; border: 2px solid white; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">
 									{% if post.author.prenom and post.author.nom %}
-										{{ post.author.prenom }} {{ post.author.nom }}
+										{{ post.author.prenom|slice(0, 1)|upper }}{{ post.author.nom|slice(0, 1)|upper }}
 									{% else %}
-										{{ post.author.email }}
+										{{ post.author.userIdentifier|slice(0, 1)|upper }}
 									{% endif %}
-								</h6>
-								<small class="text-muted">{{ post.createdAt|date('d/m/Y H:i') }}</small>
+								</div>
+								<div>
+									<h6 class="mb-0 fw-bold">
+										{% if post.author.prenom and post.author.nom %}
+											{{ post.author.prenom }} {{ post.author.nom }}
+										{% else %}
+											{{ post.author.userIdentifier }}
+										{% endif %}
+									</h6>
+									<small class="text-muted">{{ post.createdAt|date('d/m/Y H:i') }}</small>
+								</div>
 							</div>
-						</div>
-						<div class="dropdown">
-							<button class="btn btn-link text-muted p-0" data-bs-toggle="dropdown">
-								<i class="fas fa-ellipsis-h"></i>
-							</button>
-							<ul class="dropdown-menu dropdown-menu-end border-0 shadow">
-								<li>
-									<a class="dropdown-item" href="#">
-										<i class="fas fa-flag me-2"></i>
-										{{ 'Signaler'|trans }}</a>
-								</li>
-							</ul>
+							<div class="dropdown">
+								<button class="btn btn-link text-muted p-0" data-bs-toggle="dropdown" aria-expanded="false">
+									<i class="fas fa-ellipsis-h"></i>
+								</button>
+								<ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm mt-2" aria-labelledby="dropdownMenu{{ post.id }}">
+									<li>
+										<a class="dropdown-item" href="#">
+											<i class="fas fa-bookmark me-2"></i>
+											{{ 'Sauvegarder'|trans }}
+										</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="#">
+											<i class="fas fa-share me-2"></i>
+											{{ 'Partager'|trans }}
+										</a>
+									</li>
+									<li><hr class="dropdown-divider"></li>
+									<li>
+										<a class="dropdown-item text-danger" href="#">
+											<i class="fas fa-flag me-2"></i>
+											{{ 'Signaler'|trans }}
+										</a>
+									</li>
+								</ul>
+							</div>
 						</div>
 					</div>
 
@@ -123,18 +129,16 @@
 
 					<!-- Post Media -->
 					{% if post.media %}
-						<div class="post-media-container bg-light" style="min-height: 300px; display: flex; align-items: center; justify-content: center;">
+						<div class="post-media-container bg-light">
 							{% if post.mediaType == 'image' %}
-								<img src="/uploads/posts/{{ post.media }}" class="img-fluid w-100" style="max-height: 600px; object-fit: cover;" alt="Post media" onerror="console.error('Image failed to load:', this.src); this.style.display='none'; this.parentElement.innerHTML='<div class=\\'text-center p-4\\'><i class=\\'fas fa-exclamation-triangle fa-3x text-warning\\'></i><br><small>Image non disponible</small></div>';">
-								<!-- Debug: Media={{ post.media }}, Type={{ post.mediaType }}, FullPath=/uploads/posts/{{ post.media }} -->
+								<img src="/uploads/posts/{{ post.media }}" class="img-fluid w-100" style="max-height: 600px; object-fit: cover;" alt="Post media" onerror="this.parentElement.innerHTML='<div class=\"text-center p-4\"><i class=\"fas fa-exclamation-triangle fa-3x text-warning\"></i><br><small>Image non disponible</small></div>';">
 							{% elseif post.mediaType == 'video' %}
 								{% set _ext = post.media|split('.')|last|lower %}
 								{% set _mime = _ext == 'mp4' ? 'video/mp4' : (_ext == 'webm' ? 'video/webm' : ((_ext == 'ogg' or _ext == 'ogv') ? 'video/ogg' : (_ext == 'mov' ? 'video/quicktime' : 'application/octet-stream'))) %}
-								<video controls class="w-100" style="max-height: 600px; background: #000;" preload="metadata" onerror="console.error('Video failed to load:', this.currentSrc || this.src); this.style.display='none'; this.parentElement.innerHTML='<div class=\\'text-center p-4\\'><i class=\\'fas fa-exclamation-triangle fa-3x text-warning\\'></i><br><small>Vidéo non disponible</small></div>';">
+								<video controls class="w-100" style="max-height: 600px; background: #000;" preload="metadata" onerror="console.error('Video failed to load:', this.currentSrc || this.src); this.style.display='none'; this.parentElement.innerHTML='<div class=\"text-center p-4\"><i class=\"fas fa-exclamation-triangle fa-3x text-warning\"></i><br><small>Vidéo non disponible</small></div>';">
 									<source src="/uploads/posts/{{ post.media }}" type="{{ _mime }}">
 									{{ 'Votre navigateur ne supporte pas la balise vidéo.'|trans }}
 								</video>
-								<!-- Debug: Media={{ post.media }}, Type={{ post.mediaType }}, FullPath=/uploads/posts/{{ post.media }} -->
 							{% else %}
 								<div class="text-center p-4">
 									<i class="fas fa-file fa-3x text-muted"></i>
@@ -149,65 +153,20 @@
 					<!-- Post Actions -->
 					<div class="p-3">
 						<div class="d-flex align-items-center gap-4 mb-2">
-							<button class="btn btn-link p-0 text-decoration-none post-action-like" data-id="{{ post.id }}" style="font-size: 1.5rem; color: #262626;">
+							<button class="btn btn-link p-0 text-decoration-none post-action-like animate-pulse" data-id="{{ post.id }}" style="font-size: 1.5rem; color: #262626;">
 								<i class="far fa-heart"></i>
 							</button>
-							<button class="btn btn-link p-0 text-decoration-none" style="font-size: 1.5rem; color: #262626;" onclick="document.getElementById('comment-input-{{ post.id }}').focus()">
-								<i class="far fa-comment"></i>
-							</button>
-							<button class="btn btn-link p-0 text-decoration-none" style="font-size: 1.5rem; color: #262626;">
-								<i class="far fa-paper-plane"></i>
+							<button class="btn btn-link p-0 text-decoration-none" data-bs-toggle="modal" data-bs-target="#commentModal{{ post.id }}">
+								<i class="far fa-comment me-2"></i>
 							</button>
 						</div>
-						<div class="fw-bold mb-2">
-							<span id="likes-count-{{ post.id }}">{{ post.likes|length }}</span>
-							{{ 'J\'aime'|trans }}
-							</div>
-
-							<!-- Comments List -->
-							<div class="comments-preview mb-3">
-								{% for comment in post.comments|slice(0, 3) %}
-									<div class="mb-1">
-										<span class="fw-bold">{{ comment.author.userIdentifier }}</span> {{ comment.content }}
-									</div>
-								{% endfor %}
-								{% if post.comments|length > 3 %}
-									<a href="#" class="text-muted small text-decoration-none">{{ 'Voir les ' ~ post.comments|length ~ ' commentaires'|trans }}</a>
-								{% endif %}
-							</div>
-
-							<!-- Comment Input -->
-							{% if app.user %}
-								<form action="{{ path('app_social_comment', {id: post.id}) }}" method="POST" class="mt-2 border-top pt-2 d-flex align-items-center gap-2">
-									<input type="text" id="comment-input-{{ post.id }}" name="content" class="form-control border-0 shadow-none px-0" placeholder="{{ 'Ajouter un commentaire...'|trans }}" required>
-									<button type="submit" class="btn btn-link fw-bold text-primary text-decoration-none">{{ 'Publier'|trans }}</button>
-								</form>
-							{% endif %}
+						<div class="d-flex align-items-center gap-4">
+							<small class="text-muted">
+								<span id="likes-count-{{ post.id }}">{{ post.likes|length }}</span>
+								{{ 'J\'aime'|trans }}
+							</small>
 						</div>
 					</div>
-				{% endfor %}
-			{% endif %}
-		</div>
-	</div>
-
-	<!-- Modal Creation Post -->
-	{% if app.user %}
-		<div class="modal fade" id="createPostModal" tabindex="-1" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content border-0 shadow-lg rounded-4">
-					<div class="modal-header border-bottom-0">
-						<h5 class="modal-title fw-bold w-100 text-center">{{ 'Créer une publication'|trans }}</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<form action="{{ path('app_social_post_create') }}" method="POST" enctype="multipart/form-data">
-						<div class="modal-body">
-							<div class="d-flex align-items-center gap-3 mb-3">
-								<div class="avatar-sm rounded-circle" style="width: 35px; height: 35px; background: #eee; display: flex; align-items: center; justify-content: center; font-weight: bold;">
-									{{ app.user.userIdentifier|slice(0, 1)|upper }}
-								</div>
-								<span class="fw-bold">{{ app.user.userIdentifier }}</span>
-							</div>
-							<textarea name="content" class="form-control border-0 shadow-none p-0 mb-3" rows="3" placeholder="{{ 'Que voulez-vous partager ?'|trans }}" style="font-size: 1.2rem; resize: none;"></textarea>
 							
 							<div class="preview-container mb-3 d-none">
 								<img id="mediaPreview" src="#" class="img-fluid rounded-3 border" style="max-height: 200px; display: block; margin: 0 auto;">
