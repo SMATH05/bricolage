@@ -25,7 +25,22 @@
     Header set Content-Type "image/webp"
 </FilesMatch>
 
-<FilesMatch "\.(mp4|webm|ogg|mov)$">
+<FilesMatch "\.mp4$">
     Header set Content-Type "video/mp4"
+    Header set Cache-Control "public, max-age=31536000"
+</FilesMatch>
+
+<FilesMatch "\.webm$">
+    Header set Content-Type "video/webm"
+    Header set Cache-Control "public, max-age=31536000"
+</FilesMatch>
+
+<FilesMatch "\.(ogg|ogv)$">
+    Header set Content-Type "video/ogg"
+    Header set Cache-Control "public, max-age=31536000"
+</FilesMatch>
+
+<FilesMatch "\.mov$">
+    Header set Content-Type "video/quicktime"
     Header set Cache-Control "public, max-age=31536000"
 </FilesMatch>
