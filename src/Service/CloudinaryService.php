@@ -3,8 +3,6 @@
 namespace App\Service;
 
 use Cloudinary\Cloudinary;
-use Cloudinary\Configuration\Configuration;
-use Cloudinary\Api\Upload\UploadApi;
 
 class CloudinaryService
 {
@@ -12,17 +10,8 @@ class CloudinaryService
 
     public function __construct(string $cloudinaryUrl)
     {
-        Configuration::instance($cloudinaryUrl);
-        $this->cloudinary = new Cloudinary([
-            'cloud' => [
-                'cloud_name' => parse_url($cloudinaryUrl, PHP_URL_HOST),
-                'api_key' => parse_url($cloudinaryUrl, PHP_URL_USER),
-                'api_secret' => parse_url($cloudinaryUrl, PHP_URL_PASS),
-            ],
-            'url' => [
-                'secure' => true
-            ]
-        ]);
+        // Parse cloudinary://API_KEY:API_SECRET@CLOUD_NAME
+        $this->cloudinary = new Cloudinary($cloudinaryUrl);
     }
 
     public function uploadFile(string $filePath, string $folder = 'bricolage_uploads'): array
