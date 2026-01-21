@@ -1,107 +1,375 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register | Bricolage
-{% endblock %}
+{% block title %}{{ 'Inscription'|trans }} | Bricolage{% endblock %}
 
 {% block stylesheets %}
 	{{ parent() }}
-	<link rel="stylesheet" href="{{ asset('styles/register.css') }}">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<style>
+		.login-container {
+			max-width: 500px;
+			margin: 40px auto;
+			padding: 40px;
+			background: white;
+			border-radius: 24px;
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+			border: 1px solid #e2e8f0;
+		}
+
+		.login-header {
+			text-align: center;
+			margin-bottom: 32px;
+		}
+
+		.login-title {
+			font-size: 1.8rem;
+			font-weight: 700;
+			color: #1e293b;
+			margin-bottom: 12px;
+		}
+
+		.login-subtitle {
+			color: #64748b;
+			font-size: 1rem;
+			line-height: 1.5;
+		}
+
+		.form-control, .premium-input {
+			border: 2px solid #e2e8f0;
+			border-radius: 16px;
+			padding: 16px 20px;
+			font-size: 1rem;
+			transition: all 0.3s ease;
+			width: 100%;
+			margin-bottom: 16px;
+			box-sizing: border-box;
+		}
+
+		.form-control:focus, .premium-input:focus {
+			border-color: #667eea;
+			box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+			outline: none;
+		}
+
+		.form-row {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 16px;
+		}
+
+		.form-group {
+			margin-bottom: 20px;
+		}
+
+		.form-group:last-child {
+			margin-bottom: 0;
+		}
+
+		.form-label {
+			display: block;
+			margin-bottom: 8px;
+			font-weight: 600;
+			color: #1e293b;
+			font-size: 0.95rem;
+		}
+
+		.btn-primary {
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			border: none;
+			border-radius: 16px;
+			padding: 16px 24px;
+			font-weight: 600;
+			transition: all 0.3s ease;
+			width: 100%;
+			color: white;
+			font-size: 1rem;
+			cursor: pointer;
+			margin-top: 10px;
+		}
+
+		.btn-primary:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+		}
+
+		.form-check {
+			margin-bottom: 20px;
+			display: flex;
+			align-items: center;
+		}
+
+		.form-check input[type="checkbox"] {
+			margin-right: 8px;
+			width: 18px;
+			height: 18px;
+			cursor: pointer;
+		}
+
+		.form-check label {
+			margin: 0;
+			cursor: pointer;
+			color: #64748b;
+		}
+
+		.form-check a {
+			color: #667eea;
+			text-decoration: none;
+			font-weight: 600;
+		}
+
+		.form-check a:hover {
+			color: #764ba2;
+		}
+
+		.role-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 12px;
+			margin-top: 12px;
+		}
+
+		.role-option {
+			position: relative;
+		}
+
+		.role-option input[type="radio"] {
+			display: none;
+		}
+
+		.role-option label {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+			padding: 12px 16px;
+			border: 2px solid #e2e8f0;
+			border-radius: 12px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			text-align: center;
+			flex-direction: column;
+		}
+
+		.role-option input[type="radio"]:checked + label {
+			border-color: #667eea;
+			background-color: rgba(102, 126, 234, 0.1);
+			color: #667eea;
+		}
+
+		.role-option label:hover {
+			border-color: #667eea;
+		}
+
+		.role-option i {
+			font-size: 24px;
+		}
+
+		.register-link {
+			text-align: center;
+			margin-top: 24px;
+			padding-top: 24px;
+			border-top: 1px solid #e2e8f0;
+		}
+
+		.register-link p, .register-link a {
+			color: #64748b;
+			margin: 0;
+		}
+
+		.register-link a {
+			color: #667eea;
+			text-decoration: none;
+			font-weight: 600;
+		}
+
+		.register-link a:hover {
+			color: #764ba2;
+		}
+
+		.auth-divider {
+			text-align: center;
+			margin: 24px 0;
+			position: relative;
+		}
+
+		.auth-divider::before {
+			content: '';
+			position: absolute;
+			top: 50%;
+			left: 0;
+			right: 0;
+			height: 1px;
+			background: #e2e8f0;
+		}
+
+		.auth-divider span {
+			position: relative;
+			background: white;
+			padding: 0 12px;
+			color: #64748b;
+			font-size: 0.9rem;
+		}
+
+		.google-btn-premium {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+			padding: 12px 16px;
+			border: 2px solid #e2e8f0;
+			border-radius: 12px;
+			color: #1e293b;
+			text-decoration: none;
+			font-weight: 600;
+			transition: all 0.3s ease;
+			background: white;
+		}
+
+		.google-btn-premium img {
+			width: 20px;
+			height: 20px;
+		}
+
+		.google-btn-premium:hover {
+			border-color: #667eea;
+			background-color: rgba(102, 126, 234, 0.05);
+		}
+
+		.alert {
+			padding: 12px 16px;
+			border-radius: 8px;
+			margin-bottom: 20px;
+		}
+
+		.alert-danger {
+			background-color: #fee2e2;
+			border: 1px solid #fecaca;
+			color: #dc2626;
+		}
+
+		@media (max-width: 768px) {
+			.login-container {
+				margin: 40px 16px;
+				padding: 32px 24px;
+			}
+
+			.form-row {
+				grid-template-columns: 1fr;
+			}
+
+			.role-grid {
+				grid-template-columns: 1fr;
+			}
+		}
+	</style>
 {% endblock %}
 
 {% block body %}
-	<div class="auth-wrapper">
-		<div class="auth-logo">BRICOLAGE</div>
-		<a href="{{ path('app_home') }}" class="auth-back-btn">←
-			{{ 'Retour au site'|trans }}</a>
-		<div class="auth-tagline">Capturing Moments, Creating Memories</div>
-
-		<div class="auth-card animate-fade-in">
-			<div class="auth-header">
-				<h1>{{ 'Créer un compte'|trans }}</h1>
-				<p>{{ "Vous n'avez pas de compte ?"|trans }}
-					<a href="{{ path('app_login') }}">{{ 'Se connecter'|trans }}</a>
-				</p>
-			</div>
-
-			{{ form_start(registrationForm, {'attr': {'class': 'auth-form'}}) }}
-
-			<div class="form-row">
-				<div class="form-group">
-					<label class="form-label" for="{{ registrationForm.prenom.vars.id }}">{{ 'Prénom'|trans }}</label>
-					{{ form_widget(registrationForm.prenom) }}
-					{{ form_errors(registrationForm.prenom) }}
-				</div>
-				<div class="form-group">
-					<label class="form-label" for="{{ registrationForm.nom.vars.id }}">{{ 'Nom'|trans }}</label>
-					{{ form_widget(registrationForm.nom) }}
-					{{ form_errors(registrationForm.nom) }}
-				</div>
-			</div>
-
-			<div class="form-group">
-				{{ form_errors(registrationForm) }}
-				<label class="form-label" for="{{ registrationForm.email.vars.id }}">Email</label>
-				{{ form_widget(registrationForm.email, {'attr': {'placeholder': 'Email', 'class': 'premium-input', 'autocapitalize': 'none', 'autocorrect': 'off', 'spellcheck': 'false'}}) }}
-				{{ form_errors(registrationForm.email) }}
-			</div>
-
-			<div class="form-group">
-				<label class="form-label" for="{{ registrationForm.plainPassword.vars.id }}">{{ 'Mot de passe'|trans }}</label>
-				{{ form_widget(registrationForm.plainPassword, {'attr': {'placeholder': 'Entrez votre mot de passe'|trans, 'class': 'premium-input', 'autocapitalize': 'none', 'autocorrect': 'off', 'spellcheck': 'false'}}) }}
-				{{ form_errors(registrationForm.plainPassword) }}
-			</div>
-
-			<div class="form-group">
-				<label class="form-label">{{ "Je souhaite m'inscrire en tant que :"|trans }}</label>
-				<div class="role-grid">
-					{% for role in registrationForm.roles %}
-						<div class="role-option">
-							<input type="radio" id="{{ role.vars.id }}" name="{{ role.vars.full_name }}" value="{{ role.vars.value }}" {% if role.vars.checked %} checked {% endif %}>
-							<label for="{{ role.vars.id }}">
-								{% if role.vars.label == 'Admin' %}
-									<i class="fas fa-user-shield"></i>
-								{% elseif role.vars.label == 'Recruteur' %}
-									<i class="fas fa-hammer"></i>
-								{% else %}
-									<i class="fas fa-search"></i>
-								{% endif %}
-								<span>{{ role.vars.label|trans }}</span>
-							</label>
-						</div>
-					{% endfor %}
-				</div>
-			</div>
-
-			<div class="form-check">
-				{{ form_widget(registrationForm.agreeTerms) }}
-				<label for="{{ registrationForm.agreeTerms.vars.id }}">
-					{{ "J'accepte les"|trans }}
-					<a href="#">{{ "Conditions d'utilisation"|trans }}</a>
-				</label>
-			</div>
-
-			<button type="submit" class="btn-auth-primary">
-				{{ 'Créer un compte'|trans }}
-			</button>
-
-			<div class="auth-divider">
-				<span>{{ 'Ou inscrivez-vous avec'|trans }}</span>
-			</div>
-
-			<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-				<a href="{{ path('connect_google_start') }}" class="google-btn-premium">
-					<img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="Google">
-					Google
-				</a>
-				<a href="#" class="google-btn-premium" style="justify-content: center;">
-					<i class="fab fa-apple" style="font-size: 20px;"></i>
-					Apple
-				</a>
-			</div>
-
-			{% do registrationForm.roles.setRendered %}
-			{{ form_end(registrationForm) }}
+	<div class="login-container">
+		<div class="login-header">
+			<h1 class="login-title">{{ 'Créer un compte'|trans }}</h1>
+			<p class="login-subtitle">
+				{{ 'Déjà un compte ?'|trans }} <a href="{{ path('app_login') }}" style="color: #667eea; text-decoration: none; font-weight: 600;">{{ 'Se connecter'|trans }}</a>
+			</p>
 		</div>
+
+		{% if form_errors(registrationForm) %}
+			<div class="alert alert-danger">
+				{{ form_errors(registrationForm) }}
+			</div>
+		{% endif %}
+
+		{{ form_start(registrationForm, {'attr': {'class': 'auth-form'}}) }}
+
+		<div class="form-row">
+			<div class="form-group">
+				<label class="form-label" for="{{ registrationForm.prenom.vars.id }}">{{ 'Prénom'|trans }}</label>
+				{{ form_widget(registrationForm.prenom, {'attr': {'placeholder': 'Prénom'|trans, 'class': 'form-control'}}) }}
+				{% if form_errors(registrationForm.prenom) %}
+					<div style="color: #dc2626; font-size: 0.875rem; margin-top: -12px; margin-bottom: 12px;">
+						{{ form_errors(registrationForm.prenom) }}
+					</div>
+				{% endif %}
+			</div>
+			<div class="form-group">
+				<label class="form-label" for="{{ registrationForm.nom.vars.id }}">{{ 'Nom'|trans }}</label>
+				{{ form_widget(registrationForm.nom, {'attr': {'placeholder': 'Nom'|trans, 'class': 'form-control'}}) }}
+				{% if form_errors(registrationForm.nom) %}
+					<div style="color: #dc2626; font-size: 0.875rem; margin-top: -12px; margin-bottom: 12px;">
+						{{ form_errors(registrationForm.nom) }}
+					</div>
+				{% endif %}
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="form-label" for="{{ registrationForm.email.vars.id }}">{{ 'Email'|trans }}</label>
+			{{ form_widget(registrationForm.email, {'attr': {'placeholder': 'votre.email@example.com', 'class': 'form-control', 'autocapitalize': 'none', 'autocorrect': 'off', 'spellcheck': 'false'}}) }}
+			{% if form_errors(registrationForm.email) %}
+				<div style="color: #dc2626; font-size: 0.875rem; margin-top: -12px; margin-bottom: 12px;">
+					{{ form_errors(registrationForm.email) }}
+				</div>
+			{% endif %}
+		</div>
+
+		<div class="form-group">
+			<label class="form-label" for="{{ registrationForm.plainPassword.vars.id }}">{{ 'Mot de passe'|trans }}</label>
+			{{ form_widget(registrationForm.plainPassword, {'attr': {'placeholder': 'Entrez votre mot de passe'|trans, 'class': 'form-control', 'autocapitalize': 'none', 'autocorrect': 'off', 'spellcheck': 'false'}}) }}
+			{% if form_errors(registrationForm.plainPassword) %}
+				<div style="color: #dc2626; font-size: 0.875rem; margin-top: -12px; margin-bottom: 12px;">
+					{{ form_errors(registrationForm.plainPassword) }}
+				</div>
+			{% endif %}
+		</div>
+
+		<div class="form-group">
+			<label class="form-label">{{ "Je souhaite m'inscrire en tant que :"|trans }}</label>
+			<div class="role-grid">
+				{% for role in registrationForm.roles %}
+					<div class="role-option">
+						<input type="radio" id="{{ role.vars.id }}" name="{{ role.vars.full_name }}" value="{{ role.vars.value }}" {% if role.vars.checked %} checked {% endif %}>
+						<label for="{{ role.vars.id }}">
+							{% if role.vars.label == 'Admin' %}
+								<i class="fas fa-user-shield"></i>
+							{% elseif role.vars.label == 'Recruteur' %}
+								<i class="fas fa-wrench"></i>
+							{% else %}
+								<i class="fas fa-search"></i>
+							{% endif %}
+							<span>{{ role.vars.label|trans }}</span>
+						</label>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+
+		<div class="form-check">
+			{{ form_widget(registrationForm.agreeTerms, {'attr': {'class': ''}}) }}
+			<label for="{{ registrationForm.agreeTerms.vars.id }}">
+				{{ "J'accepte les"|trans }}
+				<a href="#">{{ "Conditions d'utilisation"|trans }}</a>
+			</label>
+		</div>
+
+		<button type="submit" class="btn-primary">
+			{{ 'Créer un compte'|trans }}
+		</button>
+
+		<div class="auth-divider">
+			<span>{{ 'Ou inscrivez-vous avec'|trans }}</span>
+		</div>
+
+		<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+			<a href="{{ path('connect_google_start') }}" class="google-btn-premium">
+				<img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="Google">
+				Google
+			</a>
+			<a href="#" class="google-btn-premium" style="justify-content: center;">
+				<i class="fab fa-apple" style="font-size: 20px;"></i>
+				Apple
+			</a>
+		</div>
+
+		{% do registrationForm.roles.setRendered %}
+		{{ form_end(registrationForm) }}
 	</div>
 {% endblock %}
