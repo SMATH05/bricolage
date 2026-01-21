@@ -78,44 +78,41 @@ class SocialController extends AbstractController
             $safeFilename = $slugger->slug($originalFilename);
             $newFilename = $safeFilename . '-' . uniqid() . '.' . $mediaFile->guessExtension();
             
-            // Debug: Log upload info
-            error_log('Upload debug - Original: ' . $originalFilename . ', New: ' . $newFilename);
-            error_log('Upload debug - Directory: ' . $this->getParameter('posts_directory'));
-            error_log('Upload debug - File size: ' . $mediaFile->getSize());
-            error_log('Upload debug - Mime type: ' . $mediaFile->getMimeType());
-            
-            // Get file content immediately before temp file is deleted
-            $fileContent = file_get_contents($mediaFile->getPathname());
-            error_log('Upload debug - Got file content, size: ' . strlen($fileContent));
+            error_log('Upload started - File: ' . $newFilename);
 
             try {
-                // Ensure directory exists and is writable
+                // Ensure directory exists with proper permissions
                 $uploadDir = $this->getParameter('posts_directory');
+                
                 if (!is_dir($uploadDir)) {
-                    mkdir($uploadDir, 0777, true);
-                    error_log('Created upload directory: ' . $uploadDir);
+                    @mkdir($uploadDir, 0777, true);
+                    error_log('Created directory: ' . $uploadDir);
+                }
+                
+                // Ensure writable
+                @chmod($uploadDir, 0777);
+                
+                if (!is_dir($uploadDir)) {
+                    throw new \Exception('Could not create upload directory: ' . $uploadDir);
                 }
                 
                 if (!is_writable($uploadDir)) {
-                    error_log('Upload directory is not writable: ' . $uploadDir);
-                    $this->addFlash('error', 'Upload directory is not writable');
-                    return $this->redirectToRoute('app_social_feed');
+                    throw new \Exception('Upload directory not writable: ' . $uploadDir);
                 }
                 
-                // Write file directly from content instead of moving temp file
+                // Use Symfony's move method which is more reliable than manual file_put_contents
+                $mediaFile->move($uploadDir, $newFilename);
+                
+                // Verify file was actually written
                 $targetPath = $uploadDir . '/' . $newFilename;
-                if (file_put_contents($targetPath, $fileContent)) {
-                    error_log('File written successfully using file_put_contents');
-                } else {
-                    throw new \Exception('Failed to write file using file_put_contents');
+                if (!file_exists($targetPath)) {
+                    throw new \Exception('File was not written to disk: ' . $targetPath);
                 }
+                
+                error_log('✅ File uploaded successfully: ' . $targetPath);
+                error_log('File size: ' . filesize($targetPath) . ' bytes');
                 
                 $post->setMedia($newFilename);
-                
-                error_log('Upload debug - File written successfully: ' . $newFilename);
-                error_log('Upload debug - Full path: ' . $targetPath);
-                error_log('Upload debug - File exists after write: ' . (file_exists($targetPath) ? 'Yes' : 'No'));
-                error_log('Upload debug - File size: ' . filesize($targetPath) . ' bytes');
                 
                 $ext = strtolower($mediaFile->guessExtension());
                 $mimeType = strtolower($mediaFile->getMimeType());
