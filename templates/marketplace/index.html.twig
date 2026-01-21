@@ -8,217 +8,487 @@
 {% block stylesheets %}
 	{{ parent() }}
 	<style>
+		/* Hero Section */
 		.marketplace-hero {
-			background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-			padding: 60px 0;
-			border-radius: 0 0 40px 40px;
-			margin-bottom: -40px;
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			padding: 80px 0 100px;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.marketplace-hero::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:rgb(255,255,255,0);stop-opacity:0.3" /><stop offset="100%" style="stop-color:rgb(255,255,255,0);stop-opacity:0" /></linearGradient></defs><polygon points="0,0 100,100 100,0" fill="url(%23grad1)" /></svg>');
+			opacity: 0.4;
+		}
+
+		.hero-content {
+			position: relative;
+			z-index: 2;
+		}
+
+		.hero-title {
+			font-size: 3.5rem;
+			font-weight: 900;
+			margin-bottom: 20px;
+			text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		}
+
+		.hero-subtitle {
+			font-size: 1.3rem;
+			opacity: 0.95;
+			margin-bottom: 40px;
+		}
+
+		/* Search Section */
+		.search-container {
+			background: white;
+			border-radius: 24px;
+			padding: 32px;
+			box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+			margin-top: -50px;
+			position: relative;
+			z-index: 10;
+		}
+
+		.search-form {
+			display: flex;
+			gap: 16px;
+			align-items: stretch;
+		}
+
+		.search-input {
+			flex: 1;
+			border: 2px solid #e2e8f0;
+			border-radius: 16px;
+			padding: 16px 20px;
+			font-size: 1rem;
+			transition: all 0.3s ease;
+		}
+
+		.search-input:focus {
+			border-color: #667eea;
+			box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+			outline: none;
+		}
+
+		.search-select {
+			border: 2px solid #e2e8f0;
+			border-radius: 16px;
+			padding: 16px 20px;
+			font-size: 1rem;
+			transition: all 0.3s ease;
+			min-width: 200px;
+		}
+
+		.search-select:focus {
+			border-color: #667eea;
+			box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+			outline: none;
+		}
+
+		.search-btn {
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 			color: white;
+			border: none;
+			border-radius: 16px;
+			padding: 16px 32px;
+			font-weight: 600;
+			transition: all 0.3s ease;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+		}
+
+		.search-btn:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+		}
+
+		/* Category Pills */
+		.category-container {
+			display: flex;
+			gap: 12px;
+			flex-wrap: wrap;
+			margin: 40px 0;
+		}
+
+		.category-pill {
+			background: white;
+			border: 2px solid #e2e8f0;
+			border-radius: 25px;
+			padding: 12px 24px;
+			font-weight: 600;
+			transition: all 0.3s ease;
+			cursor: pointer;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.category-pill::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: -100%;
+			width: 100%;
+			height: 100%;
+			background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1));
+			transition: all 0.3s ease;
+		}
+
+		.category-pill:hover {
+			border-color: #667eea;
+			transform: translateY(-2px);
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+		}
+
+		.category-pill:hover::before {
+			left: 0;
+		}
+
+		.category-pill.active {
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			color: white;
+			border-color: transparent;
+		}
+
+		/* Product Grid */
+		.product-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+			gap: 32px;
+			margin-top: 40px;
 		}
 
 		.product-card {
 			background: white;
-			border: none;
-			border-radius: 24px;
+			border-radius: 20px;
 			overflow: hidden;
 			transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 			position: relative;
 		}
 
 		.product-card:hover {
-			transform: translateY(-10px);
-			box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.15);
+			transform: translateY(-12px);
+			box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
 		}
 
 		.product-image-wrapper {
-			height: 240px;
+			height: 280px;
 			position: relative;
 			overflow: hidden;
 		}
 
-		.product-image-wrapper img {
+		.product-image {
 			width: 100%;
 			height: 100%;
 			object-fit: cover;
 			transition: transform 0.6s ease;
 		}
 
-		.product-card:hover .product-image-wrapper img {
+		.product-card:hover .product-image {
 			transform: scale(1.1);
 		}
 
-		.price-tag {
+		.product-badge {
 			position: absolute;
 			top: 20px;
 			right: 20px;
-			background: white;
-			color: #0f172a;
-			font-weight: 800;
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			color: white;
 			padding: 8px 16px;
-			border-radius: 12px;
-			box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-			z-index: 2;
+			border-radius: 20px;
+			font-weight: 700;
+			font-size: 0.9rem;
+			box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 		}
 
-		.category-chip {
-			display: inline-block;
-			background: #f1f5f9;
-			color: #64748b;
+		.product-content {
+			padding: 24px;
+		}
+
+		.product-category {
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			color: white;
 			font-size: 0.75rem;
-			font-weight: 700;
+			font-weight: 600;
+			padding: 6px 14px;
+			border-radius: 20px;
 			text-transform: uppercase;
 			letter-spacing: 0.5px;
-			padding: 4px 12px;
-			border-radius: 100px;
-			margin-bottom: 12px;
+			display: inline-block;
+			margin-bottom: 16px;
 		}
 
 		.product-title {
-			font-size: 1.1rem;
+			font-size: 1.3rem;
 			font-weight: 700;
 			color: #1e293b;
-			margin-bottom: 8px;
-			display: -webkit-box;
-			-webkit-line-clamp: 1;
-			-webkit-box-orient: vertical;
-			overflow: hidden;
+			margin-bottom: 12px;
+			line-height: 1.3;
+		}
+
+		.product-description {
+			color: #64748b;
+			line-height: 1.6;
+			margin-bottom: 20px;
+		}
+
+		.product-meta {
+			display: flex;
+			align-items: center;
+			gap: 16px;
+			margin-bottom: 20px;
+			padding-top: 20px;
+			border-top: 1px solid #e2e8f0;
 		}
 
 		.seller-info {
 			display: flex;
 			align-items: center;
 			gap: 10px;
-			padding-top: 15px;
-			border-top: 1px solid #f1f5f9;
-			margin-top: 15px;
 		}
 
 		.seller-avatar {
-			width: 30px;
-			height: 30px;
-			border-radius: 8px;
-			background: #e2e8f0;
+			width: 32px;
+			height: 32px;
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			border-radius: 50%;
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			font-size: 0.8rem;
 			font-weight: 700;
-			color: #475569;
+			color: white;
+			font-size: 0.8rem;
+		}
+
+		.product-actions {
+			display: flex;
+			gap: 12px;
+		}
+
+		.btn-modern {
+			border-radius: 25px;
+			padding: 12px 24px;
+			font-weight: 600;
+			text-decoration: none;
+			transition: all 0.3s ease;
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+		}
+
+		.btn-primary-modern {
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			color: white;
+		}
+
+		.btn-primary-modern:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+		}
+
+		.btn-outline-modern {
+			background: transparent;
+			color: #667eea;
+			border: 2px solid #667eea;
+		}
+
+		.btn-outline-modern:hover {
+			background: #667eea;
+			color: white;
+			transform: translateY(-2px);
+		}
+
+		/* Empty State */
+		.empty-state {
+			text-align: center;
+			padding: 80px 20px;
+		}
+
+		.empty-icon {
+			font-size: 6rem;
+			color: #cbd5e1;
+			margin-bottom: 24px;
+		}
+
+		/* Animations */
+		@keyframes fadeInUp {
+			from {
+				opacity: 0;
+				transform: translateY(30px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		.animate-fade-in {
+			animation: fadeInUp 0.6s ease-out;
+		}
+
+		/* Responsive */
+		@media (max-width: 768px) {
+			.hero-title {
+				font-size: 2.5rem;
+			}
+
+			.search-form {
+				flex-direction: column;
+			}
+
+			.search-select {
+				min-width: 100%;
+			}
+
+			.product-grid {
+				grid-template-columns: 1fr;
+				gap: 24px;
+			}
+
+			.search-container {
+				margin: -30px 16px 0;
+				border-radius: 20px;
+				padding: 24px;
+			}
 		}
 	</style>
 {% endblock %}
 
 {% block body %}
-	{# Marketplace Hero Header #}
+	<!-- Hero Section -->
 	<div class="marketplace-hero">
 		<div class="container">
-			<div class="row align-items-center">
-				<div class="col-lg-7">
-					<h1 class="display-4 fw-black mb-3" style="font-weight: 900;">{{ 'Marketplace Bricolage'|trans }}</h1>
-					<p class="fs-5 text-white-50 mb-4">{{ "Trouvez les meilleurs outils, matériaux et équipements de qualité professionnelle à prix réduit."|trans }}</p>
-					<div class="d-flex gap-3">
-						<a href="{{ path('app_marketplace_new') }}" class="btn btn-primary btn-lg rounded-pill px-5 py-3 shadow-lg">
-							<i class="fas fa-plus-circle me-2"></i>
-							{{ 'Vendre un article'|trans }}
-						</a>
-						<a href="#articles" class="btn btn-outline-light btn-lg rounded-pill px-4 py-3 border-opacity-25">
-							{{ "Explorer plus"|trans }}
-						</a>
-					</div>
-				</div>
-				<div class="col-lg-5 d-none d-lg-block text-center">
-					<div class="glass-card p-4 rounded-4 rotate-3" style="transform: rotate(2deg);">
-						<i class="fas fa-tools fa-6x opacity-25"></i>
-					</div>
+			<div class="hero-content text-center">
+				<h1 class="hero-title animate-fade-in">{{ 'Marketplace Bricolage'|trans }}</h1>
+				<p class="hero-subtitle animate-fade-in">{{ "Trouvez les meilleurs outils, matériaux et équipements de qualité professionnelle à prix réduit."|trans }}</p>
+				<div class="d-flex gap-3 justify-content-center animate-fade-in">
+					<a href="{{ path('app_marketplace_new') }}" class="btn btn-light btn-lg rounded-pill px-5 py-3 shadow-lg">
+						<i class="fas fa-plus-circle me-2"></i>
+						{{ 'Vendre un article'|trans }}
+					</a>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<div
-		class="container py-5 mt-4" id="articles">
-		{# Search Form #}
-		<div class="row mb-4">
-			<div class="col-12">
-				<div class="glass-card p-4 rounded-4 shadow-sm">
-					<form method="GET" action="{{ path('app_marketplace') }}" class="row g-3 align-items-end">
-						<div class="col-md-5">
-							<label for="search" class="form-label fw-bold">{{ 'Rechercher un produit'|trans }}</label>
-							<input type="text" 
-								   id="search" 
-								   name="search" 
-								   class="form-control form-control-lg rounded-pill border-0 shadow-sm" 
-								   placeholder="{{ 'Mots-clés, marque, modèle...'|trans }}"
-								   value="{{ search }}">
-						</div>
-						<div class="col-md-4">
-
-				<select id="category" 
-						name="category" 
-						class="form-select form-select-lg rounded-pill border-0 shadow-sm">
+	<div class="container">
+		<!-- Search Section -->
+		<div class="search-container animate-fade-in">
+			<form method="GET" action="{{ path('app_marketplace') }}" class="search-form">
+				<input type="text" 
+					   name="search" 
+					   class="search-input" 
+					   placeholder="{{ 'Rechercher un produit...'|trans }}"
+					   value="{{ search }}">
+				<select name="category" class="search-select">
 					<option value="">{{ 'Toutes les catégories'|trans }}</option>
-					<option value="Outils" {{ category == 'Outils' ? 'selected' : '' }}>{{ 'Outils'|trans }}</option>
-					<option value="Matériaux" {{ category == 'Matériaux' ? 'selected' : '' }}>{{ 'Matériaux'|trans }}</option>
-					<option value="Jardin" {{ category == 'Jardin' ? 'selected' : '' }}>{{ 'Jardin'|trans }}</option>
-					<option value="Électrique" {{ category == 'Électrique' ? 'selected' : '' }}>{{ 'Électrique'|trans }}</option>
+					<option value="outillage" {{ category == 'outillage' ? 'selected' : '' }}>{{ 'Outils'|trans }}</option>
+					<option value="materiaux" {{ category == 'materiaux' ? 'selected' : '' }}>{{ 'Matériaux'|trans }}</option>
+					<option value="equipement" {{ category == 'equipement' ? 'selected' : '' }}>{{ 'Équipement'|trans }}</option>
+					<option value="jardin" {{ category == 'jardin' ? 'selected' : '' }}>{{ 'Jardin'|trans }}</option>
+					<option value="autre" {{ category == 'autre' ? 'selected' : '' }}>{{ 'Autre'|trans }}</option>
 				</select>
-			</div>
+				<button type="submit" class="search-btn">
+					<i class="fas fa-search"></i>
+					{{ 'Rechercher'|trans }}
+				</button>
+			</form>
 		</div>
 
 		<!-- Category Pills -->
-		<div class="row mb-4">
-			<div class="col-12">
-				<div class="d-flex gap-2 flex-wrap">
-					<button class="category-pill animate-fade-in" data-category="">{{ 'Tous'|trans }}</button>
-					<button class="category-pill animate-fade-in" data-category="outillage">{{ 'Outils'|trans }}</button>
-					<button class="category-pill animate-fade-in" data-category="materiaux">{{ 'Matériaux'|trans }}</button>
-					<button class="category-pill animate-fade-in" data-category="equipement">{{ 'Équipement'|trans }}</button>
-					<button class="category-pill animate-fade-in" data-category="jardin">{{ 'Jardin'|trans }}</button>
-					<button class="category-pill animate-fade-in" data-category="autre">{{ 'Autre'|trans }}</button>
-				</div>
-			</div>
+		<div class="category-container">
+			<button class="category-pill {{ category == '' ? 'active' : '' }}" data-category="">
+				<i class="fas fa-th me-2"></i>
+				{{ 'Tous'|trans }}
+			</button>
+			<button class="category-pill {{ category == 'outillage' ? 'active' : '' }}" data-category="outillage">
+				<i class="fas fa-tools me-2"></i>
+				{{ 'Outils'|trans }}
+			</button>
+			<button class="category-pill {{ category == 'materiaux' ? 'active' : '' }}" data-category="materiaux">
+				<i class="fas fa-cube me-2"></i>
+				{{ 'Matériaux'|trans }}
+			</button>
+			<button class="category-pill {{ category == 'equipement' ? 'active' : '' }}" data-category="equipement">
+				<i class="fas fa-cog me-2"></i>
+				{{ 'Équipement'|trans }}
+			</button>
+			<button class="category-pill {{ category == 'jardin' ? 'active' : '' }}" data-category="jardin">
+				<i class="fas fa-leaf me-2"></i>
+				{{ 'Jardin'|trans }}
+			</button>
+			<button class="category-pill {{ category == 'autre' ? 'active' : '' }}" data-category="autre">
+				<i class="fas fa-box me-2"></i>
+				{{ 'Autre'|trans }}
+			</button>
 		</div>
 
 		<!-- Products Grid -->
 		<div class="product-grid">
 			{% for product in products %}
-				{% include 'components/card.html.twig' with {
-					'card_image': asset('uploads/products/' ~ product.image),
-					'card_title': product.title,
-					'card_category': product.category,
-					'card_price': product.price,
-					'card_link': path('app_marketplace_show', {id: product.id}),
-					'card_action': {
-						'link': path('app_marketplace_show', {id: product.id}),
-						'class': 'btn-primary',
-						'icon': 'shopping-bag',
-						'text': 'Acheter maintenant'|trans
-					},
-					'card_meta': [
-						{
-							'icon': 'user',
-							'text': product.user.userIdentifier
-						}
-					],
-					'card_badge': product.price ~ ' €'
-				} %}
+				<div class="product-card animate-fade-in">
+					<div class="product-image-wrapper">
+						{% if product.image %}
+							<img src="{{ asset('uploads/products/' ~ product.image) }}" 
+								 alt="{{ product.title }}" 
+								 class="product-image"
+								 onerror="this.parentElement.innerHTML='<div class=\"w-100 h-100 bg-light d-flex align-items-center justify-content-center\"><i class=\"fas fa-tools fa-3x text-muted\"></i></div>';">
+						{% else %}
+							<div class="w-100 h-100 bg-light d-flex align-items-center justify-content-center">
+								<i class="fas fa-tools fa-3x text-muted"></i>
+							</div>
+						{% endif %}
+						<div class="product-badge">{{ product.price }} €</div>
+					</div>
+					
+					<div class="product-content">
+						<span class="product-category">{{ product.category|trans }}</span>
+						<h3 class="product-title">
+							<a href="{{ path('app_marketplace_show', {id: product.id}) }}" class="text-decoration-none text-dark">
+								{{ product.title }}
+							</a>
+						</h3>
+						<p class="product-description">{{ product.description|slice(0, 100) }}...</p>
+						
+						<div class="product-meta">
+							<div class="seller-info">
+								<div class="seller-avatar">
+									{{ product.user.userIdentifier|slice(0, 1)|upper }}
+								</div>
+								<span class="text-muted">{{ product.user.userIdentifier }}</span>
+							</div>
+						</div>
+						
+						<div class="product-actions">
+							<a href="{{ path('app_marketplace_show', {id: product.id}) }}" class="btn-modern btn-primary-modern">
+								<i class="fas fa-shopping-bag"></i>
+								{{ 'Voir détails'|trans }}
+							</a>
+						</div>
+					</div>
+				</div>
 			{% endfor %}
 		</div>
 
 		{% if products is empty %}
-			<div class="text-center py-5 animate-fade-in">
-				{% include 'components/hero.html.twig' with {
-					'hero_title': 'Le marketplace est vide'|trans,
-					'hero_subtitle': 'Soyez le premier à explorer et à vendre vos équipements.'|trans,
-					'hero_actions': [
-						{
-							'link': path('app_marketplace_new'),
-							'class': 'btn-primary btn-lg',
-							'icon': 'plus-circle',
-							'text': 'Publier la première annonce'|trans
-						}
-					]
-				} %}
+			<div class="empty-state animate-fade-in">
+				<div class="empty-icon">
+					<i class="fas fa-shopping-basket"></i>
+				</div>
+				<h3 class="mb-3">{{ 'Le marketplace est vide'|trans }}</h3>
+				<p class="text-muted mb-4">{{ 'Soyez le premier à explorer et à vendre vos équipements.'|trans }}</p>
+				<a href="{{ path('app_marketplace_new') }}" class="btn-modern btn-primary-modern btn-lg">
+					<i class="fas fa-plus-circle me-2"></i>
+					{{ 'Publier la première annonce'|trans }}
+				</a>
 			</div>
 		{% endif %}
 	</div>
@@ -238,6 +508,28 @@
 				}
 				window.location.href = url.toString();
 			});
+		});
+
+		// Add smooth scroll animations
+		const observerOptions = {
+			threshold: 0.1,
+			rootMargin: '0px 0px -50px 0px'
+		};
+
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					entry.target.style.opacity = '1';
+					entry.target.style.transform = 'translateY(0)';
+				}
+			});
+		}, observerOptions);
+
+		document.querySelectorAll('.product-card').forEach(card => {
+			card.style.opacity = '0';
+			card.style.transform = 'translateY(20px)';
+			card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+			observer.observe(card);
 		});
 	</script>
 {% endblock %}
