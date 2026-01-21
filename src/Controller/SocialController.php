@@ -101,11 +101,17 @@ class SocialController extends AbstractController
                 }
                 
                 // Use Symfony's move method which is more reliable than manual file_put_contents
-                $mediaFile->move($uploadDir, $newFilename);
+                try {
+                    $mediaFile->move($uploadDir, $newFilename);
+                } catch (\Exception $e) {
+                    error_log('Move exception: ' . $e->getMessage());
+                    // Continue anyway - the file might have been moved successfully
+                }
                 
                 // Verify file was actually written
                 $targetPath = $uploadDir . '/' . $newFilename;
                 if (!file_exists($targetPath)) {
+                    error_log('❌ File not found after upload: ' . $targetPath);
                     throw new \Exception('File was not written to disk: ' . $targetPath);
                 }
                 
