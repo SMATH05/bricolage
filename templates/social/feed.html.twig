@@ -123,7 +123,6 @@
 		.author-avatar {
 			width: 45px;
 			height: 45px;
-			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 			border-radius: 50%;
 			display: flex;
 			align-items: center;
@@ -132,6 +131,8 @@
 			color: white;
 			font-size: 1rem;
 			box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+			object-fit: cover;
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 		}
 
 		.author-info h6 {
@@ -341,13 +342,17 @@
 			<!-- Create Post Section -->
 			<div class="create-post-section animate-slide-up">
 				<div class="create-post-header">
-					<div class="user-avatar">
-						{% if app.user.prenom and app.user.nom %}
-							{{ app.user.prenom|slice(0, 1)|upper }}{{ app.user.nom|slice(0, 1)|upper }}
-						{% else %}
-							{{ app.user.userIdentifier|slice(0, 1)|upper }}
-						{% endif %}
-					</div>
+					{% if app.user.profileImage %}
+						<img src="{{ asset('uploads/profiles/' ~ app.user.profileImage) }}" alt="{{ app.user.userIdentifier }}" class="user-avatar">
+					{% else %}
+						<div class="user-avatar">
+							{% if app.user.prenom and app.user.nom %}
+								{{ app.user.prenom|slice(0, 1)|upper }}{{ app.user.nom|slice(0, 1)|upper }}
+							{% else %}
+								{{ app.user.userIdentifier|slice(0, 1)|upper }}
+							{% endif %}
+						</div>
+					{% endif %}
 					<div class="create-post-input" data-bs-toggle="modal" data-bs-target="#createPostModal">
 						{{ 'Partagez vos travaux...'|trans }}
 					</div>
@@ -371,13 +376,17 @@
 				<!-- Post Header -->
 				<div class="post-header">
 					<div class="post-author">
-						<div class="author-avatar">
-							{% if post.author.prenom and post.author.nom %}
-								{{ post.author.prenom|slice(0, 1)|upper }}{{ post.author.nom|slice(0, 1)|upper }}
-							{% else %}
-								{{ post.author.userIdentifier|slice(0, 1)|upper }}
-							{% endif %}
-						</div>
+						{% if post.author.profileImage %}
+							<img src="{{ asset('uploads/profiles/' ~ post.author.profileImage) }}" alt="{{ post.author.userIdentifier }}" class="author-avatar">
+						{% else %}
+							<div class="author-avatar">
+								{% if post.author.prenom and post.author.nom %}
+									{{ post.author.prenom|slice(0, 1)|upper }}{{ post.author.nom|slice(0, 1)|upper }}
+								{% else %}
+									{{ post.author.userIdentifier|slice(0, 1)|upper }}
+								{% endif %}
+							</div>
+						{% endif %}
 						<div class="author-info">
 							<h6>
 								{% if post.author.prenom and post.author.nom %}
