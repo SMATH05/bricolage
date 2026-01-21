@@ -136,9 +136,31 @@ class SocialController extends AbstractController
                     error_log('Unknown media type - Extension: ' . $ext . ', MIME: ' . $mimeType . ' - Defaulting to image');
                 }
             } catch (\Exception $e) {
-                error_log('Upload exception: ' . $e->getMessage());
-                error_log('Upload exception trace: ' . $e->getTraceAsString());
-                $this->addFlash('error', 'Erreur lors de l\'upload du média: ' . $e->getMessage());
+                // Check if file was actually created despite the exception
+                $targetPath = $this->getParameter('posts_directory') . '/' . $newFilename;
+                if (!file_exists($targetPath)) {
+                    // Only show error if file wasn't created
+                    error_log('Upload exception: ' . $e->getMessage());
+                    error_log('Upload exception trace: ' . $e->getTraceAsString());
+                    $this->addFlash('error', 'Erreur lors de l\'upload du média: ' . $e->getMessage());
+                } else {
+                    // File was created successfully, ignore the exception
+                    error_log('Upload successful despite exception: ' . $e->getMessage());
+                    $post->setMedia($newFilename);
+                    
+                    $ext = strtolower($mediaFile->guessExtension());
+                    $mimeType = strtolower($mediaFile->getMimeType());
+                    
+                    if (in_array($ext, ['mp4', 'webm', 'ogg', 'mov', 'avi', 'mkv', 'wmv']) || 
+                        in_array($mimeType, ['video/mp4', 'video/webm', 'video/ogg', 'video/quicktime', 'video/x-msvideo', 'video/x-matroska'])) {
+                        $post->setMediaType('video');
+                    } elseif (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'svg']) || 
+                              in_array($mimeType, ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/bmp', 'image/svg+xml'])) {
+                        $post->setMediaType('image');
+                    } else {
+                        $post->setMediaType('image');
+                    }
+                }
             }
         }
 
