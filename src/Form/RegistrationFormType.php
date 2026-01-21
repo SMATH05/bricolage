@@ -20,7 +20,10 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', null, ['label' => 'Email'])
+            ->add('email', null, [
+                'label' => 'Email',
+                'attr' => ['class' => 'form-control', 'placeholder' => 'votre.email@example.com'],
+            ])
             ->add('nom', \Symfony\Component\Form\Extension\Core\Type\TextType::class, [
                 'label' => 'Nom',
                 'attr' => ['class' => 'premium-input', 'placeholder' => 'Nom'],
@@ -39,10 +42,16 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('plainPassword', PasswordType::class, [
                 'label' => 'Mot de passe',
-                'attr' => ['class' => 'premium-input', 'placeholder' => 'Mot de passe'],
+                'mapped' => false,
+                'attr' => ['class' => 'premium-input', 'placeholder' => 'Mot de passe', 'autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank(['message' => 'Veuillez entrer un mot de passe']),
-                    new Length(['min' => 6, 'maxMessage' => 'Votre mot de passe ne peut pas dépasser 4096 caractères']),
+                    new Length([
+                        'min' => 6,
+                        'max' => 4096,
+                        'minMessage' => 'Votre mot de passe doit faire au moins {{ limit }} caractères',
+                        'maxMessage' => 'Votre mot de passe ne peut pas dépasser {{ limit }} caractères',
+                    ]),
                 ],
             ])
             ->add('roles', ChoiceType::class, [
@@ -55,27 +64,13 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
             ])
             ->add('agreeTerms', CheckboxType::class, [
-                'label' => 'Accepter les conditions',
+                'label' => 'J\'accepte les conditions d\'utilisation',
                 'mapped' => false,
+                'required' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'Vous devez accepter les conditions d\'utilisation.',
                     ]),
-                ],
-            ])
-            ->add('plainPassword', PasswordType::class, [
-                'label' => 'Mot de passe',
-                'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
-                    new Length(
-                        min: 6,
-                        max: 4096,
-                        minMessage: 'Your password should be at least {{ limit }} characters',
-                    ),
                 ],
             ]);
     }

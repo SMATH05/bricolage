@@ -33,47 +33,61 @@ class RegistrationController extends AbstractController
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user->setEmail($form->get('email')->getData());
-            $user->setNom($form->get('nom')->getData());
-            $user->setPrenom($form->get('prenom')->getData());
-            $user->setPassword(
-                $passwordHasher->hashPassword(
-                    $user,
-                    trim($form->get('plainPassword')->getData())
-                )
-            );
+        if ($form->isSubmitted()) {
+            if (!$form->isValid()) {
+                // Log form errors for debugging
+                $errors = [];
+                foreach ($form->getErrors(true) as $error) {
+                    $errors[] = $error->getMessage();
+                }
+                // Form will be re-rendered with errors displayed
+            } else {
+                try {
+                    $user->setEmail($form->get('email')->getData());
+                    $user->setNom($form->get('nom')->getData());
+                    $user->setPrenom($form->get('prenom')->getData());
+                    $user->setPassword(
+                        $passwordHasher->hashPassword(
+                            $user,
+                            trim($form->get('plainPassword')->getData())
+                        )
+                    );
 
-            $selectedRole = $form->get('roles')->getData();
+                    $selectedRole = $form->get('roles')->getData();
 
-            // Security lockdown: Only allow Researcher or Recruiter registration
-            if (!in_array($selectedRole, ['ROLE_CHERCHEUR', 'ROLE_RECRUTEUR'])) {
-                $this->addFlash('error', 'Role non autorisé.');
-                return $this->redirectToRoute('app_register');
+                    // Security lockdown: Only allow Researcher or Recruiter registration
+                    if (!in_array($selectedRole, ['ROLE_CHERCHEUR', 'ROLE_RECRUTEUR'])) {
+                        $this->addFlash('error', 'Role non autorisé.');
+                        return $this->redirectToRoute('app_register');
+                    }
+
+                    $user->setRoles([$selectedRole]);
+
+                    // Create profile based on role
+                    if ($selectedRole === 'ROLE_CHERCHEUR') {
+                        $chercheur = new Chercheur();
+                        $chercheur->setUser($user);
+                        $entityManager->persist($chercheur);
+                    } elseif ($selectedRole === 'ROLE_RECRUTEUR') {
+                        $recruteur = new Recruteur();
+                        $recruteur->setUser($user);
+                        $entityManager->persist($recruteur);
+                    }
+
+                    $entityManager->persist($user);
+                    $entityManager->flush();
+
+                    $this->addFlash('success', 'Inscription réussie! Bienvenue sur Bricolage.');
+
+                    return match ($selectedRole) {
+                        'ROLE_CHERCHEUR' => $this->redirectToRoute('app_annonce'),
+                        'ROLE_RECRUTEUR' => $this->redirectToRoute('app_annonce'),
+                        default => $this->redirectToRoute('app_home'),
+                    };
+                } catch (\Exception $e) {
+                    $this->addFlash('error', 'Une erreur est survenue lors de l\'inscription. Veuillez réessayer.');
+                }
             }
-
-            $user->setRoles([$selectedRole]);
-
-            // Create profile based on role
-
-            if ($selectedRole === 'ROLE_CHERCHEUR') {
-                $chercheur = new Chercheur();
-                $chercheur->setUser($user);
-                $entityManager->persist($chercheur);
-            } elseif ($selectedRole === 'ROLE_RECRUTEUR') {
-                $recruteur = new Recruteur();
-                $recruteur->setUser($user);
-                $entityManager->persist($recruteur);
-            }
-
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            return match ($selectedRole) {
-                'ROLE_CHERCHEUR' => $this->redirectToRoute('app_annonce'),
-                'ROLE_RECRUTEUR' => $this->redirectToRoute('app_annonce'),
-                default => $this->redirectToRoute('app_home'),
-            };
         }
 
         return $this->render('registration/register.html.twig', [

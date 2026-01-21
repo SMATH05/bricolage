@@ -246,6 +246,12 @@
 			color: #dc2626;
 		}
 
+		.alert-success {
+			background-color: #dcfce7;
+			border: 1px solid #bbf7d0;
+			color: #16a34a;
+		}
+
 		@media (max-width: 768px) {
 			.login-container {
 				margin: 40px 16px;
@@ -271,6 +277,18 @@
 				{{ 'Déjà un compte ?'|trans }} <a href="{{ path('app_login') }}" style="color: #667eea; text-decoration: none; font-weight: 600;">{{ 'Se connecter'|trans }}</a>
 			</p>
 		</div>
+
+		{% for message in app.flashes('error') %}
+			<div class="alert alert-danger" role="alert">
+				{{ message }}
+			</div>
+		{% endfor %}
+
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success" role="alert">
+				{{ message }}
+			</div>
+		{% endfor %}
 
 		{% if form_errors(registrationForm) %}
 			<div class="alert alert-danger">
@@ -348,6 +366,11 @@
 				{{ "J'accepte les"|trans }}
 				<a href="#">{{ "Conditions d'utilisation"|trans }}</a>
 			</label>
+			{% if form_errors(registrationForm.agreeTerms) %}
+				<div style="color: #dc2626; font-size: 0.875rem; margin-top: 8px; display: block; width: 100%;">
+					{{ form_errors(registrationForm.agreeTerms) }}
+				</div>
+			{% endif %}
 		</div>
 
 		<button type="submit" class="btn-primary">
