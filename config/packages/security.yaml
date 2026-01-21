@@ -23,6 +23,7 @@ security:
       custom_authenticator:
         - App\Security\LoginFormAuthenticator
         - App\Security\GoogleAuthenticator
+      login_path: app_login
       logout:
         path: app_logout
         target: app_login
