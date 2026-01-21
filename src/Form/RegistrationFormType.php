@@ -6,11 +6,13 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Email;
 
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 class RegistrationFormType extends AbstractType
@@ -20,9 +22,13 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', null, [
+            ->add('email', EmailType::class, [
                 'label' => 'Email',
                 'attr' => ['class' => 'form-control', 'placeholder' => 'votre.email@example.com'],
+                'constraints' => [
+                    new NotBlank(['message' => 'Veuillez entrer votre adresse email']),
+                    new Email(['message' => 'Veuillez entrer une adresse email valide']),
+                ],
             ])
             ->add('nom', \Symfony\Component\Form\Extension\Core\Type\TextType::class, [
                 'label' => 'Nom',
@@ -66,7 +72,7 @@ class RegistrationFormType extends AbstractType
             ->add('agreeTerms', CheckboxType::class, [
                 'label' => 'J\'accepte les conditions d\'utilisation',
                 'mapped' => false,
-                'required' => false,
+                'required' => true,
                 'constraints' => [
                     new IsTrue([
                         'message' => 'Vous devez accepter les conditions d\'utilisation.',
