@@ -500,7 +500,7 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form method="POST" action="{{ path('app_social_post') }}" enctype="multipart/form-data">
+				<form method="POST" action="{{ path('app_social_post_create') }}" enctype="multipart/form-data">
 						<div class="mb-3">
 							<label for="content" class="form-label">{{ 'Que voulez-vous partager ?'|trans }}</label>
 							<textarea name="content" class="form-control" rows="4" placeholder="{{ 'Décrivez votre projet...'|trans }}"></textarea>
