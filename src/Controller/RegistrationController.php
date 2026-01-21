@@ -19,11 +19,12 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use Psr\Log\LoggerInterface;
 
 
 class RegistrationController extends AbstractController
 {
-    public function __construct(private EmailVerifier $emailVerifier)
+    public function __construct(private EmailVerifier $emailVerifier, private LoggerInterface $logger)
     {
     }
     #[Route('/register', name: 'app_register')]
@@ -85,6 +86,10 @@ class RegistrationController extends AbstractController
                         default => $this->redirectToRoute('app_home'),
                     };
                 } catch (\Exception $e) {
+                    $this->logger->error('Registration error: ' . $e->getMessage(), [
+                        'exception' => $e,
+                        'email' => $form->get('email')->getData() ?? 'unknown'
+                    ]);
                     $this->addFlash('error', 'Une erreur est survenue lors de l\'inscription. Veuillez réessayer.');
                 }
             }
