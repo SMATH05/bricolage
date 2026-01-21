@@ -1,335 +1,344 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription | Bricolage{% endblock %}
+{% block title %}Inscription | Bricolage
+{% endblock %}
 
 {% block body %}
-<style>
-    .registration-container {
-        max-width: 650px;
-        width: 95%;
-        margin: 60px auto;
-        padding: 40px;
-        background: white;
-        border-radius: 16px;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-        border: 1px solid #f1f5f9;
-    }
+	<style>
+		.registration-container {
+			max-width: 650px;
+			width: 95%;
+			margin: 60px auto;
+			padding: 40px;
+			background: white;
+			border-radius: 16px;
+			box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+			border: 1px solid #f1f5f9;
+		}
 
-    .registration-header {
-        text-align: center;
-        margin-bottom: 35px;
-    }
+		.registration-header {
+			text-align: center;
+			margin-bottom: 35px;
+		}
 
-    .registration-header h1 {
-        font-size: 2.2rem;
-        color: #0f172a;
-        margin-bottom: 12px;
-        font-weight: 700;
-    }
+		.registration-header h1 {
+			font-size: 2.2rem;
+			color: #0f172a;
+			margin-bottom: 12px;
+			font-weight: 700;
+		}
 
-    .registration-header p {
-        color: #64748b;
-        font-size: 0.95rem;
-    }
+		.registration-header p {
+			color: #64748b;
+			font-size: 0.95rem;
+		}
 
-    .registration-header a {
-        color: #667eea;
-        text-decoration: none;
-        font-weight: 600;
-        transition: color 0.3s;
-    }
+		.registration-header a {
+			color: #667eea;
+			text-decoration: none;
+			font-weight: 600;
+			transition: color 0.3s;
+		}
 
-    .registration-header a:hover {
-        color: #764ba2;
-    }
+		.registration-header a:hover {
+			color: #764ba2;
+		}
 
-    .form-group {
-        margin-bottom: 20px;
-    }
+		.form-group {
+			margin-bottom: 20px;
+		}
 
-    .form-label {
-        display: block;
-        margin-bottom: 10px;
-        font-weight: 600;
-        color: #0f172a;
-        font-size: 0.95rem;
-    }
+		.form-label {
+			display: block;
+			margin-bottom: 10px;
+			font-weight: 600;
+			color: #0f172a;
+			font-size: 0.95rem;
+		}
 
-    .form-input {
-        width: 100%;
-        padding: 12px;
-        border: 2px solid #e2e8f0;
-        border-radius: 10px;
-        font-size: 1rem;
-        transition: all 0.3s;
-        background: #f8fafc;
-    }
+		.form-input {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #e2e8f0;
+			border-radius: 10px;
+			font-size: 1rem;
+			transition: all 0.3s;
+			background: #f8fafc;
+		}
 
-    .form-input:focus {
-        outline: none;
-        border-color: #667eea;
-        background: white;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-    }
+		.form-input:focus {
+			outline: none;
+			border-color: #667eea;
+			background: white;
+			box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+		}
 
-    .alert-error {
-        background-color: #fee2e2;
-        border: 1px solid #fecaca;
-        color: #dc2626;
-        padding: 12px;
-        border-radius: 8px;
-        margin-bottom: 20px;
-        font-size: 0.9rem;
-    }
+		.alert-error {
+			background-color: #fee2e2;
+			border: 1px solid #fecaca;
+			color: #dc2626;
+			padding: 12px;
+			border-radius: 8px;
+			margin-bottom: 20px;
+			font-size: 0.9rem;
+		}
 
-    .alert-success {
-        background-color: #dcfce7;
-        border: 1px solid #bbf7d0;
-        color: #16a34a;
-        padding: 12px;
-        border-radius: 8px;
-        margin-bottom: 20px;
-        font-size: 0.9rem;
-    }
+		.alert-success {
+			background-color: #dcfce7;
+			border: 1px solid #bbf7d0;
+			color: #16a34a;
+			padding: 12px;
+			border-radius: 8px;
+			margin-bottom: 20px;
+			font-size: 0.9rem;
+		}
 
-    .field-error {
-        color: #dc2626;
-        font-size: 0.875rem;
-        margin-top: 6px;
-    }
+		.field-error {
+			color: #dc2626;
+			font-size: 0.875rem;
+			margin-top: 6px;
+		}
 
-    .role-selection {
-        margin-bottom: 35px;
-    }
+		.role-selection {
+			margin-bottom: 35px;
+		}
 
-    .role-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 15px;
-        margin-top: 15px;
-        width: 100%;
-    }
+		.role-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 15px;
+			margin-top: 15px;
+			width: 100%;
+		}
 
-    @media (max-width: 480px) {
-        .role-grid {
-            grid-template-columns: 1fr;
-        }
-    }
+		@media(max-width: 480px) {
+			.role-grid {
+				grid-template-columns: 1fr;
+			}
+		}
 
-    .role-option {
-        position: relative;
-        cursor: pointer;
-    }
+		.role-option {
+			position: relative;
+			cursor: pointer;
+		}
 
-    .role-option input[type="radio"] {
-        position: absolute;
-        opacity: 0;
-        cursor: pointer;
-        width: 100%;
-        height: 100%;
-    }
+		.role-option input[type="radio"] {
+			position: absolute;
+			opacity: 0;
+			cursor: pointer;
+			width: 100%;
+			height: 100%;
+		}
 
-    .role-option-label {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 20px 15px;
-        border: 2.5px solid #e2e8f0;
-        border-radius: 12px;
-        background: #f8fafc;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-align: center;
-    }
+		.role-option-label {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			padding: 20px 15px;
+			border: 2.5px solid #e2e8f0;
+			border-radius: 12px;
+			background: #f8fafc;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			text-align: center;
+		}
 
-    .role-option input[type="radio"]:checked + .role-option-label {
-        border-color: #667eea;
-        background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
-        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
-    }
+		.role-option input[type="radio"]:checked + .role-option-label {
+			border-color: #667eea;
+			background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+			box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+		}
 
-    .role-option-icon {
-        font-size: 1.8rem;
-        margin-bottom: 8px;
-        transition: transform 0.3s ease;
-    }
+		.role-option-icon {
+			font-size: 1.8rem;
+			margin-bottom: 8px;
+			transition: transform 0.3s ease;
+		}
 
-    .role-option input[type="radio"]:checked ~ .role-option-label .role-option-icon {
-        transform: scale(1.15);
-    }
+		.role-option input[type="radio"]:checked ~ .role-option-label .role-option-icon {
+			transform: scale(1.15);
+		}
 
-    .role-option-title {
-        font-weight: 700;
-        color: #0f172a;
-        font-size: 0.85rem;
-        margin-bottom: 4px;
-    }
+		.role-option-title {
+			font-weight: 700;
+			color: #0f172a;
+			font-size: 0.85rem;
+			margin-bottom: 4px;
+		}
 
-    .role-option-desc {
-        color: #64748b;
-        font-size: 0.7rem;
-        line-height: 1.2;
-    }
+		.role-option-desc {
+			color: #64748b;
+			font-size: 0.7rem;
+			line-height: 1.2;
+		}
 
-    .role-selection-error {
-        color: #dc2626;
-        font-size: 0.875rem;
-        margin-top: 10px;
-    }
+		.role-selection-error {
+			color: #dc2626;
+			font-size: 0.875rem;
+			margin-top: 10px;
+		}
 
-    .submit-button {
-        width: 100%;
-        padding: 14px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border: none;
-        border-radius: 10px;
-        font-weight: 700;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        margin-top: 25px;
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-    }
+		.submit-button {
+			width: 100%;
+			padding: 14px;
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			color: white;
+			border: none;
+			border-radius: 10px;
+			font-weight: 700;
+			font-size: 1rem;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			margin-top: 25px;
+			box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+		}
 
-    .submit-button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-    }
+		.submit-button:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+		}
 
-    .submit-button:active {
-        transform: translateY(0);
-    }
+		.submit-button:active {
+			transform: translateY(0);
+		}
 
-    .divider {
-        margin-top: 30px;
-        text-align: center;
-        padding-top: 25px;
-        border-top: 1px solid #e2e8f0;
-    }
+		.divider {
+			margin-top: 30px;
+			text-align: center;
+			padding-top: 25px;
+			border-top: 1px solid #e2e8f0;
+		}
 
-    .divider-text {
-        color: #64748b;
-        margin-bottom: 18px;
-        font-size: 0.9rem;
-    }
+		.divider-text {
+			color: #64748b;
+			margin-bottom: 18px;
+			font-size: 0.9rem;
+		}
 
-    .google-button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        padding: 12px 24px;
-        border: 2px solid #e2e8f0;
-        border-radius: 10px;
-        text-decoration: none;
-        color: #1e293b;
-        font-weight: 600;
-        transition: all 0.3s;
-        background: white;
-    }
+		.google-button {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 10px;
+			padding: 12px 24px;
+			border: 2px solid #e2e8f0;
+			border-radius: 10px;
+			text-decoration: none;
+			color: #1e293b;
+			font-weight: 600;
+			transition: all 0.3s;
+			background: white;
+		}
 
-    .google-button:hover {
-        border-color: #667eea;
-        background: rgba(102, 126, 234, 0.05);
-        transform: translateY(-2px);
-    }
+		.google-button:hover {
+			border-color: #667eea;
+			background: rgba(102, 126, 234, 0.05);
+			transform: translateY(-2px);
+		}
 
-    .google-button img {
-        width: 22px;
-        height: 22px;
-    }
-</style>
+		.google-button img {
+			width: 22px;
+			height: 22px;
+		}
+	</style>
 
-<div class="registration-container">
-    <div class="registration-header">
-        <h1>Créer un compte</h1>
-        <p>Déjà un compte? <a href="{{ path('app_login') }}">Se connecter</a></p>
-    </div>
+	<div class="registration-container">
+		<div class="registration-header">
+			<h1>Créer un compte</h1>
+			<p>Déjà un compte?
+				<a href="{{ path('app_login') }}">Se connecter</a>
+			</p>
+		</div>
 
-    {% for message in app.flashes('error') %}
-        <div class="alert-error">{{ message }}</div>
-    {% endfor %}
+		{% for message in app.flashes('error') %}
+			<div class="alert-error">{{ message }}</div>
+		{% endfor %}
 
-    {% for message in app.flashes('success') %}
-        <div class="alert-success">{{ message }}</div>
-    {% endfor %}
+		{% for message in app.flashes('success') %}
+			<div class="alert-success">{{ message }}</div>
+		{% endfor %}
 
-    {{ form_start(registrationForm, {'attr': {'novalidate': 'novalidate'}}) }}
+		{% form_theme registrationForm _self %}
 
-    <div class="form-group">
-        <label class="form-label">{{ form_label(registrationForm.prenom) }}</label>
-        {{ form_widget(registrationForm.prenom, {'attr': {'placeholder': 'Ex: Jean', 'class': 'form-input'}}) }}
-        {% if form_errors(registrationForm.prenom) %}
-            <div class="field-error">{{ form_errors(registrationForm.prenom) }}</div>
-        {% endif %}
-    </div>
+		{{ form_start(registrationForm, {'attr': {'novalidate': 'novalidate'}}) }}
 
-    <div class="form-group">
-        <label class="form-label">{{ form_label(registrationForm.nom) }}</label>
-        {{ form_widget(registrationForm.nom, {'attr': {'placeholder': 'Ex: Dupont', 'class': 'form-input'}}) }}
-        {% if form_errors(registrationForm.nom) %}
-            <div class="field-error">{{ form_errors(registrationForm.nom) }}</div>
-        {% endif %}
-    </div>
+		<div class="form-group">
+			<label class="form-label">{{ form_label(registrationForm.prenom) }}</label>
+			{{ form_widget(registrationForm.prenom, {'attr': {'placeholder': 'Ex: Jean', 'class': 'form-input'}}) }}
+			{% if form_errors(registrationForm.prenom) %}
+				<div class="field-error">{{ form_errors(registrationForm.prenom) }}</div>
+			{% endif %}
+		</div>
 
-    <div class="form-group">
-        <label class="form-label">{{ form_label(registrationForm.email) }}</label>
-        {{ form_widget(registrationForm.email, {'attr': {'placeholder': 'votre.email@example.com', 'class': 'form-input'}}) }}
-        {% if form_errors(registrationForm.email) %}
-            <div class="field-error">{{ form_errors(registrationForm.email) }}</div>
-        {% endif %}
-    </div>
+		<div class="form-group">
+			<label class="form-label">{{ form_label(registrationForm.nom) }}</label>
+			{{ form_widget(registrationForm.nom, {'attr': {'placeholder': 'Ex: Dupont', 'class': 'form-input'}}) }}
+			{% if form_errors(registrationForm.nom) %}
+				<div class="field-error">{{ form_errors(registrationForm.nom) }}</div>
+			{% endif %}
+		</div>
 
-    <div class="form-group">
-        <label class="form-label">{{ form_label(registrationForm.plainPassword) }}</label>
-        {{ form_widget(registrationForm.plainPassword, {'attr': {'placeholder': 'Minimum 6 caractères', 'class': 'form-input'}}) }}
-        {% if form_errors(registrationForm.plainPassword) %}
-            <div class="field-error">{{ form_errors(registrationForm.plainPassword) }}</div>
-        {% endif %}
-    </div>
+		<div class="form-group">
+			<label class="form-label">{{ form_label(registrationForm.email) }}</label>
+			{{ form_widget(registrationForm.email, {'attr': {'placeholder': 'votre.email@example.com', 'class': 'form-input'}}) }}
+			{% if form_errors(registrationForm.email) %}
+				<div class="field-error">{{ form_errors(registrationForm.email) }}</div>
+			{% endif %}
+		</div>
 
-    <div class="role-selection">
-        <label class="form-label">{{ form_label(registrationForm.role) }}</label>
-        <div class="role-grid">
-            {% for child in registrationForm.role %}
-                <div class="role-option">
-                    {{ form_widget(child, {'attr': {'id': 'role_' ~ loop.index}}) }}
-                    <label class="role-option-label" for="role_{{ loop.index }}">
-                        <div class="role-option-icon">
-                            {% if child.vars.value == 'ROLE_CHERCHEUR' %}
-                                <i class="fas fa-search"></i>
-                            {% else %}
-                                <i class="fas fa-briefcase"></i>
-                            {% endif %}
-                        </div>
-                        <div class="role-option-title">{{ child.vars.label }}</div>
-                        <div class="role-option-desc">
-                            {% if child.vars.value == 'ROLE_CHERCHEUR' %}
-                                Je cherche des projets
-                            {% else %}
-                                Je recrute des bricoleurs
-                            {% endif %}
-                        </div>
-                    </label>
-                </div>
-            {% endfor %}
-        </div>
-        {% if form_errors(registrationForm.role) %}
-            <div class="role-selection-error">{{ form_errors(registrationForm.role) }}</div>
-        {% endif %}
-    </div>
+		<div class="form-group">
+			<label class="form-label">{{ form_label(registrationForm.plainPassword) }}</label>
+			{{ form_widget(registrationForm.plainPassword, {'attr': {'placeholder': 'Minimum 6 caractères', 'class': 'form-input'}}) }}
+			{% if form_errors(registrationForm.plainPassword) %}
+				<div class="field-error">{{ form_errors(registrationForm.plainPassword) }}</div>
+			{% endif %}
+		</div>
 
-    <button type="submit" class="submit-button">Créer mon compte</button>
+		<div class="role-selection">
+			<label class="form-label">{{ form_label(registrationForm.role) }}</label>
+			<div class="role-grid">
+				{% for child in registrationForm.role %}
+					<div class="role-option">
+						{{ form_widget(child, {'attr': {'id': 'role_' ~ loop.index}}) }}
+						<label class="role-option-label" for="role_{{ loop.index }}">
+							<div class="role-option-icon">
+								{% if child.vars.value == 'ROLE_CHERCHEUR' %}
+									<i class="fas fa-search"></i>
+								{% else %}
+									<i class="fas fa-briefcase"></i>
+								{% endif %}
+							</div>
+							<div class="role-option-title">{{ child.vars.label }}</div>
+							<div class="role-option-desc">
+								{% if child.vars.value == 'ROLE_CHERCHEUR' %}
+									Je cherche des projets
+								{% else %}
+									Je recrute des bricoleurs
+								{% endif %}
+							</div>
+						</label>
+					</div>
+				{% endfor %}
+			</div>
+			{% if form_errors(registrationForm.role) %}
+				<div class="role-selection-error">{{ form_errors(registrationForm.role) }}</div>
+			{% endif %}
+		</div>
 
-    {{ form_end(registrationForm) }}
+		<button type="submit" class="submit-button">Créer mon compte</button>
 
-    <div class="divider">
-        <p class="divider-text">ou inscrivez-vous avec</p>
-        <a href="{{ path('connect_google_start') }}" class="google-button">
-            <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="Google">
-            Google
-        </a>
-    </div>
-</div>
+		{{ form_end(registrationForm) }}
+
+		<div class="divider">
+			<p class="divider-text">ou inscrivez-vous avec</p>
+			<a href="{{ path('connect_google_start') }}" class="google-button">
+				<img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="Google">
+				Google
+			</a>
+		</div>
+	</div>
+{% endblock %}
+
+{% block radio_widget %}
+	<input type="radio" {{ block('widget_attributes') }} {% if value is defined %} value="{{ value }}" {% endif %} {% if checked %} checked="checked" {% endif %}/>
 {% endblock %}
