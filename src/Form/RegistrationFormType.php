@@ -4,80 +4,66 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\IsTrue;
-use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Length;
 
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 class RegistrationFormType extends AbstractType
 {
-
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('prenom', TextType::class, [
+                'label' => 'Prénom',
+                'mapped' => false,
+                'attr' => ['class' => 'form-control', 'placeholder' => 'Votre prénom'],
+                'constraints' => [
+                    new NotBlank(['message' => 'Le prénom est requis']),
+                    new Length(['min' => 2, 'max' => 100, 'minMessage' => 'Le prénom doit avoir au moins 2 caractères']),
+                ],
+            ])
+            ->add('nom', TextType::class, [
+                'label' => 'Nom',
+                'mapped' => false,
+                'attr' => ['class' => 'form-control', 'placeholder' => 'Votre nom'],
+                'constraints' => [
+                    new NotBlank(['message' => 'Le nom est requis']),
+                    new Length(['min' => 2, 'max' => 100, 'minMessage' => 'Le nom doit avoir au moins 2 caractères']),
+                ],
+            ])
             ->add('email', EmailType::class, [
-                'label' => 'Email',
+                'label' => 'Adresse Email',
                 'attr' => ['class' => 'form-control', 'placeholder' => 'votre.email@example.com'],
                 'constraints' => [
-                    new NotBlank(['message' => 'Veuillez entrer votre adresse email']),
-                    new Email(['message' => 'Veuillez entrer une adresse email valide']),
-                ],
-            ])
-            ->add('nom', \Symfony\Component\Form\Extension\Core\Type\TextType::class, [
-                'label' => 'Nom',
-                'attr' => ['class' => 'premium-input', 'placeholder' => 'Nom'],
-                'constraints' => [
-                    new NotBlank(['message' => 'Veuillez entrer votre nom']),
-                    new Length(['min' => 2, 'max' => 50, 'minMessage' => 'Votre nom doit faire au moins 2 caractères', 'maxMessage' => 'Votre nom ne peut pas dépasser 50 caractères']),
-                ],
-            ])
-            ->add('prenom', \Symfony\Component\Form\Extension\Core\Type\TextType::class, [
-                'label' => 'Prénom',
-                'attr' => ['class' => 'premium-input', 'placeholder' => 'Prénom'],
-                'constraints' => [
-                    new NotBlank(['message' => 'Veuillez entrer votre prénom']),
-                    new Length(['min' => 2, 'max' => 50, 'minMessage' => 'Votre prénom doit faire au moins 2 caractères', 'maxMessage' => 'Votre prénom ne peut pas dépasser 50 caractères']),
+                    new NotBlank(['message' => 'L\'email est requis']),
+                    new Email(['message' => 'L\'adresse email n\'est pas valide']),
                 ],
             ])
             ->add('plainPassword', PasswordType::class, [
                 'label' => 'Mot de passe',
                 'mapped' => false,
-                'attr' => ['class' => 'premium-input', 'placeholder' => 'Mot de passe', 'autocomplete' => 'new-password'],
+                'attr' => ['class' => 'form-control', 'placeholder' => 'Entrez votre mot de passe', 'autocomplete' => 'new-password'],
                 'constraints' => [
-                    new NotBlank(['message' => 'Veuillez entrer un mot de passe']),
-                    new Length([
-                        'min' => 6,
-                        'max' => 4096,
-                        'minMessage' => 'Votre mot de passe doit faire au moins {{ limit }} caractères',
-                        'maxMessage' => 'Votre mot de passe ne peut pas dépasser {{ limit }} caractères',
-                    ]),
+                    new NotBlank(['message' => 'Le mot de passe est requis']),
+                    new Length(['min' => 6, 'minMessage' => 'Le mot de passe doit avoir au moins 6 caractères']),
                 ],
             ])
-            ->add('roles', ChoiceType::class, [
+            ->add('role', ChoiceType::class, [
                 'choices' => [
                     'Chercheur d\'emploi' => 'ROLE_CHERCHEUR',
                     'Recruteur' => 'ROLE_RECRUTEUR',
                 ],
+                'label' => 'Rôle',
+                'mapped' => false,
                 'expanded' => true,
-                'multiple' => false,
-                'mapped' => false,
-                'required' => true,
-            ])
-            ->add('agreeTerms', CheckboxType::class, [
-                'label' => 'J\'accepte les conditions d\'utilisation',
-                'mapped' => false,
-                'required' => true,
                 'constraints' => [
-                    new IsTrue([
-                        'message' => 'Vous devez accepter les conditions d\'utilisation.',
-                    ]),
+                    new NotBlank(['message' => 'Veuillez sélectionner un rôle']),
                 ],
             ]);
     }
