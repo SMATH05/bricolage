@@ -32,7 +32,7 @@ class SocialController extends AbstractController
     }
 
     #[Route('/social/post', name: 'app_social_post_create', methods: ['POST'])]
-    public function createPost(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
+    public function createPost(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, \App\Service\CloudinaryService $cloudinaryService): Response
     {
         $content = $request->request->get('content');
         $mediaFile = $request->files->get('media');
@@ -58,98 +58,32 @@ class SocialController extends AbstractController
         if ($mediaFile) {
             // Check for upload errors
             if ($mediaFile->getError() !== UPLOAD_ERR_OK) {
-                $errorMessages = [
-                    UPLOAD_ERR_INI_SIZE => 'The uploaded file exceeds the upload_max_filesize directive in php.ini',
-                    UPLOAD_ERR_FORM_SIZE => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form',
-                    UPLOAD_ERR_PARTIAL => 'The uploaded file was only partially uploaded',
-                    UPLOAD_ERR_NO_FILE => 'No file was uploaded',
-                    UPLOAD_ERR_NO_TMP_DIR => 'Missing a temporary folder',
-                    UPLOAD_ERR_CANT_WRITE => 'Failed to write file to disk',
-                    UPLOAD_ERR_EXTENSION => 'A PHP extension stopped the file upload',
-                ];
-
-                $errorMsg = $errorMessages[$mediaFile->getError()] ?? 'Unknown upload error';
-                error_log('Upload error code: ' . $mediaFile->getError() . ' - ' . $errorMsg);
-                $this->addFlash('error', 'Upload error: ' . $errorMsg);
+                // ... keeps validation which is good ...
+                $this->addFlash('error', 'Upload error code: ' . $mediaFile->getError());
                 return $this->redirectToRoute('app_social_feed');
             }
 
-            $originalFilename = pathinfo($mediaFile->getClientOriginalName(), PATHINFO_FILENAME);
-            $originalExtension = strtolower(pathinfo($mediaFile->getClientOriginalName(), PATHINFO_EXTENSION));
-            $safeFilename = $slugger->slug($originalFilename);
-
-            // Use guessExtension, but fallback to original extension for videos (guessExtension can return null for some video formats)
-            $guessedExt = $mediaFile->guessExtension();
-            $extension = $guessedExt ?: $originalExtension;
-
-            $newFilename = $safeFilename . '-' . uniqid() . '.' . $extension;
-
-            error_log('Upload started - File: ' . $newFilename);
+            error_log('Cloudinary Upload started');
 
             try {
-                // Ensure directory exists with proper permissions
-                $uploadDir = $this->getParameter('posts_directory');
+                // Upload to Cloudinary
+                $result = $cloudinaryService->uploadFile($mediaFile->getRealPath(), 'bricolage_posts');
 
-                if (!is_dir($uploadDir)) {
-                    @mkdir($uploadDir, 0777, true);
-                    error_log('Created directory: ' . $uploadDir);
+                if (!$result['success']) {
+                    throw new \Exception('Cloudinary upload failed: ' . ($result['error'] ?? 'Unknown error'));
                 }
 
-                // Ensure writable
-                @chmod($uploadDir, 0777);
+                $fileUrl = $result['url'];
+                $resourceType = $result['resource_type']; // image or video
 
-                if (!is_dir($uploadDir)) {
-                    throw new \Exception('Could not create upload directory: ' . $uploadDir);
-                }
+                error_log('✅ File uploaded successfully to Cloudinary: ' . $fileUrl);
 
-                if (!is_writable($uploadDir)) {
-                    throw new \Exception('Upload directory not writable: ' . $uploadDir);
-                }
+                $post->setMedia($fileUrl);
+                $post->setMediaType($resourceType); // result is 'image' or 'video'
 
-                // Store file info BEFORE moving (temp file will be deleted)
-                $ext = $extension; // Use the same computed extension 
-                $mimeType = strtolower($mediaFile->getMimeType() ?? '');
-
-                // Use Symfony's move method which is more reliable than manual file_put_contents
-                try {
-                    $mediaFile->move($uploadDir, $newFilename);
-                } catch (\Exception $e) {
-                    error_log('Move exception: ' . $e->getMessage());
-                    // Continue anyway - the file might have been moved successfully
-                }
-
-                // Verify file was actually written
-                $targetPath = $uploadDir . '/' . $newFilename;
-                if (!file_exists($targetPath)) {
-                    error_log('❌ File not found after upload: ' . $targetPath);
-                    throw new \Exception('File was not written to disk: ' . $targetPath);
-                }
-
-                error_log('✅ File uploaded successfully: ' . $targetPath);
-                error_log('File size: ' . filesize($targetPath) . ' bytes');
-
-                $post->setMedia($newFilename);
-
-                // Enhanced video detection using stored values
-                if (
-                    in_array($ext, ['mp4', 'webm', 'ogg', 'mov', 'avi', 'mkv', 'wmv']) ||
-                    in_array($mimeType, ['video/mp4', 'video/webm', 'video/ogg', 'video/quicktime', 'video/x-msvideo', 'video/x-matroska'])
-                ) {
-                    $post->setMediaType('video');
-                } elseif (
-                    in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'svg']) ||
-                    in_array($mimeType, ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/bmp', 'image/svg+xml'])
-                ) {
-                    $post->setMediaType('image');
-                } else {
-                    // Default to image if unsure
-                    $post->setMediaType('image');
-                    error_log('Unknown media type - Extension: ' . $ext . ', MIME: ' . $mimeType . ' - Defaulting to image');
-                }
             } catch (\Exception $e) {
-                // Only show error if it's a real problem
                 error_log('Upload exception: ' . $e->getMessage());
-                error_log('Upload exception trace: ' . $e->getTraceAsString());
+                // error_log('Upload exception trace: ' . $e->getTraceAsString());
                 $this->addFlash('error', 'Erreur lors de l\'upload du média: ' . $e->getMessage());
             }
         }
