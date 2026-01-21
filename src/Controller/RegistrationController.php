@@ -69,10 +69,21 @@ class RegistrationController extends AbstractController
                 if ($role === 'ROLE_CHERCHEUR') {
                     $chercheur = new Chercheur();
                     $chercheur->setUser($user);
+                    $chercheur->setIdChercheur(uniqid('CHERCHEUR_'));
+                    $chercheur->setNom($nom);
+                    $chercheur->setPrenom($prenom);
+                    $chercheur->setEmail($email);
+                    $chercheur->setMotDePasse($hashedPassword);
+                    $chercheur->setDescription('');
+                    $chercheur->setDisponibilite('À définir');
                     $entityManager->persist($chercheur);
                 } elseif ($role === 'ROLE_RECRUTEUR') {
                     $recruteur = new Recruteur();
                     $recruteur->setUser($user);
+                    $recruteur->setNom($nom);
+                    $recruteur->setEmail($email);
+                    $recruteur->setPassword($hashedPassword);
+                    $recruteur->setTelephone('');
                     $entityManager->persist($recruteur);
                 }
 
