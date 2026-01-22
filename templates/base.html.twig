@@ -350,5 +350,80 @@ body: JSON.stringify(
 }).catch(err => console.error('Failed to sync theme:', err));{% endif %}
 });
 			</script>
-		</body>
+			<!-- iOS Install Prompt Modal -->
+			<div id="ios-install-prompt" class="ios-prompt" style="display: none;">
+				<div class="ios-prompt-content">
+					<div class="ios-prompt-header">
+						<img src="{{ asset('img/icon-192.png') }}" onerror="this.src='/favicon.ico'" alt="App Icon" class="ios-prompt-icon">
+						<div class="ios-prompt-title">
+							<p class="mb-0 fw-bold">{{ 'Installer l\'application'|trans }}</p>
+                    <p class="mb-0 small text-muted">Bricolage</p>
+                </div>
+                <button class="ios-prompt-close" onclick="closeIosPrompt()">&times;</button>
+            </div>
+            <div class="ios-prompt-body">
+                <p class="mb-2">{{ 'Pour installer cette application sur votre iPhone :'|trans }}</p>
+                <ol class="ps-3 mb-0">
+                    <li class="mb-2">{{ 'Appuyez sur le bouton de partage'|trans }} <i class="fas fa-share-square mx-1"></i></li>
+                    <li class="mb-0">{{ 'Sélectionnez'|trans }} <strong>{{ 'Sur l\'écran d\'accueil'|trans }}</strong> <i class="fas fa-plus-square mx-1"></i></li>
+                </ol>
+            </div>
+        </div>
+        <div class="ios-prompt-arrow"></div>
+    </div>
+
+    <script>
+        // iOS Install Prompt Logic
+        function isIos() {
+            const userAgent = window.navigator.userAgent.toLowerCase();
+            return /iphone|ipad|ipod/.test(userAgent);
+        }
+
+        function isInStandaloneMode() {
+            return ('standalone' in window.navigator) && (window.navigator.standalone);
+        }
+
+        function closeIosPrompt() {
+            document.getElementById('ios-install-prompt').style.display = 'none';
+            // Remember dismissal for 7 days
+            const now = new Date();
+            const item = {
+                value: 'dismissed',
+                expiry: now.getTime() + (7 * 24 * 60 * 60 * 1000)
+            };
+            localStorage.setItem('iosPromptDismissed', JSON.stringify(item));
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if prompt was dismissed
+            const itemStr = localStorage.getItem('iosPromptDismissed');
+            let isDismissed = false;
+            if (itemStr) {
+                const item = JSON.parse(itemStr);
+                const now = new Date();
+                if (now.getTime() < item.expiry) {
+                    isDismissed = true;
+                } else {
+                    localStorage.removeItem('iosPromptDismissed');
+                }
+            }
+
+            // Show prompt if: iOS + Not Standalone + Not Dismissed
+            if (isIos() && !isInStandaloneMode() && !isDismissed) {
+                // Small delay to be polite
+                setTimeout(() => {
+                    const prompt = document.getElementById('ios-install-prompt');
+                    if (prompt) {
+                        prompt.style.display = 'block';
+                        // Auto-hide after 20 seconds
+                        setTimeout(() => {
+                            prompt.style.display = 'none';
+                        }, 20000);
+                    }
+                }, 3000);
+            }
+        });
+    </script>
+</body>
 	</html>
+ </p>
