@@ -269,3 +269,118 @@ html[dir="rtl"] .fa-arrow-left {
 html[dir="rtl"] .fa-arrow-right {
     transform: rotate(180deg);
 }
+
+/* --- Mobile App Enhancements --- */
+
+/* Fix for iOS safe area */
+body {
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Bottom Navigation Bar */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    /* Align items to bottom for better visual on devices with home bar */
+    padding: 10px 10px calc(10px + env(safe-area-inset-bottom)) 10px;
+    /* Add padding for safe area */
+    z-index: 1050;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+[data-theme="dark"] .bottom-nav {
+    background: rgba(30, 41, 59, 0.95);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.bottom-nav .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #94a3b8;
+    font-size: 0.75rem;
+    font-weight: 500;
+    width: 60px;
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.bottom-nav .nav-item i {
+    font-size: 1.35rem;
+    margin-bottom: 4px;
+    transition: transform 0.2s ease;
+}
+
+.bottom-nav .nav-item.active {
+    color: #667eea;
+}
+
+.bottom-nav .nav-item.active i {
+    transform: translateY(-2px);
+}
+
+/* Center Add Button */
+.bottom-nav .nav-item-add {
+    margin-top: -30px;
+    /* Pull up */
+}
+
+.bottom-nav .add-button {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    transition: transform 0.2s ease;
+}
+
+.bottom-nav .nav-item-add:active .add-button {
+    transform: scale(0.95);
+}
+
+.bottom-nav .add-button i {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+}
+
+/* Hide Bottom Nav on Desktop */
+@media (min-width: 769px) {
+    .bottom-nav {
+        display: none;
+    }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+
+    /* Hide specific desktop navbar elements if needed, or simplify */
+    .premium-navbar {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    /* Add padding to body to prevent content from being hidden behind bottom nav */
+    body {
+        padding-bottom: 90px;
+    }
+
+    .footer {
+        padding-bottom: 100px;
+    }
+}
