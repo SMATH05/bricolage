@@ -93,6 +93,16 @@ h6 {
     padding-right: env(safe-area-inset-right);
 }
 
+.navbar-toggler {
+    margin-right: 15px;
+    /* Ensure space from right edge */
+    padding: 8px;
+    /* Larger touch target */
+    border: none;
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 12px;
+}
+
 .btn-profile-premium {
     background: var(--card-bg);
     border: 1px solid var(--border-color);

@@ -10,6 +10,10 @@ class CloudinaryService
 
     public function __construct(string $cloudinaryUrl)
     {
+        // Debug: Log the masked URL to check for configuration errors
+        $maskedUrl = preg_replace('/:[^:@]+@/', ':****@', $cloudinaryUrl);
+        error_log('CloudinaryService initialized with URL: ' . $maskedUrl);
+
         // Parse cloudinary://API_KEY:API_SECRET@CLOUD_NAME
         $this->cloudinary = new Cloudinary($cloudinaryUrl);
     }
