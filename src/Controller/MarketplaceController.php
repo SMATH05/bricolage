@@ -37,7 +37,7 @@ class MarketplaceController extends AbstractController
     }
 
     #[Route('/new', name: 'app_marketplace_new')]
-    public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, \App\Service\CloudinaryService $cloudinaryService): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
@@ -54,18 +54,16 @@ class MarketplaceController extends AbstractController
             $imageFile = $form->get('image')->getData();
 
             if ($imageFile) {
-                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $imageFile->guessExtension();
-
                 try {
-                    $imageFile->move(
-                        $this->getParameter('products_directory'),
-                        $newFilename
-                    );
-                    $product->setImage($newFilename);
-                } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
+                    $result = $cloudinaryService->uploadFile($imageFile->getRealPath(), 'bricolage_products');
+
+                    if ($result['success']) {
+                        $product->setImage($result['url']);
+                    } else {
+                        $this->addFlash('error', 'Erreur lors de l\'upload de l\'image : ' . ($result['error'] ?? 'Inconnue'));
+                    }
+                } catch (\Exception $e) {
+                     $this->addFlash('error', 'Erreur lors de l\'upload : ' . $e->getMessage());
                 }
             }
 

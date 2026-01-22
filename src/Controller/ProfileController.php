@@ -19,7 +19,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class ProfileController extends AbstractController
 {
     #[Route('/profile', name: 'app_profile')]
-    public function index(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
+    public function index(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, \App\Service\CloudinaryService $cloudinaryService): Response
     {
         /** @var \App\Entity\User $user */
         $user = $this->getUser();
@@ -59,20 +59,17 @@ class ProfileController extends AbstractController
                 $photoFile = $form->get('photo')->getData();
 
                 if ($photoFile) {
-                    $originalFilename = pathinfo($photoFile->getClientOriginalName(), PATHINFO_FILENAME);
-                    $safeFilename = $slugger->slug($originalFilename);
-                    $newFilename = $safeFilename . '-' . uniqid() . '.' . $photoFile->guessExtension();
-
                     try {
-                        $photoFile->move(
-                            $this->getParameter('profiles_directory'),
-                            $newFilename
-                        );
-                    } catch (FileException $e) {
-                        // ... handle exception
-                    }
+                        $result = $cloudinaryService->uploadFile($photoFile->getRealPath(), 'bricolage_profiles');
 
-                    $profile->setPhoto($newFilename);
+                        if ($result['success']) {
+                            $profile->setPhoto($result['url']);
+                        } else {
+                            $this->addFlash('error', 'Erreur lors de l\'upload de la photo : ' . ($result['error'] ?? 'Inconnue'));
+                        }
+                    } catch (\Exception $e) {
+                        $this->addFlash('error', 'Erreur lors de l\'upload : ' . $e->getMessage());
+                    }
                 }
 
                 $entityManager->flush();
