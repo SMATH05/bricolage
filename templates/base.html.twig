@@ -35,6 +35,8 @@ document.documentElement.setAttribute('data-theme', theme);
 
 // Enhanced PWA Splash Screen - Show immediately
 (function() {
+    console.log('Splash screen script starting...');
+    
     // Multiple detection methods for PWA
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
     const isInWebAppiOS = (window.navigator.standalone === true);
@@ -46,10 +48,22 @@ document.documentElement.setAttribute('data-theme', theme);
     
     console.log('PWA Detection:', { isPWA, isStandalone, isInWebAppiOS, isInWebAppChrome, isDesktop });
     
-    if (isPWA || isDesktop) {
+    // Always show for testing - remove condition temporarily
+    if (true) { // isPWA || isDesktop) {
+        console.log('Creating splash screen...');
+        
         // Create splash screen immediately
         const splashScreen = document.createElement('div');
         splashScreen.id = 'pwa-splash';
+        
+        // Test different logo paths
+        const logoPaths = [
+            '/img/icon-192.png',
+            '{{ asset("img/icon-192.png") }}',
+            'img/icon-192.png',
+            '/img/icon-512.png'
+        ];
+        
         splashScreen.innerHTML = `
             <div style="
                 position: fixed;
@@ -77,11 +91,11 @@ document.documentElement.setAttribute('data-theme', theme);
                     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
                     animation: splashPulse 1.5s ease-in-out infinite;
                 ">
-                    <img src="/img/icon-192.png" alt="Bricolage" style="
+                    <img src="/img/icon-192.png" alt="Bricolage Logo" style="
                         width: 100px;
                         height: 100px;
                         object-fit: contain;
-                    " onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    " onload="console.log('Logo loaded successfully')" onerror="console.log('Logo failed to load, showing fallback'); this.style.display='none'; this.nextElementSibling.style.display='block';">
                     <div style="display: none; font-size: 60px; color: #667eea;">🔨</div>
                 </div>
                 <h1 style="
@@ -108,6 +122,16 @@ document.documentElement.setAttribute('data-theme', theme);
                     border-radius: 2px;
                     animation: loadingBar 2s ease-in-out infinite;
                 "></div>
+                <div style="
+                    position: absolute;
+                    top: 20px;
+                    right: 20px;
+                    background: rgba(255, 255, 255, 0.2);
+                    color: white;
+                    padding: 8px 12px;
+                    border-radius: 20px;
+                    font-size: 0.8rem;
+                ">DEBUG MODE</div>
             </div>
             <style>
                 @keyframes splashPulse {
@@ -129,9 +153,32 @@ document.documentElement.setAttribute('data-theme', theme);
         
         // Add to page immediately
         document.documentElement.appendChild(splashScreen);
+        console.log('Splash screen added to DOM');
+        
+        // Test image loading
+        const testImg = new Image();
+        testImg.onload = function() {
+            console.log('Logo path test: SUCCESS - /img/icon-192.png loads correctly');
+        };
+        testImg.onerror = function() {
+            console.log('Logo path test: FAILED - /img/icon-192.png not found');
+            // Try alternative paths
+            ['/img/icon-512.png', '/favicon.ico'].forEach(path => {
+                const altImg = new Image();
+                altImg.onload = function() {
+                    console.log('Alternative logo found:', path);
+                };
+                altImg.onerror = function() {
+                    console.log('Alternative logo failed:', path);
+                };
+                altImg.src = path;
+            });
+        };
+        testImg.src = '/img/icon-192.png';
         
         // Remove after page is fully loaded
         window.addEventListener('load', () => {
+            console.log('Page loaded, removing splash screen...');
             setTimeout(() => {
                 if (splashScreen && splashScreen.parentNode) {
                     splashScreen.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
@@ -141,11 +188,14 @@ document.documentElement.setAttribute('data-theme', theme);
                     setTimeout(() => {
                         if (splashScreen.parentNode) {
                             splashScreen.parentNode.removeChild(splashScreen);
+                            console.log('Splash screen removed');
                         }
                     }, 800);
                 }
-            }, isPWA ? 1500 : 800); // Shorter for desktop
+            }, 3000); // Extended to 3 seconds for testing
         });
+    } else {
+        console.log('Splash screen condition not met');
     }
 })();
 	</script>
