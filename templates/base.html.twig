@@ -14,7 +14,7 @@
 			{% endblock %}
 		</title>
 		<script>
-			// Register Service Worker
+		// Register Service Worker
 if ('serviceWorker' in navigator) {
 window.addEventListener('load', () => {
 navigator.serviceWorker.register('/sw.js').then(registration => {
@@ -33,12 +33,21 @@ const theme = savedTheme || userTheme || (window.matchMedia('(prefers-color-sche
 document.documentElement.setAttribute('data-theme', theme);
 })();
 
-// Splash screen for desktop PWA
+// Enhanced PWA Splash Screen - Show immediately
 (function() {
-    const isPWA = window.matchMedia('(display-mode: standalone)').matches || 
-                  window.navigator.standalone === true;
+    // Multiple detection methods for PWA
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+    const isInWebAppiOS = (window.navigator.standalone === true);
+    const isInWebAppChrome = (window.matchMedia('(display-mode: standalone)').matches);
+    const isPWA = isStandalone || isInWebAppiOS || isInWebAppChrome;
     
-    if (isPWA && !sessionStorage.getItem('pwa-splash-shown')) {
+    // Also show for desktop browsers when accessed directly
+    const isDesktop = !window.matchMedia('(max-width: 768px)').matches;
+    
+    console.log('PWA Detection:', { isPWA, isStandalone, isInWebAppiOS, isInWebAppChrome, isDesktop });
+    
+    if (isPWA || isDesktop) {
+        // Create splash screen immediately
         const splashScreen = document.createElement('div');
         splashScreen.id = 'pwa-splash';
         splashScreen.innerHTML = `
@@ -53,64 +62,93 @@ document.documentElement.setAttribute('data-theme', theme);
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                z-index: 9999;
+                z-index: 99999;
                 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             ">
                 <div style="
-                    width: 120px;
-                    height: 120px;
+                    width: 150px;
+                    height: 150px;
                     background: white;
-                    border-radius: 24px;
+                    border-radius: 30px;
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    margin-bottom: 24px;
-                    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-                    animation: pulse 2s infinite;
+                    margin-bottom: 30px;
+                    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+                    animation: splashPulse 1.5s ease-in-out infinite;
                 ">
                     <img src="/img/icon-192.png" alt="Bricolage" style="
-                        width: 80px;
-                        height: 80px;
+                        width: 100px;
+                        height: 100px;
                         object-fit: contain;
-                    ">
+                    " onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div style="display: none; font-size: 60px; color: #667eea;">🔨</div>
                 </div>
                 <h1 style="
                     color: white;
-                    font-size: 2rem;
-                    font-weight: 700;
+                    font-size: 2.5rem;
+                    font-weight: 800;
                     margin: 0;
                     text-align: center;
+                    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
                 ">Bricolage</h1>
                 <p style="
-                    color: rgba(255, 255, 255, 0.8);
-                    font-size: 1rem;
-                    margin: 8px 0 0 0;
+                    color: rgba(255, 255, 255, 0.9);
+                    font-size: 1.2rem;
+                    margin: 10px 0 0 0;
                     text-align: center;
+                    font-weight: 500;
                 ">Platform for DIY Projects</p>
+                <div style="
+                    position: absolute;
+                    bottom: 40px;
+                    width: 60px;
+                    height: 4px;
+                    background: rgba(255, 255, 255, 0.3);
+                    border-radius: 2px;
+                    animation: loadingBar 2s ease-in-out infinite;
+                "></div>
             </div>
             <style>
-                @keyframes pulse {
-                    0%, 100% { transform: scale(1); }
-                    50% { transform: scale(1.05); }
+                @keyframes splashPulse {
+                    0%, 100% { 
+                        transform: scale(1); 
+                        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+                    }
+                    50% { 
+                        transform: scale(1.05); 
+                        box-shadow: 0 16px 50px rgba(0, 0, 0, 0.4);
+                    }
+                }
+                @keyframes loadingBar {
+                    0%, 100% { width: 60px; opacity: 0.3; }
+                    50% { width: 120px; opacity: 1; }
                 }
             </style>
         `;
         
-        document.body.appendChild(splashScreen);
-        sessionStorage.setItem('pwa-splash-shown', 'true');
+        // Add to page immediately
+        document.documentElement.appendChild(splashScreen);
         
-        setTimeout(() => {
-            splashScreen.style.opacity = '0';
-            splashScreen.style.transition = 'opacity 0.5s ease-out';
+        // Remove after page is fully loaded
+        window.addEventListener('load', () => {
             setTimeout(() => {
-                if (splashScreen.parentNode) {
-                    splashScreen.parentNode.removeChild(splashScreen);
+                if (splashScreen && splashScreen.parentNode) {
+                    splashScreen.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+                    splashScreen.style.opacity = '0';
+                    splashScreen.style.transform = 'scale(0.95)';
+                    
+                    setTimeout(() => {
+                        if (splashScreen.parentNode) {
+                            splashScreen.parentNode.removeChild(splashScreen);
+                        }
+                    }, 800);
                 }
-            }, 500);
-        }, 2000);
+            }, isPWA ? 1500 : 800); // Shorter for desktop
+        });
     }
 })();
-		</script>
+	</script>
 		<link rel="icon" href="/favicon.ico">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 		<link rel="stylesheet" href="https://bootswatch.com/5/litera/bootstrap.min.css">
