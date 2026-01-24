@@ -32,6 +32,84 @@ const userTheme = "{{ app.user ? app.user.theme : '' }}";
 const theme = savedTheme || userTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
 document.documentElement.setAttribute('data-theme', theme);
 })();
+
+// Splash screen for desktop PWA
+(function() {
+    const isPWA = window.matchMedia('(display-mode: standalone)').matches || 
+                  window.navigator.standalone === true;
+    
+    if (isPWA && !sessionStorage.getItem('pwa-splash-shown')) {
+        const splashScreen = document.createElement('div');
+        splashScreen.id = 'pwa-splash';
+        splashScreen.innerHTML = `
+            <div style="
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                z-index: 9999;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            ">
+                <div style="
+                    width: 120px;
+                    height: 120px;
+                    background: white;
+                    border-radius: 24px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-bottom: 24px;
+                    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+                    animation: pulse 2s infinite;
+                ">
+                    <img src="/img/icon-192.png" alt="Bricolage" style="
+                        width: 80px;
+                        height: 80px;
+                        object-fit: contain;
+                    ">
+                </div>
+                <h1 style="
+                    color: white;
+                    font-size: 2rem;
+                    font-weight: 700;
+                    margin: 0;
+                    text-align: center;
+                ">Bricolage</h1>
+                <p style="
+                    color: rgba(255, 255, 255, 0.8);
+                    font-size: 1rem;
+                    margin: 8px 0 0 0;
+                    text-align: center;
+                ">Platform for DIY Projects</p>
+            </div>
+            <style>
+                @keyframes pulse {
+                    0%, 100% { transform: scale(1); }
+                    50% { transform: scale(1.05); }
+                }
+            </style>
+        `;
+        
+        document.body.appendChild(splashScreen);
+        sessionStorage.setItem('pwa-splash-shown', 'true');
+        
+        setTimeout(() => {
+            splashScreen.style.opacity = '0';
+            splashScreen.style.transition = 'opacity 0.5s ease-out';
+            setTimeout(() => {
+                if (splashScreen.parentNode) {
+                    splashScreen.parentNode.removeChild(splashScreen);
+                }
+            }, 500);
+        }, 2000);
+    }
+})();
 		</script>
 		<link rel="icon" href="/favicon.ico">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">

@@ -24,6 +24,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180)]
     private ?string $email = null;
 
+    #[ORM\Column(length: 180, unique: true)]
+    private ?string $username = null;
+
     #[ORM\Column(length: 100)]
     private ?string $nom = null;
 
@@ -73,6 +76,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->commandes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->followers = new \Doctrine\Common\Collections\ArrayCollection();
         $this->following = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): static
+    {
+        $this->username = $username;
+
+        return $this;
     }
 
     public function getId(): ?int

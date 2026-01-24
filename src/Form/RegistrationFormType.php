@@ -45,6 +45,14 @@ class RegistrationFormType extends AbstractType
                     new Email(['message' => 'L\'adresse email n\'est pas valide']),
                 ],
             ])
+            ->add('username', TextType::class, [
+                'label' => 'Nom d\'utilisateur',
+                'attr' => ['class' => 'form-control', 'placeholder' => 'Choisissez un nom d\'utilisateur unique'],
+                'constraints' => [
+                    new NotBlank(['message' => 'Le nom d\'utilisateur est requis']),
+                    new Length(['min' => 3, 'max' => 180, 'minMessage' => 'Le nom d\'utilisateur doit avoir au moins 3 caractères']),
+                ],
+            ])
             ->add('plainPassword', PasswordType::class, [
                 'label' => 'Mot de passe',
                 'mapped' => false,

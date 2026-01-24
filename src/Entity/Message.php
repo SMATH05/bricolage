@@ -31,6 +31,12 @@ class Message
     #[ORM\Column]
     private ?bool $isRead = false;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
+
+    #[ORM\ManyToOne(targetEntity: GroupChat::class, inversedBy: 'messages')]
+    private ?GroupChat $groupChat = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
@@ -97,6 +103,29 @@ class Message
     public function setIsRead(bool $isRead): static
     {
         $this->isRead = $isRead;
+
+        return $this;
+    }
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getGroupChat(): ?GroupChat
+    {
+        return $this->groupChat;
+    }
+
+    public function setGroupChat(?GroupChat $groupChat): static
+    {
+        $this->groupChat = $groupChat;
 
         return $this;
     }

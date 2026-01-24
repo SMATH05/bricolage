@@ -4,6 +4,8 @@ const ASSETS_TO_CACHE = [
     '/styles/premium.css',
     '/manifest.json',
     '/favicon.ico',
+    '/img/icon-192.png',
+    '/img/icon-512.png',
     'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
     'https://bootswatch.com/5/litera/bootstrap.min.css',
     'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js'

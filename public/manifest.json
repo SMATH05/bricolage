@@ -26,5 +26,10 @@
     "scope": "/",
     "theme_color": "#667eea",
     "background_color": "#ffffff",
-    "orientation": "portrait"
+    "orientation": "portrait-primary",
+    "splash_pages": null,
+    "description": "Platform for home improvement and DIY projects",
+    "categories": ["productivity", "utilities", "lifestyle"],
+    "lang": "fr",
+    "dir": "ltr"
 }

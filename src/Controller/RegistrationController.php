@@ -54,10 +54,11 @@ class RegistrationController extends AbstractController
 
                 // Set user properties
                 $user->setEmail($email);
+                $user->setUsername($form->get('username')->getData());
                 $user->setNom($nom);
                 $user->setPrenom($prenom);
                 $user->setRoles([$role]);
-                
+
                 // Hash password
                 $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
                 $user->setPassword($hashedPassword);
@@ -97,7 +98,7 @@ class RegistrationController extends AbstractController
             } catch (\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
                 $this->logger->error('Registration error - duplicate email: ' . $email);
                 $this->addFlash('error', 'Cette adresse email est déjà utilisée.');
-                
+
             } catch (\Exception $e) {
                 $this->logger->error('Registration error: ' . $e->getMessage(), [
                     'exception' => $e,

@@ -32,11 +32,11 @@ class SocialController extends AbstractController
     }
 
     #[Route('/social/post', name: 'app_social_post_create', methods: ['POST'])]
-    public function createPost(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, \App\Service\CloudinaryService $cloudinaryService): Response
+    public function createPost(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $content = $request->request->get('content');
         $mediaFile = $request->files->get('media');
-
+        
         // Debug: Log request data
         error_log('Request debug - Content: ' . $content);
         error_log('Request debug - Has file: ' . ($mediaFile ? 'Yes' : 'No'));
@@ -58,32 +58,74 @@ class SocialController extends AbstractController
         if ($mediaFile) {
             // Check for upload errors
             if ($mediaFile->getError() !== UPLOAD_ERR_OK) {
-                // ... keeps validation which is good ...
-                $this->addFlash('error', 'Upload error code: ' . $mediaFile->getError());
+                $errorMessages = [
+                    UPLOAD_ERR_INI_SIZE => 'The uploaded file exceeds the upload_max_filesize directive in php.ini',
+                    UPLOAD_ERR_FORM_SIZE => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form',
+                    UPLOAD_ERR_PARTIAL => 'The uploaded file was only partially uploaded',
+                    UPLOAD_ERR_NO_FILE => 'No file was uploaded',
+                    UPLOAD_ERR_NO_TMP_DIR => 'Missing a temporary folder',
+                    UPLOAD_ERR_CANT_WRITE => 'Failed to write file to disk',
+                    UPLOAD_ERR_EXTENSION => 'A PHP extension stopped the file upload',
+                ];
+                
+                $errorMsg = $errorMessages[$mediaFile->getError()] ?? 'Unknown upload error';
+                error_log('Upload error code: ' . $mediaFile->getError() . ' - ' . $errorMsg);
+                $this->addFlash('error', 'Upload error: ' . $errorMsg);
                 return $this->redirectToRoute('app_social_feed');
             }
-
-            error_log('Cloudinary Upload started');
+            
+            $originalFilename = pathinfo($mediaFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $safeFilename = $slugger->slug($originalFilename);
+            $newFilename = $safeFilename . '-' . uniqid() . '.' . $mediaFile->guessExtension();
+            
+            // Debug: Log upload info
+            error_log('Upload debug - Original: ' . $originalFilename . ', New: ' . $newFilename);
+            error_log('Upload debug - Directory: ' . $this->getParameter('posts_directory'));
+            error_log('Upload debug - File size: ' . $mediaFile->getSize());
+            error_log('Upload debug - Mime type: ' . $mediaFile->getMimeType());
+            
+            // Get file content immediately before temp file is deleted
+            $fileContent = file_get_contents($mediaFile->getPathname());
+            error_log('Upload debug - Got file content, size: ' . strlen($fileContent));
 
             try {
-                // Upload to Cloudinary
-                $result = $cloudinaryService->uploadFile($mediaFile->getRealPath(), 'bricolage_posts');
-
-                if (!$result['success']) {
-                    throw new \Exception('Cloudinary upload failed: ' . ($result['error'] ?? 'Unknown error'));
+                // Ensure directory exists and is writable
+                $uploadDir = $this->getParameter('posts_directory');
+                if (!is_dir($uploadDir)) {
+                    mkdir($uploadDir, 0777, true);
+                    error_log('Created upload directory: ' . $uploadDir);
                 }
-
-                $fileUrl = $result['url'];
-                $resourceType = $result['resource_type']; // image or video
-
-                error_log('✅ File uploaded successfully to Cloudinary: ' . $fileUrl);
-
-                $post->setMedia($fileUrl);
-                $post->setMediaType($resourceType); // result is 'image' or 'video'
-
+                
+                if (!is_writable($uploadDir)) {
+                    error_log('Upload directory is not writable: ' . $uploadDir);
+                    $this->addFlash('error', 'Upload directory is not writable');
+                    return $this->redirectToRoute('app_social_feed');
+                }
+                
+                // Write file directly from content instead of moving temp file
+                $targetPath = $uploadDir . '/' . $newFilename;
+                if (file_put_contents($targetPath, $fileContent)) {
+                    error_log('File written successfully using file_put_contents');
+                } else {
+                    throw new \Exception('Failed to write file using file_put_contents');
+                }
+                
+                $post->setMedia($newFilename);
+                
+                error_log('Upload debug - File written successfully: ' . $newFilename);
+                error_log('Upload debug - Full path: ' . $targetPath);
+                error_log('Upload debug - File exists after write: ' . (file_exists($targetPath) ? 'Yes' : 'No'));
+                error_log('Upload debug - File size: ' . filesize($targetPath) . ' bytes');
+                
+                $ext = strtolower($mediaFile->guessExtension());
+                if (in_array($ext, ['mp4', 'webm', 'ogg', 'mov'])) {
+                    $post->setMediaType('video');
+                } else {
+                    $post->setMediaType('image');
+                }
             } catch (\Exception $e) {
                 error_log('Upload exception: ' . $e->getMessage());
-                // error_log('Upload exception trace: ' . $e->getTraceAsString());
+                error_log('Upload exception trace: ' . $e->getTraceAsString());
                 $this->addFlash('error', 'Erreur lors de l\'upload du média: ' . $e->getMessage());
             }
         }
@@ -91,10 +133,10 @@ class SocialController extends AbstractController
         try {
             $entityManager->persist($post);
             $entityManager->flush();
-
+            
             // Debug: Log post creation
             error_log('Post created successfully - ID: ' . $post->getId() . ', Media: ' . ($post->getMedia() ?: 'None') . ', Type: ' . $post->getMediaType());
-
+            
             $this->addFlash('success', 'Post created successfully! Media: ' . ($post->getMedia() ?: 'None'));
         } catch (\Exception $e) {
             error_log('Database error: ' . $e->getMessage());
